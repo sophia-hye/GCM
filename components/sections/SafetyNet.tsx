@@ -5,13 +5,13 @@ export function SafetyNet() {
   return (
     <Section id="career">
       <SectionHeading
-        eyebrow="Safety Net"
+        eyebrow="Career Pathways"
         title={
           <>
-            무너지지 않는 미래: <span className="text-court-gradient">선수 OR 산업 리더</span>
+            두 갈래의 길: <span className="text-court-gradient">프로 OR 대학</span>
           </>
         }
-        lead="미국 대학 진학을 기점으로, 어떤 변수에도 최정상으로 향하는 두 갈래의 길."
+        lead="탄탄한 트레이닝을 기점으로, 프로와 대학 두 갈래의 길로 선수를 이끕니다."
       />
 
       <div className="mt-12 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
@@ -46,7 +46,7 @@ export function SafetyNet() {
       {/* College 트랙 6단계 프로세스 */}
       <div className="mt-16">
         <p className="font-display text-sm font-bold uppercase tracking-widest text-court-bright">
-          College Recruitment · 6단계 프로세스
+          Player Pathway · 6단계 프로세스
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {processSteps.map((step) => (

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { Archivo, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -8,14 +8,21 @@ const archivo = Archivo({
   weight: ["600", "700", "800", "900"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["italic", "normal"],
+});
+
 export const metadata: Metadata = {
-  title: "GCM 아카데미 | 미국 대학 테니스 진학 & 프리미엄 매니지먼트",
+  title: "GCM Tennis Academy | 고성능 테니스 트레이닝",
   description:
-    "데이터로 설계하고 멘탈로 지켜내는 미국 대학 테니스(NCAA D1)의 완벽한 길. GCM과 COV가 한 팀으로 UTR 로드맵, ROI 전략, Total Care를 제공합니다.",
+    "기술 · 피지컬 · 멘탈을 통합한 고성능 테니스 아카데미. 진지한 선수를 위한 구조화된 트레이닝과 UTR 성장 로드맵, 프로·대학 진로를 함께합니다.",
   openGraph: {
-    title: "GCM 아카데미 | 미국 대학 테니스 진학",
+    title: "GCM Tennis Academy | 고성능 테니스 트레이닝",
     description:
-      "UTR 로드맵 · ROI 전략 · Total Care System으로 완성하는 미국 대학 테니스 진학.",
+      "기술 · 피지컬 · 멘탈을 하나로. 진지한 선수를 위한 고성능 트레이닝 환경.",
     type: "website",
   },
 };
@@ -26,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${archivo.variable} h-full antialiased`}>
+    <html lang="ko" className={`${archivo.variable} ${playfair.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-base text-ink">
         {children}
       </body>

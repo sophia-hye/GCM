@@ -26,7 +26,7 @@ export function ScheduleSection() {
                 </p>
               </div>
             </div>
-            <Button href="#contact" variant="outline" className="px-5 py-2">
+            <Button href="/consultation" variant="outline" className="px-5 py-2">
               예약하기
             </Button>
           </div>

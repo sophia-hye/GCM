@@ -25,7 +25,7 @@ export function UTRRoadmap() {
       <SectionHeading
         eyebrow="Growth Strategy"
         title={utrRoadmap.title}
-        lead="데이터로 증명하는 성장 경로. 현재 위치에서 D1 편입, 그리고 프로/실업까지."
+        lead="데이터로 증명하는 성장 경로. 현재 위치에서 대학 무대, 그리고 프로/실업까지."
       />
 
       <div className="mt-12 grid gap-4 sm:grid-cols-3">
