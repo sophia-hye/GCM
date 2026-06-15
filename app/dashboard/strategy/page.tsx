@@ -2,11 +2,11 @@ export const metadata = { title: "내 전략 보고서 | GCM" };
 
 export default function StrategyPage() {
   const phases = [
-    "Reality Check — 왜 지금 미국인가",
-    "Growth Strategy — UTR 로드맵",
-    "ROI — 비용이 아닌 투자",
+    "현재 진단 — UTR · 기술 · 체력 평가",
+    "Growth Strategy — UTR 성장 로드맵",
+    "기술 · 전술 발전 계획",
     "Total Care System — 5대 관리",
-    "Safety Net — 진로 2-Track",
+    "Career Pathways — 프로 · 대학 트랙",
   ];
 
   return (
@@ -14,7 +14,7 @@ export default function StrategyPage() {
       <div>
         <h1 className="font-display text-2xl font-bold">내 전략 보고서</h1>
         <p className="mt-1 text-sm text-muted">
-          GCM과 COV가 함께 설계하는 선수별 글로벌 전략 보고서입니다.
+          GCM이 설계하는 선수별 성장 전략 보고서입니다.
         </p>
       </div>
 
