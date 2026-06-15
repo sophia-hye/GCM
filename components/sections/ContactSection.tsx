@@ -16,7 +16,7 @@ export function ContactSection() {
   );
 
   return (
-    <Section id="contact">
+    <Section id="consultation">
       <div className="relative overflow-hidden rounded-3xl border border-line bg-court-gradient p-8 sm:p-12">
         <CourtLines className="pointer-events-none absolute -right-10 top-0 h-full w-1/2 text-white/10" />
         <div className="absolute inset-0 bg-base/30" />
@@ -29,7 +29,7 @@ export function ContactSection() {
             <p className="mt-4 max-w-md text-ink/85">{faqContact.sub}</p>
             <div className="mt-6 flex flex-col gap-1 text-sm text-ink/80">
               <span>
-                대표 {site.rep} · {site.partner} 연계
+                대표 {site.rep} · 고성능 테니스 아카데미
               </span>
               <a href={`mailto:${site.email}`} className="font-semibold text-lime">
                 {site.email}

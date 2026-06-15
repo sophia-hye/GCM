@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site-data";
-import { Button, Container } from "@/components/ui";
+import { Container } from "@/components/ui";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -16,42 +19,41 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const solid = scrolled || open || !isHome;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || open
-          ? "border-b border-line bg-base/90 backdrop-blur"
-          : "bg-transparent"
+        solid ? "border-b border-line bg-base/90 backdrop-blur" : "bg-transparent"
       }`}
     >
       <Container className="flex h-16 items-center justify-between">
-        <Link href="#top" className="font-display text-xl font-extrabold tracking-tight">
+        <Link href="/" className="font-display text-xl font-extrabold tracking-tight">
           {site.name}
           <span className="text-lime">.</span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-muted transition-colors hover:text-ink"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {nav.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-sm transition-colors hover:text-ink ${
+                  active ? "text-lime" : "text-muted"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/login"
-            className="text-sm text-muted transition-colors hover:text-ink"
-          >
+          <Link href="/login" className="text-sm text-muted transition-colors hover:text-ink">
             로그인
           </Link>
-          <Button href="#contact" variant="lime" className="px-5 py-2">
-            무료 상담
-          </Button>
         </div>
 
         <button
@@ -72,14 +74,20 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-2 text-sm text-muted hover:bg-card hover:text-ink"
+                className={`rounded-lg px-2 py-2 text-sm hover:bg-card hover:text-ink ${
+                  pathname === item.href ? "text-lime" : "text-muted"
+                }`}
               >
                 {item.label}
               </Link>
             ))}
-            <Button href="#contact" variant="lime" className="mt-2">
-              무료 상담
-            </Button>
+            <Link
+              href="/login"
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-2 py-2 text-sm text-muted hover:bg-card hover:text-ink"
+            >
+              로그인
+            </Link>
           </nav>
         </Container>
       ) : null}

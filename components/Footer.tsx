@@ -13,7 +13,9 @@ export function Footer() {
               <span className="text-lime">.</span>
             </p>
             <p className="mt-3 max-w-sm text-sm text-muted">
-              미국 대학 테니스 진학과 프리미엄 매니지먼트. 대표 {site.rep} · {site.partner} 연계.
+              고성능 테니스 아카데미. 기술 · 피지컬 · 멘탈을 통합한 엘리트 육성.
+              <br />
+              대표 {site.rep}.
             </p>
           </div>
 
@@ -23,9 +25,9 @@ export function Footer() {
               {site.email}
             </a>
             <Link href={site.instagram} className="hover:text-court-bright">
-              Instagram @covspo
+              Instagram @gcm_tennis
             </Link>
-            <Link href="#contact" className="hover:text-court-bright">
+            <Link href="/consultation" className="hover:text-court-bright">
               상담 예약 / 문의
             </Link>
           </div>
@@ -33,9 +35,14 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} GCM 아카데미. All rights reserved.</p>
-          <Link href="#" className="hover:text-ink">
-            개인정보 처리방침
-          </Link>
+          <div className="flex gap-4">
+            <Link href="/terms" className="hover:text-ink">
+              이용약관
+            </Link>
+            <Link href="/privacy" className="hover:text-ink">
+              개인정보 처리방침
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

@@ -97,7 +97,7 @@ export default async function DashboardHome() {
       <div className="mt-8 rounded-2xl border border-line bg-card/40 p-6">
         <h2 className="font-display text-lg font-bold">한 팀, 하나의 목표</h2>
         <p className="mt-2 text-sm text-muted">
-          GCM과 COV가 함께 선수의 글로벌 전략을 설계하고 멘탈까지 관리합니다. 발달 단계와
+          GCM이 선수의 성장 전략을 설계하고 기술·피지컬·멘탈까지 통합 관리합니다. 발달 단계와
           예약, 멘탈 체크인을 꾸준히 기록해 주세요.
         </p>
       </div>
