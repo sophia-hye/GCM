@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-06-26T04:36:17.923Z",
+  "lastUpdated": "2026-06-26T06:51:17.534Z",
   "activeFeatures": [
     "GCM",
     "sections",
@@ -49,7 +49,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:36:44.685Z",
-        "lastUpdated": "2026-06-26T04:36:17.923Z"
+        "lastUpdated": "2026-06-26T06:50:35.066Z"
       },
       "lastFile": "D:\\git-repo\\GCM\\components\\Navbar.tsx"
     },
@@ -62,9 +62,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:39:02.676Z",
-        "lastUpdated": "2026-06-26T00:32:31.367Z"
+        "lastUpdated": "2026-06-26T06:47:31.711Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\components\\sections\\SafetyNet.tsx"
+      "lastFile": "D:\\git-repo\\GCM\\components\\sections\\HeroSection.tsx"
     },
     "supabase": {
       "phase": "do",
@@ -75,7 +75,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:47:44.805Z",
-        "lastUpdated": "2026-06-05T07:05:08.025Z"
+        "lastUpdated": "2026-06-26T06:51:07.548Z"
       },
       "lastFile": "D:\\git-repo\\GCM\\lib\\supabase\\middleware.ts"
     },
@@ -88,9 +88,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:50:30.832Z",
-        "lastUpdated": "2026-06-25T23:51:57.789Z"
+        "lastUpdated": "2026-06-26T06:50:58.993Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\components\\auth\\AuthShell.tsx"
+      "lastFile": "D:\\git-repo\\GCM\\app\\auth\\actions.ts"
     },
     "login": {
       "phase": "do",
@@ -101,7 +101,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:51:32.130Z",
-        "lastUpdated": "2026-06-05T07:04:25.008Z"
+        "lastUpdated": "2026-06-26T05:46:53.165Z"
       },
       "lastFile": "D:\\git-repo\\GCM\\app\\login\\page.tsx"
     },
@@ -114,7 +114,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:51:42.993Z",
-        "lastUpdated": "2026-06-05T06:51:42.993Z"
+        "lastUpdated": "2026-06-26T05:46:46.628Z"
       },
       "lastFile": "D:\\git-repo\\GCM\\app\\signup\\page.tsx"
     },
@@ -140,9 +140,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:21.172Z",
-        "lastUpdated": "2026-06-25T23:51:50.439Z"
+        "lastUpdated": "2026-06-26T06:51:17.534Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\components\\dashboard\\BookingForm.tsx"
+      "lastFile": "D:\\git-repo\\GCM\\app\\dashboard\\layout.tsx"
     },
     "actions": {
       "phase": "do",
@@ -166,9 +166,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:05:58.044Z",
-        "lastUpdated": "2026-06-25T23:51:43.811Z"
+        "lastUpdated": "2026-06-26T05:08:32.978Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\components\\admin\\MemberForm.tsx"
+      "lastFile": "D:\\git-repo\\GCM\\app\\admin\\actions.ts"
     },
     "members": {
       "phase": "do",
@@ -348,7 +348,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-14T23:36:15.580Z",
-        "lastUpdated": "2026-06-14T23:56:04.748Z"
+        "lastUpdated": "2026-06-26T06:50:09.117Z"
       },
       "lastFile": "D:\\git-repo\\GCM\\app\\(site)\\layout.tsx"
     },
@@ -504,7 +504,7 @@
   "session": {
     "startedAt": "2026-06-05T05:57:43.392Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-06-26T04:36:17.923Z"
+    "lastActivity": "2026-06-26T06:51:17.534Z"
   },
   "history": [
     {
@@ -2214,6 +2214,234 @@
     {
       "timestamp": "2026-06-26T04:36:17.923Z",
       "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:08:32.978Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:41:21.961Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:41:32.332Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:41:51.016Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:07.136Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:13.074Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:23.174Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:28.883Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:34.684Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:40.575Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:42:46.732Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:45:36.897Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:45:44.836Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:46:46.628Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:46:53.165Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:08.535Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:17.466Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:25.181Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:31.009Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:37.051Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:43.017Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:48:49.821Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:57:38.679Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:58:12.263Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:58:27.138Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:58:39.841Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:58:51.741Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T05:58:58.707Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:47:18.628Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:47:31.711Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:50:09.117Z",
+      "feature": "(site)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:50:18.672Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:50:26.453Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:50:35.066Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:50:46.085Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:50:58.993Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:51:07.548Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-26T06:51:17.534Z",
+      "feature": "dashboard",
       "phase": "do",
       "action": "updated"
     }
