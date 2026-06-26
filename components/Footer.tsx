@@ -27,7 +27,7 @@ export function Footer() {
             <Link href={site.instagram} className="hover:text-court-bright">
               Instagram @gcm_tennis
             </Link>
-            <Link href="/consultation" className="hover:text-court-bright">
+            <Link href="/consulting" className="hover:text-court-bright">
               상담 예약 / 문의
             </Link>
           </div>

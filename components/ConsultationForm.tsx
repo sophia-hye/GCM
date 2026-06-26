@@ -62,7 +62,7 @@ export function ConsultationForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-6 inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-[#08111f] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+        className="mt-6 inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-60"
       >
         {pending ? "제출 중..." : "상담 신청"}
       </button>

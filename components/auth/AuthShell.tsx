@@ -78,7 +78,7 @@ export function AuthSubmit({
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex w-full items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold tracking-wide text-[#08111f] transition hover:brightness-105 disabled:opacity-60"
+      className="inline-flex w-full items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold tracking-wide text-white transition hover:brightness-105 disabled:opacity-60"
     >
       {pending ? "처리 중..." : children}
     </button>

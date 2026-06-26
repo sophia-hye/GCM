@@ -18,13 +18,54 @@ export const site = {
 } as const;
 
 export const nav = [
-  { label: "Who we are", href: "/about" },
-  { label: "Team", href: "/team" },
-  { label: "Programs", href: "/programs" },
-  { label: "Apply for Scholarship", href: "/scholarship" },
-  { label: "Consultation", href: "/consultation" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "About", href: "/about" },
+  { label: "Coaches", href: "/coaches" },
+  { label: "Players", href: "/players" },
+  { label: "Training", href: "/training" },
+  { label: "Recreational", href: "/recreational" },
+  { label: "Consulting", href: "/consulting" },
+  { label: "Scholarship", href: "/scholarship" },
 ] as const;
+
+export const founding = {
+  title: "GCM 설립 배경",
+  lead: "선수의 성장과 진로를 끝까지 책임지는 아카데미를 만들기 위해 GCM은 시작됐습니다.",
+  paragraphs: [
+    "엘리트 테니스의 길은 재능만으로 완성되지 않습니다. 체계적인 훈련, 데이터에 근거한 진로 설계, 그리고 흔들릴 때 잡아주는 멘탈 케어가 함께해야 합니다.",
+    "GCM(Global Champions Makers)은 한 선수를 여러 전문가가 함께 책임지는 통합 퍼포먼스 모델로, 주니어부터 프로·대학 진학까지 이어지는 길을 설계합니다.",
+    "우리는 결과를 운에 맡기지 않습니다. 구조화된 과정이 결과를 만든다고 믿습니다.",
+  ],
+};
+
+export const recreational = {
+  lead: "선수반이 아니어도 괜찮습니다. 즐기며 배우는 키즈·성인 취미 클래스를 운영합니다.",
+  classes: [
+    {
+      key: "KIDS",
+      title: "키즈 클래스",
+      age: "5–13세",
+      desc: "놀이처럼 배우는 첫 테니스. 운동 능력과 코트 적응, 기본기를 즐겁게.",
+      points: ["연령별 소그룹 지도", "기본기 · 풋워크 · 협응력", "재미 중심 동기 부여"],
+    },
+    {
+      key: "ADULT",
+      title: "성인 클래스",
+      age: "성인 입문~중급",
+      desc: "취미로 시작해 제대로 즐기는 테니스. 입문부터 게임 운영까지.",
+      points: ["입문 · 중급 레벨별 수업", "스트로크 · 발리 · 서브", "동호인 게임 · 매너"],
+    },
+  ],
+};
+
+export const consulting = {
+  title: "GCM Consulting",
+  lead: "데이터 기반 진로 설계와 진학 컨설팅. 선수의 다음 단계를 함께 그립니다.",
+  services: [
+    { title: "진학 컨설팅", body: "UTR/실적 진단, 타깃 대학·팀 선정, 하이라이트 영상과 코치 컨택까지." },
+    { title: "진로 설계", body: "프로 트랙과 대학 트랙을 비교해 선수에게 맞는 장기 로드맵을 설계합니다." },
+    { title: "멘탈 · 어학 케어", body: "경기 멘탈 관리와 진학에 필요한 어학·학업 준비를 함께 지원합니다." },
+  ],
+};
 
 export const teamLead =
   "기술 · 멘탈 · 진학을 하나로 잇는 통합 퍼포먼스 팀. 한 명의 선수를 여러 전문가가 함께 책임집니다.";

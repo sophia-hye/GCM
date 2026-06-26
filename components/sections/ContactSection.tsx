@@ -75,7 +75,7 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={pending}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold tracking-wide text-[#08111f] transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-105 disabled:opacity-60"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold tracking-wide text-white transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-105 disabled:opacity-60"
                 >
                   {pending ? "전송 중..." : "무료 진로 상담 신청"}
                 </button>

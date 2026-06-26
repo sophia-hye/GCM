@@ -3,17 +3,17 @@ import { Section, SectionHeading } from "@/components/ui";
 
 export function Scholarship() {
   return (
-    <Section id="scholarship" className="bg-card/30">
+    <Section id="scholarship">
       <SectionHeading
         eyebrow="Apply for Scholarship"
         title={scholarship.title}
         lead={scholarship.lead}
       />
 
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {scholarship.points.map((p, i) => (
-          <div key={p.title} className="rounded-2xl border border-line bg-card p-7">
-            <span className="font-display text-sm font-bold text-court-bright">
+          <div key={p.title} className="border-t border-line pt-6">
+            <span className="font-display text-sm font-semibold tabular-nums text-muted">
               0{i + 1}
             </span>
             <h3 className="mt-3 text-lg font-bold">{p.title}</h3>
@@ -22,14 +22,14 @@ export function Scholarship() {
         ))}
       </div>
 
-      <div className="mt-6 rounded-2xl border border-line bg-card p-7">
-        <h3 className="font-display text-sm font-bold uppercase tracking-widest text-court-bright">
+      <div className="mt-16 border-t border-line pt-6">
+        <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-court">
           신청 시 준비 항목
         </h3>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {scholarship.apply.map((item) => (
             <li key={item} className="flex gap-2 text-sm text-ink/90">
-              <span className="text-lime">·</span>
+              <span className="text-court">·</span>
               {item}
             </li>
           ))}

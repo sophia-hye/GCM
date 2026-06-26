@@ -71,7 +71,7 @@ export function CheckinForm() {
       <button
         type="submit"
         disabled={pending || mood === 0}
-        className="mt-4 rounded-full bg-lime px-6 py-2.5 text-sm font-semibold text-[#08111f] disabled:opacity-50"
+        className="mt-4 rounded-full bg-lime px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
       >
         {pending ? "기록 중..." : "체크인 기록"}
       </button>

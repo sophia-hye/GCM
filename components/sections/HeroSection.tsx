@@ -24,16 +24,16 @@ export function HeroSection() {
     >
       {/* 메인 배경 사진 */}
       <Image
-        src="/img/main.jpg"
+        src="/img/main-clay.png"
         alt="GCM 테니스 트레이닝"
         fill
         priority
         sizes="100vw"
         className="object-cover"
       />
-      {/* 코트 블루 틴트 + 가독성 오버레이 */}
-      <div className="absolute inset-0 bg-court-deep/55 mix-blend-multiply" />
-      <div className="absolute inset-0 bg-gradient-to-t from-base via-base/55 to-base/20" />
+      {/* 클레이 틴트 + 가독성 오버레이 (사진 위 흰 텍스트) */}
+      <div className="absolute inset-0 bg-court-deep/65" />
+      <div className="absolute inset-0 bg-gradient-to-t from-base via-base/25 to-transparent" />
 
       <Container className="relative z-10 pt-24">
         <div key={index} className="max-w-3xl animate-fade-up">
@@ -41,16 +41,16 @@ export function HeroSection() {
             {slide.eyebrow}
           </p>
           <h1 className="mt-5 max-w-4xl text-balance text-5xl leading-[1.1] sm:text-6xl lg:text-7xl">
-            <span className="font-display font-black uppercase">{slide.headline}</span>{" "}
+            <span className="font-display font-black uppercase text-white">{slide.headline}</span>{" "}
             <span className="font-accent font-semibold italic text-lime">{slide.accent}</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-ink/80">{slide.sub}</p>
+          <p className="mt-6 max-w-xl text-lg text-white/85">{slide.sub}</p>
 
           <div className="mt-9 flex flex-wrap gap-3">
-            <Button href="/consultation" variant="lime">
+            <Button href="/consulting" variant="lime">
               무료 진로 상담
             </Button>
-            <Button href="#players" variant="outline">
+            <Button href="#players" variant="outline-light">
               선수 성과 보기
             </Button>
           </div>

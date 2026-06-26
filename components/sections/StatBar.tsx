@@ -3,15 +3,15 @@ import { Container } from "@/components/ui";
 
 export function StatBar() {
   return (
-    <div className="border-y border-line bg-card/40">
-      <Container className="grid grid-cols-2 gap-6 py-10 sm:grid-cols-4">
+    <div className="border-b border-line">
+      <Container className="grid grid-cols-2 gap-8 py-16 sm:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="text-center sm:text-left">
-            <p className="font-display text-3xl font-extrabold text-lime sm:text-4xl">
+          <div key={stat.label}>
+            <p className="font-display text-4xl font-bold text-ink sm:text-5xl">
               {stat.value}
-              <span className="text-xl text-court-bright">{stat.suffix}</span>
+              <span className="text-2xl text-court">{stat.suffix}</span>
             </p>
-            <p className="mt-1 text-sm text-muted">{stat.label}</p>
+            <p className="mt-2 text-sm text-muted">{stat.label}</p>
           </div>
         ))}
       </Container>

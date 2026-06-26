@@ -4,22 +4,14 @@ import { Section, SectionHeading } from "@/components/ui";
 export function Testimonials() {
   return (
     <Section>
-      <SectionHeading
-        eyebrow="Voices"
-        title="선수와 학부모의 이야기"
-        center
-      />
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <SectionHeading eyebrow="Voices" title="선수와 학부모의 이야기" />
+      <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {testimonials.map((t) => (
-          <figure
-            key={t.author}
-            className="rounded-2xl border border-line bg-card p-7"
-          >
-            <span className="font-display text-4xl leading-none text-court">&ldquo;</span>
-            <blockquote className="mt-2 text-sm leading-relaxed text-ink/90">
-              {t.quote}
+          <figure key={t.author} className="border-t border-line pt-6">
+            <blockquote className="font-accent text-lg italic leading-relaxed text-ink">
+              &ldquo;{t.quote}&rdquo;
             </blockquote>
-            <figcaption className="mt-5 text-sm font-semibold text-court-bright">
+            <figcaption className="mt-5 text-sm font-semibold text-court">
               {t.author}
             </figcaption>
           </figure>

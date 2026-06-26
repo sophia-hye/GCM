@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -19,7 +20,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // solid: 밝은 배경 위(다크 텍스트). 투명: Home 최상단의 어두운 Hero 위(흰 텍스트).
   const solid = scrolled || open || !isHome;
+  const logoColor = solid ? "text-ink" : "text-white";
+  const linkColor = solid ? "text-ink" : "text-white/80";
 
   return (
     <header
@@ -28,9 +32,26 @@ export function Navbar() {
       }`}
     >
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="font-display text-xl font-extrabold tracking-tight">
-          {site.name}
-          <span className="text-lime">.</span>
+        <Link href="/" className="flex items-baseline gap-2">
+          <span className={`font-display text-xl font-extrabold tracking-tight ${logoColor}`}>
+            {site.name}
+            <span className="text-lime">.</span>
+          </span>
+          <span
+            className={`text-[10px] font-medium uppercase tracking-widest ${
+              solid ? "text-muted" : "text-white/70"
+            }`}
+          >
+            with
+          </span>
+          <Image
+            src="/logo/equre.png"
+            alt="egüre"
+            width={2670}
+            height={1006}
+            priority
+            className={`h-4 w-auto translate-y-[6px] ${solid ? "" : "invert"}`}
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -40,8 +61,8 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm transition-colors hover:text-ink ${
-                  active ? "text-lime" : "text-muted"
+                className={`text-sm transition-colors hover:opacity-80 ${
+                  active ? (solid ? "text-court" : "text-lime") : linkColor
                 }`}
               >
                 {item.label}
@@ -51,7 +72,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Link href="/login" className="text-sm text-muted transition-colors hover:text-ink">
+          <Link href="/login" className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}>
             로그인
           </Link>
         </div>
@@ -60,7 +81,9 @@ export function Navbar() {
           type="button"
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-line md:hidden"
+          className={`flex h-10 w-10 items-center justify-center rounded-lg border md:hidden ${
+            solid ? "border-line text-ink" : "border-white/30 text-white"
+          }`}
         >
           <span className="text-lg">{open ? "✕" : "☰"}</span>
         </button>
@@ -75,7 +98,7 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className={`rounded-lg px-2 py-2 text-sm hover:bg-card hover:text-ink ${
-                  pathname === item.href ? "text-lime" : "text-muted"
+                  pathname === item.href ? "text-court" : "text-ink"
                 }`}
               >
                 {item.label}
@@ -84,7 +107,7 @@ export function Navbar() {
             <Link
               href="/login"
               onClick={() => setOpen(false)}
-              className="rounded-lg px-2 py-2 text-sm text-muted hover:bg-card hover:text-ink"
+              className="rounded-lg px-2 py-2 text-sm text-ink hover:bg-card"
             >
               로그인
             </Link>

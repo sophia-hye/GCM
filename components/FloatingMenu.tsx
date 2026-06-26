@@ -33,7 +33,7 @@ const instagramIcon = (
 );
 
 const items: Item[] = [
-  { href: "/consultation", label: "상담 신청", icon: consultationIcon },
+  { href: "/consulting", label: "상담 신청", icon: consultationIcon },
   { href: "/contact", label: "연락처", icon: contactIcon },
   { href: site.instagram, label: "인스타그램", external: true, icon: instagramIcon },
 ];
