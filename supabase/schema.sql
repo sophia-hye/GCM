@@ -1,11 +1,12 @@
 -- ============================================================
--- GCM — Supabase schema (gcm_ 테이블만)
--- eqüre와 같은 Supabase 프로젝트(=같은 auth.users)를 공유하지만,
--- equre_ 테이블/트리거는 eqüre 레포의 supabase/schema.sql 이 관리한다.
+-- GCM — Supabase schema (gcm_ 테이블 정의 + 크로스 로그인 트리거)
+-- eqüre와 같은 Supabase 프로젝트(=같은 auth.users)를 공유한다.
+-- equre_ 테이블 정의/RLS 는 eqüre 레포의 supabase/schema.sql 이 관리한다.
 --
 -- 가입 트리거는 이름을 분리(on_auth_user_created_gcm)하고 source 로 걸러서
 -- eqüre 트리거(on_auth_user_created_equre)와 한 auth.users 에서 공존한다.
--- → GCM 가입(source != 'equre')만 gcm_profiles 를 만든다.
+-- → GCM 가입(source != 'equre')이면 gcm_profiles(풀) + equre_profiles(최소행)을
+--   함께 만들어, 어디서 가입하든 양쪽에서 로그인 가능(크로스 로그인).
 -- Supabase 대시보드 > SQL Editor 에 붙여넣고 실행.
 -- ============================================================
 
@@ -131,13 +132,17 @@ create policy "gcm_checkins_insert_own" on public.gcm_checkins for insert with c
 create policy "gcm_checkins_admin_all" on public.gcm_checkins for all using (public.is_gcm_admin());
 
 -- ============================================================
--- 2) GCM 가입 트리거 — source 가 'equre' 가 아닐 때만 gcm_profiles 생성
---    (이름을 분리해 eqüre 트리거와 한 auth.users 에서 공존)
+-- 2) GCM 가입 트리거 — GCM 가입(source != 'equre')일 때
+--    gcm_profiles(풀 데이터) + equre_profiles(최소행)를 함께 생성한다.
+--    → GCM 가입자도 equre 에서 바로 로그인 가능(크로스 로그인).
+--    eqüre 가입(source='equre')은 eqüre 트리거가 대칭으로 처리.
+--    (트리거 이름이 달라 한 auth.users 에서 공존)
 -- ============================================================
 create or replace function public.gcm_handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
   if coalesce(new.raw_user_meta_data ->> 'source', 'gcm') <> 'equre' then
+    -- 자기 쪽: 풀 데이터
     insert into public.gcm_profiles (id, name, phone, email, role, source)
     values (
       new.id,
@@ -145,6 +150,16 @@ begin
       new.raw_user_meta_data ->> 'phone',
       coalesce(new.raw_user_meta_data ->> 'email', new.email),
       coalesce(new.raw_user_meta_data ->> 'role', 'student'),
+      'gcm'
+    )
+    on conflict (id) do nothing;
+
+    -- 상대 쪽(equre): 크로스 로그인용 최소행
+    insert into public.equre_profiles (id, email, name, source)
+    values (
+      new.id,
+      coalesce(new.raw_user_meta_data ->> 'email', new.email),
+      coalesce(new.raw_user_meta_data ->> 'name', ''),
       'gcm'
     )
     on conflict (id) do nothing;
