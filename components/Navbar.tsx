@@ -5,9 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site-data";
+import { signOut } from "@/app/auth/actions";
 import { Container } from "@/components/ui";
 
-export function Navbar() {
+type NavAuth = { name: string; role: string } | null;
+
+export function Navbar({ auth = null }: { auth?: NavAuth }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -71,10 +74,40 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <Link href="/login" className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}>
-            로그인
-          </Link>
+        <div className="hidden items-center gap-4 md:flex">
+          {auth ? (
+            <>
+              <Link
+                href="/dashboard"
+                className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+              >
+                마이페이지
+              </Link>
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+                >
+                  로그아웃
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+              >
+                로그인
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-full bg-court px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
+              >
+                회원가입
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -104,13 +137,42 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-2 py-2 text-sm text-ink hover:bg-card"
-            >
-              로그인
-            </Link>
+            {auth ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-2 py-2 text-sm font-semibold text-court hover:bg-card"
+                >
+                  마이페이지
+                </Link>
+                <form action={signOut}>
+                  <button
+                    type="submit"
+                    className="w-full rounded-lg px-2 py-2 text-left text-sm text-ink hover:bg-card"
+                  >
+                    로그아웃
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-2 py-2 text-sm text-ink hover:bg-card"
+                >
+                  로그인
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-2 py-2 text-sm font-semibold text-court hover:bg-card"
+                >
+                  회원가입
+                </Link>
+              </>
+            )}
           </nav>
         </Container>
       ) : null}

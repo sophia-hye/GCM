@@ -44,7 +44,7 @@ export default async function DashboardLayout({
   if (!user) redirect("/login");
 
   const { data: profile } = await supabase
-    .from("profiles")
+    .from("gcm_profiles")
     .select("name, role")
     .eq("id", user.id)
     .maybeSingle();
@@ -66,6 +66,7 @@ export default async function DashboardLayout({
         <Container className="flex h-16 items-center justify-between">
           <Link href="/dashboard" className="font-display text-xl font-extrabold">
             GCM<span className="text-lime">.</span>
+            <span className="ml-2 align-middle text-xs font-medium text-muted">마이페이지</span>
           </Link>
           <div className="flex items-center gap-4 text-sm">
             <span className="text-muted">
@@ -76,6 +77,9 @@ export default async function DashboardLayout({
                 </span>
               ) : null}
             </span>
+            <Link href="/" className="text-muted hover:text-ink">
+              사이트로 돌아가기
+            </Link>
             <form action={signOut}>
               <button type="submit" className="text-muted hover:text-ink">
                 로그아웃
