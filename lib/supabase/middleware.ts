@@ -44,10 +44,10 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // 인증된 사용자가 로그인 페이지 접근 시 대시보드로
-  if (user && path === "/login") {
+  // 인증된 사용자가 로그인/회원가입 페이지 접근 시 홈으로
+  if (user && (path === "/login" || path === "/signup")) {
     const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 

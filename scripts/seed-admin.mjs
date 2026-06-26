@@ -42,7 +42,7 @@ const { data, error } = await admin.auth.admin.createUser({
   phone: e164,
   password,
   phone_confirm: true,
-  user_metadata: { name, phone: digits, role: "admin" },
+  user_metadata: { name, phone: digits, role: "admin", source: "gcm" },
 });
 
 if (error) {
@@ -51,7 +51,7 @@ if (error) {
 }
 
 // 가입 트리거가 role 을 반영하지만, 혹시 모를 경우를 대비해 명시적으로 보정
-await admin.from("profiles").update({ role: "admin", name, phone: digits }).eq("id", data.user.id);
+await admin.from("gcm_profiles").update({ role: "admin", name, phone: digits }).eq("id", data.user.id);
 
 console.log(`관리자 생성 완료: ${name} (${e164})`);
 console.log("이제 /login 관리자 탭에서 로그인하세요.");

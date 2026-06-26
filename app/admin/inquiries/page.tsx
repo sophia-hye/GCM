@@ -12,7 +12,7 @@ const statusLabel: Record<string, string> = {
 export default async function InquiriesPage() {
   const supabase = await createClient();
   const { data: inquiries } = await supabase
-    .from("inquiries")
+    .from("gcm_inquiries")
     .select("id, name, phone, email, message, status, created_at")
     .order("created_at", { ascending: false });
 

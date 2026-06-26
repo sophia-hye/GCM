@@ -17,7 +17,7 @@ export default async function ProgressPage() {
   } = await supabase.auth.getUser();
 
   const { data: progress } = await supabase
-    .from("progress")
+    .from("gcm_progress")
     .select("stage, track, current_utr, target_utr, note")
     .eq("user_id", user!.id)
     .maybeSingle();

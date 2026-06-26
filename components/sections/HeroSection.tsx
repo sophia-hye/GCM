@@ -37,12 +37,14 @@ export function HeroSection() {
 
       <Container className="relative z-10 pt-24">
         <div key={index} className="max-w-3xl animate-fade-up">
-          <p className="font-display text-xs font-bold uppercase tracking-[0.3em] text-lime">
+          <p className="font-display text-xs font-bold uppercase tracking-[0.3em] text-white/75">
             {slide.eyebrow}
           </p>
           <h1 className="mt-5 max-w-4xl text-balance text-5xl leading-[1.1] sm:text-6xl lg:text-7xl">
             <span className="font-display font-black uppercase text-white">{slide.headline}</span>{" "}
-            <span className="font-accent font-semibold italic text-lime">{slide.accent}</span>
+            <span className="font-accent font-semibold italic text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
+              {slide.accent}
+            </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-white/85">{slide.sub}</p>
 
@@ -63,7 +65,7 @@ export function HeroSection() {
                 aria-label={`슬라이드 ${i + 1}`}
                 onClick={() => setIndex(i)}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === index ? "w-8 bg-lime" : "w-3 bg-white/30"
+                  i === index ? "w-8 bg-white" : "w-3 bg-white/30"
                 }`}
               />
             ))}

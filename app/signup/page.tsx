@@ -1,17 +1,17 @@
 import { AuthShell } from "@/components/auth/AuthShell";
-import { LoginForm } from "@/components/auth/LoginForm";
+import { SignupForm } from "@/components/auth/SignupForm";
 
-export const metadata = { title: "로그인 | GCM 아카데미" };
+export const metadata = { title: "회원가입 | GCM 아카데미" };
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <AuthShell
-      title="로그인"
-      subtitle="이름과 전화번호로 GCM 대시보드에 접속합니다."
+      title="회원가입"
+      subtitle="GCM 아카데미 회원으로 등록하세요."
       footer="문의: contact@gcm-academy.kr"
       backgroundImage="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     >
-      <LoginForm />
+      <SignupForm />
     </AuthShell>
   );
 }

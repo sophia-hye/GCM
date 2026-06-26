@@ -3,83 +3,91 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { normalizePhone, toE164 } from "@/lib/phone";
+import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  ADMIN_SIGNUP_KEY,
+  isAdminConfigured,
+  isSupabaseConfigured,
+} from "@/lib/supabase/env";
+import { normalizePhone } from "@/lib/phone";
 
 export type AuthState = { error?: string };
 
 const NOT_CONFIGURED =
   "백엔드(Supabase)가 아직 설정되지 않았습니다. .env.local에 자격증명을 입력해 주세요.";
 
-/** 회원(선수/학부모) 로그인: 이름 + 전화번호 */
+const SIGNUP_UNAVAILABLE =
+  "회원가입 기능이 아직 활성화되지 않았습니다(service_role 키 필요). 관리자에게 문의해 주세요.";
+
+/** 간단한 이메일 형식 검증 */
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/** 회원(선수/학부모) 로그인: 이메일 + 비밀번호 */
 export async function signInMember(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
   if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
 
-  const name = String(formData.get("name") ?? "").trim();
-  const phone = normalizePhone(String(formData.get("phone") ?? ""));
-  if (!name || !phone) return { error: "이름과 전화번호를 입력해 주세요." };
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  if (!email || !password) return { error: "이메일과 비밀번호를 입력해 주세요." };
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
-    phone: toE164(phone),
-    password: phone,
+    email,
+    password,
   });
   if (error || !data.user) {
-    return { error: "등록되지 않은 회원이거나 정보가 일치하지 않습니다." };
+    return { error: "이메일 또는 비밀번호가 일치하지 않습니다." };
   }
 
   const { data: profile } = await supabase
-    .from("profiles")
-    .select("name, role")
+    .from("gcm_profiles")
+    .select("role")
     .eq("id", data.user.id)
     .maybeSingle();
 
-  if (!profile || profile.name.trim() !== name) {
-    await supabase.auth.signOut();
-    return { error: "이름과 전화번호가 일치하지 않습니다." };
-  }
-  if (profile.role === "admin") {
+  if (profile?.role === "admin") {
     await supabase.auth.signOut();
     return { error: "관리자 계정은 관리자 로그인을 이용해 주세요." };
   }
 
   revalidatePath("/", "layout");
-  redirect("/dashboard");
+  redirect("/");
 }
 
-/** 관리자 로그인: 이름 + 전화번호 + 비밀번호 */
+/** 관리자 로그인: 이메일 + 비밀번호 */
 export async function signInAdmin(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
   if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
 
-  const name = String(formData.get("name") ?? "").trim();
-  const phone = normalizePhone(String(formData.get("phone") ?? ""));
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  if (!name || !phone || !password) {
-    return { error: "이름, 전화번호, 비밀번호를 모두 입력해 주세요." };
+  if (!email || !password) {
+    return { error: "이메일과 비밀번호를 입력해 주세요." };
   }
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
-    phone: toE164(phone),
+    email,
     password,
   });
   if (error || !data.user) {
-    return { error: "관리자 정보가 일치하지 않습니다." };
+    return { error: "이메일 또는 비밀번호가 일치하지 않습니다." };
   }
 
   const { data: profile } = await supabase
-    .from("profiles")
-    .select("name, role")
+    .from("gcm_profiles")
+    .select("role")
     .eq("id", data.user.id)
     .maybeSingle();
 
-  if (!profile || profile.role !== "admin" || profile.name.trim() !== name) {
+  if (!profile || profile.role !== "admin") {
     await supabase.auth.signOut();
     return { error: "관리자 권한이 없습니다." };
   }
@@ -95,4 +103,105 @@ export async function signOut() {
   }
   revalidatePath("/", "layout");
   redirect("/");
+}
+
+/**
+ * 가입 후 곧바로 세션을 생성한다(서버 쿠키 설정).
+ * service_role 로 만든 계정은 세션이 없으므로 일반 클라이언트로 로그인한다.
+ */
+async function signInAfterSignup(email: string, password: string) {
+  const supabase = await createClient();
+  await supabase.auth.signInWithPassword({ email, password });
+}
+
+/** 회원(선수/학부모) 자가 가입: 이메일 + 비밀번호 (+ 연락처 전화번호) */
+export async function signUpMember(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
+  if (!isAdminConfigured()) return { error: SIGNUP_UNAVAILABLE };
+
+  const name = String(formData.get("name") ?? "").trim();
+  const phone = normalizePhone(String(formData.get("phone") ?? ""));
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  const role = String(formData.get("role") ?? "student");
+  if (!name || !phone) return { error: "이름과 전화번호를 입력해 주세요." };
+  if (!email) return { error: "이메일을 입력해 주세요." };
+  if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
+  if (password.length < 6) return { error: "비밀번호는 6자 이상이어야 합니다." };
+  if (!["student", "parent"].includes(role)) return { error: "잘못된 역할입니다." };
+
+  const admin = createAdminClient();
+  const { error } = await admin.auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
+    user_metadata: { name, phone, email, role, source: "gcm" },
+  });
+
+  if (error) {
+    const dup = error.message.toLowerCase().includes("already");
+    return { error: dup ? "이미 가입된 이메일입니다." : error.message };
+  }
+
+  await signInAfterSignup(email, password);
+  revalidatePath("/", "layout");
+  redirect("/");
+}
+
+/** 관리자 자가 가입: 이메일 + 비밀번호 + 관리자 키 (+ 연락처 전화번호) */
+export async function signUpAdmin(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
+  if (!isAdminConfigured()) return { error: SIGNUP_UNAVAILABLE };
+
+  const name = String(formData.get("name") ?? "").trim();
+  const phone = normalizePhone(String(formData.get("phone") ?? ""));
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  const key = String(formData.get("admin_key") ?? "");
+
+  if (!name || !phone) {
+    return { error: "이름과 전화번호를 입력해 주세요." };
+  }
+  if (!email) return { error: "이메일을 입력해 주세요." };
+  if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
+  if (password.length < 8) {
+    return { error: "비밀번호는 8자 이상이어야 합니다." };
+  }
+  if (!ADMIN_SIGNUP_KEY) {
+    return { error: "관리자 가입이 비활성화되어 있습니다. 관리자 키를 설정해 주세요." };
+  }
+  if (key !== ADMIN_SIGNUP_KEY) {
+    return { error: "관리자 키가 올바르지 않습니다." };
+  }
+
+  const admin = createAdminClient();
+  const { data, error } = await admin.auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
+    user_metadata: { name, phone, email, role: "admin", source: "gcm" },
+  });
+
+  if (error) {
+    const dup = error.message.toLowerCase().includes("already");
+    return { error: dup ? "이미 가입된 이메일입니다." : error.message };
+  }
+
+  // 트리거가 role 을 반영하지만 혹시 모를 경우를 대비해 명시적으로 보정
+  if (data.user) {
+    await admin
+      .from("gcm_profiles")
+      .update({ role: "admin", name, phone, email })
+      .eq("id", data.user.id);
+  }
+
+  await signInAfterSignup(email, password);
+  revalidatePath("/", "layout");
+  redirect("/admin");
 }

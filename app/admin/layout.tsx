@@ -41,7 +41,7 @@ export default async function AdminLayout({
   if (!user) redirect("/login");
 
   const { data: profile } = await supabase
-    .from("profiles")
+    .from("gcm_profiles")
     .select("name, role")
     .eq("id", user.id)
     .maybeSingle();

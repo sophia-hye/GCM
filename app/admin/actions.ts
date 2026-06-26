@@ -16,7 +16,7 @@ async function requireAdmin(): Promise<boolean> {
   } = await supabase.auth.getUser();
   if (!user) return false;
   const { data } = await supabase
-    .from("profiles")
+    .from("gcm_profiles")
     .select("role")
     .eq("id", user.id)
     .maybeSingle();
@@ -45,7 +45,7 @@ export async function createMember(
     phone: toE164(phone),
     password: phone,
     phone_confirm: true,
-    user_metadata: { name, phone, role },
+    user_metadata: { name, phone, role, source: "gcm" },
   });
 
   if (error) {
@@ -65,7 +65,7 @@ export async function updateInquiryStatus(formData: FormData): Promise<void> {
   if (!id || !["new", "contacted", "closed"].includes(status)) return;
 
   const supabase = await createClient();
-  await supabase.from("inquiries").update({ status }).eq("id", id);
+  await supabase.from("gcm_inquiries").update({ status }).eq("id", id);
   revalidatePath("/admin/inquiries");
 }
 
@@ -77,7 +77,7 @@ export async function updateBookingStatus(formData: FormData): Promise<void> {
   if (!id || !["requested", "confirmed", "done", "cancelled"].includes(status)) return;
 
   const supabase = await createClient();
-  await supabase.from("bookings").update({ status }).eq("id", id);
+  await supabase.from("gcm_bookings").update({ status }).eq("id", id);
   revalidatePath("/admin/bookings");
 }
 
@@ -104,7 +104,7 @@ export async function upsertProgress(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.from("progress").upsert(
+  const { error } = await supabase.from("gcm_progress").upsert(
     {
       user_id: userId,
       stage,
