@@ -7,16 +7,23 @@ export function AuthShell({
   subtitle,
   children,
   footer,
+  backgroundImage,
 }: {
   title: string;
   subtitle: string;
   children: ReactNode;
   footer: ReactNode;
+  backgroundImage?: string;
 }) {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-court-gradient px-5 py-16">
-      <CourtLines className="pointer-events-none absolute -right-10 top-0 h-full w-1/2 text-white/10" />
-      <div className="absolute inset-0 bg-base/40" />
+    <main
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-court-gradient bg-cover bg-center px-5 py-16"
+      style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : undefined}
+    >
+      {backgroundImage ? null : (
+        <CourtLines className="pointer-events-none absolute -right-10 top-0 h-full w-1/2 text-white/10" />
+      )}
+      <div className={backgroundImage ? "absolute inset-0 bg-ink/55" : "absolute inset-0 bg-base/40"} />
 
       <div className="relative z-10 w-full max-w-md">
         <Link
