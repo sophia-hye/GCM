@@ -9,19 +9,19 @@ export function SkillCoaching() {
         title="기술 코칭 프로그램"
         lead="포핸드 · 백핸드 · 발리 · 서브. 요일별로 집중하는 체계적 주간 스케줄."
       />
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
         {skills.map((skill) => (
-          <div key={skill.name} className="rounded-2xl border border-line bg-card p-6">
-            <div className="flex items-center justify-between">
+          <div key={skill.name} className="border-t border-line pt-6">
+            <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-bold">{skill.name}</h3>
-              <span className="rounded-md bg-court/15 px-2 py-1 font-display text-xs font-bold text-court-bright">
+              <span className="font-display text-xs font-semibold uppercase tracking-widest text-court">
                 {skill.day}
               </span>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-muted">
               {skill.items.map((item) => (
                 <li key={item} className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                  <span className="h-1 w-1 rounded-full bg-court" />
                   {item}
                 </li>
               ))}

@@ -18,7 +18,7 @@ export function Container({
 type ButtonProps = {
   children: ReactNode;
   href: string;
-  variant?: "lime" | "court" | "outline";
+  variant?: "lime" | "court" | "outline" | "outline-light" | "link";
   className?: string;
 };
 
@@ -28,12 +28,25 @@ export function Button({
   variant = "lime",
   className = "",
 }: ButtonProps) {
+  if (variant === "link") {
+    return (
+      <Link
+        href={href}
+        className={`group inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-court ${className}`}
+      >
+        {children}
+        <span className="transition-transform group-hover:translate-x-0.5">→</span>
+      </Link>
+    );
+  }
+
   const base =
     "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-transform duration-200 hover:-translate-y-0.5";
   const variants: Record<string, string> = {
-    lime: "bg-lime text-[#08111f] hover:brightness-105",
-    court: "bg-court text-ink hover:bg-court-bright",
-    outline: "border border-line text-ink hover:border-court-bright hover:text-court-bright",
+    lime: "bg-lime text-white hover:brightness-105",
+    court: "bg-court text-white hover:bg-court-deep",
+    outline: "border border-line text-ink hover:border-court hover:text-court",
+    "outline-light": "border border-white/40 text-white hover:bg-white/10",
   };
   return (
     <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
@@ -70,12 +83,12 @@ export function SectionHeading({
   center?: boolean;
 }) {
   return (
-    <div className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
+    <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight sm:text-4xl">
+      <h2 className="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
         {title}
       </h2>
-      {lead ? <p className="mt-4 text-base text-muted sm:text-lg">{lead}</p> : null}
+      {lead ? <p className="mt-5 text-lg leading-relaxed text-muted">{lead}</p> : null}
     </div>
   );
 }
@@ -90,7 +103,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={`scroll-mt-20 py-20 sm:py-28 ${className}`}>
+    <section id={id} className={`scroll-mt-20 py-24 sm:py-36 ${className}`}>
       <Container>{children}</Container>
     </section>
   );

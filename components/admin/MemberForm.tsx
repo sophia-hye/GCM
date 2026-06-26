@@ -48,7 +48,7 @@ export function MemberForm() {
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-lime px-5 py-2.5 text-sm font-semibold text-[#08111f] disabled:opacity-60"
+          className="rounded-lg bg-lime px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
         >
           {pending ? "등록 중..." : "회원 등록"}
         </button>

@@ -3,20 +3,20 @@ import { Section, SectionHeading, Button } from "@/components/ui";
 
 export function ScheduleSection() {
   return (
-    <Section id="schedule" className="bg-card/30">
+    <Section id="schedule">
       <SectionHeading
         eyebrow="Showcase & Camp"
         title="대회 & 캠프 일정"
         lead="다가오는 캠프, 쇼케이스, 해외 토너먼트 일정."
       />
-      <div className="mt-12 space-y-4">
+      <div className="mt-16 border-t border-line">
         {schedule.map((event) => (
           <div
             key={event.title}
-            className="flex flex-col gap-4 rounded-2xl border border-line bg-card p-6 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-4 border-b border-line py-6 sm:flex-row sm:items-center sm:justify-between"
           >
-            <div className="flex items-center gap-5">
-              <span className="font-display text-lg font-extrabold text-lime">
+            <div className="flex items-center gap-6">
+              <span className="font-display text-base font-semibold tabular-nums text-court">
                 {event.date}
               </span>
               <div>
@@ -26,7 +26,7 @@ export function ScheduleSection() {
                 </p>
               </div>
             </div>
-            <Button href="/consultation" variant="outline" className="px-5 py-2">
+            <Button href="/consulting" variant="link">
               예약하기
             </Button>
           </div>

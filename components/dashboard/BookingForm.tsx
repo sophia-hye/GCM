@@ -43,7 +43,7 @@ export function BookingForm() {
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-lime px-5 py-2.5 text-sm font-semibold text-[#08111f] disabled:opacity-60 sm:col-span-2"
+          className="rounded-lg bg-lime px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60 sm:col-span-2"
         >
           {pending ? "요청 중..." : "예약 요청"}
         </button>

@@ -18,18 +18,16 @@ export function CoachCard({ member }: { member: Member }) {
         role={hasBio ? "button" : undefined}
         tabIndex={hasBio ? 0 : undefined}
         onKeyDown={hasBio ? (e) => (e.key === "Enter" || e.key === " ") && setOpen(true) : undefined}
-        className={`overflow-hidden rounded-2xl border border-line bg-card ${
-          hasBio ? "cursor-pointer transition-colors hover:border-court-bright" : ""
-        }`}
+        className={`group ${hasBio ? "cursor-pointer" : ""}`}
       >
-        <div className="relative flex h-56 items-center justify-center overflow-hidden bg-court-gradient">
+        <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
           {member.image ? (
             <Image
               src={member.image}
               alt={member.name}
               fill
               sizes="(max-width: 768px) 100vw, 25vw"
-              className="object-cover object-top"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
             />
           ) : (
             <>
@@ -40,12 +38,12 @@ export function CoachCard({ member }: { member: Member }) {
             </>
           )}
         </div>
-        <div className="p-6">
+        <div className="mt-4">
           <h3 className="text-lg font-bold">{member.name}</h3>
-          <p className="mt-1 text-sm font-semibold text-court-bright">{member.role}</p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{member.bio}</p>
+          <p className="mt-1 text-sm font-semibold text-court">{member.role}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{member.bio}</p>
           {hasBio ? (
-            <span className="mt-4 inline-block text-xs font-semibold text-lime">
+            <span className="mt-3 inline-block text-xs font-semibold text-court">
               약력 보기 →
             </span>
           ) : null}
@@ -54,7 +52,7 @@ export function CoachCard({ member }: { member: Member }) {
 
       {open ? (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-base/80 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         >
           <div

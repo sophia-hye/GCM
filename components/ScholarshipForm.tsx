@@ -60,7 +60,7 @@ export function ScholarshipForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-[#08111f] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+        className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-60"
       >
         {pending ? "제출 중..." : "장학 신청서 제출"}
       </button>

@@ -3,20 +3,20 @@
 
 /*
  * GCM 아카데미 디자인 토큰
- * 테니스 코트 블루 주력 + 테니스공 라임/화이트 포인트
+ * 클레이 코트 + equre 무드 — 밝은 크림 베이스 + 테라코타 클레이 포인트 + 따뜻한 미니멀
  * 상세: docs/01-plan/landing-page-design.md
  */
 @theme {
-  --color-base: #08111f;
-  --color-court-deep: #0e4d78;
-  --color-court: #1d6fb8;
-  --color-court-bright: #3fa7e0;
-  --color-lime: #c9f227;
-  --color-card: #12283f;
-  --color-line: #20405f;
-  --color-ink: #eaf2fa;
-  --color-muted: #94aec9;
-  --color-danger: #ff5a5a;
+  --color-base: #eae5d8;
+  --color-court-deep: #9c3a20;
+  --color-court: #c2492b;
+  --color-court-bright: #c2492b;
+  --color-lime: #c2492b;
+  --color-card: #e3ddcd;
+  --color-line: #ccc3af;
+  --color-ink: #272219;
+  --color-muted: #6e675a;
+  --color-danger: #c0392b;
 
   --font-sans: "Pretendard", system-ui, -apple-system, sans-serif;
   --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
@@ -33,13 +33,13 @@ body {
   font-family: var(--font-sans);
 }
 
-/* 코트 블루 그라데이션 */
+/* 클레이 코트 그라데이션 */
 .bg-court-gradient {
-  background-image: linear-gradient(135deg, #0e4d78 0%, #1d6fb8 55%, #3fa7e0 100%);
+  background-image: linear-gradient(135deg, #9c3a20 0%, #c2492b 55%, #d4663f 100%);
 }
 
 .text-court-gradient {
-  background-image: linear-gradient(120deg, #3fa7e0, #c9f227);
+  background-image: linear-gradient(120deg, #c2492b, #d4663f);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

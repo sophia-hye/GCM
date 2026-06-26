@@ -81,7 +81,7 @@ export function ProgressForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-4 rounded-full bg-lime px-6 py-2.5 text-sm font-semibold text-[#08111f] disabled:opacity-60"
+        className="mt-4 rounded-full bg-lime px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
       >
         {pending ? "저장 중..." : "저장"}
       </button>
