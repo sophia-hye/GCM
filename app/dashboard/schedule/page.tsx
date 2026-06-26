@@ -23,7 +23,7 @@ export default async function SchedulePage() {
   } = await supabase.auth.getUser();
 
   const { data: bookings } = await supabase
-    .from("bookings")
+    .from("gcm_bookings")
     .select("id, type, scheduled_at, status, memo, created_at")
     .eq("user_id", user!.id)
     .order("created_at", { ascending: false });

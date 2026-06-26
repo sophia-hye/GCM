@@ -9,7 +9,7 @@ const roleLabel: Record<string, string> = { student: "선수", parent: "학부�
 export default async function MembersPage() {
   const supabase = await createClient();
   const { data: members } = await supabase
-    .from("profiles")
+    .from("gcm_profiles")
     .select("id, name, phone, role, created_at")
     .neq("role", "admin")
     .order("created_at", { ascending: false });

@@ -17,7 +17,7 @@ export default async function MemberDetailPage({
   const supabase = await createClient();
 
   const { data: member } = await supabase
-    .from("profiles")
+    .from("gcm_profiles")
     .select("id, name, phone, role")
     .eq("id", id)
     .maybeSingle();
@@ -26,12 +26,12 @@ export default async function MemberDetailPage({
 
   const [{ data: progress }, { data: checkins }] = await Promise.all([
     supabase
-      .from("progress")
+      .from("gcm_progress")
       .select("stage, track, current_utr, target_utr, note")
       .eq("user_id", id)
       .maybeSingle(),
     supabase
-      .from("checkins")
+      .from("gcm_checkins")
       .select("id, mood_score, note, created_at")
       .eq("user_id", id)
       .order("created_at", { ascending: false })

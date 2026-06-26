@@ -66,7 +66,7 @@ export async function submitApplication(
 
   const supabase = await createClient();
   const { error } = await supabase
-    .from("inquiries")
+    .from("gcm_inquiries")
     .insert({ name, phone, email: email || null, message });
 
   if (error) {

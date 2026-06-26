@@ -27,7 +27,7 @@ export async function createBooking(
   } = await supabase.auth.getUser();
   if (!user) return { error: "로그인이 필요합니다." };
 
-  const { error } = await supabase.from("bookings").insert({
+  const { error } = await supabase.from("gcm_bookings").insert({
     user_id: user.id,
     type,
     scheduled_at: scheduledAt ? new Date(scheduledAt).toISOString() : null,
@@ -60,7 +60,7 @@ export async function createCheckin(
   if (!user) return { error: "로그인이 필요합니다." };
 
   const { error } = await supabase
-    .from("checkins")
+    .from("gcm_checkins")
     .insert({ user_id: user.id, mood_score: mood, note: note || null });
 
   if (error) return { error: "기록 중 오류가 발생했습니다." };

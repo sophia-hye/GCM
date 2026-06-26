@@ -9,12 +9,12 @@ export default async function AdminHome() {
   const [{ count: memberCount }, { count: inquiryCount }, { count: newInquiryCount }] =
     await Promise.all([
       supabase
-        .from("profiles")
+        .from("gcm_profiles")
         .select("id", { count: "exact", head: true })
         .neq("role", "admin"),
-      supabase.from("inquiries").select("id", { count: "exact", head: true }),
+      supabase.from("gcm_inquiries").select("id", { count: "exact", head: true }),
       supabase
-        .from("inquiries")
+        .from("gcm_inquiries")
         .select("id", { count: "exact", head: true })
         .eq("status", "new"),
     ]);

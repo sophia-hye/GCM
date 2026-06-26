@@ -18,21 +18,21 @@ export default async function DashboardHome() {
 
   const [{ data: profile }, { data: progress }, { data: lastCheckin }, { data: nextBooking }] =
     await Promise.all([
-      supabase.from("profiles").select("name").eq("id", user!.id).maybeSingle(),
+      supabase.from("gcm_profiles").select("name").eq("id", user!.id).maybeSingle(),
       supabase
-        .from("progress")
+        .from("gcm_progress")
         .select("stage, current_utr, target_utr")
         .eq("user_id", user!.id)
         .maybeSingle(),
       supabase
-        .from("checkins")
+        .from("gcm_checkins")
         .select("mood_score, created_at")
         .eq("user_id", user!.id)
         .order("created_at", { ascending: false })
         .limit(1)
         .maybeSingle(),
       supabase
-        .from("bookings")
+        .from("gcm_bookings")
         .select("type, scheduled_at, status")
         .eq("user_id", user!.id)
         .in("status", ["requested", "confirmed"])

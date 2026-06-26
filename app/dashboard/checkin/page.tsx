@@ -18,7 +18,7 @@ export default async function CheckinPage() {
   } = await supabase.auth.getUser();
 
   const { data: checkins } = await supabase
-    .from("checkins")
+    .from("gcm_checkins")
     .select("id, mood_score, note, created_at")
     .eq("user_id", user!.id)
     .order("created_at", { ascending: false })

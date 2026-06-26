@@ -28,8 +28,8 @@ type BookingRow = {
 export default async function AdminBookingsPage() {
   const supabase = await createClient();
   const { data } = await supabase
-    .from("bookings")
-    .select("id, type, scheduled_at, status, memo, profiles(name, phone)")
+    .from("gcm_bookings")
+    .select("id, type, scheduled_at, status, memo, gcm_profiles(name, phone)")
     .order("created_at", { ascending: false });
 
   const bookings = (data ?? []) as unknown as BookingRow[];
