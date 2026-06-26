@@ -1,18 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState } from "react";
 import { signInAdmin, signInMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
-import { PhoneInput } from "@/components/ui/PhoneInput";
-
-function PhoneField() {
-  return (
-    <div>
-      <label className="mb-1.5 block text-xs font-semibold text-muted">전화번호</label>
-      <PhoneInput />
-    </div>
-  );
-}
 
 type Tab = "member" | "admin";
 
@@ -40,23 +31,26 @@ export function LoginForm() {
 
       {tab === "member" ? (
         <form action={memberAction} className="space-y-4">
-          <AuthField label="이름" name="name" placeholder="등록된 이름" />
-          <PhoneField />
+          <AuthField label="이메일" name="email" type="email" placeholder="example@email.com" />
+          <AuthField label="비밀번호" name="password" type="password" placeholder="••••••••" />
           <ErrorMessage message={memberState.error} />
           <AuthSubmit pending={memberPending}>로그인</AuthSubmit>
-          <p className="text-center text-xs text-muted">
-            계정은 아카데미에서 등록해 드립니다. 미등록 시 상담 문의를 이용해 주세요.
-          </p>
         </form>
       ) : (
         <form action={adminAction} className="space-y-4">
-          <AuthField label="이름" name="name" placeholder="관리자 이름" />
-          <PhoneField />
+          <AuthField label="이메일" name="email" type="email" placeholder="example@email.com" />
           <AuthField label="비밀번호" name="password" type="password" placeholder="••••••••" />
           <ErrorMessage message={adminState.error} />
           <AuthSubmit pending={adminPending}>관리자 로그인</AuthSubmit>
         </form>
       )}
+
+      <p className="mt-6 text-center text-sm text-muted">
+        계정이 없으신가요?{" "}
+        <Link href="/signup" className="font-semibold text-court hover:underline">
+          회원가입
+        </Link>
+      </p>
     </div>
   );
 }
