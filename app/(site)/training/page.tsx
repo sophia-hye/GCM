@@ -5,9 +5,9 @@ import { UTRRoadmap } from "@/components/sections/UTRRoadmap";
 import { TotalCare } from "@/components/sections/TotalCare";
 import { SafetyNet } from "@/components/sections/SafetyNet";
 
-export const metadata = { title: "Programs | GCM Tennis Academy" };
+export const metadata = { title: "Training | GCM Tennis Academy" };
 
-export default function ProgramsPage() {
+export default function TrainingPage() {
   return (
     <div className="pt-16">
       <Programs />
