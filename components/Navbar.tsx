@@ -64,7 +64,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm transition-colors hover:opacity-80 ${
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${
                   active ? (solid ? "text-court" : "text-lime") : linkColor
                 }`}
               >
