@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import {
   submitAdultApplication,
   type AdultApplyState,
@@ -44,6 +44,7 @@ export function AdultApplicationForm() {
     submitAdultApplication,
     {},
   );
+  const [agreed, setAgreed] = useState(false);
 
   if (state.ok) {
     return (
@@ -155,7 +156,14 @@ export function AdultApplicationForm() {
       </div>
 
       <label className="flex items-start gap-2 text-sm text-muted">
-        <input type="checkbox" name="privacyConsent" required className="mt-1" />
+        <input
+          type="checkbox"
+          name="privacyConsent"
+          required
+          checked={agreed}
+          onChange={(e) => setAgreed(e.target.checked)}
+          className="mt-1"
+        />
         <span>개인정보 수집·이용에 동의합니다. (자세한 내용은 개인정보 처리방침 참고)</span>
       </label>
 
@@ -167,7 +175,7 @@ export function AdultApplicationForm() {
 
       <button
         type="submit"
-        disabled={pending}
+        disabled={pending || !agreed}
         className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-white transition hover:brightness-105 disabled:opacity-60"
       >
         {pending ? "제출 중..." : "신청서 제출"}
