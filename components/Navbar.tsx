@@ -115,7 +115,9 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
           className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
-            solid ? "border-line text-ink" : "border-white/30 text-white"
+            solid
+              ? "border-line text-ink"
+              : "border-white/70 bg-black/30 text-white backdrop-blur"
           }`}
         >
           <span className="text-lg">{open ? "✕" : "☰"}</span>
