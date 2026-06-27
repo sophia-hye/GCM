@@ -93,7 +93,7 @@ export const team = [
   },
   {
     name: "윤재원",
-    role: "헤드 코치 · 기술",
+    role: "헤드 코치 · 기술 · 피지컬",
     bio: "기술 발달과 경기 운영 전반을 이끄는 헤드 코치. 일일 트레이닝과 매치 코칭을 총괄합니다.",
     image: "",
     achievements: [] as string[],
