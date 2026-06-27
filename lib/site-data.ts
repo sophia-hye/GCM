@@ -117,11 +117,11 @@ export const teamProcess = [
 
 export const scholarship = {
   title: "전액 · 부분 장학 신청",
-  lead: "매년 제한된 인원의 장학 자리를 운영합니다. 경쟁 잠재력 · 헌신 · 전문성을 갖춘 선수를 선발합니다.",
+  lead: "매년 제한된 인원의 장학 자리를 운영합니다. 태도 · 투지 · 인성을 갖춘 선수를 선발합니다.",
   points: [
     {
       title: "대상",
-      body: "프로 환경을 목표로 하는 주니어 선수.",
+      body: "ATP · WTA를 목표로 하는 주니어 선수.",
     },
     {
       title: "선발 기준",
