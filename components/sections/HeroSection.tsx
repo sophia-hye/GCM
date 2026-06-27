@@ -31,9 +31,8 @@ export function HeroSection() {
         sizes="100vw"
         className="object-cover"
       />
-      {/* 클레이 틴트 + 가독성 오버레이 (사진 위 흰 텍스트) */}
-      <div className="absolute inset-0 bg-court-deep/65" />
-      <div className="absolute inset-0 bg-gradient-to-t from-base via-base/25 to-transparent" />
+      {/* 가독성 오버레이: 배경 아래쪽에만 적용해 이미지를 또렷하게 유지 */}
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-base via-base/45 to-transparent" />
 
       <Container className="relative z-10 pt-24">
         <div key={index} className="max-w-3xl animate-fade-up">
