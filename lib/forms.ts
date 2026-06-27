@@ -161,7 +161,6 @@ export const consultationForm: FormSection[] = [
         options: ["선수 본인", "학부모", "기타"],
         required: true,
       },
-      { name: "postalCode", label: "우편번호", type: "text", required: true },
       {
         name: "country",
         label: "국가",
