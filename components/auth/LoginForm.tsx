@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { signInMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
+import { SocialAuth } from "@/components/auth/SocialAuth";
 
 export function LoginForm({ next }: { next?: string }) {
   const [memberState, memberAction, memberPending] = useActionState<AuthState, FormData>(
@@ -20,6 +21,8 @@ export function LoginForm({ next }: { next?: string }) {
         <ErrorMessage message={memberState.error} />
         <AuthSubmit pending={memberPending}>로그인</AuthSubmit>
       </form>
+
+      <SocialAuth />
 
       <p className="mt-6 text-center text-sm text-muted">
         계정이 없으신가요?{" "}
