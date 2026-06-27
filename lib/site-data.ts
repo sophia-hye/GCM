@@ -52,8 +52,8 @@ export const recreational = {
       key: "ADULT",
       title: "성인 클래스",
       age: "성인 입문~중급",
-      desc: "취미로 시작해 제대로 즐기는 테니스. 입문부터 게임 운영까지.",
-      points: ["입문 · 중급 레벨별 수업", "스트로크 · 발리 · 서브", "동호인 게임 · 매너"],
+      desc: "취미로 시작해 제대로 즐기는 테니스. 입문부터 전술·게임 운영까지.",
+      points: ["입문 · 중급 레벨별 수업", "스트로크 · 발리 · 서브", "전술 · 게임 운영", "동호인 게임 · 매너"],
     },
   ],
 };
@@ -297,11 +297,10 @@ export const tracks = {
 
 export const processSteps = [
   { n: "01", title: "Assessment", body: "UTR/ITF 기록·기량 평가로 현재 위치 진단" },
-  { n: "02", title: "Profile", body: "하이라이트 영상 제작, 매치 데이터 정리" },
-  { n: "03", title: "Targeting", body: "목표 대회·대학·팀 선정과 컨택" },
-  { n: "04", title: "Preparation", body: "기술·체력·멘탈 집중 준비" },
-  { n: "05", title: "Compete", body: "대회 출전·매치 운영·전술 지원" },
-  { n: "06", title: "Next Level", body: "프로 전향·대학 진학 등 다음 단계 로드맵" },
+  { n: "02", title: "Targeting", body: "목표 대회·대학·팀 선정과 컨택" },
+  { n: "03", title: "Preparation", body: "기술·체력·멘탈 집중 준비" },
+  { n: "04", title: "Compete", body: "대회 출전·매치 운영·전술 지원" },
+  { n: "05", title: "Next Level", body: "프로 전향·대학 진학 등 다음 단계 로드맵" },
 ];
 
 export const players = [

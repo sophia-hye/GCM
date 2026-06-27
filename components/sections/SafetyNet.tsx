@@ -23,12 +23,12 @@ export function SafetyNet() {
 
         <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
           {[tracks.a, tracks.b].map((track) => (
-            <div key={track.title} className="border-t border-line pt-6">
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            <div key={track.title} className="rounded-2xl border border-line bg-card p-6">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-court-bright">
                 {track.badge}
               </span>
-              <h3 className="mt-3 text-lg font-bold">{track.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{track.body}</p>
+              <h3 className="mt-3 text-lg font-bold text-ink">{track.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink/85">{track.body}</p>
             </div>
           ))}
         </div>
@@ -44,7 +44,7 @@ export function SafetyNet() {
 
       <div className="mt-16">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">
-          Player Pathway · 6단계 프로세스
+          Player Pathway · 5단계 프로세스
         </p>
         <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {processSteps.map((step) => (

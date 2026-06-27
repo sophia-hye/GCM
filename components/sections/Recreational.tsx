@@ -5,8 +5,8 @@ export function Recreational() {
   return (
     <Section id="recreational">
       <SectionHeading
-        eyebrow="Recreational"
-        title="취미 클래스 · 키즈 & 성인"
+        eyebrow="Kids & Amateur Club"
+        title="키즈 & 아마추어 클럽"
         lead={recreational.lead}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2">
