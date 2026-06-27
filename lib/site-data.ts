@@ -203,7 +203,6 @@ export const heroSlides = [
 ] as const;
 
 export const stats = [
-  { value: "+1.5", label: "평균 UTR 상승", suffix: "" },
   { value: "CLAY", label: "Court Surface", suffix: "" },
   { value: "6", label: "주간 트레이닝", suffix: "일" },
   { value: "2", label: "진로 트랙 (프로·대학)", suffix: "" },

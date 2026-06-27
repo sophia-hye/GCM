@@ -4,7 +4,7 @@ import { Container } from "@/components/ui";
 export function StatBar() {
   return (
     <div className="border-b border-line">
-      <Container className="grid grid-cols-2 gap-8 py-16 sm:grid-cols-4">
+      <Container className="grid grid-cols-2 gap-8 py-16 sm:grid-cols-3">
         {stats.map((stat) => (
           <div key={stat.label}>
             <p className="font-display text-4xl font-bold text-ink sm:text-5xl">
