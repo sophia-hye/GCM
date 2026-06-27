@@ -21,6 +21,7 @@ export const nav = [
   { label: "About", href: "/about" },
   { label: "Coaches", href: "/coaches" },
   { label: "Players", href: "/players" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Training", href: "/training" },
   { label: "Kids & Amateur", href: "/recreational" },
   { label: "Consulting", href: "/consulting" },
@@ -332,6 +333,9 @@ export const playerStories = [
 ] as const;
 
 export const partners = ["ATP", "WTA", "ITF", "UTR", "Babolat", "Wilson"];
+
+/** 갤러리 사진 — 추후 사진 추가 시 { src, alt } 형태로 채우면 그리드가 표시됨 */
+export const gallery: { src: string; alt: string }[] = [];
 
 export const schedule = [
   { date: "2026.07", title: "여름 엘리트 캠프", place: "동탄 코트", target: "주니어 / 엘리트" },
