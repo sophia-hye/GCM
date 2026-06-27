@@ -1,8 +1,23 @@
 import Link from "next/link";
 import { site } from "@/lib/site-data";
 import { Container } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
 
-export function Footer() {
+export async function Footer() {
+  const en = (await getLocale()) === "en";
+  const L = {
+    blurb: en
+      ? "High-performance tennis academy. Elite development integrating technique, physical and mental."
+      : "고성능 테니스 아카데미. 기술 · 피지컬 · 멘탈을 통합한 엘리트 육성.",
+    rep: en ? `Director ${site.rep}.` : `대표 ${site.rep}.`,
+    consult: en ? "Book consulting / inquiry" : "상담 예약 / 문의",
+    terms: en ? "Terms" : "이용약관",
+    privacy: en ? "Privacy Policy" : "개인정보 처리방침",
+    rights: en
+      ? `© ${new Date().getFullYear()} GCM Academy. All rights reserved.`
+      : `© ${new Date().getFullYear()} GCM 아카데미. All rights reserved.`,
+  };
+
   return (
     <footer className="border-t border-line bg-base py-14">
       <Container>
@@ -13,9 +28,9 @@ export function Footer() {
               <span className="text-lime">.</span>
             </p>
             <p className="mt-3 max-w-sm text-sm text-muted">
-              고성능 테니스 아카데미. 기술 · 피지컬 · 멘탈을 통합한 엘리트 육성.
+              {L.blurb}
               <br />
-              대표 {site.rep}.
+              {L.rep}
             </p>
           </div>
 
@@ -28,19 +43,19 @@ export function Footer() {
               Instagram @gcm_tennis
             </Link>
             <Link href="/consulting" className="hover:text-court-bright">
-              상담 예약 / 문의
+              {L.consult}
             </Link>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} GCM 아카데미. All rights reserved.</p>
+          <p>{L.rights}</p>
           <div className="flex gap-4">
             <Link href="/terms" className="hover:text-ink">
-              이용약관
+              {L.terms}
             </Link>
             <Link href="/privacy" className="hover:text-ink">
-              개인정보 처리방침
+              {L.privacy}
             </Link>
           </div>
         </div>

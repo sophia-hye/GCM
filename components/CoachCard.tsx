@@ -2,12 +2,23 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { team } from "@/lib/site-data";
 import { CourtLines } from "@/components/ui";
 
-type Member = (typeof team)[number];
+type Member = {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  achievements: readonly string[];
+};
 
-export function CoachCard({ member }: { member: Member }) {
+export function CoachCard({
+  member,
+  bioLabel = "약력 보기 →",
+}: {
+  member: Member;
+  bioLabel?: string;
+}) {
   const [open, setOpen] = useState(false);
   const hasBio = member.achievements.length > 0;
 
@@ -44,7 +55,7 @@ export function CoachCard({ member }: { member: Member }) {
           <p className="mt-2 text-sm leading-relaxed text-muted">{member.bio}</p>
           {hasBio ? (
             <span className="mt-3 inline-block text-xs font-semibold text-court">
-              약력 보기 →
+              {bioLabel}
             </span>
           ) : null}
         </div>

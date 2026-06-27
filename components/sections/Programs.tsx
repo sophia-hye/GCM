@@ -1,14 +1,15 @@
-import { programs, programsLead } from "@/lib/site-data";
 import { Section, SectionHeading, Button } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict, getUI } from "@/lib/site-content";
 
-export function Programs() {
+export async function Programs() {
+  const locale = await getLocale();
+  const { programs, programsLead } = getDict(locale);
+  const ui = getUI(locale);
+
   return (
     <Section id="programs">
-      <SectionHeading
-        eyebrow="Programmes"
-        title="누구를 위한 프로그램인가"
-        lead={programsLead}
-      />
+      <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
 
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {programs.map((p) => (
@@ -32,7 +33,7 @@ export function Programs() {
 
             <div className="mt-7">
               <Button href="/consulting" variant="link">
-                상담 신청
+                {ui.consultApply}
               </Button>
             </div>
           </div>

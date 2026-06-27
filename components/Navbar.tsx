@@ -7,6 +7,13 @@ import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site-data";
 import { signOut } from "@/app/auth/actions";
 import { Container } from "@/components/ui";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { LocaleToggle } from "@/components/i18n/LocaleToggle";
+
+const NAV_T = {
+  ko: { login: "로그인", signup: "회원가입", mypage: "마이페이지", logout: "로그아웃" },
+  en: { login: "Login", signup: "Sign up", mypage: "My Page", logout: "Logout" },
+} as const;
 
 type NavAuth = { name: string; role: string } | null;
 
@@ -15,6 +22,8 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const locale = useLocale();
+  const t = NAV_T[locale];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -75,20 +84,21 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
         </nav>
 
         <div className="hidden items-center gap-4 xl:flex">
+          <LocaleToggle light={!solid} />
           {auth ? (
             <>
               <Link
                 href="/dashboard"
                 className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
               >
-                마이페이지
+                {t.mypage}
               </Link>
               <form action={signOut}>
                 <button
                   type="submit"
                   className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
                 >
-                  로그아웃
+                  {t.logout}
                 </button>
               </form>
             </>
@@ -98,13 +108,13 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                 href="/login"
                 className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
               >
-                로그인
+                {t.login}
               </Link>
               <Link
                 href="/signup"
                 className="whitespace-nowrap rounded-full bg-court px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
               >
-                회원가입
+                {t.signup}
               </Link>
             </>
           )}
@@ -139,6 +149,9 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                 {item.label}
               </Link>
             ))}
+            <div className="px-2 py-2">
+              <LocaleToggle />
+            </div>
             {auth ? (
               <>
                 <Link
@@ -146,14 +159,14 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-2 text-sm font-semibold text-court hover:bg-card"
                 >
-                  마이페이지
+                  {t.mypage}
                 </Link>
                 <form action={signOut}>
                   <button
                     type="submit"
                     className="w-full rounded-lg px-2 py-2 text-left text-sm text-ink hover:bg-card"
                   >
-                    로그아웃
+                    {t.logout}
                   </button>
                 </form>
               </>
@@ -164,14 +177,14 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-2 text-sm text-ink hover:bg-card"
                 >
-                  로그인
+                  {t.login}
                 </Link>
                 <Link
                   href="/signup"
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-2 text-sm font-semibold text-court hover:bg-card"
                 >
-                  회원가입
+                  {t.signup}
                 </Link>
               </>
             )}

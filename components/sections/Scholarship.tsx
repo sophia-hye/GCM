@@ -1,7 +1,13 @@
-import { scholarship } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict, getUI } from "@/lib/site-content";
 
-export function Scholarship() {
+export async function Scholarship() {
+  const locale = await getLocale();
+  const { scholarship } = getDict(locale);
+  const ui = getUI(locale);
+  const applyLabel = locale === "en" ? "Required for application" : "신청 시 준비 항목";
+
   return (
     <Section id="scholarship">
       <SectionHeading
@@ -24,7 +30,7 @@ export function Scholarship() {
 
       <div className="mt-16 border-t border-line pt-6">
         <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-court">
-          신청 시 준비 항목
+          {applyLabel}
         </h3>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {scholarship.apply.map((item) => (

@@ -1,7 +1,9 @@
-import { founding } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict } from "@/lib/site-content";
 
-export function AboutStory() {
+export async function AboutStory() {
+  const { founding } = getDict(await getLocale());
   return (
     <Section id="about">
       <SectionHeading eyebrow="About" title={founding.title} lead={founding.lead} />
