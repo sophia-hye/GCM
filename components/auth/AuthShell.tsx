@@ -68,7 +68,7 @@ export function AuthField({
         name={name}
         required={required}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright"
+        className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright"
       />
     </div>
   );

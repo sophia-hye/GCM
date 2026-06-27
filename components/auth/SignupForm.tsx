@@ -42,7 +42,7 @@ export function SignupForm() {
           <label className="mb-1.5 block text-xs font-semibold text-muted">구분</label>
           <select
             name="role"
-            className="w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright"
+            className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright"
           >
             <option value="student">선수 본인</option>
             <option value="parent">학부모</option>
