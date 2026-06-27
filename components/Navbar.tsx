@@ -57,14 +57,14 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-7 xl:flex">
           {nav.map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm transition-colors hover:opacity-80 ${
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${
                   active ? (solid ? "text-court" : "text-lime") : linkColor
                 }`}
               >
@@ -74,19 +74,19 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-4 xl:flex">
           {auth ? (
             <>
               <Link
                 href="/dashboard"
-                className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
               >
                 마이페이지
               </Link>
               <form action={signOut}>
                 <button
                   type="submit"
-                  className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+                  className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
                 >
                   로그아웃
                 </button>
@@ -96,13 +96,13 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
             <>
               <Link
                 href="/login"
-                className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
               >
                 로그인
               </Link>
               <Link
                 href="/signup"
-                className="rounded-full bg-court px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
+                className="whitespace-nowrap rounded-full bg-court px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
               >
                 회원가입
               </Link>
@@ -114,7 +114,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           type="button"
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
-          className={`flex h-10 w-10 items-center justify-center rounded-lg border md:hidden ${
+          className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
             solid ? "border-line text-ink" : "border-white/30 text-white"
           }`}
         >
@@ -123,7 +123,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
       </Container>
 
       {open ? (
-        <Container className="md:hidden">
+        <Container className="xl:hidden">
           <nav className="flex flex-col gap-1 border-t border-line py-4">
             {nav.map((item) => (
               <Link
