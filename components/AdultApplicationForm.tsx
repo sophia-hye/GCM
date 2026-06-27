@@ -11,6 +11,15 @@ const FIELD =
 
 const LESSON_TIMES = ["토요일 12–15시", "토요일 15–18시", "토요일 18–21시"];
 
+const EXPERIENCE = [
+  "6개월 미만",
+  "6개월 ~ 1년",
+  "1년 ~ 3년",
+  "3년 ~ 5년",
+  "5년 ~ 10년",
+  "10년 이상",
+];
+
 const ACHIEVEMENTS = [
   "없음",
   "지역 대회 / 테니스 타운 - 본선",
@@ -93,12 +102,16 @@ export function AdultApplicationForm() {
       </Field>
 
       <Field label="테니스 구력" required>
-        <input
-          name="experience"
-          required
-          placeholder="예: 2년 / 2024년 시작"
-          className={FIELD}
-        />
+        <select name="experience" required defaultValue="" className={FIELD}>
+          <option value="" disabled>
+            선택
+          </option>
+          {EXPERIENCE.map((e) => (
+            <option key={e} value={e}>
+              {e}
+            </option>
+          ))}
+        </select>
       </Field>
 
       <Field label="대회 최고 성적" required>
