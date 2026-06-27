@@ -9,7 +9,7 @@ import {
 const FIELD =
   "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
-const LESSON_TIMES = ["토요일 12–15시", "토요일 15–18시", "토요일 18–21시"];
+const LESSON_TIMES = ["토요일 13–16시", "토요일 16–19시"];
 
 const EXPERIENCE = [
   "6개월 미만",
