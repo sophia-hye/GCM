@@ -250,6 +250,16 @@ export const utrRoadmap = {
   ],
 };
 
+/** 발달 커리큘럼 6단계 시스템 (Assessment → Next Level) */
+export const developmentSteps = [
+  { n: "01", en: "Assessment", ko: "현재 위치 진단" },
+  { n: "02", en: "Training Design", ko: "기술 · 피지컬 · 멘탈 계획" },
+  { n: "03", en: "Match Application", ko: "경기 시나리오 적용" },
+  { n: "04", en: "Performance Review", ko: "데이터 · 영상 피드백" },
+  { n: "05", en: "Pathway Planning", ko: "프로 / 대학 / 실업팀 방향 설정" },
+  { n: "06", en: "Next Level", ko: "다음 단계 진입" },
+] as const;
+
 export const curriculum = [
   { key: "FOUNDATION", title: "기본기", points: ["테니스 기본기", "풋워크", "체력훈련"] },
   { key: "DEVELOPMENT", title: "발전", points: ["게임 적응 능력", "스텝 능력 향상", "다양한 게임 경험"] },
@@ -265,9 +275,7 @@ export const skills = [
 ];
 
 export const totalCare = [
-  { name: "Technical", body: "엘리트 집중 코칭, 비디오 분석, 피지컬 트레이닝 및 체계적 리커버리." },
   { name: "Academic", body: "진학에 필요한 학업 관리와 영어 커뮤니케이션, 진학 타임라인 및 에세이 지원." },
-  { name: "Mental", body: "퍼포먼스 향상 스포츠 심리 상담, 경기 중 압박 극복 루틴 구축, 멘탈 회복 트레이닝." },
   { name: "Global Manner", body: "국제 무대 소통을 위한 프로 에티켓, 미디어 인터뷰 훈련, 글로벌 매너." },
   { name: "Operations", body: "토너먼트 원정 및 체류 일정 조율, 퍼포먼스 데이터 통합 관리." },
 ];
