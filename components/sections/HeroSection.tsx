@@ -49,10 +49,10 @@ export function HeroSection() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/consulting" variant="lime">
-              무료 진로 상담
+              선수 진로 상담
             </Button>
-            <Button href="#players" variant="outline-light">
-              선수 성과 보기
+            <Button href="/training" variant="outline-light">
+              프로그램 보기
             </Button>
           </div>
 

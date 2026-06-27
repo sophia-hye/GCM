@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { players } from "@/lib/site-data";
+import { players, playerStories } from "@/lib/site-data";
 import { Section, SectionHeading, CourtLines } from "@/components/ui";
 
 type Filter = "all" | "professional" | "college";
@@ -58,6 +59,49 @@ export function Players() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* 선수 스토리 — 프로 및 국내외 대학 소속 선수의 사진과 경력 */}
+      <div className="mt-24">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-court">
+          Player Stories
+        </p>
+        <h3 className="mt-3 font-display text-2xl font-bold sm:text-3xl">선수 스토리</h3>
+        <p className="mt-2 max-w-xl text-sm text-muted">
+          프로와 국내외 대학 무대에서 뛰고 있는 GCM 선수들의 경력입니다.
+        </p>
+
+        <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {playerStories.map((story) => (
+            <article key={story.name} className="group">
+              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
+                {story.image ? (
+                  <Image
+                    src={story.image}
+                    alt={story.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                ) : (
+                  <>
+                    <CourtLines className="absolute inset-0 h-full w-full text-white/15" />
+                    <span className="relative font-display text-4xl font-black text-white/40">
+                      {story.name.slice(0, 1)}
+                    </span>
+                  </>
+                )}
+                <span className="absolute left-3 top-3 rounded-md bg-base/85 px-2 py-1 text-xs font-bold text-court">
+                  {story.affiliation}
+                </span>
+              </div>
+              <div className="mt-4">
+                <p className="text-base font-bold">{story.name}</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted">{story.career}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </Section>
   );

@@ -151,38 +151,38 @@ export const programsLead =
 export const programs = [
   {
     no: "01",
+    key: "KIDS",
+    target: "테니스 시작 단계 · U6–U19",
+    duration: "기초 · 인성 발달 단계",
+    desc: "처음 라켓을 잡는 단계. 협동력과 리더십, 인성과 팀워크를 중심으로 테니스를 시작합니다.",
+    points: [
+      "협동력 · 팀워크 중심 그룹 훈련",
+      "리더십 · 인성 교육",
+      "기본기 · 코트 적응",
+    ],
+  },
+  {
+    no: "02",
     key: "JUNIOR",
     target: "주니어 엘리트 · U10–U18",
     duration: "장기 발전 경로",
     desc: "기본기부터 국제 대회까지, 엘리트 선수로 가는 장기 성장 로드맵.",
     points: [
-      "U10–12: 기본기 · 운동 능력 · 코트 적응",
-      "U13–15: 기술 정제 · 매치 입문 · 체력",
-      "U16–18: 경쟁 습관 · 대회 · 상위 진학 준비",
-    ],
-  },
-  {
-    no: "02",
-    key: "PRO",
-    target: "프로 지망 · 투어",
-    duration: "주간 / 월간 / 풀 시즌",
-    desc: "프로 전향과 투어 무대를 위한 고강도 퍼포먼스 매니지먼트.",
-    points: [
-      "패턴 기반 훈련 · 매치 시나리오 · KPI 피드백",
-      "투어 스케줄 · 대회 동행 관리",
-      "실업팀 · 프로 계약 로드맵",
+      "U10–12: 기본기 · 운동 능력 · 협응력 훈련",
+      "U13: 트레이닝 경쟁 습관 · 기술 정제",
+      "U16: 국내외 진학 또는 프로 준비",
     ],
   },
   {
     no: "03",
-    key: "ADULT",
-    target: "성인 · 대학 선수",
-    duration: "1–4주 집중 블록 / 시즌",
-    desc: "대학 테니스와 성인 경쟁 선수를 위한 집중 프로그램 및 단기 블록.",
+    key: "PRO",
+    target: "프로 지망 · 투어",
+    duration: "주간 / 월간 / 풀 시즌",
+    desc: "투어 무대와 실업팀 입단을 위한 고강도 퍼포먼스 매니지먼트.",
     points: [
-      "고강도 세션 · 전술 발전 · 매치 준비",
-      "대학 테니스 · 진학 지원",
-      "오프시즌 · 프리시즌 집중 블록",
+      "패턴 기반 훈련 · 매치 시나리오 · KPI 피드백",
+      "투어 스케줄 · 대회 동행 관리",
+      "실업팀 계약 컨설팅",
     ],
   },
 ] as const;
@@ -210,7 +210,7 @@ export const heroSlides = [
 
 export const stats = [
   { value: "+1.5", label: "평균 UTR 상승", suffix: "" },
-  { value: "3", label: "코트 서피스 (클레이·하드·실내)", suffix: "종" },
+  { value: "CLAY", label: "Court Surface", suffix: "" },
   { value: "6", label: "주간 트레이닝", suffix: "일" },
   { value: "2", label: "진로 트랙 (프로·대학)", suffix: "" },
 ];
@@ -301,6 +301,28 @@ export const players = [
   { name: "Player C", track: "professional", grad: "2028", utr: "11.5", result: "실업팀 트라이아웃" },
 ];
 
+/** 선수 스토리 — 프로 및 국내외 대학 소속 선수의 사진과 경력 (사진은 추후 교체) */
+export const playerStories = [
+  {
+    name: "윤하건",
+    affiliation: "프로 투어",
+    career: "ATP 투어 데뷔 · GCM 장기 육성 1기",
+    image: "",
+  },
+  {
+    name: "Player A",
+    affiliation: "국내 대학",
+    career: "대학 테니스부 진학 · 전국 대회 입상",
+    image: "",
+  },
+  {
+    name: "Player B",
+    affiliation: "해외 대학",
+    career: "미국 NCAA 디비전 진학 준비",
+    image: "",
+  },
+] as const;
+
 export const partners = ["ATP", "WTA", "ITF", "UTR", "Babolat", "Wilson"];
 
 export const schedule = [
@@ -309,20 +331,8 @@ export const schedule = [
   { date: "2026.09", title: "국제 토너먼트 동행", place: "해외", target: "프로 트랙" },
 ];
 
-export const testimonials = [
-  {
-    quote: "성적표 너머의 멘탈까지 관리해주는 곳은 처음이었습니다. 아이가 다시 코트를 즐깁니다.",
-    author: "학부모 K",
-  },
-  {
-    quote: "UTR 로드맵 덕분에 막연했던 목표가 구체적인 계획이 됐어요.",
-    author: "선수 J",
-  },
-  {
-    quote: "기술부터 멘탈, 진로까지 한 팀이 함께 본다는 점이 가장 든든합니다.",
-    author: "학부모 L",
-  },
-];
+/** 선수·학부모 후기 — 동의 확인 후 콘텐츠 업로드 예정 (현재 영역만 유지) */
+export const testimonials: { quote: string; author: string }[] = [];
 
 export const faqContact = {
   title: "ARE YOU READY TO GO PRO & GROW?",
