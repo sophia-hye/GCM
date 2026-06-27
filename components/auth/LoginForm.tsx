@@ -5,7 +5,7 @@ import { useActionState } from "react";
 import { signInMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
 
-export function LoginForm() {
+export function LoginForm({ next }: { next?: string }) {
   const [memberState, memberAction, memberPending] = useActionState<AuthState, FormData>(
     signInMember,
     {},
@@ -14,6 +14,7 @@ export function LoginForm() {
   return (
     <div>
       <form action={memberAction} className="space-y-4">
+        {next ? <input type="hidden" name="next" value={next} /> : null}
         <AuthField label="이메일" name="email" type="email" placeholder="example@email.com" />
         <AuthField label="비밀번호" name="password" type="password" placeholder="••••••••" />
         <ErrorMessage message={memberState.error} />

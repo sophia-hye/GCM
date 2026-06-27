@@ -50,7 +50,15 @@ export async function signInMember(
     .eq("id", data.user.id)
     .maybeSingle();
 
+  // 로그인 후 복귀 경로(next): 오픈 리다이렉트 방지를 위해 내부 절대경로만 허용
+  const next = String(formData.get("next") ?? "");
+  const safeNext =
+    next.startsWith("/") && !next.startsWith("//") ? next : "";
+
   revalidatePath("/", "layout");
+  if (safeNext) {
+    redirect(safeNext);
+  }
   // 관리자 계정이면 관리자 페이지로, 그 외에는 홈으로 이동
   if (profile?.role === "admin") {
     redirect("/admin");
