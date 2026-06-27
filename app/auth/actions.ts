@@ -24,7 +24,7 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-/** 회원(선수/학부모) 로그인: 이메일 + 비밀번호 */
+/** 통합 로그인: 이메일 + 비밀번호. 계정 role 에 따라 관리자/일반으로 분기한다. */
 export async function signInMember(
   _prev: AuthState,
   formData: FormData,
@@ -50,12 +50,11 @@ export async function signInMember(
     .eq("id", data.user.id)
     .maybeSingle();
 
-  if (profile?.role === "admin") {
-    await supabase.auth.signOut();
-    return { error: "관리자 계정은 관리자 로그인을 이용해 주세요." };
-  }
-
   revalidatePath("/", "layout");
+  // 관리자 계정이면 관리자 페이지로, 그 외에는 홈으로 이동
+  if (profile?.role === "admin") {
+    redirect("/admin");
+  }
   redirect("/");
 }
 
