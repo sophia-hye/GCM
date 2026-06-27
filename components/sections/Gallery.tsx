@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Section, SectionHeading } from "@/components/ui";
+import { getUI } from "@/lib/site-content";
+import type { Locale } from "@/lib/i18n";
 
 export type GalleryPost = {
   id: string;
@@ -9,20 +11,15 @@ export type GalleryPost = {
   created_at: string;
 };
 
-export function Gallery({ posts }: { posts: GalleryPost[] }) {
+export function Gallery({ posts, locale = "ko" }: { posts: GalleryPost[]; locale?: Locale }) {
+  const ui = getUI(locale);
   return (
     <Section id="gallery">
-      <SectionHeading
-        eyebrow="Gallery"
-        title="갤러리"
-        lead="GCM의 트레이닝과 현장을 사진으로 만나보세요."
-      />
+      <SectionHeading eyebrow="Gallery" title={ui.galleryTitle} lead={ui.galleryLead} />
 
       {posts.length === 0 ? (
         <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
-          <p className="text-sm text-muted">
-            갤러리 사진을 준비 중입니다. 곧 공개될 예정입니다.
-          </p>
+          <p className="text-sm text-muted">{ui.galleryComing}</p>
         </div>
       ) : (
         <div className="mt-12 space-y-16">

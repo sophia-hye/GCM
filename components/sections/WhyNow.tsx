@@ -1,14 +1,12 @@
-import { whoWeAre } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict } from "@/lib/site-content";
 
-export function WhyNow() {
+export async function WhyNow() {
+  const { whoWeAre } = getDict(await getLocale());
   return (
     <Section id="values">
-      <SectionHeading
-        eyebrow="Who we are"
-        title={whoWeAre.title}
-        lead={whoWeAre.lead}
-      />
+      <SectionHeading eyebrow="Who we are" title={whoWeAre.title} lead={whoWeAre.lead} />
       <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
         {whoWeAre.pillars.map((p, i) => (
           <div key={p.en} className="border-t border-line pt-6">

@@ -1,13 +1,18 @@
-import { developmentSteps } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict, getUI } from "@/lib/site-content";
 
-export function Curriculum() {
+export async function Curriculum() {
+  const locale = await getLocale();
+  const { developmentSteps } = getDict(locale);
+  const ui = getUI(locale);
+
   return (
     <Section id="curriculum">
       <SectionHeading
         eyebrow="Development System"
-        title="발달 커리큘럼 · 6단계 시스템"
-        lead="진단에서 다음 단계 진입까지, 선수의 성장을 6단계로 설계하고 순환시킵니다."
+        title={ui.curriculumTitle}
+        lead={ui.curriculumLead}
       />
 
       <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

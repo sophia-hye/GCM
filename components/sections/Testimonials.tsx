@@ -1,10 +1,13 @@
 import { testimonials } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getUI } from "@/lib/site-content";
 
-export function Testimonials() {
+export async function Testimonials() {
+  const ui = getUI(await getLocale());
   return (
     <Section>
-      <SectionHeading eyebrow="Voices" title="선수와 학부모의 이야기" />
+      <SectionHeading eyebrow="Voices" title={ui.testimonialsTitle} />
       {testimonials.length > 0 ? (
         <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
           {testimonials.map((t) => (
@@ -20,10 +23,7 @@ export function Testimonials() {
         </div>
       ) : (
         <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
-          <p className="text-sm text-muted">
-            선수와 학부모의 이야기를 준비하고 있습니다. 동의 확인 후 순차적으로 공개될
-            예정입니다.
-          </p>
+          <p className="text-sm text-muted">{ui.testimonialsComing}</p>
         </div>
       )}
     </Section>

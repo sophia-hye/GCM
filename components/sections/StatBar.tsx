@@ -1,7 +1,9 @@
-import { stats } from "@/lib/site-data";
 import { Container } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict } from "@/lib/site-content";
 
-export function StatBar() {
+export async function StatBar() {
+  const { stats } = getDict(await getLocale());
   return (
     <div className="border-b border-line">
       <Container className="grid grid-cols-2 gap-8 py-16 sm:grid-cols-3">

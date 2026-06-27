@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { heroSlides } from "@/lib/site-data";
 import { Button, Container } from "@/components/ui";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { getDict, getUI } from "@/lib/site-content";
 
 export function HeroSection() {
+  const locale = useLocale();
+  const { heroSlides } = getDict(locale);
+  const ui = getUI(locale);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -13,7 +17,7 @@ export function HeroSection() {
       setIndex((i) => (i + 1) % heroSlides.length);
     }, 6000);
     return () => clearInterval(id);
-  }, []);
+  }, [heroSlides.length]);
 
   const slide = heroSlides[index];
 
@@ -49,10 +53,10 @@ export function HeroSection() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/consulting" variant="lime">
-              선수 진로 상담
+              {ui.ctaConsult}
             </Button>
             <Button href="/training" variant="outline-light">
-              프로그램 보기
+              {ui.ctaPrograms}
             </Button>
           </div>
 

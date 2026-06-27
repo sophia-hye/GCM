@@ -1,17 +1,14 @@
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getUI } from "@/lib/site-content";
 
-export function Players() {
+export async function Players() {
+  const ui = getUI(await getLocale());
   return (
     <Section id="players">
-      <SectionHeading
-        eyebrow="Our Players"
-        title="배출 · 소속 선수"
-        lead="프로가 된 후가 아니라, 되기 전부터 브랜드를 함께 만듭니다."
-      />
+      <SectionHeading eyebrow="Our Players" title={ui.playersTitle} lead={ui.playersLead} />
       <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
-        <p className="text-sm text-muted">
-          배출·소속 선수 정보를 준비 중입니다. 곧 공개될 예정입니다.
-        </p>
+        <p className="text-sm text-muted">{ui.playersComing}</p>
       </div>
     </Section>
   );

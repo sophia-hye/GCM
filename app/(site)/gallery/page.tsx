@@ -1,10 +1,12 @@
 import { Gallery, type GalleryPost } from "@/components/sections/Gallery";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { getLocale } from "@/lib/i18n";
 
 export const metadata = { title: "Gallery | GCM Tennis Academy" };
 
 export default async function GalleryPage() {
+  const locale = await getLocale();
   let posts: GalleryPost[] = [];
 
   if (isSupabaseConfigured()) {
@@ -19,7 +21,7 @@ export default async function GalleryPage() {
 
   return (
     <div className="pt-16">
-      <Gallery posts={posts} />
+      <Gallery posts={posts} locale={locale} />
     </div>
   );
 }
