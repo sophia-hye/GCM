@@ -20,7 +20,7 @@ export function Team() {
             <span className="font-display text-sm font-semibold tabular-nums text-muted">
               0{i + 1}
             </span>
-            <p className="mt-3 font-display text-base font-bold uppercase tracking-wide">
+            <p className="mt-3 font-display text-base font-bold uppercase tracking-wide text-court">
               {p.step}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
