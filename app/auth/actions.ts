@@ -138,7 +138,7 @@ export async function signUpMember(
   if (!email) return { error: "이메일을 입력해 주세요." };
   if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
   if (password.length < 6) return { error: "비밀번호는 6자 이상이어야 합니다." };
-  if (!["student", "parent"].includes(role)) return { error: "잘못된 역할입니다." };
+  if (!["student", "parent", "amateur"].includes(role)) return { error: "잘못된 역할입니다." };
 
   const admin = createAdminClient();
   const { error } = await admin.auth.admin.createUser({

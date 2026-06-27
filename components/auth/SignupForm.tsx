@@ -45,6 +45,7 @@ export function SignupForm() {
             className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright"
           >
             <option value="student">선수 본인</option>
+            <option value="amateur">아마추어 선수</option>
             <option value="parent">학부모</option>
           </select>
         </div>
