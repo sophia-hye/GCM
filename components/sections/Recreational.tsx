@@ -29,9 +29,20 @@ export function Recreational() {
               ))}
             </ul>
             <div className="mt-7">
-              <Button href="/consulting" variant="link">
-                수업 문의
-              </Button>
+              {c.key === "ADULT" ? (
+                // 성인 클래스: 로그인 게이트 → 구글 신청 폼 (서버 라우트에서 분기)
+                <a
+                  href="/apply/adult"
+                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-court"
+                >
+                  수업 신청
+                  <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                </a>
+              ) : (
+                <Button href="/contact" variant="link">
+                  수업 신청
+                </Button>
+              )}
             </div>
           </div>
         ))}
