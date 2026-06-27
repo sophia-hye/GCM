@@ -74,7 +74,7 @@ export const teamLead =
 export const team = [
   {
     name: "오성국",
-    role: "대표 · 헤드 코치",
+    role: "대표 · 원장",
     bio: "엘리트 테니스 육성과 선수별 성장 로드맵 설계를 총괄합니다.",
     image: "/coaches/ohseonggook/IMG_2963.JPG",
     achievements: [
@@ -92,23 +92,16 @@ export const team = [
     ],
   },
   {
-    name: "퍼포먼스 코치",
-    role: "기술 · 피지컬",
-    bio: "스트로크 정밀도, 테니스 특화 근력 트레이닝, 체계적 리커버리를 담당합니다.",
-    image: "/coaches/coach1/1.JPG",
+    name: "윤재원",
+    role: "헤드 코치 · 기술",
+    bio: "기술 발달과 경기 운영 전반을 이끄는 헤드 코치. 일일 트레이닝과 매치 코칭을 총괄합니다.",
+    image: "",
     achievements: [] as string[],
   },
   {
-    name: "멘탈 트레이너",
-    role: "스포츠 심리",
-    bio: "압박·집중·자신감 루틴과 경기 멘탈 회복 트레이닝을 지원합니다.",
-    image: "/coaches/coach2/IMG_4967.JPG",
-    achievements: [] as string[],
-  },
-  {
-    name: "진로 코디네이터",
-    role: "진로 · 진학",
-    bio: "UTR/영상 포트폴리오 관리와 대학·팀 코치 컨택, 진학 수속을 지원합니다.",
+    name: "김주빈",
+    role: "코치 · 기술 · 멘탈",
+    bio: "테니스의 전반적 발달과 경기 훈련 시 불안심리 교정 및 루틴 설계를 담당합니다.",
     image: "",
     achievements: [] as string[],
   },
