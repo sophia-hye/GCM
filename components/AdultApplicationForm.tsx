@@ -7,7 +7,7 @@ import {
 } from "@/app/actions/adultApplication";
 
 const FIELD =
-  "w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
+  "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
 const LESSON_TIMES = ["토요일 12–15시", "토요일 15–18시", "토요일 18–21시"];
 

@@ -7,7 +7,7 @@ import { PhoneInput } from "@/components/ui/PhoneInput";
 import { submitInquiry, type InquiryState } from "@/app/actions/inquiry";
 
 const CONTACT_FIELD_CLASS =
-  "w-full rounded-lg border border-line bg-card px-3 py-2 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
+  "w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
 export function ContactSection() {
   const [state, action, pending] = useActionState<InquiryState, FormData>(
@@ -62,7 +62,7 @@ export function ContactSection() {
                     rows={3}
                     required
                     placeholder="현재 UTR, 목표, 궁금한 점을 적어주세요."
-                    className="w-full rounded-lg border border-line bg-card px-3 py-2 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright"
+                    className="w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright"
                   />
                 </div>
 
@@ -109,7 +109,7 @@ function Field({
         name={name}
         required={required}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-line bg-card px-3 py-2 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright"
+        className="w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright"
       />
     </div>
   );
