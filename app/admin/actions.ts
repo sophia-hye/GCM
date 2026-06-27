@@ -57,6 +57,62 @@ export async function createMember(
   return { ok: true };
 }
 
+/** 갤러리 글 작성 — 이미지를 Storage(gallery)에 업로드하고 gcm_gallery 에 저장 */
+export async function createGalleryPost(
+  _prev: AdminState,
+  formData: FormData,
+): Promise<AdminState> {
+  if (!isAdminConfigured()) {
+    return { error: "service_role 키가 필요합니다. .env.local을 확인해 주세요." };
+  }
+  if (!(await requireAdmin())) {
+    return { error: "관리자 로그인이 필요합니다. 다시 로그인해 주세요." };
+  }
+
+  const title = String(formData.get("title") ?? "").trim();
+  const body = String(formData.get("body") ?? "").trim();
+  const files = formData
+    .getAll("images")
+    .filter((f): f is File => f instanceof File && f.size > 0);
+
+  if (!title) return { error: "제목을 입력해 주세요." };
+  if (files.length === 0) return { error: "이미지를 1장 이상 선택해 주세요." };
+
+  const admin = createAdminClient();
+  const folder = crypto.randomUUID();
+  const urls: string[] = [];
+
+  for (const file of files) {
+    if (!file.type.startsWith("image/")) {
+      return { error: "이미지 파일만 업로드할 수 있습니다." };
+    }
+    const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+    const path = `${folder}/${crypto.randomUUID()}.${ext}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const { error: upErr } = await admin.storage
+      .from("gallery")
+      .upload(path, buffer, { contentType: file.type, upsert: false });
+    if (upErr) return { error: `이미지 업로드 실패: ${upErr.message}` };
+    const { data: pub } = admin.storage.from("gallery").getPublicUrl(path);
+    urls.push(pub.publicUrl);
+  }
+
+  const { error } = await admin
+    .from("gcm_gallery")
+    .insert({ title, body: body || null, images: urls });
+
+  if (error) {
+    return {
+      error:
+        "저장에 실패했습니다. gcm_gallery 테이블이 없으면 supabase/schema.sql의 갤러리 블록을 먼저 실행해 주세요.",
+    };
+  }
+
+  revalidatePath("/admin/gallery");
+  revalidatePath("/gallery");
+  return { ok: true };
+}
+
 /** 문의 상태 변경 (고객관리) */
 export async function updateInquiryStatus(formData: FormData): Promise<void> {
   if (!(await requireAdmin())) return;
