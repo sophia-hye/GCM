@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { signUpMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
 import { PhoneInput } from "@/components/ui/PhoneInput";
+import { SocialAuth } from "@/components/auth/SocialAuth";
 
 function PhoneField() {
   return (
@@ -55,6 +56,8 @@ export function SignupForm() {
           로그인은 이메일과 비밀번호로 진행됩니다.
         </p>
       </form>
+
+      <SocialAuth />
 
       <p className="mt-6 text-center text-sm text-muted">
         이미 계정이 있으신가요?{" "}
