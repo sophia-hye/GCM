@@ -22,7 +22,7 @@ export const nav = [
   { label: "Coaches", href: "/coaches" },
   { label: "Players", href: "/players" },
   { label: "Training", href: "/training" },
-  { label: "Recreational", href: "/recreational" },
+  { label: "키즈 & 아마추어", href: "/recreational" },
   { label: "Consulting", href: "/consulting" },
   { label: "Scholarship", href: "/scholarship" },
 ] as const;
