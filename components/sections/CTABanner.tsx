@@ -11,7 +11,7 @@ export function CTABanner() {
         <p className="mx-auto mt-5 max-w-xl text-lg text-muted">{faqContact.sub}</p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           <Button href="/consulting" variant="court">
-            무료 진로 상담
+            진로 상담
           </Button>
           <Button href="/training" variant="link">
             프로그램 보기
