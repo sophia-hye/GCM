@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site-data";
-import { signOut } from "@/app/auth/actions";
 import { Container } from "@/components/ui";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { LocaleToggle } from "@/components/i18n/LocaleToggle";
 
@@ -93,14 +93,11 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
               >
                 {t.mypage}
               </Link>
-              <form action={signOut}>
-                <button
-                  type="submit"
-                  className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
-                >
-                  {t.logout}
-                </button>
-              </form>
+              <LogoutButton
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
+              >
+                {t.logout}
+              </LogoutButton>
             </>
           ) : (
             <>
@@ -161,14 +158,9 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                 >
                   {t.mypage}
                 </Link>
-                <form action={signOut}>
-                  <button
-                    type="submit"
-                    className="w-full rounded-lg px-2 py-2 text-left text-sm text-ink hover:bg-card"
-                  >
-                    {t.logout}
-                  </button>
-                </form>
+                <LogoutButton className="w-full rounded-lg px-2 py-2 text-left text-sm text-ink hover:bg-card">
+                  {t.logout}
+                </LogoutButton>
               </>
             ) : (
               <>
