@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { signOut } from "@/app/auth/actions";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Container } from "@/components/ui";
 
 const menu = [
@@ -11,6 +11,7 @@ const menu = [
   { label: "회원 관리", href: "/admin/members" },
   { label: "예약 관리", href: "/admin/bookings" },
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
+  { label: "갤러리 관리", href: "/admin/gallery" },
 ];
 
 export default async function AdminLayout({
@@ -63,11 +64,7 @@ export default async function AdminLayout({
             <Link href="/dashboard" className="text-muted hover:text-ink">
               회원 화면
             </Link>
-            <form action={signOut}>
-              <button type="submit" className="text-muted hover:text-ink">
-                로그아웃
-              </button>
-            </form>
+            <LogoutButton className="text-muted hover:text-ink">로그아웃</LogoutButton>
           </div>
         </Container>
       </header>

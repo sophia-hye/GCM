@@ -11,7 +11,7 @@ export function formatPhoneNumber(value: string): string {
 }
 
 const DEFAULT_CLASS =
-  "w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
+  "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
 export function PhoneInput({
   name = "phone",

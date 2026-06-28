@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { signOut } from "@/app/auth/actions";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Container } from "@/components/ui";
 
 const baseMenu = [
@@ -80,11 +80,7 @@ export default async function DashboardLayout({
             <Link href="/" className="text-muted hover:text-ink">
               사이트로 돌아가기
             </Link>
-            <form action={signOut}>
-              <button type="submit" className="text-muted hover:text-ink">
-                로그아웃
-              </button>
-            </form>
+            <LogoutButton className="text-muted hover:text-ink">로그아웃</LogoutButton>
           </div>
         </Container>
       </header>

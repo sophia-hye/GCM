@@ -116,14 +116,6 @@ export const scholarshipForm: FormSection[] = [
     ],
   },
   {
-    title: "코칭 · 배경",
-    fields: [
-      { name: "coachName", label: "현재 코치 이름", type: "text", required: true },
-      { name: "coachContact", label: "현재 코치 연락처", type: "text", required: true },
-      { name: "trainingBg", label: "훈련 배경", type: "textarea", required: true, full: true },
-    ],
-  },
-  {
     title: "목표 · 동기",
     fields: [
       { name: "strengths", label: "선수로서 주요 강점", type: "textarea", required: true, full: true },
@@ -169,7 +161,6 @@ export const consultationForm: FormSection[] = [
         options: ["선수 본인", "학부모", "기타"],
         required: true,
       },
-      { name: "postalCode", label: "우편번호", type: "text", required: true },
       {
         name: "country",
         label: "국가",

@@ -1,14 +1,12 @@
-import { consulting } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict } from "@/lib/site-content";
 
-export function ConsultingIntro() {
+export async function ConsultingIntro() {
+  const { consulting } = getDict(await getLocale());
   return (
     <Section id="consulting">
-      <SectionHeading
-        eyebrow="Consulting"
-        title={consulting.title}
-        lead={consulting.lead}
-      />
+      <SectionHeading eyebrow="Consulting" title={consulting.title} lead={consulting.lead} />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {consulting.services.map((s, i) => (
           <div key={s.title} className="border-t border-line pt-6">

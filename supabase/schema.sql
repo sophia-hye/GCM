@@ -36,7 +36,7 @@ drop table if exists public.profiles cascade;
 -- ============================================================
 create table public.gcm_profiles (
   id uuid primary key references auth.users (id) on delete cascade,
-  role text not null default 'student' check (role in ('student', 'parent', 'admin')),
+  role text not null default 'student' check (role in ('student', 'parent', 'amateur', 'admin')),
   name text not null default '',
   phone text,
   email text,
@@ -174,6 +174,37 @@ create trigger on_auth_user_created_gcm
   for each row execute function public.gcm_handle_new_user();
 
 -- ============================================================
+-- 3) 갤러리 (gcm_gallery) — 관리자가 글 + 이미지 게시
+--    이미지는 Storage 'gallery' 버킷(public)에 업로드하고 URL 배열로 보관.
+--    이 블록만 SQL Editor 에 붙여넣어 단독 실행 가능(다른 테이블 영향 없음).
+-- ============================================================
+create table if not exists public.gcm_gallery (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  body text,
+  images text[] not null default '{}',
+  published boolean not null default true,
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_gallery enable row level security;
+create index if not exists gcm_gallery_created_idx on public.gcm_gallery (created_at desc);
+drop policy if exists "gcm_gallery_select_published" on public.gcm_gallery;
+create policy "gcm_gallery_select_published" on public.gcm_gallery for select using (published = true);
+drop policy if exists "gcm_gallery_admin_all" on public.gcm_gallery;
+create policy "gcm_gallery_admin_all" on public.gcm_gallery for all using (public.is_gcm_admin());
+
+-- Storage: 'gallery' 버킷(public)은 앱에서 생성됨. 이미지 업로드는 service_role 로 수행(RLS 우회).
+
+-- ============================================================
+-- 4) 기존 DB에 'amateur' 역할 추가 (테이블 재생성 없이 단독 실행 가능)
+-- ============================================================
+alter table public.gcm_profiles drop constraint if exists gcm_profiles_role_check;
+alter table public.gcm_profiles
+  add constraint gcm_profiles_role_check
+  check (role in ('student', 'parent', 'amateur', 'admin'));
+
+-- ============================================================
 -- 관리자 지정 (시드/가입 후 1회):
 -- update public.gcm_profiles set role = 'admin' where phone = '01000000000';
+-- 또는 이메일로: update public.gcm_profiles set role = 'admin' where email = 'you@example.com';
 -- ============================================================

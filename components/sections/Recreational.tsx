@@ -1,12 +1,17 @@
-import { recreational } from "@/lib/site-data";
 import { Section, SectionHeading, Button } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict, getUI } from "@/lib/site-content";
 
-export function Recreational() {
+export async function Recreational() {
+  const locale = await getLocale();
+  const { recreational } = getDict(locale);
+  const ui = getUI(locale);
+
   return (
     <Section id="recreational">
       <SectionHeading
-        eyebrow="Recreational"
-        title="취미 클래스 · 키즈 & 성인"
+        eyebrow="Kids & Amateur Club"
+        title={ui.recreationalTitle}
         lead={recreational.lead}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2">
@@ -29,8 +34,8 @@ export function Recreational() {
               ))}
             </ul>
             <div className="mt-7">
-              <Button href="/consulting" variant="link">
-                수업 문의
+              <Button href={c.key === "ADULT" ? "/apply/adult" : "/contact"} variant="link">
+                {ui.classApply}
               </Button>
             </div>
           </div>

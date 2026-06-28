@@ -41,7 +41,7 @@ const items: Item[] = [
 /** 화면 우측에 항상 떠 있는 바로가기 패널 (상담 · 연락처 · 인스타그램) */
 export function FloatingMenu() {
   return (
-    <div className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-1 rounded-full border border-line bg-base/85 p-1.5 shadow-lg ring-1 ring-white/10 backdrop-blur sm:right-6">
+    <div className="fixed bottom-6 right-4 z-50 flex flex-col items-center gap-1 rounded-full border border-line bg-base/85 p-1.5 shadow-lg ring-1 ring-white/10 backdrop-blur sm:right-6">
       {items.map((item, i) => (
         <div key={item.label} className="flex flex-col items-center">
           {i > 0 ? <span className="my-0.5 h-px w-6 bg-line" /> : null}

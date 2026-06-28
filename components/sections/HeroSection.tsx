@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { heroSlides } from "@/lib/site-data";
 import { Button, Container } from "@/components/ui";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { getDict, getUI } from "@/lib/site-content";
 
 export function HeroSection() {
+  const locale = useLocale();
+  const { heroSlides } = getDict(locale);
+  const ui = getUI(locale);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -13,7 +17,7 @@ export function HeroSection() {
       setIndex((i) => (i + 1) % heroSlides.length);
     }, 6000);
     return () => clearInterval(id);
-  }, []);
+  }, [heroSlides.length]);
 
   const slide = heroSlides[index];
 
@@ -32,11 +36,11 @@ export function HeroSection() {
         className="object-cover"
       />
       {/* 가독성 오버레이: 배경 아래쪽에만 적용해 이미지를 또렷하게 유지 */}
-      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-base via-base/45 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-base via-base/45 to-transparent" />
 
       <Container className="relative z-10 pt-24">
         <div key={index} className="max-w-3xl animate-fade-up">
-          <p className="font-display text-xs font-bold uppercase tracking-[0.3em] text-white/75">
+          <p className="font-display text-xs font-bold uppercase tracking-[0.3em] text-white [text-shadow:-0.5px_-0.5px_0_#000,0.5px_-0.5px_0_#000,-0.5px_0.5px_0_#000,0.5px_0.5px_0_#000,0_1px_3px_rgba(0,0,0,0.4)]">
             {slide.eyebrow}
           </p>
           <h1 className="mt-5 max-w-4xl text-balance text-5xl leading-[1.1] sm:text-6xl lg:text-7xl">
@@ -49,10 +53,10 @@ export function HeroSection() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/consulting" variant="lime">
-              무료 진로 상담
+              {ui.ctaConsult}
             </Button>
-            <Button href="#players" variant="outline-light">
-              선수 성과 보기
+            <Button href="/training" variant="outline-light">
+              {ui.ctaPrograms}
             </Button>
           </div>
 

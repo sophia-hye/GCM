@@ -1,13 +1,18 @@
-import { totalCare } from "@/lib/site-data";
 import { Section, SectionHeading } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict, getUI } from "@/lib/site-content";
 
-export function TotalCare() {
+export async function TotalCare() {
+  const locale = await getLocale();
+  const { totalCare } = getDict(locale);
+  const ui = getUI(locale);
+
   return (
     <Section>
       <SectionHeading
         eyebrow="Comprehensive Management"
-        title="Total Care System: 테니스 그 이상의 관리"
-        lead="기술부터 멘탈, 학업, 글로벌 매너, 운영까지 — 선수의 모든 것을 관리합니다."
+        title={ui.totalCareTitle}
+        lead={ui.totalCareLead}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {totalCare.map((care, i) => (

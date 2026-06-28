@@ -4,8 +4,11 @@ import { Footer } from "@/components/Footer";
 import { FloatingMenu } from "@/components/FloatingMenu";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { getLocale } from "@/lib/i18n";
+import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 
 export default async function SiteLayout({ children }: { children: ReactNode }) {
+  const locale = await getLocale();
   let auth: { name: string; role: string } | null = null;
 
   if (isSupabaseConfigured()) {
@@ -27,11 +30,11 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
   }
 
   return (
-    <>
+    <LocaleProvider locale={locale}>
       <Navbar auth={auth} />
       <main className="flex-1">{children}</main>
       <Footer />
       <FloatingMenu />
-    </>
+    </LocaleProvider>
   );
 }

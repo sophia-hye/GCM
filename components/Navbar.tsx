@@ -5,8 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site-data";
-import { signOut } from "@/app/auth/actions";
 import { Container } from "@/components/ui";
+import { LogoutButton } from "@/components/auth/LogoutButton";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { LocaleToggle } from "@/components/i18n/LocaleToggle";
+
+const NAV_T = {
+  ko: { login: "로그인", signup: "회원가입", mypage: "마이페이지", logout: "로그아웃" },
+  en: { login: "Login", signup: "Sign up", mypage: "My Page", logout: "Logout" },
+} as const;
 
 type NavAuth = { name: string; role: string } | null;
 
@@ -15,6 +22,8 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const locale = useLocale();
+  const t = NAV_T[locale];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -57,14 +66,14 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-7 xl:flex">
           {nav.map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm transition-colors hover:opacity-80 ${
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${
                   active ? (solid ? "text-court" : "text-lime") : linkColor
                 }`}
               >
@@ -74,37 +83,35 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-4 xl:flex">
+          <LocaleToggle light={!solid} />
           {auth ? (
             <>
               <Link
                 href="/dashboard"
-                className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
               >
-                마이페이지
+                {t.mypage}
               </Link>
-              <form action={signOut}>
-                <button
-                  type="submit"
-                  className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
-                >
-                  로그아웃
-                </button>
-              </form>
+              <LogoutButton
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
+              >
+                {t.logout}
+              </LogoutButton>
             </>
           ) : (
             <>
               <Link
                 href="/login"
-                className={`text-sm transition-colors hover:opacity-80 ${linkColor}`}
+                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
               >
-                로그인
+                {t.login}
               </Link>
               <Link
                 href="/signup"
-                className="rounded-full bg-court px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
+                className="whitespace-nowrap rounded-full bg-court px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
               >
-                회원가입
+                {t.signup}
               </Link>
             </>
           )}
@@ -114,8 +121,10 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           type="button"
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
-          className={`flex h-10 w-10 items-center justify-center rounded-lg border md:hidden ${
-            solid ? "border-line text-ink" : "border-white/30 text-white"
+          className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
+            solid
+              ? "border-line text-ink"
+              : "border-white/70 bg-black/30 text-white backdrop-blur"
           }`}
         >
           <span className="text-lg">{open ? "✕" : "☰"}</span>
@@ -123,7 +132,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
       </Container>
 
       {open ? (
-        <Container className="md:hidden">
+        <Container className="xl:hidden">
           <nav className="flex flex-col gap-1 border-t border-line py-4">
             {nav.map((item) => (
               <Link
@@ -137,6 +146,9 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                 {item.label}
               </Link>
             ))}
+            <div className="px-2 py-2">
+              <LocaleToggle />
+            </div>
             {auth ? (
               <>
                 <Link
@@ -144,16 +156,11 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-2 text-sm font-semibold text-court hover:bg-card"
                 >
-                  마이페이지
+                  {t.mypage}
                 </Link>
-                <form action={signOut}>
-                  <button
-                    type="submit"
-                    className="w-full rounded-lg px-2 py-2 text-left text-sm text-ink hover:bg-card"
-                  >
-                    로그아웃
-                  </button>
-                </form>
+                <LogoutButton className="w-full rounded-lg px-2 py-2 text-left text-sm text-ink hover:bg-card">
+                  {t.logout}
+                </LogoutButton>
               </>
             ) : (
               <>
@@ -162,14 +169,14 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-2 text-sm text-ink hover:bg-card"
                 >
-                  로그인
+                  {t.login}
                 </Link>
                 <Link
                   href="/signup"
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-2 text-sm font-semibold text-court hover:bg-card"
                 >
-                  회원가입
+                  {t.signup}
                 </Link>
               </>
             )}

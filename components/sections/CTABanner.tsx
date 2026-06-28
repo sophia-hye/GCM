@@ -1,7 +1,12 @@
-import { faqContact } from "@/lib/site-data";
 import { Section, Button } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
+import { getDict, getUI } from "@/lib/site-content";
 
-export function CTABanner() {
+export async function CTABanner() {
+  const locale = await getLocale();
+  const { faqContact } = getDict(locale);
+  const ui = getUI(locale);
+
   return (
     <Section>
       <div className="border-t border-line pt-16 text-center sm:pt-20">
@@ -11,10 +16,10 @@ export function CTABanner() {
         <p className="mx-auto mt-5 max-w-xl text-lg text-muted">{faqContact.sub}</p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           <Button href="/consulting" variant="court">
-            무료 진로 상담
+            {ui.ctaConsult}
           </Button>
           <Button href="/training" variant="link">
-            프로그램 보기
+            {ui.ctaPrograms}
           </Button>
         </div>
       </div>
