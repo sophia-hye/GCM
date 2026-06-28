@@ -18,9 +18,11 @@
   --color-muted: #6e675a;
   --color-danger: #c0392b;
 
+  /* 한글은 항상 Pretendard로 렌더(영문 전용 디스플레이 폰트 뒤에 두면
+     글리프가 없는 한글만 Pretendard 로 폴백된다). */
   --font-sans: "Pretendard", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-accent: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-display: var(--font-archivo), "Archivo", "Pretendard", system-ui, sans-serif;
+  --font-accent: var(--font-playfair), "Playfair Display", "Pretendard", Georgia, serif;
 }
 
 html {
