@@ -9,8 +9,8 @@ export function SocialAuth() {
       provider: "kakao",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
-        // 비즈앱 전(테스트) 단계: 이메일(account_email) 제외, 프로필만 요청 → KOE004 방지
-        scopes: "profile_nickname profile_image",
+        // 비즈앱 전(테스트) 단계: '사용함'으로 설정한 닉네임만 요청 → KOE004 방지
+        scopes: "profile_nickname",
       },
     });
   };
