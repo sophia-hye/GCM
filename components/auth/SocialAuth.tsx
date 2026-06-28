@@ -7,7 +7,11 @@ export function SocialAuth() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "kakao",
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+        // 비즈앱 전(테스트) 단계: 이메일(account_email) 제외, 프로필만 요청 → KOE004 방지
+        scopes: "profile_nickname profile_image",
+      },
     });
   };
 
