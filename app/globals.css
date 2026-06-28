@@ -1,50 +1,6 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
 
-/* Paperlogy — 부드러운 한글 폰트 (noonnu 배포, 상용 사용 가능) — 헤딩용 */
-@font-face {
-  font-family: "Paperlogy";
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Paperlogy";
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Paperlogy";
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Paperlogy";
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Paperlogy";
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Paperlogy";
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2") format("woff2");
-}
-
 /*
  * GCM 아카데미 디자인 토큰
  * 클레이 코트 + equre 무드 — 밝은 크림 베이스 + 테라코타 클레이 포인트 + 따뜻한 미니멀
@@ -62,9 +18,11 @@
   --color-muted: #6e675a;
   --color-danger: #c0392b;
 
+  /* 한글은 항상 Pretendard로 렌더(영문 전용 디스플레이 폰트 뒤에 두면
+     글리프가 없는 한글만 Pretendard 로 폴백된다). */
   --font-sans: "Pretendard", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-archivo), "Archivo", "Paperlogy", "Pretendard", system-ui, sans-serif;
-  --font-accent: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-display: var(--font-archivo), "Archivo", "Pretendard", system-ui, sans-serif;
+  --font-accent: var(--font-playfair), "Playfair Display", "Pretendard", Georgia, serif;
 }
 
 html {
