@@ -103,6 +103,46 @@ export async function signInAdmin(
   redirect("/admin");
 }
 
+/** 소셜 가입자 온보딩: 구분(role) + 전화번호 입력 후 프로필 보완 */
+export async function completeOnboarding(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "로그인이 필요합니다. 다시 로그인해 주세요." };
+
+  const role = String(formData.get("role") ?? "student");
+  const phone = normalizePhone(String(formData.get("phone") ?? ""));
+
+  if (!["student", "parent", "amateur"].includes(role)) {
+    return { error: "구분을 선택해 주세요." };
+  }
+  if (!phone) return { error: "전화번호를 입력해 주세요." };
+
+  const { error } = await supabase
+    .from("gcm_profiles")
+    .update({ role, phone })
+    .eq("id", user.id);
+
+  if (error) {
+    if (/duplicate|unique/i.test(error.message)) {
+      return { error: "이미 등록된 전화번호입니다." };
+    }
+    if (/role_check|check constraint/i.test(error.message)) {
+      return { error: "'아마추어 선수' 구분은 DB 역할 제약 적용 후 사용할 수 있습니다." };
+    }
+    return { error: "저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." };
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/");
+}
+
 export async function signOut() {
   if (isSupabaseConfigured()) {
     const supabase = await createClient();

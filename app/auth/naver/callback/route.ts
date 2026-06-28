@@ -80,7 +80,21 @@ export async function GET(request: NextRequest) {
   });
   if (verifyErr) return fail("naver_session");
 
-  const res = NextResponse.redirect(`${origin}/`);
+  // 소셜 가입자는 전화번호/구분 정보가 없으므로 온보딩으로 유도
+  const {
+    data: { user: sessionUser },
+  } = await supabase.auth.getUser();
+  let dest = `${origin}/`;
+  if (sessionUser) {
+    const { data: profile } = await supabase
+      .from("gcm_profiles")
+      .select("phone")
+      .eq("id", sessionUser.id)
+      .maybeSingle();
+    if (!profile?.phone) dest = `${origin}/onboarding`;
+  }
+
+  const res = NextResponse.redirect(dest);
   res.cookies.delete("naver_oauth_state");
   return res;
 }
