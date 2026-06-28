@@ -140,7 +140,7 @@ export async function completeOnboarding(
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/welcome");
 }
 
 export async function signOut() {
@@ -149,7 +149,7 @@ export async function signOut() {
     await supabase.auth.signOut();
   }
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/logout");
 }
 
 /**
@@ -195,7 +195,7 @@ export async function signUpMember(
 
   await signInAfterSignup(email, password);
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/welcome");
 }
 
 /** 관리자 자가 가입: 이메일 + 비밀번호 + 관리자 키 (+ 연락처 전화번호) */
