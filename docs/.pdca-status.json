@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-06-27T13:59:36.971Z",
+  "lastUpdated": "2026-06-28T04:01:52.329Z",
   "activeFeatures": [
     "GCM",
     "sections",
@@ -39,7 +39,12 @@
     "consulting",
     "tmp",
     "adult",
-    "gallery"
+    "gallery",
+    "naver",
+    "i18n",
+    "onboarding",
+    "welcome",
+    "logout"
   ],
   "primaryFeature": "GCM",
   "features": {
@@ -52,9 +57,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:36:44.685Z",
-        "lastUpdated": "2026-06-27T13:59:12.674Z"
+        "lastUpdated": "2026-06-28T04:01:52.329Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/components/AdultApplicationForm.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/robots.ts"
     },
     "sections": {
       "phase": "do",
@@ -65,9 +70,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:39:02.676Z",
-        "lastUpdated": "2026-06-27T13:59:36.971Z"
+        "lastUpdated": "2026-06-27T14:42:35.275Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/components/sections/Recreational.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/components/sections/Gallery.tsx"
     },
     "supabase": {
       "phase": "do",
@@ -78,9 +83,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:47:44.805Z",
-        "lastUpdated": "2026-06-26T06:51:07.548Z"
+        "lastUpdated": "2026-06-27T14:23:01.225Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\lib\\supabase\\middleware.ts"
+      "lastFile": "/Users/sophia/gitrepo/GCM/lib/supabase/env.ts"
     },
     "auth": {
       "phase": "do",
@@ -91,9 +96,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:50:30.832Z",
-        "lastUpdated": "2026-06-27T13:52:29.850Z"
+        "lastUpdated": "2026-06-28T03:18:54.933Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/components/auth/SignupForm.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/components/auth/LogoutButton.tsx"
     },
     "login": {
       "phase": "do",
@@ -130,9 +135,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:51:55.495Z",
-        "lastUpdated": "2026-06-05T06:51:55.495Z"
+        "lastUpdated": "2026-06-28T02:57:12.464Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\app\\auth\\callback\\route.ts"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/auth/naver/callback/route.ts"
     },
     "dashboard": {
       "phase": "do",
@@ -143,9 +148,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:21.172Z",
-        "lastUpdated": "2026-06-26T06:51:17.534Z"
+        "lastUpdated": "2026-06-28T03:20:36.127Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\app\\dashboard\\layout.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/dashboard/layout.tsx"
     },
     "actions": {
       "phase": "do",
@@ -156,9 +161,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:53.309Z",
-        "lastUpdated": "2026-06-27T13:58:52.827Z"
+        "lastUpdated": "2026-06-27T14:33:02.084Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/adultApplication.ts"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/locale.ts"
     },
     "admin": {
       "phase": "do",
@@ -169,7 +174,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:05:58.044Z",
-        "lastUpdated": "2026-06-27T13:51:52.816Z"
+        "lastUpdated": "2026-06-28T03:20:16.203Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/layout.tsx"
     },
@@ -247,9 +252,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:21:00.261Z",
-        "lastUpdated": "2026-06-14T23:59:55.157Z"
+        "lastUpdated": "2026-06-27T14:03:39.348Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\components\\ui\\FormField.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/components/ui/PhoneInput.tsx"
     },
     "_debug": {
       "phase": "do",
@@ -351,9 +356,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-14T23:36:15.580Z",
-        "lastUpdated": "2026-06-27T13:42:46.205Z"
+        "lastUpdated": "2026-06-27T14:36:17.884Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/page.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/layout.tsx"
     },
     "about": {
       "phase": "do",
@@ -494,9 +499,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-26T00:20:33.680Z",
-        "lastUpdated": "2026-06-26T00:20:33.680Z"
+        "lastUpdated": "2026-06-27T14:43:31.858Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\app\\(site)\\consulting\\page.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/consulting/page.tsx"
     },
     "tmp": {
       "phase": "do",
@@ -533,9 +538,74 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-27T13:46:10.490Z",
-        "lastUpdated": "2026-06-27T13:52:18.035Z"
+        "lastUpdated": "2026-06-27T14:42:50.396Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/gallery/page.tsx"
+    },
+    "naver": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-27T14:21:31.151Z",
+        "lastUpdated": "2026-06-27T14:21:31.151Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/auth/naver/route.ts"
+    },
+    "i18n": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-27T14:33:09.178Z",
+        "lastUpdated": "2026-06-27T14:33:19.269Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/components/i18n/LocaleToggle.tsx"
+    },
+    "onboarding": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-28T02:57:45.785Z",
+        "lastUpdated": "2026-06-28T02:57:45.785Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/onboarding/page.tsx"
+    },
+    "welcome": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-28T03:01:01.657Z",
+        "lastUpdated": "2026-06-28T03:01:01.657Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/welcome/page.tsx"
+    },
+    "logout": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-28T03:01:10.949Z",
+        "lastUpdated": "2026-06-28T03:01:10.949Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/logout/page.tsx"
     }
   },
   "pipeline": {
@@ -546,7 +616,7 @@
   "session": {
     "startedAt": "2026-06-05T05:57:43.392Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-06-27T13:59:36.971Z"
+    "lastActivity": "2026-06-28T04:01:52.329Z"
   },
   "history": [
     {
@@ -3006,6 +3076,528 @@
     {
       "timestamp": "2026-06-27T13:59:36.971Z",
       "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:20.651Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:24.045Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:25.813Z",
+      "feature": "gallery",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:27.773Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:29.114Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:39.348Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:03:49.847Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:05:54.608Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:06:02.625Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:06:12.020Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:08:25.709Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:08:32.745Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:14:42.325Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:14:48.887Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:14:54.930Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:14:59.743Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:18:04.148Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:18:09.383Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:18:16.120Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:20:37.442Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:21:20.183Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:21:31.151Z",
+      "feature": "naver",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:21:49.192Z",
+      "feature": "callback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:21:58.199Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:22:03.378Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:22:08.783Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:22:15.406Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:23:01.225Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:32:55.940Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:33:02.084Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:33:09.178Z",
+      "feature": "i18n",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:33:19.269Z",
+      "feature": "i18n",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:35:22.750Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:36:11.524Z",
+      "feature": "(site)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:36:17.884Z",
+      "feature": "(site)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:36:35.411Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:36:47.624Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:37:06.758Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:37:29.155Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:37:44.821Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:37:52.483Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:38:04.839Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:38:13.618Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:38:23.822Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:38:31.629Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:38:41.392Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:38:53.677Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:39:04.226Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:39:17.832Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:39:26.144Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:39:32.016Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:41:01.837Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:41:10.663Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:41:31.033Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:41:43.674Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:41:53.883Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:42:03.386Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:42:21.300Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:42:35.275Z",
+      "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:42:43.629Z",
+      "feature": "gallery",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:42:50.396Z",
+      "feature": "gallery",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:43:09.744Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:43:31.858Z",
+      "feature": "consulting",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-27T14:44:16.317Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T01:52:11.694Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T01:54:03.637Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T02:57:02.360Z",
+      "feature": "callback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T02:57:12.464Z",
+      "feature": "callback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T02:57:26.700Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T02:57:36.535Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T02:57:45.785Z",
+      "feature": "onboarding",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:00:41.550Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:00:48.147Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:01:01.657Z",
+      "feature": "welcome",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:01:10.949Z",
+      "feature": "logout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:05:53.714Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:18:54.933Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:19:01.405Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:19:15.686Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:19:33.156Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:20:10.332Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:20:16.203Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:20:29.460Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T03:20:36.127Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T04:01:34.789Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T04:01:44.330Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-28T04:01:52.329Z",
+      "feature": "GCM",
       "phase": "do",
       "action": "updated"
     }
