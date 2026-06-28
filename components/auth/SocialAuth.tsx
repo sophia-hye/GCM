@@ -9,8 +9,8 @@ export function SocialAuth() {
       provider: "kakao",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
-        // 비즈앱 전(테스트) 단계: '사용함'으로 설정한 닉네임만 요청 → KOE004 방지
-        scopes: "profile_nickname",
+        // OpenID Connect 사용 → 'openid' 필수(ID 토큰 발급). 비즈앱 승인 후 이메일 포함.
+        scopes: "openid account_email profile_nickname",
       },
     });
   };
