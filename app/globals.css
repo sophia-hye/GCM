@@ -1,6 +1,7 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
 
-/* Paperlogy — 부드러운 한글 폰트 (noonnu 배포, 상용 사용 가능) */
+/* Paperlogy — 부드러운 한글 폰트 (noonnu 배포, 상용 사용 가능) — 헤딩용 */
 @font-face {
   font-family: "Paperlogy";
   font-weight: 300;
@@ -61,8 +62,8 @@
   --color-muted: #6e675a;
   --color-danger: #c0392b;
 
-  --font-sans: "Paperlogy", "Pretendard", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-archivo), "Archivo", "Paperlogy", system-ui, sans-serif;
+  --font-sans: "Pretendard", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-archivo), "Archivo", "Paperlogy", "Pretendard", system-ui, sans-serif;
   --font-accent: var(--font-playfair), "Playfair Display", Georgia, serif;
 }
 
