@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
@@ -10,6 +11,17 @@ export async function Programs() {
 
   return (
     <Section id="programs" reveal={false}>
+      <Reveal className="mb-12">
+        <Image
+          src="/img/programs-journey.png"
+          alt="키즈에서 챔피언으로 — 단계별 성장 여정"
+          width={2172}
+          height={724}
+          priority
+          sizes="(max-width: 1024px) 100vw, 1024px"
+          className="mx-auto h-auto w-full max-w-4xl"
+        />
+      </Reveal>
       <Reveal>
         <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
       </Reveal>
