@@ -8,7 +8,7 @@ export async function Programs() {
   const ui = getUI(locale);
 
   return (
-    <Section id="programs">
+    <Section id="programs" lines>
       <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
 
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">

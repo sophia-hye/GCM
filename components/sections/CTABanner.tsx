@@ -8,7 +8,7 @@ export async function CTABanner() {
   const ui = getUI(locale);
 
   return (
-    <Section>
+    <Section tone="muted">
       <div className="border-t border-line pt-16 text-center sm:pt-20">
         <h2 className="mx-auto max-w-3xl font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
           {faqContact.title}

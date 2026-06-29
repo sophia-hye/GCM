@@ -9,7 +9,7 @@ export async function Scholarship() {
   const applyLabel = locale === "en" ? "Required for application" : "신청 시 준비 항목";
 
   return (
-    <Section id="scholarship">
+    <Section id="scholarship" lines>
       <SectionHeading
         eyebrow="Apply for Scholarship"
         title={scholarship.title}

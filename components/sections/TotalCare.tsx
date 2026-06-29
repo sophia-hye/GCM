@@ -8,7 +8,7 @@ export async function TotalCare() {
   const ui = getUI(locale);
 
   return (
-    <Section>
+    <Section lines>
       <SectionHeading
         eyebrow="Comprehensive Management"
         title={ui.totalCareTitle}

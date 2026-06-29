@@ -5,7 +5,7 @@ import { getDict } from "@/lib/site-content";
 export async function WhyNow() {
   const { whoWeAre } = getDict(await getLocale());
   return (
-    <Section id="values">
+    <Section id="values" tone="muted">
       <SectionHeading eyebrow="Who we are" title={whoWeAre.title} lead={whoWeAre.lead} />
       <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
         {whoWeAre.pillars.map((p, i) => (

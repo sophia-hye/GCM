@@ -8,7 +8,7 @@ export async function Recreational() {
   const ui = getUI(locale);
 
   return (
-    <Section id="recreational">
+    <Section id="recreational" tone="muted">
       <SectionHeading
         eyebrow="Kids & Amateur Club"
         title={ui.recreationalTitle}

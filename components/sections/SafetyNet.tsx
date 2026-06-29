@@ -8,7 +8,7 @@ export async function SafetyNet() {
   const ui = getUI(locale);
 
   return (
-    <Section id="career">
+    <Section id="career" tone="muted">
       <SectionHeading
         eyebrow="Career Pathways"
         title={

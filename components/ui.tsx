@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Reveal } from "@/components/ui/Reveal";
 
 export function Container({
   children,
@@ -97,14 +98,39 @@ export function Section({
   id,
   children,
   className = "",
+  tone = "default",
+  lines = false,
+  reveal = true,
 }: {
   id?: string;
   children: ReactNode;
   className?: string;
+  tone?: "default" | "muted" | "court";
+  lines?: boolean;
+  reveal?: boolean;
 }) {
+  const toneCls =
+    tone === "muted"
+      ? "bg-card/40"
+      : tone === "court"
+        ? "bg-court-gradient text-white"
+        : "";
+
+  const linesColor = tone === "court" ? "text-white/10" : "text-court/[0.06]";
+
   return (
-    <section id={id} className={`scroll-mt-20 py-24 sm:py-36 ${className}`}>
-      <Container>{children}</Container>
+    <section
+      id={id}
+      className={`relative scroll-mt-20 overflow-hidden py-24 sm:py-36 ${toneCls} ${className}`}
+    >
+      {lines ? (
+        <CourtLines
+          className={`pointer-events-none absolute -right-16 top-0 h-full w-2/3 ${linesColor}`}
+        />
+      ) : null}
+      <Container className="relative">
+        {reveal ? <Reveal>{children}</Reveal> : children}
+      </Container>
     </section>
   );
 }
