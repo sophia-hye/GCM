@@ -1,5 +1,7 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatBar } from "@/components/sections/StatBar";
+import { AboutIntro } from "@/components/sections/AboutIntro";
+import { SiteGuide } from "@/components/sections/SiteGuide";
 import { Programs } from "@/components/sections/Programs";
 import { Players } from "@/components/sections/Players";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -10,6 +12,8 @@ export default function Home() {
     <>
       <HeroSection />
       <StatBar />
+      <AboutIntro />
+      <SiteGuide />
       <Programs />
       <Players />
       <Testimonials />

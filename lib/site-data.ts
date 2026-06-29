@@ -30,6 +30,77 @@ export const nav = [
   { label: "Scholarship", href: "/scholarship" },
 ] as const;
 
+// 홈에서 각 메뉴(탭)에 어떤 내용이 있는지 미리 보여주는 안내 카드
+export const siteGuideLead =
+  "GCM 사이트에 담긴 내용을 한눈에. 각 메뉴에서 어떤 정보를 보실 수 있는지 안내합니다.";
+
+export const siteGuide = [
+  {
+    no: "01",
+    label: "About",
+    href: "/about",
+    title: "GCM 소개",
+    desc: "설립 배경과 철학, 한 선수를 여러 전문가가 함께 책임지는 통합 퍼포먼스 모델.",
+    items: ["설립 배경 · 비전", "통합 퍼포먼스 모델", "우리가 믿는 것"],
+  },
+  {
+    no: "02",
+    label: "Coaches",
+    href: "/coaches",
+    title: "코치진 소개",
+    desc: "대표 오성국과 헤드 · 멘탈 코치진의 약력과 지도 철학.",
+    items: ["대표 · 원장 오성국", "헤드 코치 · 기술/피지컬", "코치 · 기술/멘탈"],
+  },
+  {
+    no: "03",
+    label: "Players",
+    href: "/players",
+    title: "배출 · 소속 선수",
+    desc: "프로가 되기 전부터 함께 성장하는 GCM 선수들의 이야기. (준비 중)",
+    items: ["선수 스토리", "성장 기록", "곧 공개 예정"],
+  },
+  {
+    no: "04",
+    label: "Gallery",
+    href: "/gallery",
+    title: "갤러리",
+    desc: "트레이닝과 대회 현장을 사진으로. 아카데미의 생생한 순간들.",
+    items: ["훈련 현장", "대회 · 이벤트", "아카데미 소식"],
+  },
+  {
+    no: "05",
+    label: "Training",
+    href: "/training",
+    title: "트레이닝 시스템",
+    desc: "기술 · 피지컬 · 멘탈을 통합한 6단계 발달 커리큘럼과 토탈 케어.",
+    items: ["6단계 발달 시스템", "Total Care System", "프로 · 대학 두 갈래 진로"],
+  },
+  {
+    no: "06",
+    label: "Kids & Amateur",
+    href: "/recreational",
+    title: "키즈 · 아마추어 클럽",
+    desc: "선수반이 아니어도 즐기며 배우는 키즈 · 성인 취미 클래스.",
+    items: ["키즈 클래스 (5–13세)", "성인 아마추어 클래스", "기본기 · 전술 · 게임"],
+  },
+  {
+    no: "07",
+    label: "Consulting",
+    href: "/consulting",
+    title: "진로 · 진학 컨설팅",
+    desc: "데이터 기반 진로 설계와 진학 컨설팅. 선수의 다음 단계를 함께 그립니다.",
+    items: ["UTR · 실적 진단", "프로 / 대학 로드맵", "멘탈 · 어학 케어"],
+  },
+  {
+    no: "08",
+    label: "Scholarship",
+    href: "/scholarship",
+    title: "장학 제도",
+    desc: "매년 제한된 인원의 전액 · 부분 장학. 태도와 투지를 갖춘 선수를 선발합니다.",
+    items: ["선발 대상 · 기준", "선발 후 성장 관리", "신청 방법"],
+  },
+] as const;
+
 export const founding = {
   title: "GCM 설립 배경",
   lead: "선수의 성장과 진로를 끝까지 책임지는 아카데미를 만들기 위해 GCM은 시작됐습니다.",

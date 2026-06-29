@@ -258,6 +258,76 @@ const enFaqContact = {
   sub: "Technique · physical · mental as one. GCM walks your next step with you.",
 };
 
+const enSiteGuideLead =
+  "Everything inside the GCM site at a glance — what you'll find in each menu.";
+
+const enSiteGuide = [
+  {
+    no: "01",
+    label: "About",
+    href: "/about",
+    title: "About GCM",
+    desc: "Our founding story and philosophy — an integrated performance model where many experts take responsibility for one athlete.",
+    items: ["Founding background · vision", "Integrated performance model", "What we believe"],
+  },
+  {
+    no: "02",
+    label: "Coaches",
+    href: "/coaches",
+    title: "Meet the Coaches",
+    desc: "Founder Oh Seong-gook and the head & mental coaching staff — their careers and coaching philosophy.",
+    items: ["Founder · Director Oh Seong-gook", "Head Coach · technique/physical", "Coach · technique/mental"],
+  },
+  {
+    no: "03",
+    label: "Players",
+    href: "/players",
+    title: "Our Players",
+    desc: "Stories of GCM athletes who grow with us from before they turn pro. (Coming soon)",
+    items: ["Player stories", "Growth records", "Coming soon"],
+  },
+  {
+    no: "04",
+    label: "Gallery",
+    href: "/gallery",
+    title: "Gallery",
+    desc: "Training and tournament moments in photos — the academy's living scenes.",
+    items: ["Training sessions", "Tournaments · events", "Academy news"],
+  },
+  {
+    no: "05",
+    label: "Training",
+    href: "/training",
+    title: "Training System",
+    desc: "A 6-step development curriculum integrating technique, physical and mental, with total care.",
+    items: ["6-step development system", "Total Care System", "Pro · college dual pathway"],
+  },
+  {
+    no: "06",
+    label: "Kids & Amateur",
+    href: "/recreational",
+    title: "Kids & Amateur Club",
+    desc: "Enjoy and learn even off the competitive team — kids and adult hobby classes.",
+    items: ["Kids class (ages 5–13)", "Adult amateur class", "Fundamentals · tactics · games"],
+  },
+  {
+    no: "07",
+    label: "Consulting",
+    href: "/consulting",
+    title: "Career & Admissions Consulting",
+    desc: "Data-driven career design and admissions consulting — drawing the athlete's next step together.",
+    items: ["UTR · results diagnosis", "Pro / college roadmap", "Mental · language care"],
+  },
+  {
+    no: "08",
+    label: "Scholarship",
+    href: "/scholarship",
+    title: "Scholarship",
+    desc: "Limited full and partial scholarships each year — selecting athletes with attitude and grit.",
+    items: ["Eligibility · criteria", "Post-selection growth care", "How to apply"],
+  },
+];
+
 const enSite = {
   ...ko.site,
   tagline: "High-Performance Tennis Academy",
@@ -284,6 +354,8 @@ const enDict = {
   consulting: enConsulting,
   recreational: enRecreational,
   faqContact: enFaqContact,
+  siteGuide: enSiteGuide,
+  siteGuideLead: enSiteGuideLead,
 };
 
 const koDict = {
@@ -305,6 +377,8 @@ const koDict = {
   consulting: ko.consulting,
   recreational: ko.recreational,
   faqContact: ko.faqContact,
+  siteGuide: ko.siteGuide,
+  siteGuideLead: ko.siteGuideLead,
 };
 
 export type Dict = typeof enDict;
@@ -342,6 +416,9 @@ export const UI = {
     ctaPrograms: "프로그램 보기",
     classApply: "수업 신청",
     consultApply: "상담 신청",
+    siteGuideTitle: "사이트 둘러보기",
+    aboutIntroEyebrow: "About GCM",
+    learnMore: "자세히 보기",
   },
   en: {
     programsTitle: "Who Our Programs Are For",
@@ -370,6 +447,9 @@ export const UI = {
     ctaPrograms: "View Programs",
     classApply: "Apply for Class",
     consultApply: "Request Consulting",
+    siteGuideTitle: "Explore the Site",
+    aboutIntroEyebrow: "About GCM",
+    learnMore: "Learn more",
   },
 } as const;
 
