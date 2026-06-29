@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button, Container } from "@/components/ui";
-import { SplitText } from "@/components/ui/SplitText";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { getDict, getUI } from "@/lib/site-content";
 
@@ -45,11 +44,7 @@ export function HeroSection() {
             {slide.eyebrow}
           </p>
           <h1 className="mt-5 max-w-4xl text-balance text-5xl leading-[1.1] sm:text-6xl lg:text-7xl">
-            <SplitText
-              text={slide.headline}
-              stagger={55}
-              className="font-display font-black uppercase text-white"
-            />{" "}
+            <span className="font-display font-black uppercase text-white">{slide.headline}</span>{" "}
             <span className="font-accent font-semibold italic text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
               {slide.accent}
             </span>
