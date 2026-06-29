@@ -1,5 +1,4 @@
 import { HeroSection } from "@/components/sections/HeroSection";
-import { StatBar } from "@/components/sections/StatBar";
 import { AboutIntro } from "@/components/sections/AboutIntro";
 import { SiteGuide } from "@/components/sections/SiteGuide";
 import { Programs } from "@/components/sections/Programs";
@@ -11,7 +10,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <StatBar />
       <AboutIntro />
       <SiteGuide />
       <Programs />
