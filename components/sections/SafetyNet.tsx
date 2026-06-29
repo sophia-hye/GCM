@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
@@ -59,28 +58,22 @@ export async function SafetyNet() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">
           {ui.pathwayLabel}
         </p>
-        <div className="mt-8 flex flex-col gap-3 lg:flex-row lg:items-stretch lg:gap-2">
-          {processSteps.map((step, i) => (
-            <Fragment key={step.n}>
-              <div className="flex flex-1 flex-col rounded-2xl border border-line bg-card p-5">
-                <div className="flex items-center gap-2">
-                  <span className="font-display text-sm font-bold tabular-nums text-court">
-                    {step.n}
-                  </span>
-                  <span className="font-display text-xs font-bold uppercase tracking-[0.12em] text-ink">
-                    {step.title}
-                  </span>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{step.body}</p>
+        <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-5">
+          {processSteps.map((step) => (
+            <div
+              key={step.n}
+              className="flex flex-col rounded-2xl border border-line bg-card p-5"
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-display text-sm font-bold tabular-nums text-court">
+                  {step.n}
+                </span>
+                <span className="font-display text-xs font-bold uppercase tracking-[0.12em] text-ink">
+                  {step.title}
+                </span>
               </div>
-
-              {i < processSteps.length - 1 ? (
-                <div aria-hidden className="flex items-center justify-center text-court/40">
-                  <span className="lg:hidden">↓</span>
-                  <span className="hidden lg:inline">→</span>
-                </div>
-              ) : null}
-            </Fragment>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{step.body}</p>
+            </div>
           ))}
         </div>
       </div>
