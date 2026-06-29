@@ -158,7 +158,7 @@ const enTeam = [
   {
     name: "Yoon Jae-won",
     role: "Head Coach · Technique · Physical",
-    bio: "Head coach leading technical development and overall match operations, managing daily training and match coaching.",
+    bio: "Head coach overseeing technical development, match operations, daily training and match coaching.",
     image: "",
     achievements: [
       "Former Goyang City Hall tennis player",
