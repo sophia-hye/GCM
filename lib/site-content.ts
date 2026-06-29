@@ -127,6 +127,7 @@ const enTeam = [
       "2018 Gimcheon ITF Futures — Champion",
       "2019 100th National Sports Festival — Silver",
       "2024 103rd National Sports Festival — Bronze",
+      "2024 Korea Tennis League (Corporate) — Doubles Champion",
     ],
   },
   {
