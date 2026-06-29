@@ -7,11 +7,24 @@ export async function TotalCare() {
   const { totalCare } = getDict(locale);
   const ui = getUI(locale);
 
+  // "Total Care System: 테니스 그 이상의 관리" → 콜론 뒤(테니스/Beyond)에서 줄바꿈
+  const [titleHead, ...titleRest] = ui.totalCareTitle.split(": ");
+  const titleTail = titleRest.join(": ");
+
   return (
     <Section lines>
       <SectionHeading
         eyebrow="Comprehensive Management"
-        title={ui.totalCareTitle}
+        title={
+          titleTail ? (
+            <>
+              {titleHead}:<br />
+              {titleTail}
+            </>
+          ) : (
+            ui.totalCareTitle
+          )
+        }
         lead={ui.totalCareLead}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
