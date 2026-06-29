@@ -275,6 +275,32 @@ const enFaqContact = {
   sub: "Technique · physical · mental as one. GCM walks your next step with you.",
 };
 
+const enDirectorMessage = {
+  eyebrow: "Director's Message",
+  title: "A Message from the Director",
+  image: "/coaches/ohseonggook/IMG_2963.JPG",
+  signature: "Oh Seong-gook, Founder & Director, GCM Academy",
+  before: [
+    "Hello. I am Oh Seong-gook, Founder and Director of GCM Academy. To every parent and athlete who has found their way to us, thank you from the bottom of my heart.",
+    "Years ago, my own parents believed in their child's limitless potential and made the bold decision to give me a chance on the larger stage of international professional tennis. Stepping outside the conventional mold, they chose an environment of 'the academy' and 'international competition' — even leaving middle school behind — so that I could focus entirely on improving my tennis and growing as a whole person. It is because of their deep love and courage, devoting everything to their child's future, that I can stand here today as an educator.",
+    "That is why I understand, more deeply than anyone, the earnest hearts of parents who want to open a wider world and safer opportunities for their children — and even the anxiety that sometimes hides behind that wish.",
+    "Tennis is more than a sport; it is a great education that becomes the strongest nourishment for life. Within a community of athletes with clear goals, children learn exceptional endurance beyond their limits, fighting spirit, a steady professional mindset and mental management that stays calm in victory or defeat, and the self-discipline and good attitude to govern themselves. The honest sweat shed on court becomes the foundation of a whole-person education that builds character.",
+    "Tennis is also the largest and most dignified arena for 'building a global network' that works anywhere in the world. Though we may first pick up the racket with different goals and expectations, here we all become one — because a single racket lets us share deep bonds and joy across generations and borders.",
+    "Within GCM Academy, active professional players and GCM club members cheer and encourage one another through exchange matches. In this beautiful companionship, children learn the firm value of belonging, embody altruism and positive influence toward others, and naturally grow into leaders with dignified 'global manners.' Beyond a youth specialty, they gain a lifelong companion sport that enriches life all the way into their senior years.",
+  ],
+  quote:
+    "Because a child's future is never decided by a single possibility or a single result, we make sure that learning never becomes pressure or stress.",
+  after: [
+    "Many parents, driven by a vague anxiety about the future, end up pushing their children — and distance grows in the family relationships that should be most precious.",
+    "GCM Academy wants to lift that heavy anxiety off the shoulders of both parents and children. The strategy for admissions and the hard worries and coaching about the future — we, the educators and specialists, will carry them for you. At home, please give only warm love and unconditional support. Helping a child feel that love fully and, in turn, stand on court with self-driven responsibility to repay it — that is the true education we pursue.",
+    "To this end, the educators who work with GCM are top veterans who served for decades as admissions officers in North America. We carefully combine not only tennis coaching but whole-person mentoring. Whether a child walks the path of a professional to the end, or keeps tennis as a precious asset and chooses a new direction, that is all good. In every moment, we will present the best alternatives and roadmaps so children never lose their ease and peace of mind.",
+    "At any crossroads — an unexpected injury or a sudden change of direction — our trusted partner 'equre (equre.us),' a specialized U.S. mentoring and admissions institution, stands with us. We have carefully prepared Plans A through B, C, D, and E so students can safely enter prestigious North American universities on scholarship. Whatever path they take, we will be the firm support that keeps them from giving up on their dreams.",
+    "For athletes with professional potential, we open the path to compete on the international stage — with matching training, mentoring, tour schedule management, and even tour-cost scholarship support — doing our utmost so they can grow into players competing on the ATP and WTA tours.",
+    "So that a parent's devotion to their child may bear the finest fruit, we will walk alongside you with a parent's heart and an educator's sense of mission. On the safe, wide roadmap GCM Academy offers, the chance for our children to perform proudly on the world stage is now open through a global network spanning GCM Korea, Italy, Shanghai and beyond.",
+    "Let family love one another as family, and let the future be prepared calmly with experts. As your most trustworthy education partner, we will always be by your side. Thank you.",
+  ],
+};
+
 const enSiteGuideLead =
   "Explore GCM's coaching, programs, admissions and global career journey at a glance — matched to each athlete's stage of growth.";
 
@@ -373,6 +399,7 @@ const enDict = {
   faqContact: enFaqContact,
   siteGuide: enSiteGuide,
   siteGuideLead: enSiteGuideLead,
+  directorMessage: enDirectorMessage,
 };
 
 const koDict = {
@@ -396,6 +423,7 @@ const koDict = {
   faqContact: ko.faqContact,
   siteGuide: ko.siteGuide,
   siteGuideLead: ko.siteGuideLead,
+  directorMessage: ko.directorMessage,
 };
 
 export type Dict = typeof enDict;
