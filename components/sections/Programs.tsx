@@ -21,6 +21,7 @@ export async function Programs() {
           width={2172}
           height={724}
           priority
+          unoptimized
           sizes="(max-width: 1024px) 100vw, 1024px"
           className="mx-auto h-auto w-full max-w-4xl"
         />
