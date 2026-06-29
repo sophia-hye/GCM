@@ -1,4 +1,5 @@
 import { Section, SectionHeading, Button } from "@/components/ui";
+import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
 
@@ -8,12 +9,18 @@ export async function Programs() {
   const ui = getUI(locale);
 
   return (
-    <Section id="programs" lines>
-      <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
+    <Section id="programs" lines reveal={false}>
+      <Reveal>
+        <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
+      </Reveal>
 
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
-        {programs.map((p) => (
-          <div key={p.key} className="flex flex-col border-t border-line pt-8">
+        {programs.map((p, i) => (
+          <Reveal
+            key={p.key}
+            delay={i * 160}
+            className="flex flex-col border-t border-line pt-8"
+          >
             <span className="font-display text-sm font-semibold tabular-nums text-muted">
               {p.no}
             </span>
@@ -36,7 +43,7 @@ export async function Programs() {
                 {ui.consultApply}
               </Button>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </Section>
