@@ -11,7 +11,10 @@ export async function Programs() {
 
   return (
     <Section id="programs" reveal={false}>
-      <Reveal className="mb-12">
+      <Reveal>
+        <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
+      </Reveal>
+      <Reveal className="mt-12">
         <Image
           src="/img/programs-journey.png"
           alt="키즈에서 챔피언으로 — 단계별 성장 여정"
@@ -21,9 +24,6 @@ export async function Programs() {
           sizes="(max-width: 1024px) 100vw, 1024px"
           className="mx-auto h-auto w-full max-w-4xl"
         />
-      </Reveal>
-      <Reveal>
-        <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
       </Reveal>
 
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
