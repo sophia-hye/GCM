@@ -8,7 +8,7 @@ export async function Curriculum() {
   const ui = getUI(locale);
 
   return (
-    <Section id="curriculum">
+    <Section id="curriculum" tone="muted">
       <SectionHeading
         eyebrow="Development System"
         title={ui.curriculumTitle}
