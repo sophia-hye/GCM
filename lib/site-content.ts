@@ -445,7 +445,7 @@ export const UI = {
   ko: {
     programsTitle: "누구를 위한 프로그램인가",
     playersTitle: "배출 · 소속 선수",
-    playersLead: "프로가 된 후가 아니라, 되기 전부터 브랜드를 함께 만듭니다.",
+    playersLead: "프로가 된 후가 아니라, 되기 전부터 선수의 브랜드를 함께 만듭니다.",
     playersComing: "배출·소속 선수 정보를 준비 중입니다. 곧 공개될 예정입니다.",
     testimonialsTitle: "선수와 학부모의 이야기",
     testimonialsComing: "선수와 학부모의 이야기를 준비하고 있습니다. 동의 확인 후 순차적으로 공개될 예정입니다.",
