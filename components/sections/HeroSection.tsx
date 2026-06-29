@@ -40,7 +40,7 @@ export function HeroSection() {
 
       <Container className="relative z-10 pt-24">
         <div key={index} className="max-w-3xl animate-fade-up">
-          <p className="font-display text-xs font-bold uppercase tracking-[0.3em] text-white [text-shadow:-0.5px_-0.5px_0_#000,0.5px_-0.5px_0_#000,-0.5px_0.5px_0_#000,0.5px_0.5px_0_#000,0_1px_3px_rgba(0,0,0,0.4)]">
+          <p className="inline-flex items-center rounded-full border border-white/25 bg-black/30 px-4 py-1.5 font-display text-xs font-bold uppercase tracking-[0.28em] text-white/95 backdrop-blur-sm">
             {slide.eyebrow}
           </p>
           <h1 className="mt-5 max-w-4xl text-balance text-5xl leading-[1.1] sm:text-6xl lg:text-7xl">
