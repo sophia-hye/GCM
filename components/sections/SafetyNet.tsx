@@ -7,13 +7,24 @@ export async function SafetyNet() {
   const { tracks, processSteps } = getDict(locale);
   const ui = getUI(locale);
 
+  // "프로 OR 대학" → 프로/대학만 포인트 컬러, OR은 기본(블랙)
+  const [accBefore, accAfter] = ui.safetyTitleAccent.split(" OR ");
+
   return (
     <Section id="career" tone="muted">
       <SectionHeading
         eyebrow="Career Pathways"
         title={
           <>
-            {ui.safetyTitle}: <span className="text-court">{ui.safetyTitleAccent}</span>
+            {ui.safetyTitle}:{" "}
+            {accAfter !== undefined ? (
+              <>
+                <span className="text-court">{accBefore}</span> OR{" "}
+                <span className="text-court">{accAfter}</span>
+              </>
+            ) : (
+              <span className="text-court">{ui.safetyTitleAccent}</span>
+            )}
           </>
         }
         lead={ui.safetyLead}
