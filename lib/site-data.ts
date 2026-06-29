@@ -15,6 +15,8 @@ export const site = {
   hours: "평일 09:00–19:00 · 주말 09:00–17:00",
   kakao: "", // 카카오톡 채널 채팅 URL (예: http://pf.kakao.com/_xxxx/chat) — 추후 입력
   instagram: "https://www.instagram.com/gcm_tennis/",
+  foundedYear: "2023",
+  foundedDate: "2023.01.02",
 } as const;
 
 export const nav = [
