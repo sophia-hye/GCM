@@ -158,7 +158,14 @@ const enTeam = [
     role: "Coach · Technique · Mental",
     bio: "Responsible for overall tennis development, correcting competition anxiety and designing routines during match training.",
     image: "",
-    achievements: [] as string[],
+    achievements: [
+      "Seongnam City Hall corporate team player",
+      "Former J-One Tennis Academy coach",
+      "2013 42nd National Youth Sports Festival — Silver",
+      "2018 Yanggu ITF Junior — Doubles Semifinalist",
+      "2019 Nepal ITF Junior — Singles Semifinalist",
+      "2020 Korea Tennis League (Corporate) — Team 3rd",
+    ],
   },
 ];
 
