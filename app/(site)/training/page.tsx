@@ -1,3 +1,4 @@
+import { StatBar } from "@/components/sections/StatBar";
 import { Programs } from "@/components/sections/Programs";
 import { Curriculum } from "@/components/sections/Curriculum";
 import { TotalCare } from "@/components/sections/TotalCare";
@@ -8,6 +9,7 @@ export const metadata = { title: "Training | GCM Tennis Academy" };
 export default function TrainingPage() {
   return (
     <div className="pt-16">
+      <StatBar />
       <Programs />
       <Curriculum />
       <TotalCare />
