@@ -35,7 +35,7 @@ const enStats = [
 ];
 
 const enProgramsLead =
-  "Three tracks tailored to each athlete's stage and goals. We start from where you are now.";
+  "Across borders — from Italy, the world's No.1 tennis nation, to the USA and Shanghai — three tracks tailored to each athlete's stage and goals. We start from where you are now.";
 
 const enPrograms = [
   {
@@ -259,7 +259,7 @@ const enFaqContact = {
 };
 
 const enSiteGuideLead =
-  "Everything inside the GCM site at a glance — what you'll find in each menu.";
+  "Explore GCM's coaching, programs, admissions and global career journey at a glance — matched to each athlete's stage of growth.";
 
 const enSiteGuide = [
   {
@@ -299,7 +299,7 @@ const enSiteGuide = [
     label: "Training",
     href: "/training",
     title: "Training System",
-    desc: "A 6-step development curriculum integrating technique, physical and mental, with total care.",
+    desc: "On a cross-border network spanning Italy, the USA and Shanghai — a 6-step system integrating technique, physical and mental.",
     items: ["6-step development system", "Total Care System", "Pro · college dual pathway"],
   },
   {

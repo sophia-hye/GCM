@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Section, SectionHeading } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
@@ -13,7 +13,25 @@ export async function SiteGuide() {
   return (
     <Section id="explore" reveal={false}>
       <Reveal>
-        <SectionHeading eyebrow="Explore" title={ui.siteGuideTitle} lead={siteGuideLead} />
+        <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-court-bright">
+          Explore GCM
+        </p>
+
+        {/* GCM 약어를 먼저, 강하게 각인 */}
+        <p className="mt-5 font-display text-3xl font-black leading-none tracking-tight sm:text-5xl">
+          <span className="text-court">G</span>lobal{" "}
+          <span className="text-court">C</span>hampions{" "}
+          <span className="text-court">M</span>akers
+        </p>
+
+        {/* 보조 헤딩 — 더 작게, 1~2줄 */}
+        <h2 className="mt-4 max-w-2xl font-display text-xl font-bold leading-snug text-ink/75 sm:text-2xl">
+          Your Path to{" "}
+          <span className="font-accent font-semibold italic text-ink">Global Championship</span>{" "}
+          Starts Here
+        </h2>
+
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{siteGuideLead}</p>
       </Reveal>
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

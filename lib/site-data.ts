@@ -32,7 +32,7 @@ export const nav = [
 
 // 홈에서 각 메뉴(탭)에 어떤 내용이 있는지 미리 보여주는 안내 카드
 export const siteGuideLead =
-  "GCM 사이트에 담긴 내용을 한눈에. 각 메뉴에서 어떤 정보를 보실 수 있는지 안내합니다.";
+  "선수의 성장 단계에 맞춰 GCM의 코칭, 프로그램, 진학, 글로벌 커리어 여정을 한눈에 확인하세요.";
 
 export const siteGuide = [
   {
@@ -72,7 +72,7 @@ export const siteGuide = [
     label: "Training",
     href: "/training",
     title: "트레이닝 시스템",
-    desc: "기술 · 피지컬 · 멘탈을 통합한 6단계 발달 커리큘럼과 토탈 케어.",
+    desc: "이탈리아 · 미국 · 상하이 등 국경을 넘는 네트워크 위에서, 기술 · 피지컬 · 멘탈을 통합한 6단계 발달 시스템.",
     items: ["6단계 발달 시스템", "Total Care System", "프로 · 대학 두 갈래 진로"],
   },
   {
@@ -238,7 +238,7 @@ export const scholarship = {
 } as const;
 
 export const programsLead =
-  "선수의 단계와 목표에 맞춘 세 갈래의 트랙. 당신의 지금에서 시작합니다.";
+  "전세계 테니스 1위 국가인 이탈리아를 비롯해 미국, 상하이 등 국경을 넘어, 선수의 단계와 목표에 맞춘 세 갈래의 트랙. 당신의 지금에서 시작합니다.";
 
 export const programs = [
   {
