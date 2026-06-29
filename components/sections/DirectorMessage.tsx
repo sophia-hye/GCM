@@ -31,17 +31,17 @@ export async function DirectorMessage() {
         {/* 인사말 본문 */}
         <div className="max-w-2xl space-y-5">
           {d.before.map((p) => (
-            <p key={p} className="text-base leading-relaxed text-ink/85">
+            <p key={p} className="whitespace-pre-line text-base leading-relaxed text-ink/85">
               {p}
             </p>
           ))}
 
-          <blockquote className="my-8 border-l-2 border-court pl-5 font-display text-lg font-semibold leading-relaxed text-ink">
+          <blockquote className="my-8 whitespace-pre-line border-l-2 border-court pl-5 font-display text-lg font-semibold leading-relaxed text-ink">
             {d.quote}
           </blockquote>
 
           {d.after.map((p) => (
-            <p key={p} className="text-base leading-relaxed text-ink/85">
+            <p key={p} className="whitespace-pre-line text-base leading-relaxed text-ink/85">
               {p}
             </p>
           ))}
