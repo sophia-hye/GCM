@@ -34,7 +34,7 @@ export default function StrategyPage() {
           ))}
         </ul>
         <p className="mt-6 text-xs text-court-bright">
-          준비되면 무료 진로 상담을 신청해 주세요. (예약 메뉴)
+          준비되면 진로 상담을 신청해 주세요. (예약 메뉴)
         </p>
       </div>
     </div>
