@@ -252,7 +252,7 @@ const enConsulting = {
   title: "GCM Consulting",
   lead: "Data-based career design and admissions consulting. We map out the athlete's next step together.",
   services: [
-    { title: "Admissions Consulting", body: "UTR/results diagnosis, target college/team selection, highlight videos and coach contact." },
+    { title: "Admissions Consulting", body: "We support everything from UTR/results diagnosis to target college/team selection, highlight videos and coach contact." },
     { title: "Career Design", body: "Comparing pro and college tracks to design a long-term roadmap suited to the athlete." },
     { title: "Mental · Language Care", body: "Match mental management plus language and academic preparation for admissions." },
   ],
