@@ -440,7 +440,7 @@ export const tracks = {
     badge: "Pathway",
     body: "학업과 운동을 병행하며 대학 팀에서 경쟁 — 진학과 선수 생활을 함께 이어갑니다.",
   },
-  quote: "프로든 대학이든, 선수의 길을 끝까지 함께합니다.",
+  quote: "프로의 길도, 대학의 길도 — 선수의 곁에 늘 함께합니다.",
 };
 
 export const processSteps = [

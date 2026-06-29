@@ -221,7 +221,7 @@ const enTracks = {
     badge: "Pathway",
     body: "Competing on a college team while balancing study and sport — continuing both admission and an athletic career.",
   },
-  quote: "Pro or college, we walk the athlete's path to the very end.",
+  quote: "The pro path or the college path — we're always by the athlete's side.",
 };
 
 const enProcessSteps = [
