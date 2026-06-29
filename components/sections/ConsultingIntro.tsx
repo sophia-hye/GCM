@@ -5,7 +5,7 @@ import { getDict } from "@/lib/site-content";
 export async function ConsultingIntro() {
   const { consulting } = getDict(await getLocale());
   return (
-    <Section id="consulting" lines>
+    <Section id="consulting">
       <SectionHeading eyebrow="Consulting" title={consulting.title} lead={consulting.lead} />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {consulting.services.map((s, i) => (

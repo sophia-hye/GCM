@@ -1,3 +1,4 @@
+import { ConsultingBanner } from "@/components/sections/ConsultingBanner";
 import { ConsultingIntro } from "@/components/sections/ConsultingIntro";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Section, SectionHeading } from "@/components/ui";
@@ -9,6 +10,7 @@ export default async function ConsultingPage() {
   const en = (await getLocale()) === "en";
   return (
     <div className="pt-16">
+      <ConsultingBanner />
       <ConsultingIntro />
       <Section id="consultation" className="pt-0">
         <SectionHeading

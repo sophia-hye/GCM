@@ -6,7 +6,7 @@ import { getUI } from "@/lib/site-content";
 export async function Testimonials() {
   const ui = getUI(await getLocale());
   return (
-    <Section lines>
+    <Section>
       <SectionHeading eyebrow="Voices" title={ui.testimonialsTitle} />
       {testimonials.length > 0 ? (
         <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">

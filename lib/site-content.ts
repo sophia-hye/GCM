@@ -35,7 +35,7 @@ const enStats = [
 ];
 
 const enProgramsLead =
-  "Three tracks tailored to each athlete's stage and goals. We start from where you are now.";
+  "Across borders — from Italy, the world's No.1 tennis nation, to the USA and Shanghai — three tracks tailored to each athlete's stage and goals. We start from where you are now.";
 
 const enPrograms = [
   {
@@ -135,14 +135,37 @@ const enTeam = [
     role: "Head Coach · Technique · Physical",
     bio: "Head coach leading technical development and overall match operations, managing daily training and match coaching.",
     image: "",
-    achievements: [] as string[],
+    achievements: [
+      "Former Goyang City Hall tennis player",
+      "Former Armed Forces Athletic Corps tennis player",
+      "Former Dangjin City Hall tennis player",
+      "Graduated as national junior No.2 singles / No.1 doubles",
+      "2003-2006 National Youth Sports Festival — 4 consecutive titles",
+      "2004 Kyobo Life Singles & Team No.1 — MVP Award",
+      "2004 Nike World Junior national selection — No.1",
+      "2004 Nike World Junior Championships — Singles 2nd (France)",
+      "2005 Korea-China-Japan Championships — National team",
+      "2006 U14 World Junior team event — National team",
+      "2008 Korea-China-Japan Championships — National team",
+      "2012 Hong Kong ITF Men's Futures — Doubles 3rd",
+      "2012 Shenyang (China) ITF Men's Futures — Doubles 3rd",
+      "2014 Gimcheon ITF Men's Futures — Doubles 2nd",
+      "2015 Egypt ITF Men's Futures — Doubles Champion",
+    ],
   },
   {
     name: "Kim Ju-bin",
     role: "Coach · Technique · Mental",
     bio: "Responsible for overall tennis development, correcting competition anxiety and designing routines during match training.",
     image: "",
-    achievements: [] as string[],
+    achievements: [
+      "Seongnam City Hall corporate team player",
+      "Former J-One Tennis Academy coach",
+      "2013 42nd National Youth Sports Festival — Silver",
+      "2018 Yanggu ITF Junior — Doubles Semifinalist",
+      "2019 Nepal ITF Junior — Singles Semifinalist",
+      "2020 Korea Tennis League (Corporate) — Team 3rd",
+    ],
   },
 ];
 
@@ -235,6 +258,76 @@ const enFaqContact = {
   sub: "Technique · physical · mental as one. GCM walks your next step with you.",
 };
 
+const enSiteGuideLead =
+  "Explore GCM's coaching, programs, admissions and global career journey at a glance — matched to each athlete's stage of growth.";
+
+const enSiteGuide = [
+  {
+    no: "01",
+    label: "About",
+    href: "/about",
+    title: "About GCM",
+    desc: "Our founding story and philosophy — an integrated performance model where many experts take responsibility for one athlete.",
+    items: ["Founding background · vision", "Integrated performance model", "What we believe"],
+  },
+  {
+    no: "02",
+    label: "Coaches",
+    href: "/coaches",
+    title: "Meet the Coaches",
+    desc: "Founder Oh Seong-gook and the head & mental coaching staff — their careers and coaching philosophy.",
+    items: ["Founder · Director Oh Seong-gook", "Head Coach · technique/physical", "Coach · technique/mental"],
+  },
+  {
+    no: "03",
+    label: "Players",
+    href: "/players",
+    title: "Our Players",
+    desc: "Stories of GCM athletes who grow with us from before they turn pro. (Coming soon)",
+    items: ["Player stories", "Growth records", "Coming soon"],
+  },
+  {
+    no: "04",
+    label: "Gallery",
+    href: "/gallery",
+    title: "Gallery",
+    desc: "Training and tournament moments in photos — the academy's living scenes.",
+    items: ["Training sessions", "Tournaments · events", "Academy news"],
+  },
+  {
+    no: "05",
+    label: "Training",
+    href: "/training",
+    title: "Training System",
+    desc: "On a cross-border network spanning Italy, the USA and Shanghai — a 6-step system integrating technique, physical and mental.",
+    items: ["6-step development system", "Total Care System", "Pro · college dual pathway"],
+  },
+  {
+    no: "06",
+    label: "Kids & Amateur",
+    href: "/recreational",
+    title: "Kids & Amateur Club",
+    desc: "Enjoy and learn even off the competitive team — kids and adult hobby classes.",
+    items: ["Kids class (ages 5–13)", "Adult amateur class", "Fundamentals · tactics · games"],
+  },
+  {
+    no: "07",
+    label: "Consulting",
+    href: "/consulting",
+    title: "Career & Admissions Consulting",
+    desc: "Data-driven career design and admissions consulting — drawing the athlete's next step together.",
+    items: ["UTR · results diagnosis", "Pro / college roadmap", "Mental · language care"],
+  },
+  {
+    no: "08",
+    label: "Scholarship",
+    href: "/scholarship",
+    title: "Scholarship",
+    desc: "Limited full and partial scholarships each year — selecting athletes with attitude and grit.",
+    items: ["Eligibility · criteria", "Post-selection growth care", "How to apply"],
+  },
+];
+
 const enSite = {
   ...ko.site,
   tagline: "High-Performance Tennis Academy",
@@ -261,6 +354,8 @@ const enDict = {
   consulting: enConsulting,
   recreational: enRecreational,
   faqContact: enFaqContact,
+  siteGuide: enSiteGuide,
+  siteGuideLead: enSiteGuideLead,
 };
 
 const koDict = {
@@ -282,6 +377,8 @@ const koDict = {
   consulting: ko.consulting,
   recreational: ko.recreational,
   faqContact: ko.faqContact,
+  siteGuide: ko.siteGuide,
+  siteGuideLead: ko.siteGuideLead,
 };
 
 export type Dict = typeof enDict;
@@ -319,6 +416,9 @@ export const UI = {
     ctaPrograms: "프로그램 보기",
     classApply: "수업 신청",
     consultApply: "상담 신청",
+    siteGuideTitle: "사이트 둘러보기",
+    aboutIntroEyebrow: "About GCM",
+    learnMore: "자세히 보기",
   },
   en: {
     programsTitle: "Who Our Programs Are For",
@@ -347,6 +447,9 @@ export const UI = {
     ctaPrograms: "View Programs",
     classApply: "Apply for Class",
     consultApply: "Request Consulting",
+    siteGuideTitle: "Explore the Site",
+    aboutIntroEyebrow: "About GCM",
+    learnMore: "Learn more",
   },
 } as const;
 
