@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { SplitText } from "@/components/ui/SplitText";
 
 export function Container({
   children,
@@ -87,7 +88,7 @@ export function SectionHeading({
     <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <h2 className="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
-        {title}
+        {typeof title === "string" ? <SplitText text={title} /> : title}
       </h2>
       {lead ? <p className="mt-5 text-lg leading-relaxed text-muted">{lead}</p> : null}
     </div>
