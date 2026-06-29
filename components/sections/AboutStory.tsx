@@ -9,7 +9,7 @@ export async function AboutStory() {
       <SectionHeading eyebrow="About" title={founding.title} lead={founding.lead} />
       <div className="mt-12 max-w-2xl space-y-5">
         {founding.paragraphs.map((p) => (
-          <p key={p} className="text-base leading-relaxed text-muted">
+          <p key={p} className="whitespace-pre-line text-base leading-relaxed text-muted">
             {p}
           </p>
         ))}
