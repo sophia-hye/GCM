@@ -94,15 +94,23 @@ const enWhoWeAre = {
     {
       en: "Mentality",
       title: "Mentality",
-      body: "Players with responsibility · grit · passion · resilience · emotional control. Mental care centered on character and teamwork begins from the kids stage.",
+      body: "From the kids stage, we provide mental care centered on character and teamwork so athletes grow with responsibility, grit, resilience and emotional control.",
     },
     {
       en: "Goal & Training",
       title: "Goal Setting & Training",
-      body: "High-level training · discipline · clear goal-setting to prepare for the next step.",
+      body: "We prepare athletes for the next step through high-level training, discipline and clear goal-setting.",
     },
-    { en: "Achievements", title: "Achievements", body: "Process-driven · consistent · proven through performance reviews." },
-    { en: "Athletes", title: "Athlete-Centered", body: "Individual growth · academic balance · long-term pathway." },
+    {
+      en: "Achievements",
+      title: "Achievements",
+      body: "We prove growth through process-driven consistency and continuous performance reviews.",
+    },
+    {
+      en: "Athletes",
+      title: "Athlete-Centered",
+      body: "We balance individual growth with academics and design a long-term pathway for each athlete.",
+    },
   ],
 };
 
