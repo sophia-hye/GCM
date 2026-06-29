@@ -115,7 +115,7 @@ const enWhoWeAre = {
 };
 
 const enTeamLead =
-  "An integrated performance team linking technique, mental and admissions. Multiple experts take responsibility for one athlete together.";
+  "An integrated performance team linking technique, mental and admissions.\nMultiple experts take responsibility for one athlete together.";
 
 const enTeam = [
   {

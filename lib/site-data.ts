@@ -169,7 +169,7 @@ export const consulting = {
 };
 
 export const teamLead =
-  "기술 · 멘탈 · 진학을 하나로 잇는 통합 퍼포먼스 팀. 한 명의 선수를 여러 전문가가 함께 책임집니다.";
+  "기술 · 멘탈 · 진학을 하나로 잇는 통합 퍼포먼스 팀.\n한 명의 선수를 여러 전문가가 함께 책임집니다.";
 
 export const team = [
   {
