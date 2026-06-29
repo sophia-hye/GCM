@@ -115,7 +115,7 @@ export const founding = {
 export const directorMessage = {
   eyebrow: "Director's Message",
   title: "대표 원장 인사말",
-  image: "/coaches/ohseonggook/IMG_2963.JPG",
+  image: "/coaches/ohseonggook/IMG_4332.JPG",
   signature: "GCM 아카데미 대표 원장 오성국 올림",
   before: [
     "안녕하세요. GCM 아카데미 대표 원장 오성국입니다. 저희 GCM 아카데미를 찾아주신 학부모님과 선수 여러분께 마음 깊이 감사드립니다.",

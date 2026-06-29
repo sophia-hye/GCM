@@ -278,7 +278,7 @@ const enFaqContact = {
 const enDirectorMessage = {
   eyebrow: "Director's Message",
   title: "A Message from the Director",
-  image: "/coaches/ohseonggook/IMG_2963.JPG",
+  image: "/coaches/ohseonggook/IMG_4332.JPG",
   signature: "Oh Seong-gook, Founder & Director, GCM Academy",
   before: [
     "Hello. I am Oh Seong-gook, Founder and Director of GCM Academy. To every parent and athlete who has found their way to us, thank you from the bottom of my heart.",
