@@ -43,7 +43,7 @@ const enPrograms = [
     key: "KIDS",
     target: "Starting Tennis · U6–U10",
     duration: "Foundation · Character stage",
-    desc: "The first step with a racket — cooperation, leadership, character and teamwork at the core.",
+    desc: "The first step with a racket, where children begin joyfully with cooperation, leadership, character and teamwork at the core.",
     points: [
       "Cooperation · teamwork group training",
       "Leadership · character education",
@@ -55,7 +55,7 @@ const enPrograms = [
     key: "JUNIOR",
     target: "Junior Elite · U10–U18",
     duration: "Long-term development path",
-    desc: "From fundamentals to international competition — a long-term roadmap to becoming an elite player.",
+    desc: "From fundamentals to international competition, we design a long-term roadmap to becoming an elite player.",
     points: [
       "U10–12: fundamentals · athleticism · coordination",
       "U14: competitive training habits · technical refinement",
@@ -67,7 +67,7 @@ const enPrograms = [
     key: "PRO",
     target: "Pro Aspirants · Tour",
     duration: "Weekly / Monthly / Full season",
-    desc: "High-intensity performance management for tour competition and pro-team entry.",
+    desc: "We provide high-intensity performance management for tour competition and pro-team entry.",
     points: [
       "Pattern-based training · match scenarios · KPI feedback",
       "Tour schedule · tournament travel management",
