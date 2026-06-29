@@ -12,7 +12,7 @@ export async function TotalCare() {
   const titleTail = titleRest.join(": ");
 
   return (
-    <Section lines>
+    <Section>
       <SectionHeading
         eyebrow="Comprehensive Management"
         title={

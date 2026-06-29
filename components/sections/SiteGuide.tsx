@@ -11,7 +11,7 @@ export async function SiteGuide() {
   const ui = getUI(locale);
 
   return (
-    <Section id="explore" lines reveal={false}>
+    <Section id="explore" reveal={false}>
       <Reveal>
         <SectionHeading eyebrow="Explore" title={ui.siteGuideTitle} lead={siteGuideLead} />
       </Reveal>

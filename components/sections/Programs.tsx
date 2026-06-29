@@ -9,7 +9,7 @@ export async function Programs() {
   const ui = getUI(locale);
 
   return (
-    <Section id="programs" lines reveal={false}>
+    <Section id="programs" reveal={false}>
       <Reveal>
         <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
       </Reveal>

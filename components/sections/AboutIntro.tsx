@@ -9,7 +9,7 @@ export async function AboutIntro() {
   const ui = getUI(locale);
 
   return (
-    <Section id="about-intro" tone="muted" lines>
+    <Section id="about-intro" tone="muted">
       <SectionHeading
         eyebrow={ui.aboutIntroEyebrow}
         title={founding.title}

@@ -5,7 +5,7 @@ import { getDict } from "@/lib/site-content";
 export async function AboutStory() {
   const { founding } = getDict(await getLocale());
   return (
-    <Section id="about" lines>
+    <Section id="about">
       <SectionHeading eyebrow="About" title={founding.title} lead={founding.lead} />
       <div className="mt-12 max-w-2xl space-y-5">
         {founding.paragraphs.map((p) => (
