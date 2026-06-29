@@ -10,12 +10,13 @@ export async function Footer() {
       ? "High-performance tennis academy. Elite development integrating technique, physical and mental."
       : "고성능 테니스 아카데미. 기술 · 피지컬 · 멘탈을 통합한 엘리트 육성.",
     rep: en ? `Director ${site.rep}.` : `대표 ${site.rep}.`,
+    est: en ? `Est. ${site.foundedDate}` : `개원 ${site.foundedDate}`,
     consult: en ? "Book consulting / inquiry" : "상담 예약 / 문의",
     terms: en ? "Terms" : "이용약관",
     privacy: en ? "Privacy Policy" : "개인정보 처리방침",
     rights: en
-      ? `© ${new Date().getFullYear()} GCM Academy. All rights reserved.`
-      : `© ${new Date().getFullYear()} GCM 아카데미. All rights reserved.`,
+      ? `© ${site.foundedYear}–${new Date().getFullYear()} GCM Academy. All rights reserved.`
+      : `© ${site.foundedYear}–${new Date().getFullYear()} GCM 아카데미. All rights reserved.`,
   };
 
   return (
@@ -31,6 +32,9 @@ export async function Footer() {
               {L.blurb}
               <br />
               {L.rep}
+            </p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.15em] text-court">
+              {L.est}
             </p>
           </div>
 
