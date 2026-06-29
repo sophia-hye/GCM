@@ -204,9 +204,9 @@ const enDevelopmentSteps = [
 ];
 
 const enTotalCare = [
-  { name: "Academic", body: "Academic management for admissions, English communication, admission timelines and essay support." },
-  { name: "Global Manner", body: "Pro etiquette for the international stage, media interview training, global manners." },
-  { name: "Operations", body: "Tournament travel and stay scheduling, integrated performance-data management." },
+  { name: "Academic", body: "We support academic management for admissions, English communication, admission timelines and essay writing." },
+  { name: "Global Manner", body: "We build pro etiquette and media interview skills for the international stage, nurturing global manners." },
+  { name: "Operations", body: "We coordinate tournament travel and stays, and manage performance data in one place." },
 ];
 
 const enTracks = {

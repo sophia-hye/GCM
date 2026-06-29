@@ -423,9 +423,9 @@ export const skills = [
 ];
 
 export const totalCare = [
-  { name: "Academic", body: "진학에 필요한 학업 관리와 영어 커뮤니케이션, 진학 타임라인 및 에세이 지원." },
-  { name: "Global Manner", body: "국제 무대 소통을 위한 프로 에티켓, 미디어 인터뷰 훈련, 글로벌 매너." },
-  { name: "Operations", body: "토너먼트 원정 및 체류 일정 조율, 퍼포먼스 데이터 통합 관리." },
+  { name: "Academic", body: "진학에 필요한 학업 관리와 영어 커뮤니케이션, 진학 타임라인과 에세이 작성을 지원합니다." },
+  { name: "Global Manner", body: "국제 무대 소통을 위한 프로 에티켓과 미디어 인터뷰 훈련으로 글로벌 매너를 길러줍니다." },
+  { name: "Operations", body: "토너먼트 원정과 체류 일정을 조율하고, 퍼포먼스 데이터를 통합 관리합니다." },
 ];
 
 export const tracks = {
