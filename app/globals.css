@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Hahmlet:wght@800&display=swap");
 @import "tailwindcss";
 
 /*
@@ -21,7 +22,7 @@
   /* 한글 본문/헤딩 폴백은 Wanted Sans (영문 전용 디스플레이 폰트 뒤에 두면
      글리프가 없는 한글만 Wanted Sans 로 폴백된다). */
   --font-sans: "Wanted Sans Variable", "Wanted Sans", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-archivo), "Archivo", "Wanted Sans Variable", system-ui, sans-serif;
+  --font-display: var(--font-archivo), "Archivo", "Hahmlet", system-ui, sans-serif;
   --font-accent: var(--font-playfair), "Playfair Display", "Wanted Sans Variable", Georgia, serif;
 }
 
