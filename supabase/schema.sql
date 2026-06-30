@@ -42,8 +42,10 @@ create table public.gcm_profiles (
   email text,
   parent_id uuid references public.gcm_profiles (id),
   source text not null default 'gcm',
+  approved boolean not null default false, -- 관리자 승인된 우리팀 선수만 매치 셀프 피드백 작성 가능
   created_at timestamptz not null default now()
 );
+-- 기존 DB: alter table public.gcm_profiles add column if not exists approved boolean not null default false;
 create unique index gcm_profiles_phone_uniq
   on public.gcm_profiles (phone) where phone is not null and phone <> '';
 alter table public.gcm_profiles enable row level security;

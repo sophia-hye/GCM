@@ -198,3 +198,16 @@ export async function saveCoachFeedback(formData: FormData): Promise<void> {
   await supabase.from("gcm_match_analyses").update({ coach_feedback: feedback }).eq("id", id);
   revalidatePath("/admin/analyses");
 }
+
+/** 관리자: 회원(선수) 승인/해제 — 승인된 회원만 매치 셀프 피드백 작성 가능 */
+export async function setMemberApproved(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  const approved = String(formData.get("approved") ?? "") === "true";
+  if (!id) return;
+
+  const supabase = await createClient();
+  await supabase.from("gcm_profiles").update({ approved }).eq("id", id);
+  revalidatePath(`/admin/members/${id}`);
+  revalidatePath("/admin/members");
+}

@@ -27,7 +27,7 @@ export default async function MembersPage() {
   const supabase = await createClient();
   const { data: members } = await supabase
     .from("gcm_profiles")
-    .select("id, name, phone, role, created_at")
+    .select("id, name, phone, role, approved, created_at")
     .neq("role", "admin")
     .order("created_at", { ascending: false });
 
@@ -50,23 +50,27 @@ export default async function MembersPage() {
       <MemberForm />
 
       <div className="overflow-hidden rounded-2xl border border-line">
-        <div className="grid grid-cols-4 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
+        <div className="grid grid-cols-5 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
           <span>이름</span>
           <span>전화번호</span>
           <span>유형</span>
           <span>로그인</span>
+          <span>승인</span>
         </div>
         {members && members.length > 0 ? (
           members.map((m) => (
             <Link
               key={m.id}
               href={`/admin/members/${m.id}`}
-              className="grid grid-cols-4 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
+              className="grid grid-cols-5 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
             >
               <span className="font-semibold">{m.name || "-"}</span>
               <span className="text-muted">{m.phone || "-"}</span>
               <span className="text-court-bright">{roleLabel[m.role] ?? m.role}</span>
               <span className="text-muted">{methodById[m.id] ?? "-"}</span>
+              <span className={m.approved ? "text-lime" : "text-muted"}>
+                {m.approved ? "승인됨" : "미승인"}
+              </span>
             </Link>
           ))
         ) : (

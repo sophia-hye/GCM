@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-06-30T14:08:54.596Z",
+  "lastUpdated": "2026-06-30T14:29:39.398Z",
   "activeFeatures": [
     "GCM",
     "sections",
@@ -64,9 +64,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:36:44.685Z",
-        "lastUpdated": "2026-06-30T13:20:11.517Z"
+        "lastUpdated": "2026-06-30T14:27:15.620Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/components/Navbar.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/lib/site-data.ts"
     },
     "sections": {
       "phase": "do",
@@ -168,7 +168,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:53.309Z",
-        "lastUpdated": "2026-06-30T14:04:51.934Z"
+        "lastUpdated": "2026-06-30T14:29:23.015Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/analysis.ts"
     },
@@ -194,7 +194,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:07:16.226Z",
-        "lastUpdated": "2026-06-30T13:45:40.548Z"
+        "lastUpdated": "2026-06-30T14:29:06.295Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/members/page.tsx"
     },
@@ -311,9 +311,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:42:10.710Z",
-        "lastUpdated": "2026-06-30T13:23:21.734Z"
+        "lastUpdated": "2026-06-30T14:11:17.455Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/bookings/page.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/bookings/WeeklyCalendar.tsx"
     },
     "[id]": {
       "phase": "do",
@@ -324,9 +324,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:43:02.555Z",
-        "lastUpdated": "2026-06-05T07:43:02.555Z"
+        "lastUpdated": "2026-06-30T14:28:33.086Z"
       },
-      "lastFile": "D:\\git-repo\\GCM\\app\\admin\\members\\[id]\\page.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/members/[id]/page.tsx"
     },
     "terms": {
       "phase": "do",
@@ -688,7 +688,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-30T14:05:31.812Z",
-        "lastUpdated": "2026-06-30T14:08:33.426Z"
+        "lastUpdated": "2026-06-30T14:29:39.397Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/dashboard/analysis/page.tsx"
     },
@@ -701,7 +701,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-30T14:06:20.066Z",
-        "lastUpdated": "2026-06-30T14:08:54.596Z"
+        "lastUpdated": "2026-06-30T14:23:04.367Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/analyses/page.tsx"
     }
@@ -714,7 +714,7 @@
   "session": {
     "startedAt": "2026-06-05T05:57:43.392Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-06-30T14:08:54.596Z"
+    "lastActivity": "2026-06-30T14:29:39.398Z"
   },
   "history": [
     {
@@ -4806,6 +4806,78 @@
     {
       "timestamp": "2026-06-30T14:08:54.596Z",
       "feature": "analyses",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:11:17.455Z",
+      "feature": "bookings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:23:04.367Z",
+      "feature": "analyses",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:27:15.620Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:28:08.369Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:28:14.921Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:28:33.086Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:28:44.715Z",
+      "feature": "members",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:28:55.358Z",
+      "feature": "members",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:29:06.295Z",
+      "feature": "members",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:29:23.015Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:29:31.426Z",
+      "feature": "analysis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:29:39.398Z",
+      "feature": "analysis",
       "phase": "do",
       "action": "updated"
     }

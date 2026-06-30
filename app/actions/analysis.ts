@@ -16,6 +16,16 @@ export async function submitMatchAnalysis(
   } = await supabase.auth.getUser();
   if (!user) return { error: "로그인이 필요합니다." };
 
+  // 승인된 선수(또는 관리자)만 작성 가능
+  const { data: profile } = await supabase
+    .from("gcm_profiles")
+    .select("approved, role")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (!(profile?.approved || profile?.role === "admin")) {
+    return { error: "코치 승인 후 작성할 수 있습니다. 관리자에게 문의해 주세요." };
+  }
+
   const matchDate = String(formData.get("match_date") ?? "").trim();
   if (!matchDate) return { error: "경기 날짜를 입력해 주세요." };
 
