@@ -2,7 +2,7 @@
 
 import { randomUUID } from "crypto";
 import { createClient } from "@/lib/supabase/server";
-import { PAYMENT_CONFIG, type PaymentKind } from "@/lib/payments/config";
+import { PAYMENT_CONFIG, resolveAmount, type PaymentKind } from "@/lib/payments/config";
 
 export type CreatePaymentResult =
   | { ok: true; orderId: string; amount: number; orderName: string; customerName: string }
@@ -18,6 +18,10 @@ export async function createPayment(
 ): Promise<CreatePaymentResult> {
   const cfg = PAYMENT_CONFIG[kind];
   if (!cfg) return { ok: false, error: "알 수 없는 결제 종류입니다." };
+
+  // 금액은 서버가 결정 (court 는 날짜/시간 → 운영시간/주야간 기준)
+  const amount = resolveAmount(kind, meta);
+  if (!amount) return { ok: false, error: "예약 시간 또는 금액이 올바르지 않습니다." };
 
   const supabase = await createClient();
   const {
@@ -37,7 +41,7 @@ export async function createPayment(
   const { error } = await supabase.from("gcm_payments").insert({
     user_id: user.id,
     kind,
-    amount: cfg.amount,
+    amount,
     order_id: orderId,
     order_name: cfg.orderName,
     status: "ready",
@@ -45,5 +49,5 @@ export async function createPayment(
   });
   if (error) return { ok: false, error: "주문 생성에 실패했습니다." };
 
-  return { ok: true, orderId, amount: cfg.amount, orderName: cfg.orderName, customerName };
+  return { ok: true, orderId, amount, orderName: cfg.orderName, customerName };
 }

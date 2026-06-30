@@ -34,8 +34,8 @@ export default async function ConsultingPage() {
             </p>
             <p className="mt-1 text-sm text-muted">
               {en
-                ? `A deposit of ${PAYMENT_CONFIG.consulting_deposit.amount.toLocaleString("ko-KR")} KRW confirms your consulting slot.`
-                : `예약금 ${PAYMENT_CONFIG.consulting_deposit.amount.toLocaleString("ko-KR")}원 결제 시 상담 일정이 확정됩니다.`}
+                ? `A deposit of ${(PAYMENT_CONFIG.consulting_deposit.amount ?? 0).toLocaleString("ko-KR")} KRW confirms your consulting slot.`
+                : `예약금 ${(PAYMENT_CONFIG.consulting_deposit.amount ?? 0).toLocaleString("ko-KR")}원 결제 시 상담 일정이 확정됩니다.`}
             </p>
           </div>
           <Button href="/pay/consulting_deposit" variant="court">

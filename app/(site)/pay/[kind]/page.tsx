@@ -13,6 +13,8 @@ export default async function PayPage({
 }) {
   const { kind } = await params;
   if (!isPaymentKind(kind)) redirect("/");
+  // 코트는 시간대별 금액이라 전용 예약 페이지에서 처리
+  if (kind === "court") redirect("/court");
 
   const supabase = await createClient();
   const {
@@ -28,7 +30,7 @@ export default async function PayPage({
         <SectionHeading
           eyebrow="Payment"
           title={cfg.label}
-          lead={`결제 금액 ${cfg.amount.toLocaleString("ko-KR")}원`}
+          lead={`결제 금액 ${(cfg.amount ?? 0).toLocaleString("ko-KR")}원`}
         />
         <div className="mt-10 max-w-xl">
           <TossCheckout kind={kind} />

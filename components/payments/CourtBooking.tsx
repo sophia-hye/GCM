@@ -1,22 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PAYMENT_CONFIG } from "@/lib/payments/config";
+import { slotsForCourtDate, courtPriceForTime, isNight, COURT_PRICE } from "@/lib/payments/config";
 import { TossCheckout } from "@/components/payments/TossCheckout";
 
 const FIELD =
   "rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright";
-
-/** 운영시간: 평일 09–19, 주말 09–17 → 시작 시간 슬롯(1시간 단위) */
-function slotsForDate(dateStr: string): string[] {
-  if (!dateStr) return [];
-  const day = new Date(`${dateStr}T00:00:00+09:00`).getUTCDay(); // 0=일,6=토
-  const weekend = day === 0 || day === 6;
-  const lastStart = weekend ? 16 : 18; // 주말 16시 시작(17시 종료) / 평일 18시 시작(19시 종료)
-  const out: string[] = [];
-  for (let h = 9; h <= lastStart; h++) out.push(`${String(h).padStart(2, "0")}:00`);
-  return out;
-}
 
 function todayKst(): string {
   return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
@@ -27,8 +16,8 @@ export function CourtBooking() {
   const [time, setTime] = useState("");
   const [confirmed, setConfirmed] = useState(false);
 
-  const slots = useMemo(() => slotsForDate(date), [date]);
-  const price = PAYMENT_CONFIG.court.amount;
+  const slots = useMemo(() => slotsForCourtDate(date), [date]);
+  const price = time ? courtPriceForTime(time) : null;
   const canProceed = Boolean(date && time);
 
   if (confirmed && date && time) {
@@ -37,7 +26,8 @@ export function CourtBooking() {
         <div className="rounded-2xl border border-line bg-card p-5 text-sm">
           <p className="font-semibold">예약 정보</p>
           <p className="mt-1 text-muted">
-            {date} · {time}~ · {price.toLocaleString("ko-KR")}원
+            {date} · {time}~ · {isNight(time) ? "야간" : "주간"} ·{" "}
+            {courtPriceForTime(time).toLocaleString("ko-KR")}원
           </p>
           <button
             type="button"
@@ -87,12 +77,17 @@ export function CourtBooking() {
       </div>
 
       <p className="text-xs text-muted">
-        운영 시간: 평일 09:00–19:00 · 주말 09:00–17:00 (이 범위 안에서만 선택 가능)
+        운영 시간: 평일 09:00–19:00 · 주말 09:00–17:00 · 주간 {COURT_PRICE.day.toLocaleString("ko-KR")}원
+        / 야간({COURT_PRICE.nightStartHour}시 이후) {COURT_PRICE.night.toLocaleString("ko-KR")}원
       </p>
 
       <div className="flex items-center justify-between rounded-2xl border border-line bg-card px-5 py-4">
-        <span className="text-sm text-muted">이용료</span>
-        <span className="font-display text-lg font-bold">{price.toLocaleString("ko-KR")}원</span>
+        <span className="text-sm text-muted">
+          이용료 {time ? (isNight(time) ? "(야간)" : "(주간)") : ""}
+        </span>
+        <span className="font-display text-lg font-bold">
+          {price !== null ? `${price.toLocaleString("ko-KR")}원` : "시간 선택 시 표시"}
+        </span>
       </div>
 
       <button
