@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { updateBookingStatus } from "@/app/admin/actions";
+import { BookingsCalendar } from "./BookingsCalendar";
 
 export const metadata = { title: "예약 관리 | GCM Admin" };
 
@@ -39,14 +40,26 @@ function toKstInputValue(iso: string | null): string {
   return kst.toISOString().slice(0, 16);
 }
 
-export default async function AdminBookingsPage() {
+export default async function AdminBookingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ month?: string }>;
+}) {
+  const { month } = await searchParams;
   const supabase = await createClient();
   const { data } = await supabase
     .from("gcm_bookings")
-    .select("id, type, scheduled_at, status, memo, gcm_profiles(name, phone)")
+    .select("id, type, scheduled_at, status, memo, profiles:gcm_profiles(name, phone)")
     .order("created_at", { ascending: false });
 
   const bookings = (data ?? []) as unknown as BookingRow[];
+  const calBookings = bookings.map((b) => ({
+    id: b.id,
+    type: b.type,
+    status: b.status,
+    scheduled_at: b.scheduled_at,
+    name: b.profiles?.name ?? null,
+  }));
 
   return (
     <div className="space-y-6">
@@ -54,6 +67,8 @@ export default async function AdminBookingsPage() {
         <h1 className="font-display text-2xl font-bold">예약 관리</h1>
         <p className="mt-1 text-sm text-muted">회원 예약 요청을 확인하고 상태를 변경합니다.</p>
       </div>
+
+      <BookingsCalendar bookings={calBookings} month={month} />
 
       {bookings.length > 0 ? (
         <div className="space-y-4">
