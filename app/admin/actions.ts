@@ -186,3 +186,15 @@ export async function upsertProgress(
   revalidatePath(`/admin/members/${userId}`);
   return { ok: true };
 }
+
+/** 관리자: 경기 분석에 코치 피드백 저장 */
+export async function saveCoachFeedback(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+  const feedback = String(formData.get("coach_feedback") ?? "").trim() || null;
+
+  const supabase = await createClient();
+  await supabase.from("gcm_match_analyses").update({ coach_feedback: feedback }).eq("id", id);
+  revalidatePath("/admin/analyses");
+}

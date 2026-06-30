@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-06-30T13:56:40.195Z",
+  "lastUpdated": "2026-06-30T14:08:54.596Z",
   "activeFeatures": [
     "GCM",
     "sections",
@@ -49,7 +49,9 @@
     "success",
     "fail",
     "[kind]",
-    "court"
+    "court",
+    "analysis",
+    "analyses"
   ],
   "primaryFeature": "GCM",
   "features": {
@@ -153,9 +155,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:21.172Z",
-        "lastUpdated": "2026-06-28T03:20:36.127Z"
+        "lastUpdated": "2026-06-30T14:08:40.897Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/dashboard/layout.tsx"
+      "lastFile": "/Users/sophia/gitrepo/GCM/components/dashboard/MatchAnalysisForm.tsx"
     },
     "actions": {
       "phase": "do",
@@ -166,9 +168,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:53.309Z",
-        "lastUpdated": "2026-06-30T12:58:53.368Z"
+        "lastUpdated": "2026-06-30T14:04:51.934Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/payments.ts"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/analysis.ts"
     },
     "admin": {
       "phase": "do",
@@ -179,9 +181,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:05:58.044Z",
-        "lastUpdated": "2026-06-30T13:21:26.490Z"
+        "lastUpdated": "2026-06-30T14:08:09.809Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/actions.ts"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/layout.tsx"
     },
     "members": {
       "phase": "do",
@@ -676,6 +678,32 @@
         "lastUpdated": "2026-06-30T12:52:32.722Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/court/page.tsx"
+    },
+    "analysis": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-30T14:05:31.812Z",
+        "lastUpdated": "2026-06-30T14:08:33.426Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/dashboard/analysis/page.tsx"
+    },
+    "analyses": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-06-30T14:06:20.066Z",
+        "lastUpdated": "2026-06-30T14:08:54.596Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/analyses/page.tsx"
     }
   },
   "pipeline": {
@@ -686,7 +714,7 @@
   "session": {
     "startedAt": "2026-06-05T05:57:43.392Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-06-30T13:56:40.195Z"
+    "lastActivity": "2026-06-30T14:08:54.596Z"
   },
   "history": [
     {
@@ -4694,6 +4722,90 @@
     {
       "timestamp": "2026-06-30T13:56:40.195Z",
       "feature": "sections",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:04:51.934Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:05:12.871Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:05:31.812Z",
+      "feature": "analysis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:05:48.773Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:06:20.066Z",
+      "feature": "analyses",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:06:33.995Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:02.620Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:09.809Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:16.838Z",
+      "feature": "analysis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:25.850Z",
+      "feature": "analysis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:33.426Z",
+      "feature": "analysis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:40.897Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:47.136Z",
+      "feature": "analyses",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-30T14:08:54.596Z",
+      "feature": "analyses",
       "phase": "do",
       "action": "updated"
     }

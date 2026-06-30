@@ -138,12 +138,12 @@ export function WeeklyCalendar({
                           key={b.id}
                           className={`mb-1 truncate rounded px-1.5 py-0.5 text-[11px] font-medium text-white ${cancelled ? "line-through opacity-50" : ""}`}
                           style={{ backgroundColor: coachColor(b.coach) }}
-                          title={`${String(k.getUTCHours()).padStart(2, "0")}:${String(k.getUTCMinutes()).padStart(2, "0")} ${b.name ?? "-"} · ${TYPE_LABEL[b.type] ?? b.type} · ${b.coach ?? "미지정"} · ${b.status}`}
+                          title={`${String(k.getUTCHours()).padStart(2, "0")}:${String(k.getUTCMinutes()).padStart(2, "0")} · 코치 ${b.coach ?? "미지정"} · 회원 ${b.name ?? "-"} · ${TYPE_LABEL[b.type] ?? b.type} · ${b.status}`}
                         >
                           {String(k.getUTCMinutes()).padStart(2, "0") === "00"
                             ? `${String(k.getUTCHours()).padStart(2, "0")}시`
                             : `${String(k.getUTCHours()).padStart(2, "0")}:${String(k.getUTCMinutes()).padStart(2, "0")}`}{" "}
-                          {b.name ?? "-"}
+                          {b.coach ?? "미지정"}
                         </div>
                       );
                     })}

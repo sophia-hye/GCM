@@ -211,3 +211,33 @@ alter table public.gcm_profiles
 -- update public.gcm_profiles set role = 'admin' where phone = '01000000000';
 -- 또는 이메일로: update public.gcm_profiles set role = 'admin' where email = 'you@example.com';
 -- ============================================================
+
+-- ============================================================
+-- 경기 자기분석 (gcm_match_analyses)
+--   선수가 경기 후 스스로 분석 작성 → 관리자(코치)가 확인하고 피드백.
+--   본인만 작성/조회, 관리자 전체 조회/피드백.
+-- ============================================================
+create table if not exists public.gcm_match_analyses (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.gcm_profiles (id) on delete cascade,
+  match_date date not null,
+  opponent text,
+  better_than_last text,        -- 전 시합보다 잘됐던 부분
+  improved_than_last text,      -- 전 시합보다 좋아진 부분
+  worse_than_last text,         -- 전 시합보다 안됐던 부분
+  needed text,                  -- 필요한 부분
+  needed_practice text,         -- 안됐던/필요한 부분에 따른 필요한 연습
+  coach_feedback text,          -- 코치(관리자) 피드백
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_match_analyses enable row level security;
+create index if not exists gcm_match_analyses_user_idx
+  on public.gcm_match_analyses (user_id, match_date desc);
+create policy "gcm_ma_select_own" on public.gcm_match_analyses
+  for select using (auth.uid() = user_id);
+create policy "gcm_ma_insert_own" on public.gcm_match_analyses
+  for insert with check (auth.uid() = user_id);
+create policy "gcm_ma_update_own" on public.gcm_match_analyses
+  for update using (auth.uid() = user_id);
+create policy "gcm_ma_admin_all" on public.gcm_match_analyses
+  for all using (public.is_gcm_admin()) with check (public.is_gcm_admin());
