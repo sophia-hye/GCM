@@ -16,6 +16,7 @@ export function ScholarshipForm() {
   // 모든 필수 항목 + 동의 체크가 충족돼야 버튼 활성화
   const formRef = useRef<HTMLFormElement>(null);
   const [valid, setValid] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const refreshValidity = () => setValid(!!formRef.current?.checkValidity());
 
   if (state.ok) {
@@ -55,12 +56,26 @@ export function ScholarshipForm() {
         </fieldset>
       ))}
 
-      <label className="flex items-start gap-2 text-sm text-muted">
-        <input type="checkbox" name="agree" required className="mt-1" />
-        <span>
-          개인정보 수집·이용에 동의합니다. (자세한 내용은 개인정보 처리방침 참고)
-        </span>
-      </label>
+      <div>
+        <label className="flex items-start gap-2 text-sm text-muted">
+          <input
+            type="checkbox"
+            name="agree"
+            required
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="mt-1"
+          />
+          <span>
+            개인정보 수집·이용에 동의합니다. (자세한 내용은 개인정보 처리방침 참고)
+          </span>
+        </label>
+        {!agreed ? (
+          <p className="mt-2 text-xs font-semibold text-danger">
+            개인정보 수집·이용에 동의해야 신청할 수 있습니다.
+          </p>
+        ) : null}
+      </div>
 
       {state.error ? (
         <p className="rounded-lg border border-danger/40 bg-danger/10 px-3 py-2 text-sm text-danger">
@@ -70,7 +85,7 @@ export function ScholarshipForm() {
 
       <button
         type="submit"
-        disabled={pending || !valid}
+        disabled={pending || !valid || !agreed}
         className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? "제출 중..." : "장학 신청서 제출"}
