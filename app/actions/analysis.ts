@@ -23,7 +23,7 @@ export async function submitMatchAnalysis(
     .eq("id", user.id)
     .maybeSingle();
   if (!(profile?.approved || profile?.role === "admin")) {
-    return { error: "코치 승인 후 작성할 수 있습니다. 관리자에게 문의해 주세요." };
+    return { error: "작성 권한이 없습니다. 승인된 GCM 팀 선수만 작성할 수 있습니다." };
   }
 
   const matchDate = String(formData.get("match_date") ?? "").trim();

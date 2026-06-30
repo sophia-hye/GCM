@@ -54,9 +54,9 @@ export default async function DashboardAnalysisPage() {
         <MatchAnalysisForm />
       ) : (
         <div className="rounded-2xl border border-court/30 bg-court/5 p-6 text-sm">
-          <p className="font-semibold text-court-bright">승인 대기 중</p>
+          <p className="font-semibold text-court-bright">작성 권한이 없습니다</p>
           <p className="mt-1 text-muted">
-            매치 셀프 피드백은 GCM 팀 선수로 승인된 회원만 작성할 수 있습니다. 코치 승인 후 이용해 주세요.
+            매치 셀프 피드백은 승인된 GCM 팀 선수만 작성할 수 있습니다. 팀 소속·승인 여부는 코치에게 문의해 주세요.
           </p>
         </div>
       )}
