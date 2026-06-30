@@ -1,6 +1,12 @@
+import Image from "next/image";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
+
+const CLASS_IMAGES: Record<string, string> = {
+  KIDS: "/img/kids-class.png",
+  ADULT: "/img/adult-class.png",
+};
 
 export async function Recreational() {
   const locale = await getLocale();
@@ -16,7 +22,16 @@ export async function Recreational() {
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2">
         {recreational.classes.map((c) => (
-          <div key={c.key} className="border-t border-line pt-6">
+          <div key={c.key} className="flex flex-col">
+            {CLASS_IMAGES[c.key] ? (
+              <Image
+                src={CLASS_IMAGES[c.key]}
+                alt={c.title}
+                width={1536}
+                height={1024}
+                className="mb-6 aspect-[3/2] w-full rounded-2xl border border-line object-cover"
+              />
+            ) : null}
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-court">
               {c.key}
             </span>

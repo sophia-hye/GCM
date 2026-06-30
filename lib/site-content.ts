@@ -43,7 +43,7 @@ const enPrograms = [
     key: "KIDS",
     target: "Starting Tennis · U6–U10",
     duration: "Foundation · Character stage",
-    desc: "The first step with a racket — cooperation, leadership, character and teamwork at the core.",
+    desc: "The first step with a racket, where children begin joyfully with cooperation, leadership, character and teamwork at the core.",
     points: [
       "Cooperation · teamwork group training",
       "Leadership · character education",
@@ -55,7 +55,7 @@ const enPrograms = [
     key: "JUNIOR",
     target: "Junior Elite · U10–U18",
     duration: "Long-term development path",
-    desc: "From fundamentals to international competition — a long-term roadmap to becoming an elite player.",
+    desc: "From fundamentals to international competition, we design a long-term roadmap to becoming an elite player.",
     points: [
       "U10–12: fundamentals · athleticism · coordination",
       "U14: competitive training habits · technical refinement",
@@ -67,7 +67,7 @@ const enPrograms = [
     key: "PRO",
     target: "Pro Aspirants · Tour",
     duration: "Weekly / Monthly / Full season",
-    desc: "High-intensity performance management for tour competition and pro-team entry.",
+    desc: "We provide high-intensity performance management for tour competition and pro-team entry.",
     points: [
       "Pattern-based training · match scenarios · KPI feedback",
       "Tour schedule · tournament travel management",
@@ -94,20 +94,28 @@ const enWhoWeAre = {
     {
       en: "Mentality",
       title: "Mentality",
-      body: "Players with responsibility · grit · passion · resilience · emotional control. Mental care centered on character and teamwork begins from the kids stage.",
+      body: "From the kids stage, we provide mental care centered on character and teamwork so athletes grow with responsibility, grit, resilience and emotional control.",
     },
     {
       en: "Goal & Training",
       title: "Goal Setting & Training",
-      body: "High-level training · discipline · clear goal-setting to prepare for the next step.",
+      body: "We prepare athletes for the next step through high-level training, discipline and clear goal-setting.",
     },
-    { en: "Achievements", title: "Achievements", body: "Process-driven · consistent · proven through performance reviews." },
-    { en: "Athletes", title: "Athlete-Centered", body: "Individual growth · academic balance · long-term pathway." },
+    {
+      en: "Achievements",
+      title: "Achievements",
+      body: "We prove growth through process-driven consistency and continuous performance reviews.",
+    },
+    {
+      en: "Athletes",
+      title: "Athlete-Centered",
+      body: "We balance individual growth with academics and design a long-term pathway for each athlete.",
+    },
   ],
 };
 
 const enTeamLead =
-  "An integrated performance team linking technique, mental and admissions. Multiple experts take responsibility for one athlete together.";
+  "An integrated performance team linking technique, mental and admissions.\nMultiple experts take responsibility for one athlete together.";
 
 const enTeam = [
   {
@@ -117,23 +125,40 @@ const enTeam = [
     image: "/coaches/ohseonggook/IMG_2963.JPG",
     achievements: [
       "Current) GCM Academy Founder & Director",
+      "Former) Junior national team coach",
+      "Coached 3 top-20 junior players",
       "GPTCA Level B.",
       "ATP singles career-high around 600",
-      "Coached 3 top-20 junior players",
-      "2013 Egypt ITF Futures — Champion",
-      "2014 Gimcheon ITF Futures — Runner-up",
-      "2016 97th National Sports Festival — Silver",
-      "2017 Yeongwol Open — Runner-up",
-      "2018 Gimcheon ITF Futures — Champion",
-      "2019 100th National Sports Festival — Silver",
-      "2024 103rd National Sports Festival — Bronze",
-      "2024 Korea Tennis League (Corporate) — Doubles Champion",
+      "2012 India ITF Futures — Doubles 3rd",
+      "2013 Egypt ITF Futures — Doubles 3rd",
+      "2013 Egypt ITF Futures — Doubles Champion",
+      "2014 Gimcheon ITF Futures — Doubles Runner-up",
+      "2014 Chuncheon Open — Mixed Doubles 3rd",
+      "2015 KTA President's Cup — Mixed Doubles Champion",
+      "2015 Anseong ITF Futures — Doubles 3rd",
+      "2015 Corporate Tennis Masters — Doubles Runner-up",
+      "2017 Gimcheon ITF Futures — Doubles 3rd",
+      "2017 Anseong ITF Futures — Singles 3rd",
+      "2017 Yeongwol Open — Singles Runner-up",
+      "2017 India ITF Futures — Singles 3rd",
+      "2017 Corporate Tennis Masters — Doubles Runner-up",
+      "2018 Gimcheon ITF Futures — Singles Champion",
+      "2018 Anseong ITF Futures — Singles 3rd",
+      "2019 Daegu ITF Futures — Singles 3rd",
+      "2019 Corporate League R1 — Team Runner-up",
+      "2019 Corporate League R2 — Team Champion",
+      "2019 Chuncheon Open — Doubles 3rd",
+      "2024 Corporate League — Team 3rd",
+      "2024 Corporate League — Doubles Champion",
+      "97th National Sports Festival — Silver",
+      "100th National Sports Festival — Silver",
+      "105th National Sports Festival — Bronze",
     ],
   },
   {
     name: "Yoon Jae-won",
     role: "Head Coach · Technique · Physical",
-    bio: "Head coach leading technical development and overall match operations, managing daily training and match coaching.",
+    bio: "Head coach overseeing technical development, match operations, daily training and match coaching.",
     image: "",
     achievements: [
       "Former Goyang City Hall tennis player",
@@ -179,9 +204,9 @@ const enDevelopmentSteps = [
 ];
 
 const enTotalCare = [
-  { name: "Academic", body: "Academic management for admissions, English communication, admission timelines and essay support." },
-  { name: "Global Manner", body: "Pro etiquette for the international stage, media interview training, global manners." },
-  { name: "Operations", body: "Tournament travel and stay scheduling, integrated performance-data management." },
+  { name: "Academic", body: "We support academic management for admissions, English communication, admission timelines and essay writing." },
+  { name: "Global Manner", body: "We build pro etiquette and media interview skills for the international stage, nurturing global manners." },
+  { name: "Operations", body: "We coordinate tournament travel and stays, and manage performance data in one place." },
 ];
 
 const enTracks = {
@@ -196,7 +221,7 @@ const enTracks = {
     badge: "Pathway",
     body: "Competing on a college team while balancing study and sport — continuing both admission and an athletic career.",
   },
-  quote: "Pro or college, we walk the athlete's path to the very end.",
+  quote: "The pro path or the college path — we're always by the athlete's side.",
 };
 
 const enProcessSteps = [
@@ -211,8 +236,8 @@ const enScholarship = {
   title: "Apply for Full · Partial Scholarship",
   lead: "We offer a limited number of scholarship spots each year. We select athletes with attitude, competitiveness and character.",
   points: [
-    { title: "Eligibility", body: "Junior athletes aiming for ATP · WTA." },
-    { title: "Selection Criteria", body: "Comprehensive review of attitude · competitiveness · ITF/national ranking · recent results · coachability." },
+    { title: "Eligibility", body: "We welcome junior athletes aiming for the ATP · WTA." },
+    { title: "Selection Criteria", body: "We comprehensively review attitude, competitiveness, ITF/national ranking, recent results and coachability." },
     { title: "Post-Selection Process", body: "We manage development stage · national ranking · ITF junior ranking · pro ranking as the athlete grows." },
   ],
   apply: [
@@ -227,7 +252,7 @@ const enConsulting = {
   title: "GCM Consulting",
   lead: "Data-based career design and admissions consulting. We map out the athlete's next step together.",
   services: [
-    { title: "Admissions Consulting", body: "UTR/results diagnosis, target college/team selection, highlight videos and coach contact." },
+    { title: "Admissions Consulting", body: "We support everything from UTR/results diagnosis to target college/team selection, highlight videos and coach contact." },
     { title: "Career Design", body: "Comparing pro and college tracks to design a long-term roadmap suited to the athlete." },
     { title: "Mental · Language Care", body: "Match mental management plus language and academic preparation for admissions." },
   ],
@@ -256,6 +281,32 @@ const enRecreational = {
 const enFaqContact = {
   title: "ARE YOU READY TO GO PRO & GROW?",
   sub: "Technique · physical · mental as one. GCM walks your next step with you.",
+};
+
+const enDirectorMessage = {
+  eyebrow: "Director's Message",
+  title: "A Message from the Director",
+  image: "/coaches/ohseonggook/IMG_4332.JPG",
+  signature: "Oh Seong-gook, Founder & Director, GCM Academy",
+  before: [
+    "Hello. I am Oh Seong-gook, Founder and Director of GCM Academy. To every parent and athlete who has found their way to us, thank you from the bottom of my heart.",
+    "Years ago, my own parents believed in their child's limitless potential and made the bold decision to give me a chance on the larger stage of international professional tennis. Stepping outside the conventional mold, they chose an environment of 'the academy' and 'international competition' — even leaving middle school behind — so that I could focus entirely on improving my tennis and growing as a whole person. It is because of their deep love and courage, devoting everything to their child's future, that I can stand here today as an educator.",
+    "That is why I understand, more deeply than anyone, the earnest hearts of parents who want to open a wider world and safer opportunities for their children — and even the anxiety that sometimes hides behind that wish.",
+    "Tennis is more than a sport; it is a great education that becomes the strongest nourishment for life. Within a community of athletes with clear goals, children learn exceptional endurance beyond their limits, fighting spirit, a steady professional mindset and mental management that stays calm in victory or defeat, and the self-discipline and good attitude to govern themselves. The honest sweat shed on court becomes the foundation of a whole-person education that builds character.",
+    "Tennis is also the largest and most dignified arena for 'building a global network' that works anywhere in the world. Though we may first pick up the racket with different goals and expectations, here we all become one — because a single racket lets us share deep bonds and joy across generations and borders.",
+    "Within GCM Academy, active professional players and GCM club members cheer and encourage one another through exchange matches. In this beautiful companionship, children learn the firm value of belonging, embody altruism and positive influence toward others, and naturally grow into leaders with dignified 'global manners.' Beyond a youth specialty, they gain a lifelong companion sport that enriches life all the way into their senior years.",
+  ],
+  quote:
+    "Because a child's future is never decided by a single possibility or a single result, we make sure that learning never becomes pressure or stress.",
+  after: [
+    "Many parents, driven by a vague anxiety about the future, end up pushing their children — and distance grows in the family relationships that should be most precious.",
+    "GCM Academy wants to lift that heavy anxiety off the shoulders of both parents and children. The strategy for admissions and the hard worries and coaching about the future — we, the educators and specialists, will carry them for you. At home, please give only warm love and unconditional support. Helping a child feel that love fully and, in turn, stand on court with self-driven responsibility to repay it — that is the true education we pursue.",
+    "To this end, the educators who work with GCM are top veterans who served for decades as admissions officers in North America. We carefully combine not only tennis coaching but whole-person mentoring. Whether a child walks the path of a professional to the end, or keeps tennis as a precious asset and chooses a new direction, that is all good. In every moment, we will present the best alternatives and roadmaps so children never lose their ease and peace of mind.",
+    "At any crossroads — an unexpected injury or a sudden change of direction — our trusted partner 'equre (equre.us),' a specialized U.S. mentoring and admissions institution, stands with us. We have carefully prepared Plans A through B, C, D, and E so students can safely enter prestigious North American universities on scholarship. Whatever path they take, we will be the firm support that keeps them from giving up on their dreams.",
+    "For athletes with professional potential, we open the path to compete on the international stage — with matching training, mentoring, tour schedule management, and even tour-cost scholarship support — doing our utmost so they can grow into players competing on the ATP and WTA tours.",
+    "So that a parent's devotion to their child may bear the finest fruit, we will walk alongside you with a parent's heart and an educator's sense of mission. On the safe, wide roadmap GCM Academy offers, the chance for our children to stand proudly on the world stage is now open through GCM's global network linking Korea, Italy and Shanghai.",
+    "Let family love one another as family, and let the future be prepared calmly with experts. As your most trustworthy education partner, we will always be by your side. Thank you.",
+  ],
 };
 
 const enSiteGuideLead =
@@ -356,6 +407,7 @@ const enDict = {
   faqContact: enFaqContact,
   siteGuide: enSiteGuide,
   siteGuideLead: enSiteGuideLead,
+  directorMessage: enDirectorMessage,
 };
 
 const koDict = {
@@ -379,6 +431,7 @@ const koDict = {
   faqContact: ko.faqContact,
   siteGuide: ko.siteGuide,
   siteGuideLead: ko.siteGuideLead,
+  directorMessage: ko.directorMessage,
 };
 
 export type Dict = typeof enDict;
@@ -392,7 +445,7 @@ export const UI = {
   ko: {
     programsTitle: "누구를 위한 프로그램인가",
     playersTitle: "배출 · 소속 선수",
-    playersLead: "프로가 된 후가 아니라, 되기 전부터 브랜드를 함께 만듭니다.",
+    playersLead: "프로가 된 후가 아니라, 되기 전부터 선수의 브랜드를 함께 만듭니다.",
     playersComing: "배출·소속 선수 정보를 준비 중입니다. 곧 공개될 예정입니다.",
     testimonialsTitle: "선수와 학부모의 이야기",
     testimonialsComing: "선수와 학부모의 이야기를 준비하고 있습니다. 동의 확인 후 순차적으로 공개될 예정입니다.",
@@ -400,7 +453,7 @@ export const UI = {
     coachBio: "약력 보기 →",
     curriculumTitle: "발달 커리큘럼 · 6단계 시스템",
     curriculumLead: "진단에서 다음 단계 진입까지, 선수의 성장을 6단계로 설계하고 순환시킵니다.",
-    totalCareTitle: "Total Care System: 테니스 그 이상의 관리",
+    totalCareTitle: "테니스 그 이상의 관리",
     totalCareLead: "기술부터 멘탈, 학업, 글로벌 매너, 운영까지 — 선수의 모든 것을 관리합니다.",
     safetyTitle: "두 갈래의 길",
     safetyTitleAccent: "프로 OR 대학",
@@ -431,7 +484,7 @@ export const UI = {
     coachBio: "View bio →",
     curriculumTitle: "Development Curriculum · 6-Step System",
     curriculumLead: "From assessment to the next level, we design and cycle an athlete's growth in six steps.",
-    totalCareTitle: "Total Care System: Beyond Tennis",
+    totalCareTitle: "Beyond Tennis",
     totalCareLead: "From technique to mental, academics, global manners and operations — we manage everything for the athlete.",
     safetyTitle: "Two Paths",
     safetyTitleAccent: "Pro OR College",

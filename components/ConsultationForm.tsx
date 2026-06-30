@@ -42,7 +42,7 @@ export function ConsultationForm() {
 
       <p className="mt-6 text-xs leading-relaxed text-muted">
         제출 시 본인은 보호자(법정대리인)로서 본인 및 자녀를 대신하여 GCM에 개인정보 제공 및
-        연락(전화·문자·이메일)에 동의하며, 무료 상담을 신청합니다.{" "}
+        연락(전화·문자·이메일)에 동의하며, 상담을 신청합니다.{" "}
         <Link href="/privacy" className="text-court-bright hover:underline">
           개인정보 처리방침
         </Link>{" "}

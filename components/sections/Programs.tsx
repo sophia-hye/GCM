@@ -22,8 +22,8 @@ export async function Programs() {
           height={724}
           priority
           unoptimized
-          sizes="(max-width: 1024px) 100vw, 1024px"
-          className="mx-auto h-auto w-full max-w-4xl"
+          sizes="100vw"
+          className="h-auto w-full"
         />
       </Reveal>
 

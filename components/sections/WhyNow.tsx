@@ -17,7 +17,7 @@ export async function WhyNow() {
               {p.en}
             </p>
             <h3 className="mt-2 text-lg font-bold">{p.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{p.body}</p>
+            <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-muted">{p.body}</p>
           </div>
         ))}
       </div>

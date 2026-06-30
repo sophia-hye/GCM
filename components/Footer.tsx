@@ -10,7 +10,7 @@ export async function Footer() {
       ? "High-performance tennis academy. Elite development integrating technique, physical and mental."
       : "고성능 테니스 아카데미. 기술 · 피지컬 · 멘탈을 통합한 엘리트 육성.",
     rep: en ? `Director ${site.rep}.` : `대표 ${site.rep}.`,
-    est: en ? `Est. ${site.foundedDate}` : `개원 ${site.foundedDate}`,
+    est: `Since ${site.foundedDate}`,
     consult: en ? "Book consulting / inquiry" : "상담 예약 / 문의",
     terms: en ? "Terms" : "이용약관",
     privacy: en ? "Privacy Policy" : "개인정보 처리방침",

@@ -7,13 +7,24 @@ export async function SafetyNet() {
   const { tracks, processSteps } = getDict(locale);
   const ui = getUI(locale);
 
+  // "프로 OR 대학" → 프로/대학만 포인트 컬러, OR은 기본(블랙)
+  const [accBefore, accAfter] = ui.safetyTitleAccent.split(" OR ");
+
   return (
     <Section id="career" tone="muted">
       <SectionHeading
         eyebrow="Career Pathways"
         title={
           <>
-            {ui.safetyTitle}: <span className="text-court">{ui.safetyTitleAccent}</span>
+            {ui.safetyTitle}:{" "}
+            {accAfter !== undefined ? (
+              <>
+                <span className="text-court">{accBefore}</span> OR{" "}
+                <span className="text-court">{accAfter}</span>
+              </>
+            ) : (
+              <span className="text-court">{ui.safetyTitleAccent}</span>
+            )}
           </>
         }
         lead={ui.safetyLead}
@@ -47,14 +58,21 @@ export async function SafetyNet() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">
           {ui.pathwayLabel}
         </p>
-        <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-5">
           {processSteps.map((step) => (
-            <div key={step.n} className="border-t border-line pt-5">
-              <span className="font-display text-sm font-semibold tabular-nums text-muted">
-                {step.n}
-              </span>
-              <h4 className="mt-2 text-base font-bold">{step.title}</h4>
-              <p className="mt-1 text-sm text-muted">{step.body}</p>
+            <div
+              key={step.n}
+              className="flex flex-col rounded-2xl border border-line bg-card p-5"
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-display text-sm font-bold tabular-nums text-court">
+                  {step.n}
+                </span>
+                <span className="font-display text-xs font-bold uppercase tracking-[0.12em] text-ink">
+                  {step.title}
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{step.body}</p>
             </div>
           ))}
         </div>
