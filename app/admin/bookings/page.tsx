@@ -25,6 +25,20 @@ type BookingRow = {
   profiles: { name: string | null; phone: string | null } | null;
 };
 
+const KST = "Asia/Seoul";
+
+/** UTC ISO → KST 표시 문자열 */
+function formatKst(iso: string | null): string {
+  return iso ? new Date(iso).toLocaleString("ko-KR", { timeZone: KST }) : "일정 미정";
+}
+
+/** UTC ISO → datetime-local 입력값(KST 벽시계 "YYYY-MM-DDTHH:mm") */
+function toKstInputValue(iso: string | null): string {
+  if (!iso) return "";
+  const kst = new Date(new Date(iso).getTime() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().slice(0, 16);
+}
+
 export default async function AdminBookingsPage() {
   const supabase = await createClient();
   const { data } = await supabase
@@ -54,9 +68,7 @@ export default async function AdminBookingsPage() {
                     </span>
                   </p>
                   <p className="text-xs text-muted">
-                    {b.scheduled_at
-                      ? new Date(b.scheduled_at).toLocaleString("ko-KR")
-                      : "일정 미정"}
+                    신청/예정: {formatKst(b.scheduled_at)}
                     {b.memo ? ` · ${b.memo}` : ""}
                   </p>
                 </div>
@@ -65,23 +77,38 @@ export default async function AdminBookingsPage() {
                 </span>
               </div>
 
-              <form action={updateBookingStatus} className="mt-4 flex items-center gap-2">
+              <form
+                action={updateBookingStatus}
+                className="mt-4 flex flex-wrap items-end gap-2"
+              >
                 <input type="hidden" name="id" value={b.id} />
-                <select
-                  name="status"
-                  defaultValue={b.status}
-                  className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
-                >
-                  <option value="requested">요청됨</option>
-                  <option value="confirmed">확정</option>
-                  <option value="done">완료</option>
-                  <option value="cancelled">취소</option>
-                </select>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  예약 일시 (KST)
+                  <input
+                    type="datetime-local"
+                    name="scheduled_at"
+                    defaultValue={toKstInputValue(b.scheduled_at)}
+                    className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  상태
+                  <select
+                    name="status"
+                    defaultValue={b.status}
+                    className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
+                  >
+                    <option value="requested">요청됨</option>
+                    <option value="confirmed">확정</option>
+                    <option value="done">완료</option>
+                    <option value="cancelled">취소</option>
+                  </select>
+                </label>
                 <button
                   type="submit"
                   className="rounded-lg border border-line px-4 py-2 text-sm font-semibold hover:border-court-bright"
                 >
-                  변경
+                  저장
                 </button>
               </form>
             </div>
