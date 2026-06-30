@@ -8,10 +8,18 @@ export const metadata = { title: "회원 관리 | GCM Admin" };
 
 const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어" };
 
-/** auth identities → 로그인 수단 라벨 (네이버 커스텀 플로우는 이메일로 표기됨) */
-function loginMethod(providers: string[]): string {
-  if (providers.includes("kakao")) return "카카오";
-  if (providers.includes("google")) return "구글";
+type AuthUserLite = {
+  id: string;
+  app_metadata?: { provider?: string };
+  user_metadata?: { provider?: string };
+};
+
+/** 가입 경로 정확 판별: 네이버는 user_metadata, 그 외는 app_metadata 기준 */
+function loginMethod(u: AuthUserLite): string {
+  if (u.user_metadata?.provider === "naver") return "네이버";
+  const p = u.app_metadata?.provider;
+  if (p === "kakao") return "카카오";
+  if (p === "google") return "구글";
   return "이메일";
 }
 
@@ -28,7 +36,7 @@ export default async function MembersPage() {
   if (isAdminConfigured()) {
     const { data } = await createAdminClient().auth.admin.listUsers({ perPage: 1000 });
     for (const u of data?.users ?? []) {
-      methodById[u.id] = loginMethod((u.identities ?? []).map((i) => i.provider));
+      methodById[u.id] = loginMethod(u as AuthUserLite);
     }
   }
 
