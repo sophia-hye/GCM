@@ -19,11 +19,13 @@ export default async function MemberDetailPage({
 
   const { data: member } = await supabase
     .from("gcm_profiles")
-    .select("id, name, phone, role, approved")
+    .select("id, name, phone, role, approved, gender, birth_date")
     .eq("id", id)
     .maybeSingle();
 
   if (!member) notFound();
+
+  const genderLabel = member.gender === "male" ? "남" : member.gender === "female" ? "여" : "-";
 
   const [{ data: progress }, { data: checkins }] = await Promise.all([
     supabase
@@ -51,7 +53,9 @@ export default async function MemberDetailPage({
             {roleLabel[member.role] ?? member.role}
           </span>
         </h1>
-        <p className="mt-1 text-sm text-muted">{member.phone}</p>
+        <p className="mt-1 text-sm text-muted">
+          {member.phone || "전화 미입력"} · 성별 {genderLabel} · 생년월일 {member.birth_date || "-"}
+        </p>
       </div>
 
       {/* 선수 승인: 승인된 회원만 매치 셀프 피드백 작성 가능 */}

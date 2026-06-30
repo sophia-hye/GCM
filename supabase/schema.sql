@@ -43,9 +43,14 @@ create table public.gcm_profiles (
   parent_id uuid references public.gcm_profiles (id),
   source text not null default 'gcm',
   approved boolean not null default false, -- 관리자 승인된 우리팀 선수만 매치 셀프 피드백 작성 가능
+  gender text check (gender in ('male', 'female')), -- 가입 시 직접 입력(소셜 미제공 대비)
+  birth_date date,
   created_at timestamptz not null default now()
 );
--- 기존 DB: alter table public.gcm_profiles add column if not exists approved boolean not null default false;
+-- 기존 DB:
+--   alter table public.gcm_profiles add column if not exists approved boolean not null default false;
+--   alter table public.gcm_profiles add column if not exists gender text check (gender in ('male','female'));
+--   alter table public.gcm_profiles add column if not exists birth_date date;
 create unique index gcm_profiles_phone_uniq
   on public.gcm_profiles (phone) where phone is not null and phone <> '';
 alter table public.gcm_profiles enable row level security;
@@ -148,14 +153,16 @@ returns trigger language plpgsql security definer set search_path = public as $$
 begin
   if coalesce(new.raw_user_meta_data ->> 'source', 'gcm') <> 'equre' then
     -- 자기 쪽: 풀 데이터
-    insert into public.gcm_profiles (id, name, phone, email, role, source)
+    insert into public.gcm_profiles (id, name, phone, email, role, source, gender, birth_date)
     values (
       new.id,
       coalesce(new.raw_user_meta_data ->> 'name', ''),
       new.raw_user_meta_data ->> 'phone',
       coalesce(new.raw_user_meta_data ->> 'email', new.email),
       coalesce(new.raw_user_meta_data ->> 'role', 'student'),
-      'gcm'
+      'gcm',
+      nullif(new.raw_user_meta_data ->> 'gender', ''),
+      (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date
     )
     on conflict (id) do nothing;
 
