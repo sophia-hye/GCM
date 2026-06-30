@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { MatchAnalysisForm } from "@/components/dashboard/MatchAnalysisForm";
 
-export const metadata = { title: "경기 분석 | GCM" };
+export const metadata = { title: "매치 셀프 피드백 | GCM" };
 
 type Analysis = {
   id: string;
@@ -34,16 +34,16 @@ export default async function DashboardAnalysisPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-2xl font-bold">경기 분석</h1>
+        <h1 className="font-display text-2xl font-bold">매치 셀프 피드백</h1>
         <p className="mt-1 text-sm text-muted">
-          경기 후 스스로 분석을 기록하면 코치가 확인하고 피드백을 드립니다.
+          경기 후 스스로 돌아본 내용을 기록하면 코치가 확인하고 피드백을 드립니다.
         </p>
       </div>
 
       <MatchAnalysisForm />
 
       <div className="space-y-4">
-        <h2 className="font-display text-lg font-bold">내 분석 기록</h2>
+        <h2 className="font-display text-lg font-bold">내 셀프 피드백 기록</h2>
         {analyses.length > 0 ? (
           analyses.map((a) => (
             <div key={a.id} className="rounded-2xl border border-line bg-card/40 p-5">

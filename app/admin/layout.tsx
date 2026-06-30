@@ -10,7 +10,7 @@ const menu = [
   { label: "콘솔", href: "/admin" },
   { label: "회원 관리", href: "/admin/members" },
   { label: "예약 관리", href: "/admin/bookings" },
-  { label: "경기 분석", href: "/admin/analyses" },
+  { label: "매치 셀프 피드백", href: "/admin/analyses" },
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
   { label: "갤러리 관리", href: "/admin/gallery" },
 ];

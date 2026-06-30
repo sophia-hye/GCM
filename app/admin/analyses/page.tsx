@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { saveCoachFeedback } from "@/app/admin/actions";
 
-export const metadata = { title: "경기 분석 | GCM Admin" };
+export const metadata = { title: "매치 셀프 피드백 | GCM Admin" };
 
 type Row = {
   id: string;
@@ -35,8 +35,8 @@ export default async function AdminAnalysesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-bold">경기 분석</h1>
-        <p className="mt-1 text-sm text-muted">선수가 제출한 자기분석을 확인하고 피드백을 남깁니다.</p>
+        <h1 className="font-display text-2xl font-bold">매치 셀프 피드백</h1>
+        <p className="mt-1 text-sm text-muted">선수가 제출한 매치 셀프 피드백을 확인하고 코치 피드백을 남깁니다.</p>
       </div>
 
       {rows.length > 0 ? (

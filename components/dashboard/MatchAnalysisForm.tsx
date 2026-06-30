@@ -31,7 +31,7 @@ export function MatchAnalysisForm() {
       action={formAction}
       className="space-y-5 rounded-2xl border border-line bg-card p-6"
     >
-      <h2 className="font-display text-lg font-bold">경기 자기분석 작성</h2>
+      <h2 className="font-display text-lg font-bold">매치 셀프 피드백 작성</h2>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm text-muted">
