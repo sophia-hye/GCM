@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isAdminConfigured } from "@/lib/supabase/env";
 import { MemberForm } from "@/components/admin/MemberForm";
+import { setMemberApproved } from "@/app/admin/actions";
 
 export const metadata = { title: "회원 관리 | GCM Admin" };
 
@@ -54,7 +55,7 @@ export default async function MembersPage() {
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-line">
-        <table className="w-full min-w-[680px] border-collapse text-sm">
+        <table className="w-full min-w-[760px] border-collapse text-sm">
           <thead>
             <tr className="bg-card/60 text-left text-xs uppercase tracking-wide text-muted">
               <th className="px-4 py-3 font-semibold">이름</th>
@@ -83,9 +84,23 @@ export default async function MembersPage() {
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 text-muted">{methodById[m.id] ?? "-"}</td>
                   <td className="whitespace-nowrap px-4 py-3">
-                    <span className={m.approved ? "text-lime" : "text-muted"}>
-                      {m.approved ? "승인됨" : "미승인"}
-                    </span>
+                    <form action={setMemberApproved} className="flex items-center gap-2">
+                      <input type="hidden" name="id" value={m.id} />
+                      <input type="hidden" name="approved" value={m.approved ? "false" : "true"} />
+                      <span className={m.approved ? "text-lime" : "text-muted"}>
+                        {m.approved ? "승인됨" : "미승인"}
+                      </span>
+                      <button
+                        type="submit"
+                        className={`rounded-md border px-2 py-1 text-xs font-semibold transition-colors ${
+                          m.approved
+                            ? "border-line text-muted hover:border-danger hover:text-danger"
+                            : "border-court text-court-bright hover:bg-court hover:text-white"
+                        }`}
+                      >
+                        {m.approved ? "해제" : "승인"}
+                      </button>
+                    </form>
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 text-muted">
                     {m.created_at ? fmtDate(m.created_at) : "-"}
