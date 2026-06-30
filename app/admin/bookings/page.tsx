@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { updateBookingStatus } from "@/app/admin/actions";
-import { BookingsCalendar } from "./BookingsCalendar";
+import { WeeklyCalendar } from "./WeeklyCalendar";
+import { COACHES } from "./coaches";
 
 export const metadata = { title: "예약 관리 | GCM Admin" };
 
@@ -22,6 +23,7 @@ type BookingRow = {
   type: string;
   scheduled_at: string | null;
   status: string;
+  coach: string | null;
   memo: string | null;
   profiles: { name: string | null; phone: string | null } | null;
 };
@@ -43,13 +45,13 @@ function toKstInputValue(iso: string | null): string {
 export default async function AdminBookingsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ month?: string }>;
+  searchParams: Promise<{ week?: string }>;
 }) {
-  const { month } = await searchParams;
+  const { week } = await searchParams;
   const supabase = await createClient();
   const { data } = await supabase
     .from("gcm_bookings")
-    .select("id, type, scheduled_at, status, memo, profiles:gcm_profiles(name, phone)")
+    .select("id, type, scheduled_at, status, coach, memo, profiles:gcm_profiles(name, phone)")
     .order("created_at", { ascending: false });
 
   const bookings = (data ?? []) as unknown as BookingRow[];
@@ -59,6 +61,7 @@ export default async function AdminBookingsPage({
     status: b.status,
     scheduled_at: b.scheduled_at,
     name: b.profiles?.name ?? null,
+    coach: b.coach ?? null,
   }));
 
   return (
@@ -68,7 +71,7 @@ export default async function AdminBookingsPage({
         <p className="mt-1 text-sm text-muted">회원 예약 요청을 확인하고 상태를 변경합니다.</p>
       </div>
 
-      <BookingsCalendar bookings={calBookings} month={month} />
+      <WeeklyCalendar bookings={calBookings} week={week} />
 
       {bookings.length > 0 ? (
         <div className="space-y-4">
@@ -105,6 +108,21 @@ export default async function AdminBookingsPage({
                     defaultValue={toKstInputValue(b.scheduled_at)}
                     className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
                   />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  담당 코치
+                  <select
+                    name="coach"
+                    defaultValue={b.coach ?? ""}
+                    className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
+                  >
+                    <option value="">미지정</option>
+                    {COACHES.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   상태

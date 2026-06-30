@@ -110,9 +110,12 @@ create table public.gcm_bookings (
   scheduled_at timestamptz,
   status text not null default 'requested'
     check (status in ('requested', 'confirmed', 'done', 'cancelled')),
+  coach text,
   memo text,
   created_at timestamptz not null default now()
 );
+-- 기존 DB에 컬럼 추가(이미 테이블이 있는 경우):
+--   alter table public.gcm_bookings add column if not exists coach text;
 alter table public.gcm_bookings enable row level security;
 create policy "gcm_bookings_select_own" on public.gcm_bookings for select using (auth.uid() = user_id);
 create policy "gcm_bookings_insert_own" on public.gcm_bookings for insert with check (auth.uid() = user_id);
