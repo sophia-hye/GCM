@@ -40,29 +40,34 @@ export default async function MembersPage() {
     }
   }
 
+  const count = members?.length ?? 0;
+  const fmtDate = (iso: string) =>
+    new Date(iso).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" });
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div>
         <h1 className="font-display text-2xl font-bold">회원 관리</h1>
-        <p className="mt-1 text-sm text-muted">선수/학부모 계정을 등록하고 관리합니다.</p>
+        <p className="mt-1 text-sm text-muted">
+          회원가입한 회원 목록입니다. 이름을 누르면 상세·승인 관리로 이동합니다. (총 {count}명)
+        </p>
       </div>
 
-      <MemberForm />
-
       <div className="overflow-hidden rounded-2xl border border-line">
-        <div className="grid grid-cols-5 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
+        <div className="grid grid-cols-6 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
           <span>이름</span>
           <span>전화번호</span>
           <span>유형</span>
           <span>로그인</span>
           <span>승인</span>
+          <span>가입일</span>
         </div>
         {members && members.length > 0 ? (
           members.map((m) => (
             <Link
               key={m.id}
               href={`/admin/members/${m.id}`}
-              className="grid grid-cols-5 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
+              className="grid grid-cols-6 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
             >
               <span className="font-semibold">{m.name || "-"}</span>
               <span className="text-muted">{m.phone || "-"}</span>
@@ -71,14 +76,25 @@ export default async function MembersPage() {
               <span className={m.approved ? "text-lime" : "text-muted"}>
                 {m.approved ? "승인됨" : "미승인"}
               </span>
+              <span className="text-muted">{m.created_at ? fmtDate(m.created_at) : "-"}</span>
             </Link>
           ))
         ) : (
           <p className="border-t border-line px-5 py-8 text-center text-sm text-muted">
-            등록된 회원이 없습니다.
+            아직 가입한 회원이 없습니다.
           </p>
         )}
       </div>
+
+      {/* 수기 등록(오프라인 회원 등)은 보조 기능으로 접어둠 */}
+      <details className="rounded-2xl border border-line bg-card/40 p-4">
+        <summary className="cursor-pointer text-sm font-semibold text-muted">
+          + 회원 직접 등록 (오프라인·수기 등록)
+        </summary>
+        <div className="mt-4">
+          <MemberForm />
+        </div>
+      </details>
     </div>
   );
 }
