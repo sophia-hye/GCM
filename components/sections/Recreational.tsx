@@ -56,18 +56,6 @@ export async function Recreational() {
           </div>
         ))}
       </div>
-
-      <div className="mt-12 flex flex-col items-start gap-3 rounded-2xl border border-line bg-base p-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="font-semibold">동호인 코트 예약</p>
-          <p className="mt-1 text-sm text-muted">
-            원하는 날짜·시간을 선택하고 이용료를 바로 결제하세요.
-          </p>
-        </div>
-        <Button href="/court" variant="court">
-          코트 예약 · 결제
-        </Button>
-      </div>
     </Section>
   );
 }
