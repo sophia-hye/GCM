@@ -25,6 +25,16 @@ const FIELDS: { key: keyof Analysis; label: string }[] = [
 
 export default async function DashboardAnalysisPage() {
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const { data: profile } = await supabase
+    .from("gcm_profiles")
+    .select("approved, role")
+    .eq("id", user?.id ?? "")
+    .maybeSingle();
+  const canWrite = Boolean(profile?.approved || profile?.role === "admin");
+
   const { data } = await supabase
     .from("gcm_match_analyses")
     .select("*")
@@ -40,7 +50,16 @@ export default async function DashboardAnalysisPage() {
         </p>
       </div>
 
-      <MatchAnalysisForm />
+      {canWrite ? (
+        <MatchAnalysisForm />
+      ) : (
+        <div className="rounded-2xl border border-court/30 bg-court/5 p-6 text-sm">
+          <p className="font-semibold text-court-bright">작성 권한이 없습니다</p>
+          <p className="mt-1 text-muted">
+            매치 셀프 피드백은 승인된 GCM 팀 선수만 작성할 수 있습니다. 팀 소속·승인 여부는 코치에게 문의해 주세요.
+          </p>
+        </div>
+      )}
 
       <div className="space-y-4">
         <h2 className="font-display text-lg font-bold">내 셀프 피드백 기록</h2>
