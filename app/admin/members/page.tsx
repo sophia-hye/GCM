@@ -53,37 +53,54 @@ export default async function MembersPage() {
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-line">
-        <div className="grid grid-cols-6 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
-          <span>이름</span>
-          <span>전화번호</span>
-          <span>유형</span>
-          <span>로그인</span>
-          <span>승인</span>
-          <span>가입일</span>
-        </div>
-        {members && members.length > 0 ? (
-          members.map((m) => (
-            <Link
-              key={m.id}
-              href={`/admin/members/${m.id}`}
-              className="grid grid-cols-6 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
-            >
-              <span className="font-semibold">{m.name || "-"}</span>
-              <span className="text-muted">{m.phone || "-"}</span>
-              <span className="text-court-bright">{roleLabel[m.role] ?? m.role}</span>
-              <span className="text-muted">{methodById[m.id] ?? "-"}</span>
-              <span className={m.approved ? "text-lime" : "text-muted"}>
-                {m.approved ? "승인됨" : "미승인"}
-              </span>
-              <span className="text-muted">{m.created_at ? fmtDate(m.created_at) : "-"}</span>
-            </Link>
-          ))
-        ) : (
-          <p className="border-t border-line px-5 py-8 text-center text-sm text-muted">
-            아직 가입한 회원이 없습니다.
-          </p>
-        )}
+      <div className="overflow-x-auto rounded-2xl border border-line">
+        <table className="w-full min-w-[680px] border-collapse text-sm">
+          <thead>
+            <tr className="bg-card/60 text-left text-xs uppercase tracking-wide text-muted">
+              <th className="px-4 py-3 font-semibold">이름</th>
+              <th className="px-4 py-3 font-semibold">전화번호</th>
+              <th className="px-4 py-3 font-semibold">유형</th>
+              <th className="px-4 py-3 font-semibold">로그인</th>
+              <th className="px-4 py-3 font-semibold">승인</th>
+              <th className="px-4 py-3 font-semibold">가입일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {members && members.length > 0 ? (
+              members.map((m) => (
+                <tr key={m.id} className="border-t border-line transition-colors hover:bg-base">
+                  <td className="px-4 py-3">
+                    <Link
+                      href={`/admin/members/${m.id}`}
+                      className="font-semibold text-ink hover:text-court-bright"
+                    >
+                      {m.name || "-"}
+                    </Link>
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-3 text-muted">{m.phone || "-"}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-court-bright">
+                    {roleLabel[m.role] ?? m.role}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-3 text-muted">{methodById[m.id] ?? "-"}</td>
+                  <td className="whitespace-nowrap px-4 py-3">
+                    <span className={m.approved ? "text-lime" : "text-muted"}>
+                      {m.approved ? "승인됨" : "미승인"}
+                    </span>
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-3 text-muted">
+                    {m.created_at ? fmtDate(m.created_at) : "-"}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="border-t border-line px-4 py-8 text-center text-muted">
+                  아직 가입한 회원이 없습니다.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {/* 수기 등록(오프라인 회원 등)은 보조 기능으로 접어둠 */}
