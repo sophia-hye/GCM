@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { updateBookingStatus } from "@/app/admin/actions";
+import { WeeklyCalendar } from "./WeeklyCalendar";
+import { COACHES } from "./coaches";
 
 export const metadata = { title: "예약 관리 | GCM Admin" };
 
@@ -21,18 +23,46 @@ type BookingRow = {
   type: string;
   scheduled_at: string | null;
   status: string;
+  coach: string | null;
   memo: string | null;
   profiles: { name: string | null; phone: string | null } | null;
 };
 
-export default async function AdminBookingsPage() {
+const KST = "Asia/Seoul";
+
+/** UTC ISO → KST 표시 문자열 */
+function formatKst(iso: string | null): string {
+  return iso ? new Date(iso).toLocaleString("ko-KR", { timeZone: KST }) : "일정 미정";
+}
+
+/** UTC ISO → datetime-local 입력값(KST 벽시계 "YYYY-MM-DDTHH:mm") */
+function toKstInputValue(iso: string | null): string {
+  if (!iso) return "";
+  const kst = new Date(new Date(iso).getTime() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().slice(0, 16);
+}
+
+export default async function AdminBookingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ week?: string }>;
+}) {
+  const { week } = await searchParams;
   const supabase = await createClient();
   const { data } = await supabase
     .from("gcm_bookings")
-    .select("id, type, scheduled_at, status, memo, gcm_profiles(name, phone)")
+    .select("id, type, scheduled_at, status, coach, memo, profiles:gcm_profiles(name, phone)")
     .order("created_at", { ascending: false });
 
   const bookings = (data ?? []) as unknown as BookingRow[];
+  const calBookings = bookings.map((b) => ({
+    id: b.id,
+    type: b.type,
+    status: b.status,
+    scheduled_at: b.scheduled_at,
+    name: b.profiles?.name ?? null,
+    coach: b.coach ?? null,
+  }));
 
   return (
     <div className="space-y-6">
@@ -40,6 +70,8 @@ export default async function AdminBookingsPage() {
         <h1 className="font-display text-2xl font-bold">예약 관리</h1>
         <p className="mt-1 text-sm text-muted">회원 예약 요청을 확인하고 상태를 변경합니다.</p>
       </div>
+
+      <WeeklyCalendar bookings={calBookings} week={week} />
 
       {bookings.length > 0 ? (
         <div className="space-y-4">
@@ -54,9 +86,7 @@ export default async function AdminBookingsPage() {
                     </span>
                   </p>
                   <p className="text-xs text-muted">
-                    {b.scheduled_at
-                      ? new Date(b.scheduled_at).toLocaleString("ko-KR")
-                      : "일정 미정"}
+                    신청/예정: {formatKst(b.scheduled_at)}
                     {b.memo ? ` · ${b.memo}` : ""}
                   </p>
                 </div>
@@ -65,23 +95,53 @@ export default async function AdminBookingsPage() {
                 </span>
               </div>
 
-              <form action={updateBookingStatus} className="mt-4 flex items-center gap-2">
+              <form
+                action={updateBookingStatus}
+                className="mt-4 flex flex-wrap items-end gap-2"
+              >
                 <input type="hidden" name="id" value={b.id} />
-                <select
-                  name="status"
-                  defaultValue={b.status}
-                  className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
-                >
-                  <option value="requested">요청됨</option>
-                  <option value="confirmed">확정</option>
-                  <option value="done">완료</option>
-                  <option value="cancelled">취소</option>
-                </select>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  예약 일시 (KST)
+                  <input
+                    type="datetime-local"
+                    name="scheduled_at"
+                    defaultValue={toKstInputValue(b.scheduled_at)}
+                    className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  담당 코치
+                  <select
+                    name="coach"
+                    defaultValue={b.coach ?? ""}
+                    className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
+                  >
+                    <option value="">미지정</option>
+                    {COACHES.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  상태
+                  <select
+                    name="status"
+                    defaultValue={b.status}
+                    className="rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright"
+                  >
+                    <option value="requested">요청됨</option>
+                    <option value="confirmed">확정</option>
+                    <option value="done">완료</option>
+                    <option value="cancelled">취소</option>
+                  </select>
+                </label>
                 <button
                   type="submit"
                   className="rounded-lg border border-line px-4 py-2 text-sm font-semibold hover:border-court-bright"
                 >
-                  변경
+                  저장
                 </button>
               </form>
             </div>

@@ -132,8 +132,16 @@ export async function updateBookingStatus(formData: FormData): Promise<void> {
   const status = String(formData.get("status") ?? "");
   if (!id || !["requested", "confirmed", "done", "cancelled"].includes(status)) return;
 
+  // 예약 시간 수정 (datetime-local 값은 KST 기준 → UTC ISO 로 저장, 비우면 미정)
+  const dt = String(formData.get("scheduled_at") ?? "").trim();
+  const scheduled_at = dt ? new Date(`${dt}:00+09:00`).toISOString() : null;
+
+  // 담당 코치 배정 (빈 값이면 미지정)
+  const coachRaw = String(formData.get("coach") ?? "").trim();
+  const coach = coachRaw || null;
+
   const supabase = await createClient();
-  await supabase.from("gcm_bookings").update({ status }).eq("id", id);
+  await supabase.from("gcm_bookings").update({ status, scheduled_at, coach }).eq("id", id);
   revalidatePath("/admin/bookings");
 }
 

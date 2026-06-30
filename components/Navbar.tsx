@@ -11,8 +11,8 @@ import { useLocale } from "@/components/i18n/LocaleProvider";
 import { LocaleToggle } from "@/components/i18n/LocaleToggle";
 
 const NAV_T = {
-  ko: { login: "로그인", signup: "회원가입", mypage: "마이페이지", logout: "로그아웃" },
-  en: { login: "Login", signup: "Sign up", mypage: "My Page", logout: "Logout" },
+  ko: { login: "로그인", signup: "회원가입", mypage: "마이페이지", logout: "로그아웃", admin: "관리자" },
+  en: { login: "Login", signup: "Sign up", mypage: "My Page", logout: "Logout", admin: "Admin" },
 } as const;
 
 type NavAuth = { name: string; role: string } | null;
@@ -87,6 +87,14 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           <LocaleToggle light={!solid} />
           {auth ? (
             <>
+              {auth.role === "admin" ? (
+                <Link
+                  href="/admin"
+                  className="whitespace-nowrap rounded-full border border-court-bright/60 px-3 py-1.5 text-sm font-semibold text-court-bright transition-colors hover:bg-court-bright/10"
+                >
+                  {t.admin}
+                </Link>
+              ) : null}
               <Link
                 href="/dashboard"
                 className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${linkColor}`}
@@ -151,6 +159,15 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
             </div>
             {auth ? (
               <>
+                {auth.role === "admin" ? (
+                  <Link
+                    href="/admin"
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg px-2 py-2 text-sm font-semibold text-court-bright hover:bg-card"
+                  >
+                    {t.admin}
+                  </Link>
+                ) : null}
                 <Link
                   href="/dashboard"
                   onClick={() => setOpen(false)}

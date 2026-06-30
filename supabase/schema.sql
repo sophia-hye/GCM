@@ -110,9 +110,12 @@ create table public.gcm_bookings (
   scheduled_at timestamptz,
   status text not null default 'requested'
     check (status in ('requested', 'confirmed', 'done', 'cancelled')),
+  coach text,
   memo text,
   created_at timestamptz not null default now()
 );
+-- 기존 DB에 컬럼 추가(이미 테이블이 있는 경우):
+--   alter table public.gcm_bookings add column if not exists coach text;
 alter table public.gcm_bookings enable row level security;
 create policy "gcm_bookings_select_own" on public.gcm_bookings for select using (auth.uid() = user_id);
 create policy "gcm_bookings_insert_own" on public.gcm_bookings for insert with check (auth.uid() = user_id);
@@ -208,3 +211,30 @@ alter table public.gcm_profiles
 -- update public.gcm_profiles set role = 'admin' where phone = '01000000000';
 -- 또는 이메일로: update public.gcm_profiles set role = 'admin' where email = 'you@example.com';
 -- ============================================================
+
+-- ─────────────────────────────────────────────────────────────
+-- 결제 (토스페이먼츠) — 동호인 코트 결제 / 컨설팅 예약금
+-- 금액은 서버가 결정하며, 승인 시 토스 confirm 결과와 대조한다.
+-- ─────────────────────────────────────────────────────────────
+create table if not exists public.gcm_payments (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references public.gcm_profiles (id) on delete set null,
+  kind text not null check (kind in ('consulting_deposit', 'court')),
+  amount integer not null check (amount > 0),
+  order_id text not null unique,
+  order_name text not null,
+  status text not null default 'ready'
+    check (status in ('ready', 'paid', 'cancelled', 'failed')),
+  payment_key text,
+  method text,
+  meta jsonb not null default '{}'::jsonb,
+  paid_at timestamptz,
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_payments enable row level security;
+-- 본인 결제만 조회
+create policy "gcm_payments_select_own" on public.gcm_payments
+  for select using (auth.uid() = user_id);
+-- 관리자 전체 조회 (is_gcm_admin() 재사용)
+create policy "gcm_payments_admin_all" on public.gcm_payments
+  for all using (public.is_gcm_admin()) with check (public.is_gcm_admin());

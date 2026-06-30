@@ -124,6 +124,23 @@ export async function completeOnboarding(
   }
   if (!phone) return { error: "전화번호를 입력해 주세요." };
 
+  // 같은 전화번호의 다른 회원이 이미 있으면 = 중복 가입(소셜로 또 가입 등).
+  // 이번에 새로 만들어진 빈 계정을 정리하고 기존 로그인으로 안내한다.
+  if (isAdminConfigured()) {
+    const admin = createAdminClient();
+    const { data: dup } = await admin
+      .from("gcm_profiles")
+      .select("id")
+      .eq("phone", phone)
+      .neq("id", user.id)
+      .maybeSingle();
+    if (dup) {
+      await admin.auth.admin.deleteUser(user.id); // 빈 중복 계정 제거(프로필 cascade)
+      await supabase.auth.signOut();
+      redirect("/login?dup=1");
+    }
+  }
+
   const { error } = await supabase
     .from("gcm_profiles")
     .update({ role, phone })
