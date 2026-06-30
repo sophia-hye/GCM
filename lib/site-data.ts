@@ -261,11 +261,11 @@ export const scholarship = {
   points: [
     {
       title: "대상",
-      body: "ATP · WTA를 목표로 하는 주니어 선수.",
+      body: "ATP · WTA를 목표로 하는 주니어 선수를 대상으로 합니다.",
     },
     {
       title: "선발 기준",
-      body: "태도 · 경기력 · ITF/국내 랭킹 · 최근 경기 결과 · 코칭 수용성을 종합 평가.",
+      body: "태도 · 경기력 · ITF/국내 랭킹 · 최근 경기 결과 · 코칭 수용성을 종합적으로 평가합니다.",
     },
     {
       title: "선발 후 과정",

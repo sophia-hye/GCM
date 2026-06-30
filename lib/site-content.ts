@@ -236,8 +236,8 @@ const enScholarship = {
   title: "Apply for Full · Partial Scholarship",
   lead: "We offer a limited number of scholarship spots each year. We select athletes with attitude, competitiveness and character.",
   points: [
-    { title: "Eligibility", body: "Junior athletes aiming for ATP · WTA." },
-    { title: "Selection Criteria", body: "Comprehensive review of attitude · competitiveness · ITF/national ranking · recent results · coachability." },
+    { title: "Eligibility", body: "We welcome junior athletes aiming for the ATP · WTA." },
+    { title: "Selection Criteria", body: "We comprehensively review attitude, competitiveness, ITF/national ranking, recent results and coachability." },
     { title: "Post-Selection Process", body: "We manage development stage · national ranking · ITF junior ranking · pro ranking as the athlete grows." },
   ],
   apply: [
