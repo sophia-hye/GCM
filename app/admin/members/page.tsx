@@ -1,10 +1,19 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { isAdminConfigured } from "@/lib/supabase/env";
 import { MemberForm } from "@/components/admin/MemberForm";
 
 export const metadata = { title: "회원 관리 | GCM Admin" };
 
-const roleLabel: Record<string, string> = { student: "선수", parent: "학부모" };
+const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어" };
+
+/** auth identities → 로그인 수단 라벨 (네이버 커스텀 플로우는 이메일로 표기됨) */
+function loginMethod(providers: string[]): string {
+  if (providers.includes("kakao")) return "카카오";
+  if (providers.includes("google")) return "구글";
+  return "이메일";
+}
 
 export default async function MembersPage() {
   const supabase = await createClient();
@@ -13,6 +22,15 @@ export default async function MembersPage() {
     .select("id, name, phone, role, created_at")
     .neq("role", "admin")
     .order("created_at", { ascending: false });
+
+  // 로그인 수단 매핑 (service_role)
+  const methodById: Record<string, string> = {};
+  if (isAdminConfigured()) {
+    const { data } = await createAdminClient().auth.admin.listUsers({ perPage: 1000 });
+    for (const u of data?.users ?? []) {
+      methodById[u.id] = loginMethod((u.identities ?? []).map((i) => i.provider));
+    }
+  }
 
   return (
     <div className="space-y-8">
@@ -24,21 +42,23 @@ export default async function MembersPage() {
       <MemberForm />
 
       <div className="overflow-hidden rounded-2xl border border-line">
-        <div className="grid grid-cols-3 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
+        <div className="grid grid-cols-4 bg-card/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
           <span>이름</span>
           <span>전화번호</span>
           <span>유형</span>
+          <span>로그인</span>
         </div>
         {members && members.length > 0 ? (
           members.map((m) => (
             <Link
               key={m.id}
               href={`/admin/members/${m.id}`}
-              className="grid grid-cols-3 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
+              className="grid grid-cols-4 border-t border-line px-5 py-4 text-sm transition-colors hover:bg-base"
             >
               <span className="font-semibold">{m.name || "-"}</span>
               <span className="text-muted">{m.phone || "-"}</span>
               <span className="text-court-bright">{roleLabel[m.role] ?? m.role}</span>
+              <span className="text-muted">{methodById[m.id] ?? "-"}</span>
             </Link>
           ))
         ) : (
