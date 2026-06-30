@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { scholarshipForm } from "@/lib/forms";
 import { submitApplication, type ApplicationState } from "@/app/actions/application";
 import { FormField } from "@/components/ui/FormField";
@@ -12,6 +12,11 @@ export function ScholarshipForm() {
     action,
     {},
   );
+
+  // 모든 필수 항목 + 동의 체크가 충족돼야 버튼 활성화
+  const formRef = useRef<HTMLFormElement>(null);
+  const [valid, setValid] = useState(false);
+  const refreshValidity = () => setValid(!!formRef.current?.checkValidity());
 
   if (state.ok) {
     return (
@@ -25,7 +30,13 @@ export function ScholarshipForm() {
   }
 
   return (
-    <form action={formAction} className="space-y-8 rounded-2xl border border-line bg-card p-7">
+    <form
+      ref={formRef}
+      action={formAction}
+      onInput={refreshValidity}
+      onChange={refreshValidity}
+      className="space-y-8 rounded-2xl border border-line bg-card p-7"
+    >
       <div>
         <h2 className="font-display text-xl font-bold">Scholarship Application</h2>
         <p className="mt-1 text-xs text-danger">* 필수 항목</p>
@@ -59,8 +70,8 @@ export function ScholarshipForm() {
 
       <button
         type="submit"
-        disabled={pending}
-        className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+        disabled={pending || !valid}
+        className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? "제출 중..." : "장학 신청서 제출"}
       </button>
