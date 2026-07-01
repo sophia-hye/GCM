@@ -44,7 +44,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
       }`}
     >
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-baseline gap-2">
+        <Link href="/" className="flex shrink-0 items-baseline gap-2">
           <span className={`font-display text-xl font-extrabold tracking-tight ${logoColor}`}>
             {site.name}
             <span className="text-lime">.</span>
@@ -66,7 +66,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 xl:flex">
+        <nav className="hidden items-center gap-4 px-4 xl:flex 2xl:gap-6">
           {nav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -83,7 +83,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 xl:flex">
+        <div className="hidden shrink-0 items-center gap-4 xl:flex">
           <LocaleToggle light={!solid} />
           {auth ? (
             <>
