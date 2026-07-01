@@ -250,3 +250,30 @@ create policy "gcm_ma_update_own" on public.gcm_match_analyses
   for update using (auth.uid() = user_id);
 create policy "gcm_ma_admin_all" on public.gcm_match_analyses
   for all using (public.is_gcm_admin()) with check (public.is_gcm_admin());
+
+-- ============================================================
+-- 이야기 게시판 (gcm_voices) — 선수/학부모 후기
+--   로그인 회원 누구나 작성(pending), 관리자 승인 시 published 공개.
+-- ============================================================
+create table if not exists public.gcm_voices (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.gcm_profiles (id) on delete cascade,
+  relation text not null check (relation in ('player', 'parent')), -- 선수/학부모
+  author_name text not null,
+  title text,
+  body text not null,
+  status text not null default 'pending' check (status in ('pending', 'published', 'rejected')),
+  created_at timestamptz not null default now(),
+  published_at timestamptz
+);
+alter table public.gcm_voices enable row level security;
+create index if not exists gcm_voices_status_idx on public.gcm_voices (status, created_at desc);
+-- 공개글은 누구나, 본인 글은 본인이, 전체는 관리자가 조회
+create policy "gcm_voices_select" on public.gcm_voices for select
+  using (status = 'published' or auth.uid() = user_id or public.is_gcm_admin());
+-- 로그인 회원이 본인 명의로 작성(항상 pending 으로만 생성 가능)
+create policy "gcm_voices_insert_own" on public.gcm_voices for insert
+  with check (auth.uid() = user_id and status = 'pending');
+-- 승인/반려/수정은 관리자만
+create policy "gcm_voices_admin_all" on public.gcm_voices for all
+  using (public.is_gcm_admin()) with check (public.is_gcm_admin());

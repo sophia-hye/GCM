@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-06-30T23:24:42.385Z",
+  "lastUpdated": "2026-07-01T04:42:22.022Z",
   "activeFeatures": [
     "GCM",
     "sections",
@@ -51,7 +51,9 @@
     "[kind]",
     "court",
     "analysis",
-    "analyses"
+    "analyses",
+    "voices",
+    "new"
   ],
   "primaryFeature": "GCM",
   "features": {
@@ -64,7 +66,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:36:44.685Z",
-        "lastUpdated": "2026-06-30T14:27:15.620Z"
+        "lastUpdated": "2026-07-01T04:42:12.061Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/lib/site-data.ts"
     },
@@ -168,9 +170,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T06:52:53.309Z",
-        "lastUpdated": "2026-06-30T14:31:33.928Z"
+        "lastUpdated": "2026-07-01T04:40:40.572Z"
       },
-      "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/analysis.ts"
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/actions/voices.ts"
     },
     "admin": {
       "phase": "do",
@@ -181,7 +183,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-06-05T07:05:58.044Z",
-        "lastUpdated": "2026-06-30T14:08:09.809Z"
+        "lastUpdated": "2026-07-01T04:42:22.022Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/layout.tsx"
     },
@@ -704,6 +706,32 @@
         "lastUpdated": "2026-06-30T14:23:04.367Z"
       },
       "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/analyses/page.tsx"
+    },
+    "voices": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-01T04:41:30.362Z",
+        "lastUpdated": "2026-07-01T04:42:02.578Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/admin/voices/page.tsx"
+    },
+    "new": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-01T04:41:43.590Z",
+        "lastUpdated": "2026-07-01T04:41:43.590Z"
+      },
+      "lastFile": "/Users/sophia/gitrepo/GCM/app/(site)/voices/new/page.tsx"
     }
   },
   "pipeline": {
@@ -714,7 +742,7 @@
   "session": {
     "startedAt": "2026-06-05T05:57:43.392Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-06-30T23:24:42.385Z"
+    "lastActivity": "2026-07-01T04:42:22.022Z"
   },
   "history": [
     {
@@ -4962,6 +4990,48 @@
     {
       "timestamp": "2026-06-30T23:24:42.385Z",
       "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:40:40.572Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:41:09.996Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:41:30.362Z",
+      "feature": "voices",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:41:43.590Z",
+      "feature": "new",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:42:02.578Z",
+      "feature": "voices",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:42:12.061Z",
+      "feature": "GCM",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-01T04:42:22.022Z",
+      "feature": "admin",
       "phase": "do",
       "action": "updated"
     }

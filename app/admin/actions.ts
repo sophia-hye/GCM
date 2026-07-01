@@ -211,3 +211,19 @@ export async function setMemberApproved(formData: FormData): Promise<void> {
   revalidatePath(`/admin/members/${id}`);
   revalidatePath("/admin/members");
 }
+
+/** 관리자: 이야기 게시글 승인/반려 (published | rejected | pending) */
+export async function setVoiceStatus(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  const status = String(formData.get("status") ?? "");
+  if (!id || !["pending", "published", "rejected"].includes(status)) return;
+
+  const supabase = await createClient();
+  await supabase
+    .from("gcm_voices")
+    .update({ status, published_at: status === "published" ? new Date().toISOString() : null })
+    .eq("id", id);
+  revalidatePath("/admin/voices");
+  revalidatePath("/voices");
+}

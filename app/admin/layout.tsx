@@ -11,6 +11,7 @@ const menu = [
   { label: "회원 관리", href: "/admin/members" },
   { label: "예약 관리", href: "/admin/bookings" },
   { label: "매치 셀프 피드백", href: "/admin/analyses" },
+  { label: "이야기 게시판", href: "/admin/voices" },
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
   { label: "갤러리 관리", href: "/admin/gallery" },
 ];
