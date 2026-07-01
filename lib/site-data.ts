@@ -23,6 +23,7 @@ export const nav = [
   { label: "About", href: "/about" },
   { label: "Coaches", href: "/coaches" },
   { label: "Players", href: "/players" },
+  { label: "Voices", href: "/voices" },
   { label: "Match Feedback", href: "/dashboard/analysis" },
   { label: "Gallery", href: "/gallery" },
   { label: "Training", href: "/training" },

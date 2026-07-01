@@ -118,11 +118,15 @@ export async function completeOnboarding(
 
   const role = String(formData.get("role") ?? "student");
   const phone = normalizePhone(String(formData.get("phone") ?? ""));
+  const gender = String(formData.get("gender") ?? "");
+  const birthDate = String(formData.get("birth_date") ?? "").trim();
 
   if (!["student", "parent", "amateur"].includes(role)) {
     return { error: "구분을 선택해 주세요." };
   }
   if (!phone) return { error: "전화번호를 입력해 주세요." };
+  if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
+  if (!birthDate) return { error: "생년월일을 입력해 주세요." };
 
   // 같은 전화번호의 다른 회원이 이미 있으면 = 중복 가입(소셜로 또 가입 등).
   // 이번에 새로 만들어진 빈 계정을 정리하고 기존 로그인으로 안내한다.
@@ -143,7 +147,7 @@ export async function completeOnboarding(
 
   const { error } = await supabase
     .from("gcm_profiles")
-    .update({ role, phone })
+    .update({ role, phone, gender, birth_date: birthDate })
     .eq("id", user.id);
 
   if (error) {
@@ -191,18 +195,22 @@ export async function signUpMember(
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
   const role = String(formData.get("role") ?? "student");
+  const gender = String(formData.get("gender") ?? "");
+  const birthDate = String(formData.get("birth_date") ?? "").trim();
   if (!name || !phone) return { error: "이름과 전화번호를 입력해 주세요." };
   if (!email) return { error: "이메일을 입력해 주세요." };
   if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
   if (password.length < 6) return { error: "비밀번호는 6자 이상이어야 합니다." };
   if (!["student", "parent", "amateur"].includes(role)) return { error: "잘못된 역할입니다." };
+  if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
+  if (!birthDate) return { error: "생년월일을 입력해 주세요." };
 
   const admin = createAdminClient();
   const { error } = await admin.auth.admin.createUser({
     email,
     password,
     email_confirm: true,
-    user_metadata: { name, phone, email, role, source: "gcm" },
+    user_metadata: { name, phone, email, role, source: "gcm", gender, birth_date: birthDate },
   });
 
   if (error) {
