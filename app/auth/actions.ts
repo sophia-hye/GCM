@@ -120,6 +120,7 @@ export async function completeOnboarding(
   const phone = normalizePhone(String(formData.get("phone") ?? ""));
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
+  const consentThirdParty = String(formData.get("consent_third_party") ?? "") === "on";
 
   if (!["student", "parent", "amateur"].includes(role)) {
     return { error: "구분을 선택해 주세요." };
@@ -127,6 +128,9 @@ export async function completeOnboarding(
   if (!phone) return { error: "전화번호를 입력해 주세요." };
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
+  if (!consentThirdParty) {
+    return { error: "개인정보 제3자 제공(Equre)에 동의해야 가입을 완료할 수 있습니다." };
+  }
 
   // 같은 전화번호의 다른 회원이 이미 있으면 = 중복 가입(소셜로 또 가입 등).
   // 이번에 새로 만들어진 빈 계정을 정리하고 기존 로그인으로 안내한다.
@@ -144,6 +148,11 @@ export async function completeOnboarding(
       redirect("/login?dup=1");
     }
   }
+
+  // 개인정보 제3자 제공(Equre) 동의 기록: 동의 여부와 동의 일시를 계정 메타데이터에 보관
+  await supabase.auth.updateUser({
+    data: { equre_consent: true, equre_consent_at: new Date().toISOString() },
+  });
 
   const { error } = await supabase
     .from("gcm_profiles")
