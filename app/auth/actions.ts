@@ -197,6 +197,7 @@ export async function signUpMember(
   const role = String(formData.get("role") ?? "student");
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
+  const consentThirdParty = String(formData.get("consent_third_party") ?? "") === "on";
   if (!name || !phone) return { error: "이름과 전화번호를 입력해 주세요." };
   if (!email) return { error: "이메일을 입력해 주세요." };
   if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
@@ -204,13 +205,27 @@ export async function signUpMember(
   if (!["student", "parent", "amateur"].includes(role)) return { error: "잘못된 역할입니다." };
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
+  if (!consentThirdParty) {
+    return { error: "개인정보 제3자 제공(Qure)에 동의해야 회원가입이 가능합니다." };
+  }
 
   const admin = createAdminClient();
   const { error } = await admin.auth.admin.createUser({
     email,
     password,
     email_confirm: true,
-    user_metadata: { name, phone, email, role, source: "gcm", gender, birth_date: birthDate },
+    user_metadata: {
+      name,
+      phone,
+      email,
+      role,
+      source: "gcm",
+      gender,
+      birth_date: birthDate,
+      // 개인정보 제3자 제공(Qure) 동의 기록: 동의 여부와 동의 일시를 보관해 입증 가능하게 함
+      qure_consent: true,
+      qure_consent_at: new Date().toISOString(),
+    },
   });
 
   if (error) {
