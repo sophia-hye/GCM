@@ -206,7 +206,7 @@ export async function signUpMember(
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
   if (!consentThirdParty) {
-    return { error: "개인정보 제3자 제공(Qure)에 동의해야 회원가입이 가능합니다." };
+    return { error: "개인정보 제3자 제공(Equre)에 동의해야 회원가입이 가능합니다." };
   }
 
   const admin = createAdminClient();
@@ -222,9 +222,9 @@ export async function signUpMember(
       source: "gcm",
       gender,
       birth_date: birthDate,
-      // 개인정보 제3자 제공(Qure) 동의 기록: 동의 여부와 동의 일시를 보관해 입증 가능하게 함
-      qure_consent: true,
-      qure_consent_at: new Date().toISOString(),
+      // 개인정보 제3자 제공(Equre) 동의 기록: 동의 여부와 동의 일시를 보관해 입증 가능하게 함
+      equre_consent: true,
+      equre_consent_at: new Date().toISOString(),
     },
   });
 

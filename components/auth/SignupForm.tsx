@@ -96,7 +96,7 @@ function ThirdPartyConsent() {
       />
       <span>
         <span className="font-semibold text-danger">[필수]</span> 개인정보 제3자 제공 동의 — 회원님의
-        개인정보(이름, 이메일, 전화번호, 성별, 생년월일)를 Qure에 제공하여 Qure 서비스에서 저장·이용하는
+        개인정보(이름, 이메일, 전화번호, 성별, 생년월일)를 Equre에 제공하여 Equre 서비스에서 저장·이용하는
         것에 동의합니다.{" "}
         <Link
           href="/privacy"
