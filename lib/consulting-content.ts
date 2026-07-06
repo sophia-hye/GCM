@@ -1,4 +1,3 @@
-import { site } from "@/lib/site-data";
 import type { Locale } from "@/lib/i18n";
 
 /**
@@ -29,12 +28,7 @@ export type ConsultingExtra = {
     booking: {
       title: string;
       sub: string;
-      deadlineLabel: string;
-      deadline: string;
-      phoneLabel: string;
-      phone: string;
-      emailLabel: string;
-      email: string;
+      cta: string;
     };
   };
   roleModels: {
@@ -94,12 +88,7 @@ const ko: ConsultingExtra = {
     booking: {
       title: "1:1 상담 및 가능성 진단 예약",
       sub: "전문 코치와 함께 우리 아이의 숨겨진 무한한 가능성을 진단해 드립니다.",
-      deadlineLabel: "지원 마감",
-      deadline: "2026년 6월 15일",
-      phoneLabel: "전화 문의",
-      phone: site.phone,
-      emailLabel: "이메일",
-      email: site.email,
+      cta: "상담 신청하기",
     },
   },
   roleModels: {
@@ -271,12 +260,7 @@ const en: ConsultingExtra = {
     booking: {
       title: "Book a 1:1 Consultation & Potential Assessment",
       sub: "Together with a specialist coach, we assess your child's hidden, limitless potential.",
-      deadlineLabel: "Application Deadline",
-      deadline: "June 15, 2026",
-      phoneLabel: "Phone",
-      phone: site.phone,
-      emailLabel: "Email",
-      email: site.email,
+      cta: "Request Consultation",
     },
   },
   roleModels: {
