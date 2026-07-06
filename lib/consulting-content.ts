@@ -61,7 +61,7 @@ const ko: ConsultingExtra = {
   hero: {
     eyebrow: "TENNIS ELITE FROM KOREA",
     title: "운동은 잘하는 것만이 아니라,\n잘 설계해야 성장합니다.",
-    sub: "자녀의 가능성을 지금의 환경과 한계로 결정하지 마십시오.\n아이의 땀방울이 가장 찬란한 스무 살 이후의 삶이 될 수 있도록,\nGCM이 가장 완벽하고 안전한 성장의 로드맵을 열어드립니다.",
+    sub: "자녀의 가능성을 지금의 환경과 한계로 결정하지 마십시오.\n아이의 땀방울이 가장 찬란한 스무 살 이후의 삶이 될 수 있도록,\nGCM이 가장 안전한 성장의 로드맵을 열어드립니다.",
   },
   philosophy: {
     title: "선수 그 이상의 삶, 스무 살 이후를 묻다",
@@ -233,7 +233,7 @@ const en: ConsultingExtra = {
   hero: {
     eyebrow: "TENNIS ELITE FROM KOREA",
     title: "Athletics isn't only about playing well —\nit's about designing the path to grow.",
-    sub: "Don't let your child's potential be defined by today's environment or limits.\nSo that every drop of sweat becomes the most brilliant life beyond age twenty,\nGCM opens the most complete and secure roadmap for growth.",
+    sub: "Don't let your child's potential be defined by today's environment or limits.\nSo that every drop of sweat becomes the most brilliant life beyond age twenty,\nGCM opens the most secure roadmap for growth.",
   },
   philosophy: {
     title: "A Life Beyond the Athlete — What Comes After Twenty",
