@@ -49,6 +49,30 @@ export async function DirectorMessage() {
           <p className="pt-4 text-right font-display text-base font-semibold text-ink">
             {d.signature}
           </p>
+
+          <div className="mt-10 flex items-center gap-3 border-t border-line pt-6">
+            <span className="font-display text-xl font-extrabold tracking-tight text-ink">
+              GCM<span className="text-lime">.</span>
+            </span>
+            <span className="text-[10px] font-medium uppercase tracking-widest text-muted">
+              with
+            </span>
+            <a
+              href="https://equre.us"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="equre — equre.us"
+              className="inline-flex items-center transition-opacity hover:opacity-70"
+            >
+              <Image
+                src="/logo/equre.png"
+                alt="equre"
+                width={2670}
+                height={1006}
+                className="h-4 w-auto translate-y-[3px]"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </Section>
