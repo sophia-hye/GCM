@@ -1,7 +1,29 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict } from "@/lib/site-content";
+
+/** 본문 내 '이큐어(equre.us)' / 'equre (equre.us)' 문구를 equre.us 링크로 변환 */
+const EQURE_RE = /([^\s‘’'"]*\s*\(equre\.us\))/;
+
+function renderParagraph(text: string): ReactNode {
+  return text.split(EQURE_RE).map((part, i) =>
+    EQURE_RE.test(part) ? (
+      <a
+        key={i}
+        href="https://equre.us"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-court underline underline-offset-2 hover:text-court-bright"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  );
+}
 
 /** About 페이지: 대표 원장 인사말 */
 export async function DirectorMessage() {
@@ -32,7 +54,7 @@ export async function DirectorMessage() {
         <div className="max-w-2xl space-y-5">
           {d.before.map((p) => (
             <p key={p} className="whitespace-pre-line text-base leading-relaxed text-ink/85">
-              {p}
+              {renderParagraph(p)}
             </p>
           ))}
 
@@ -42,7 +64,7 @@ export async function DirectorMessage() {
 
           {d.after.map((p) => (
             <p key={p} className="whitespace-pre-line text-base leading-relaxed text-ink/85">
-              {p}
+              {renderParagraph(p)}
             </p>
           ))}
 
