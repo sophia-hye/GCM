@@ -122,7 +122,7 @@ const enTeam = [
     name: "Oh Seong-gook",
     role: "Founder · Director",
     bio: "Oversees elite tennis development and the design of individual growth roadmaps.",
-    image: "/coaches/ohseonggook/IMG_2963.JPG",
+    image: "/coaches/ohseonggook/profile.jpeg",
     achievements: [
       "Current) GCM Academy Founder & Director",
       "Former) Junior national team coach",
@@ -182,7 +182,7 @@ const enTeam = [
     name: "Kim Ju-bin",
     role: "Coach · Technique · Mental",
     bio: "Responsible for overall tennis development, correcting competition anxiety and designing routines during match training.",
-    image: "",
+    image: "/coaches/kimjubin/profile.jpeg",
     achievements: [
       "Seongnam City Hall corporate team player",
       "Former J-One Tennis Academy coach",
