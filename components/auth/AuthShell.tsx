@@ -39,7 +39,13 @@ export function AuthShell({
           <div className="mt-6">{children}</div>
         </div>
 
-        <p className="mt-6 text-center text-sm text-muted">{footer}</p>
+        <p
+          className={`mt-6 text-center text-sm ${
+            backgroundImage ? "font-medium text-white/85 [text-shadow:0_1px_3px_rgb(0_0_0/0.5)]" : "text-muted"
+          }`}
+        >
+          {footer}
+        </p>
       </div>
     </main>
   );
