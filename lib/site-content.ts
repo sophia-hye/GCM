@@ -80,7 +80,7 @@ const enFounding = {
   title: "Why GCM Was Founded",
   lead: "GCM was founded to be an academy that takes responsibility for an athlete's growth and career to the very end.",
   paragraphs: [
-    "Good players are not made by chance. Even talented players stall without a growth path. GCM diagnoses where an athlete stands today and connects training, competition, mental routines and career planning into one. We see athletes as a process of moving to the next level, not as short-term results.",
+    "Good players are not made by chance. Even talented players stall without a growth path. GCM diagnoses where an athlete stands today and connects training, competition, mental routines and career planning into one. We see athletes as a process of growing to the next level, not as short-term results.",
     "The path of elite tennis is not completed by talent alone. It requires systematic training, data-based career design, and mental care that holds you steady when you waver.",
     "GCM (Global Champions Makers) is an integrated performance model where multiple experts take responsibility for one athlete, designing the path from junior to pro and college.",
     "We don't leave results to chance. We believe a structured process creates results.",
@@ -286,7 +286,7 @@ const enFaqContact = {
 const enDirectorMessage = {
   eyebrow: "Director's Message",
   title: "A Message from the Director",
-  image: "/coaches/ohseonggook/oh-director-2026.jpeg",
+  image: "/coaches/ohseonggook/oh-director.png",
   signature: "Oh Seong-gook, Founder & Director, GCM Academy",
   before: [
     "Hello. I am Oh Seong-gook, Founder and Director of GCM Academy. To every parent and athlete who has found their way to us, thank you from the bottom of my heart.",
@@ -323,6 +323,14 @@ const enSiteGuide = [
   },
   {
     no: "02",
+    label: "Director",
+    href: "/about#director-message",
+    title: "A Message from the Director",
+    desc: "Founder & Director Oh Seong-gook shares GCM's philosophy and his promise to parents.",
+    items: ["Director's message", "Education philosophy · vision", "A word to parents"],
+  },
+  {
+    no: "03",
     label: "Coaches",
     href: "/coaches",
     title: "Meet the Coaches",
@@ -330,7 +338,7 @@ const enSiteGuide = [
     items: ["Founder · Director Oh Seong-gook", "Head Coach · technique/physical", "Coach · technique/mental"],
   },
   {
-    no: "03",
+    no: "04",
     label: "Players",
     href: "/players",
     title: "Our Players",
@@ -338,7 +346,7 @@ const enSiteGuide = [
     items: ["Player stories", "Growth records", "Coming soon"],
   },
   {
-    no: "04",
+    no: "05",
     label: "Gallery",
     href: "/gallery",
     title: "Gallery",
@@ -346,7 +354,7 @@ const enSiteGuide = [
     items: ["Training sessions", "Tournaments · events", "Academy news"],
   },
   {
-    no: "05",
+    no: "06",
     label: "Training",
     href: "/training",
     title: "Training System",
@@ -354,7 +362,7 @@ const enSiteGuide = [
     items: ["6-step development system", "Total Care System", "Pro · college dual pathway"],
   },
   {
-    no: "06",
+    no: "07",
     label: "Kids & Amateur",
     href: "/recreational",
     title: "Kids & Amateur Club",
@@ -362,7 +370,7 @@ const enSiteGuide = [
     items: ["Kids class (ages 5–13)", "Adult amateur class", "Fundamentals · tactics · games"],
   },
   {
-    no: "07",
+    no: "08",
     label: "Consulting",
     href: "/consulting",
     title: "Career & Admissions Consulting",
@@ -370,7 +378,7 @@ const enSiteGuide = [
     items: ["UTR · results diagnosis", "Pro / college roadmap", "Mental · language care"],
   },
   {
-    no: "08",
+    no: "09",
     label: "Scholarship",
     href: "/scholarship",
     title: "Scholarship",
