@@ -495,5 +495,5 @@ export const testimonials: { quote: string; author: string }[] = [];
 
 export const faqContact = {
   title: "ARE YOU READY TO GO PRO & GROW?",
-  sub: "기술 · 피지컬 · 멘탈을 하나로. GCM이 당신의 다음 단계를 함께합니다.",
+  sub: "기술 · 피지컬 · 멘탈을 하나로. GCM이 당신의 성장 과정에 함께합니다.",
 };
