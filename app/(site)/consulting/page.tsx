@@ -1,5 +1,6 @@
 import { ConsultingBanner } from "@/components/sections/ConsultingBanner";
 import { ConsultingIntro } from "@/components/sections/ConsultingIntro";
+import { ConsultingExtras } from "@/components/sections/consulting/ConsultingExtras";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
@@ -12,7 +13,8 @@ export default async function ConsultingPage() {
     <div className="pt-16">
       <ConsultingBanner />
       <ConsultingIntro />
-      <Section id="consultation" className="pt-0">
+      <ConsultingExtras />
+      <Section id="consultation">
         <SectionHeading
           eyebrow="Get Started"
           title={en ? "Request Consulting" : "상담 신청"}
