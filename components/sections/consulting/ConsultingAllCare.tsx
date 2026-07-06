@@ -11,7 +11,7 @@ export function ConsultingAllCare({
 }) {
   return (
     <Section id="consulting-allcare">
-      <SectionHeading eyebrow="All-Care" title={data.title} lead={data.lead} center />
+      <SectionHeading eyebrow="All-Care" title={data.title} lead={data.lead} center nowrap />
 
       <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {data.items.map((item) => {

@@ -10,7 +10,7 @@ export function ConsultingFaq({ data }: { data: ConsultingExtra["faq"] }) {
 
   return (
     <Section id="consulting-faq" tone="muted">
-      <SectionHeading eyebrow="FAQ" title={data.title} lead={data.lead} center />
+      <SectionHeading eyebrow="FAQ" title={data.title} lead={data.lead} center nowrap />
 
       <div className="mx-auto mt-12 max-w-3xl space-y-3">
         {data.items.map((item, i) => {

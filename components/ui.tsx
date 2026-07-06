@@ -78,19 +78,34 @@ export function SectionHeading({
   title,
   lead,
   center = false,
+  nowrap = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
   lead?: string;
   center?: boolean;
+  /** 데스크탑(lg+)에서 제목을 한 줄로 유지 */
+  nowrap?: boolean;
 }) {
   return (
-    <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
+    <div className={`${nowrap ? "max-w-none" : "max-w-2xl"} ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
+      <h2
+        className={`mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl ${
+          nowrap ? "lg:whitespace-nowrap" : ""
+        }`}
+      >
         {typeof title === "string" ? <SplitText text={title} /> : title}
       </h2>
-      {lead ? <p className="mt-5 whitespace-pre-line text-lg leading-relaxed text-muted">{lead}</p> : null}
+      {lead ? (
+        <p
+          className={`mt-5 whitespace-pre-line text-lg leading-relaxed text-muted ${
+            nowrap && center ? "mx-auto max-w-2xl" : ""
+          }`}
+        >
+          {lead}
+        </p>
+      ) : null}
     </div>
   );
 }
