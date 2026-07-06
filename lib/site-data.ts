@@ -10,9 +10,9 @@ export const site = {
   tagline: "고성능 테니스 아카데미",
   rep: "오성국",
   email: "tennis.gcm@gmail.com",
-  phone: "010-0000-0000",
-  address: "경기 화성시 동탄",
-  hours: "평일 09:00–19:00 · 주말 09:00–17:00",
+  phone: "010-8515-2555",
+  address: "문의 필요",
+  hours: "문의 필요",
   kakao: "", // 카카오톡 채널 채팅 URL (예: http://pf.kakao.com/_xxxx/chat) — 추후 입력
   instagram: "https://www.instagram.com/gcm_tennis/",
   foundedYear: "2023",
@@ -186,7 +186,7 @@ export const team = [
     name: "오성국",
     role: "대표 · 원장",
     bio: "엘리트 테니스 육성과 선수별 성장 로드맵 설계를 총괄합니다.",
-    image: "/coaches/ohseonggook/IMG_2963.JPG",
+    image: "/coaches/ohseonggook/profile.jpeg",
     achievements: [
       "現 GCM 아카데미 대표 원장",
       "前 주니어 국가대표 코치",
@@ -246,7 +246,7 @@ export const team = [
     name: "김주빈",
     role: "코치 · 기술 · 멘탈",
     bio: "테니스의 전반적 발달과 경기 훈련 시 불안심리 교정 및 루틴 설계를 담당합니다.",
-    image: "",
+    image: "/coaches/kimjubin/profile.jpeg",
     achievements: [
       "성남시청 실업팀 선수",
       "前 제이원 테니스 아카데미 코치",
