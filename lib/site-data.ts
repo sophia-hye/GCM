@@ -47,6 +47,14 @@ export const siteGuide = [
   },
   {
     no: "02",
+    label: "Director",
+    href: "/about#director-message",
+    title: "대표 원장 인사말",
+    desc: "국제무대를 거친 대표 원장 오성국이 전하는 GCM의 철학과 학부모께 드리는 약속.",
+    items: ["대표 원장 인사말", "교육 철학 · 비전", "학부모께 드리는 말"],
+  },
+  {
+    no: "03",
     label: "Coaches",
     href: "/coaches",
     title: "코치진 소개",
@@ -54,7 +62,7 @@ export const siteGuide = [
     items: ["대표 · 원장 오성국", "헤드 코치 · 기술/피지컬", "코치 · 기술/멘탈"],
   },
   {
-    no: "03",
+    no: "04",
     label: "Players",
     href: "/players",
     title: "배출 · 소속 선수",
@@ -62,7 +70,7 @@ export const siteGuide = [
     items: ["선수 스토리", "성장 기록", "곧 공개 예정"],
   },
   {
-    no: "04",
+    no: "05",
     label: "Gallery",
     href: "/gallery",
     title: "갤러리",
@@ -70,7 +78,7 @@ export const siteGuide = [
     items: ["훈련 현장", "대회 · 이벤트", "아카데미 소식"],
   },
   {
-    no: "05",
+    no: "06",
     label: "Training",
     href: "/training",
     title: "트레이닝 시스템",
@@ -78,7 +86,7 @@ export const siteGuide = [
     items: ["6단계 발달 시스템", "Total Care System", "프로 · 대학 두 갈래 진로"],
   },
   {
-    no: "06",
+    no: "07",
     label: "Kids & Amateur",
     href: "/recreational",
     title: "키즈 · 아마추어 클럽",
@@ -86,7 +94,7 @@ export const siteGuide = [
     items: ["키즈 클래스 (5–13세)", "성인 아마추어 클래스", "기본기 · 전술 · 게임"],
   },
   {
-    no: "07",
+    no: "08",
     label: "Consulting",
     href: "/consulting",
     title: "진로 · 진학 컨설팅",
@@ -94,7 +102,7 @@ export const siteGuide = [
     items: ["UTR · 실적 진단", "프로 / 대학 로드맵", "멘탈 · 어학 케어"],
   },
   {
-    no: "08",
+    no: "09",
     label: "Scholarship",
     href: "/scholarship",
     title: "장학 제도",
@@ -107,7 +115,7 @@ export const founding = {
   title: "GCM 설립 배경",
   lead: "선수의 성장과 진로를 끝까지 책임지는 아카데미를 만들기 위해 GCM은 시작됐습니다.",
   paragraphs: [
-    "좋은 선수는 우연히 만들어지지 않습니다.\n재능 있는 선수도 성장 경로가 없으면 정체됩니다. GCM은 선수의 현재 위치를 진단하고, 목표에 맞는 훈련과 대회, 멘탈 루틴, 진로 계획을 하나로 연결합니다. 우리는 선수를 단기 성과가 아니라 다음 단계로 이동시키는 과정으로 봅니다.",
+    "좋은 선수는 우연히 만들어지지 않습니다.\n재능 있는 선수도 성장 경로가 없으면 정체됩니다. GCM은 선수의 현재 위치를 진단하고, 목표에 맞는 훈련과 대회, 멘탈 루틴, 진로 계획을 하나로 연결합니다. 우리는 선수를 단기 성과가 아니라 다음 단계로 성장시키는 과정으로 봅니다.",
     "엘리트 테니스의 길은 재능만으로 완성되지 않습니다.\n체계적인 훈련, 데이터에 근거한 진로 설계, 그리고 흔들릴 때 잡아주는 멘탈 케어가 함께해야 합니다.",
     "GCM(Global Champions Makers)은 한 선수를 여러 전문가가 함께 책임지는 통합 퍼포먼스 모델로, 주니어부터 프로·대학 진학까지 이어지는 길을 설계합니다.",
     "우리는 결과를 운에 맡기지 않습니다.\n구조화된 과정이 결과를 만든다고 믿습니다.",
@@ -117,7 +125,7 @@ export const founding = {
 export const directorMessage = {
   eyebrow: "Director's Message",
   title: "대표 원장 인사말",
-  image: "/coaches/ohseonggook/oh-director-2026.jpeg",
+  image: "/coaches/ohseonggook/oh-director.png",
   signature: "GCM 아카데미 대표 원장 오성국 올림",
   before: [
     "안녕하세요.\nGCM 아카데미 대표 원장 오성국입니다.\n저희 GCM 아카데미를 찾아주신 학부모님과 선수 여러분께 마음 깊이 감사드립니다.",
