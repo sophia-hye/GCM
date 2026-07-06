@@ -61,13 +61,13 @@ const ko: ConsultingExtra = {
   hero: {
     eyebrow: "TENNIS ELITE FROM KOREA",
     title: "운동은 잘하는 것만이 아니라,\n잘 설계해야 성장합니다.",
-    sub: "자녀의 가능성을 지금의 환경과 한계로 결정하지 마십시오.\n아이의 땀방울이 가장 찬란한 스무 살 이후의 삶이 될 수 있도록,\nGCM이 가장 완벽하고 안전한 성장의 로드맵을 열어드립니다.",
+    sub: "자녀의 가능성을 지금의 환경과 한계로 결정하지 마십시오.\n아이의 땀방울이 가장 찬란한 스무 살 이후의 삶이 될 수 있도록,\nGCM이 가장 안전한 성장의 로드맵을 열어드립니다.",
   },
   philosophy: {
     title: "선수 그 이상의 삶, 스무 살 이후를 묻다",
     paragraphs: [
       "어머님, 아버님. 테니스 라켓을 놓게 되는 그 순간을 상상해 보신 적 있으신가요? 엘리트 체육의 길은 늘 크고 작은 불확실성을 동반합니다.",
-      "하지만 '운동은 선수만 하는 것'이라는 고정관념에서 벗어나면 완전히 새로운 길이 보입니다. 미국 대학 시스템(NCAA)은 엘리트 스포츠의 불확실성을 최소화하고, 만약의 부상이나 진로 변경 상황에서도 아이가 흘린 땀방울을 가장 강력한 '인생의 스펙'으로 전환해 줍니다.",
+      "하지만 '운동은 선수만 하는 것'이라는 고정관념에서 벗어나면 완전히 새로운 길이 보입니다. 미국 대학 시스템(NCAA/NJCAA)은 엘리트 스포츠의 불확실성을 최소화하고, 만약의 부상이나 진로 변경 상황에서도 아이가 흘린 땀방울을 가장 강력한 '인생의 스펙'으로 전환해 줍니다.",
     ],
     points: [
       {
@@ -84,7 +84,7 @@ const ko: ConsultingExtra = {
   },
   investment: {
     title: "대학 4년은 비용이 아닌 '투자'입니다",
-    sub: "NCAA를 거친 경험은 국내 실업팀 진출 시 즉시 전력감으로 높은 연봉과 계약금을 기대할 수 있게 하며, 더 넓은 글로벌 비즈니스 무대에서 평생의 자산이 됩니다.",
+    sub: "NCAA/NJCAA를 거친 경험은 국내 실업팀 진출 시 즉시 전력감으로 높은 연봉과 계약금을 기대할 수 있게 하며, 더 넓은 글로벌 비즈니스 무대에서 평생의 자산이 됩니다.",
     booking: {
       title: "1:1 상담 및 가능성 진단 예약",
       sub: "전문 코치와 함께 우리 아이의 숨겨진 무한한 가능성을 진단해 드립니다.",
@@ -93,7 +93,7 @@ const ko: ConsultingExtra = {
   },
   roleModels: {
     title: "가능성을 현실로 바꾼 롤모델들",
-    lead: "NCAA 시스템은 프로 투어부터 비즈니스 리더까지 다양한 가능성을 증명합니다.",
+    lead: "NCAA/NJCAA 시스템은 프로 투어부터 비즈니스 리더까지 다양한 가능성을 증명합니다.",
     items: [
       {
         name: "Ben Shelton",
@@ -124,8 +124,8 @@ const ko: ConsultingExtra = {
       {
         badge: "PLAN A",
         title: "초등학생 로드맵",
-        tags: "#장기_브랜딩형 #D1_전액장학금_목표",
-        body: "국내 훈련과 영어 기초를 탄탄히 다지며, UTR 토너먼트 플래닝을 통해 주니어 랭킹을 체계적으로 끌어올립니다. 가장 이상적인 형태의 최상위권 D1 전액 장학금 로드맵을 여유 있게 설계합니다.",
+        tags: "#장기_브랜딩형 #NCAA_D1_전액장학금_목표",
+        body: "국내 훈련과 영어 기초를 탄탄히 다지며, UTR 토너먼트 플래닝을 통해 주니어 랭킹을 체계적으로 끌어올립니다. 가장 이상적인 형태의 최상위권 NCAA D1 전액 장학금 로드맵을 여유 있게 설계합니다.",
       },
       {
         badge: "PLAN B",
@@ -163,7 +163,7 @@ const ko: ConsultingExtra = {
       {
         icon: "cap",
         title: "학사 및 자격 관리",
-        body: "복잡한 미국 대학 스포츠 협회(NCAA) 선수 자격 규정을 완벽히 충족하도록 SAT, TOEFL, GPA 등 전 과정을 밀착 관리합니다.",
+        body: "복잡한 미국 대학 스포츠 협회(NCAA/NJCAA) 선수 자격 규정을 완벽히 충족하도록 SAT, TOEFL, GPA 등 전 과정을 밀착 관리합니다.",
       },
       {
         icon: "globe",
@@ -233,13 +233,13 @@ const en: ConsultingExtra = {
   hero: {
     eyebrow: "TENNIS ELITE FROM KOREA",
     title: "Athletics isn't only about playing well —\nit's about designing the path to grow.",
-    sub: "Don't let your child's potential be defined by today's environment or limits.\nSo that every drop of sweat becomes the most brilliant life beyond age twenty,\nGCM opens the most complete and secure roadmap for growth.",
+    sub: "Don't let your child's potential be defined by today's environment or limits.\nSo that every drop of sweat becomes the most brilliant life beyond age twenty,\nGCM opens the most secure roadmap for growth.",
   },
   philosophy: {
     title: "A Life Beyond the Athlete — What Comes After Twenty",
     paragraphs: [
       "Parents — have you ever imagined the moment your child sets the racket down for good? The elite sports path always carries uncertainty, large and small.",
-      "But once you let go of the idea that 'sport is only for athletes,' an entirely new path appears. The U.S. college system (NCAA) minimizes the uncertainty of elite sports and, even in the event of injury or a change of direction, turns your child's sweat into the strongest 'life credential.'",
+      "But once you let go of the idea that 'sport is only for athletes,' an entirely new path appears. The U.S. college system (NCAA/NJCAA) minimizes the uncertainty of elite sports and, even in the event of injury or a change of direction, turns your child's sweat into the strongest 'life credential.'",
     ],
     points: [
       {
@@ -256,7 +256,7 @@ const en: ConsultingExtra = {
   },
   investment: {
     title: "Four Years of College Is an 'Investment,' Not a Cost",
-    sub: "NCAA experience makes an athlete an immediate asset for domestic pro teams — commanding higher salaries and signing bonuses — and becomes a lifelong advantage on the wider global business stage.",
+    sub: "NCAA/NJCAA experience makes an athlete an immediate asset for domestic pro teams — commanding higher salaries and signing bonuses — and becomes a lifelong advantage on the wider global business stage.",
     booking: {
       title: "Book a 1:1 Consultation & Potential Assessment",
       sub: "Together with a specialist coach, we assess your child's hidden, limitless potential.",
@@ -265,7 +265,7 @@ const en: ConsultingExtra = {
   },
   roleModels: {
     title: "Role Models Who Turned Possibility into Reality",
-    lead: "The NCAA system proves a wide range of possibilities — from the pro tour to business leadership.",
+    lead: "The NCAA/NJCAA system proves a wide range of possibilities — from the pro tour to business leadership.",
     items: [
       {
         name: "Ben Shelton",
@@ -296,8 +296,8 @@ const en: ConsultingExtra = {
       {
         badge: "PLAN A",
         title: "Elementary Roadmap",
-        tags: "#Long-term_Branding #D1_Full-Ride_Goal",
-        body: "Build a solid foundation in domestic training and basic English while systematically raising junior rankings through UTR tournament planning. We design the most ideal top-tier D1 full-scholarship roadmap with plenty of runway.",
+        tags: "#Long-term_Branding #NCAA_D1_Full-Ride_Goal",
+        body: "Build a solid foundation in domestic training and basic English while systematically raising junior rankings through UTR tournament planning. We design the most ideal top-tier NCAA D1 full-scholarship roadmap with plenty of runway.",
       },
       {
         badge: "PLAN B",
@@ -335,7 +335,7 @@ const en: ConsultingExtra = {
       {
         icon: "cap",
         title: "Academics & Eligibility",
-        body: "We closely manage the entire process — SAT, TOEFL, GPA and more — to fully meet the complex NCAA eligibility rules.",
+        body: "We closely manage the entire process — SAT, TOEFL, GPA and more — to fully meet the complex NCAA/NJCAA eligibility rules.",
       },
       {
         icon: "globe",
