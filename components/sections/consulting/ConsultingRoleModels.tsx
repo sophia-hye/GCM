@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ConsultingExtra } from "@/lib/consulting-content";
 import { Section, SectionHeading } from "@/components/ui";
 
@@ -17,16 +18,26 @@ export function ConsultingRoleModels({
             key={m.name}
             className="flex gap-5 rounded-2xl border border-line bg-card/30 p-6"
           >
-            <span
-              aria-hidden
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-court/10 font-display text-lg font-bold text-court-bright"
-            >
-              {m.name
-                .split(" ")
-                .map((w) => w[0])
-                .join("")
-                .slice(0, 2)}
-            </span>
+            {m.image ? (
+              <Image
+                src={m.image}
+                alt={m.name}
+                width={1254}
+                height={1254}
+                className="h-16 w-16 shrink-0 rounded-full border border-line object-cover"
+              />
+            ) : (
+              <span
+                aria-hidden
+                className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-court/10 font-display text-lg font-bold text-court-bright"
+              >
+                {m.name
+                  .split(" ")
+                  .map((w) => w[0])
+                  .join("")
+                  .slice(0, 2)}
+              </span>
+            )}
             <div>
               <h3 className="font-display text-lg font-bold text-ink">{m.name}</h3>
               <p className="mt-0.5 text-sm font-semibold text-court">{m.school}</p>

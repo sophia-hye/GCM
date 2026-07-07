@@ -34,7 +34,7 @@ export type ConsultingExtra = {
   roleModels: {
     title: string;
     lead: string;
-    items: { name: string; school: string; body: string }[];
+    items: { name: string; school: string; body: string; image?: string }[];
   };
   roadmap: {
     title: string;
@@ -98,21 +98,25 @@ const ko: ConsultingExtra = {
       {
         name: "Ben Shelton",
         school: "University of Florida",
+        image: "/rolemodels/ben-shelton.png",
         body: "대학 테니스를 거쳐 NCAA 단식 우승 후 프로로 전향해 ATP 투어 톱 랭커까지 성장한 현대 대학 시스템의 가장 대표적인 엘리트 스포츠 성공 사례입니다.",
       },
       {
         name: "Kaes Van't Hof",
         school: "Univ. of Southern California (USC)",
+        image: "/rolemodels/kaes-vant-hof.png",
         body: "대학 선수 출신(NCAA 복식 우승)으로 은퇴 후 비즈니스 커리어로 완벽히 전환하여, 현재 미국 대형 에너지 기업의 C레벨 임원으로 활동 중인 글로벌 리더입니다.",
       },
       {
         name: "Janice Tjen",
         school: "Pepperdine University",
-        body: "NCAA에서 훌륭한 성적을 거두고 US Open 출전 경험을 쌓는 등 글로벌 무대에 도전하며 아시아 선수들에게 깊은 영감을 주고 있는 롤모델입니다.",
+        image: "/rolemodels/janice-tjen.png",
+        body: "NCAA 여자 복식 준우승 이후 WTA 투어와 US Open 본선 진출, 아시아 선수 성장 사례의 대표 롤모델입니다.",
       },
       {
         name: "CiCi Bellis",
         school: "Indiana University",
+        image: "/rolemodels/cici-bellis.png",
         body: "10대 시절 천재 소녀로 불리다 부상으로 은퇴했지만, 학업을 기반으로 헬스케어 벤처캐피탈을 설립하며 '위기를 기회로 바꾼' 탁월한 창업가 사례입니다.",
       },
     ],
@@ -270,21 +274,25 @@ const en: ConsultingExtra = {
       {
         name: "Ben Shelton",
         school: "University of Florida",
+        image: "/rolemodels/ben-shelton.png",
         body: "After winning an NCAA singles title through college tennis and turning pro, he grew into a top-ranked ATP tour player — the most representative elite-sports success story of the modern college system.",
       },
       {
         name: "Kaes Van't Hof",
         school: "Univ. of Southern California (USC)",
+        image: "/rolemodels/kaes-vant-hof.png",
         body: "A former college player (NCAA doubles champion) who transitioned seamlessly into a business career and now serves as a C-level executive at a major U.S. energy company — a true global leader.",
       },
       {
         name: "Janice Tjen",
         school: "Pepperdine University",
-        body: "A role model who posted excellent NCAA results and challenged the global stage with US Open experience, deeply inspiring Asian players.",
+        image: "/rolemodels/janice-tjen.png",
+        body: "After an NCAA women's doubles runner-up finish, she reached the WTA Tour and the US Open main draw — a leading role model for the growth of Asian players.",
       },
       {
         name: "CiCi Bellis",
         school: "Indiana University",
+        image: "/rolemodels/cici-bellis.png",
         body: "Once hailed as a teenage prodigy before retiring due to injury, she built on her academics to found a healthcare venture-capital firm — an outstanding example of 'turning crisis into opportunity.'",
       },
     ],
