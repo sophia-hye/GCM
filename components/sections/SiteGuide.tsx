@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Section } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
@@ -7,7 +8,7 @@ import { getDict, getUI } from "@/lib/site-content";
 /** 홈 둘러보기: 각 메뉴(탭)에 어떤 내용이 있는지 카드로 미리 안내 */
 export async function SiteGuide() {
   const locale = await getLocale();
-  const { siteGuide, siteGuideLead } = getDict(locale);
+  const { siteGuide, siteGuideLead, directorMessage: d } = getDict(locale);
   const ui = getUI(locale);
 
   return (
@@ -34,7 +35,38 @@ export async function SiteGuide() {
         <p className="mt-5 text-lg leading-relaxed text-muted">{siteGuideLead}</p>
       </Reveal>
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* 대표 원장 인사말 요약 — 카드 위에 간략히 노출 */}
+      <Reveal delay={80}>
+        <Link
+          href="/about#director-message"
+          className="group mt-10 flex items-center gap-4 rounded-2xl border border-line bg-card/30 p-5 transition-colors hover:border-court hover:bg-card/60 sm:gap-6 sm:p-6"
+        >
+          <Image
+            src={d.image}
+            alt={d.title}
+            width={520}
+            height={650}
+            className="h-16 w-16 shrink-0 rounded-full border border-line object-cover sm:h-20 sm:w-20"
+          />
+          <div className="min-w-0">
+            <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-court-bright">
+              {d.eyebrow}
+            </p>
+            <p className="mt-1.5 font-display text-base font-bold leading-snug text-ink sm:text-lg">
+              {d.title}
+            </p>
+            <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">
+              {d.quote}
+            </p>
+            <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-court">
+              {ui.learnMore}
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </span>
+          </div>
+        </Link>
+      </Reveal>
+
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {siteGuide.map((g, i) => (
           <Reveal key={g.href} delay={i * 80} className="h-full">
             <Link
