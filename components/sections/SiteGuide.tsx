@@ -35,35 +35,50 @@ export async function SiteGuide() {
         <p className="mt-5 text-lg leading-relaxed text-muted">{siteGuideLead}</p>
       </Reveal>
 
-      {/* 대표 원장 인사말 요약 — 카드 위에 간략히 노출 */}
+      {/* 대표 원장 인사말 — 요약 전문을 카드 안에 노출 */}
       <Reveal delay={80}>
-        <Link
-          href="/about#director-message"
-          className="group mt-10 flex items-center gap-4 rounded-2xl border border-line bg-card/30 p-5 transition-colors hover:border-court hover:bg-card/60 sm:gap-6 sm:p-6"
-        >
-          <Image
-            src={d.image}
-            alt={d.title}
-            width={520}
-            height={650}
-            className="h-16 w-16 shrink-0 rounded-full border border-line object-cover sm:h-20 sm:w-20"
-          />
-          <div className="min-w-0">
-            <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-court-bright">
-              {d.eyebrow}
-            </p>
-            <p className="mt-1.5 font-display text-base font-bold leading-snug text-ink sm:text-lg">
-              {d.title}
-            </p>
-            <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">
-              {d.quote}
-            </p>
-            <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-court">
-              {ui.learnMore}
-              <span className="transition-transform group-hover:translate-x-0.5">→</span>
-            </span>
+        <div className="mt-10 rounded-2xl border border-line bg-card/30 p-6 sm:p-8 lg:p-10">
+          <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-court-bright">
+            {d.eyebrow}
+          </p>
+          <h3 className="mt-2 font-display text-2xl font-bold leading-snug sm:text-3xl">
+            {d.title}
+          </h3>
+
+          <div className="mt-6 grid items-start gap-8 sm:grid-cols-[200px_1fr] sm:gap-10">
+            <div className="mx-auto w-full max-w-[200px] overflow-hidden rounded-2xl border border-line sm:mx-0">
+              <Image
+                src={d.image}
+                alt={d.title}
+                width={520}
+                height={650}
+                className="aspect-[4/5] h-auto w-full object-cover"
+              />
+            </div>
+
+            <div className="max-w-2xl">
+              <div className="space-y-4 text-base leading-relaxed text-ink/85">
+                {d.homeSummary.map((para, i) => (
+                  <p key={i} className="whitespace-pre-line">
+                    {para}
+                  </p>
+                ))}
+              </div>
+              <blockquote className="mt-6 border-l-2 border-court pl-5 font-display text-base font-semibold leading-relaxed text-ink">
+                {d.quote}
+              </blockquote>
+              <div className="mt-7">
+                <Link
+                  href="/about#director-message"
+                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-court"
+                >
+                  {ui.learnMore}
+                  <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                </Link>
+              </div>
+            </div>
           </div>
-        </Link>
+        </div>
       </Reveal>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
