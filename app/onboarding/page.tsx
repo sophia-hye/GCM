@@ -27,7 +27,7 @@ export default async function OnboardingPage() {
     <AuthShell
       title="추가 정보 입력"
       subtitle="원활한 안내를 위해 구분과 연락처를 입력해 주세요."
-      footer="문의: contact@gcm-academy.kr"
+      footer="문의: tennis.gcm@gmail.com"
     >
       <OnboardingForm />
     </AuthShell>
