@@ -288,6 +288,11 @@ const enDirectorMessage = {
   title: "A Message from the Director",
   image: "/coaches/ohseonggook/oh-director-2.png",
   signature: "Oh Seong-gook, Founder & Director, GCM Academy",
+  homeSummary: [
+    "Hello. I am Oh Seong-gook, Founder and Director of GCM Academy. To every parent and athlete who has found their way to us, thank you from the bottom of my heart.",
+    "I believe tennis is more than a sport — it is a great education that becomes the strongest nourishment for life. Within a community of athletes with clear goals, children build endurance and fighting spirit beyond their limits, a professional mindset that stays steady in victory or defeat, and the self-discipline and good attitude to govern themselves. The honest sweat shed on court becomes the foundation of a whole-person education that builds character.",
+    "Many parents, driven by a vague anxiety about the future, end up pushing their children. GCM Academy will carry that heavy burden for you. Admissions strategy, career worries and coaching are handled by our specialists — including veteran North American admissions officers — and together with our partner institution equre (equre.us) we prepare scholarship and university roadmaps from Plan A onward. At home, please give only warm love and encouragement.",
+  ],
   before: [
     "Hello. I am Oh Seong-gook, Founder and Director of GCM Academy. To every parent and athlete who has found their way to us, thank you from the bottom of my heart.",
     "Years ago, my own parents believed in their child's limitless potential and made the bold decision to give me a chance on the larger stage of international professional tennis. Stepping outside the conventional mold, they chose an environment of 'the academy' and 'international competition' — even leaving middle school behind — so that I could focus entirely on improving my tennis and growing as a whole person. It is because of their deep love and courage, devoting everything to their child's future, that I can stand here today as an educator.",
