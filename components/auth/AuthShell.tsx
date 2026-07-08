@@ -33,18 +33,22 @@ export function AuthShell({
           GCM<span className="text-lime">.</span>
         </Link>
 
-        <div className="rounded-2xl border border-white/15 bg-base/70 p-7 backdrop-blur">
+        <div className="rounded-2xl border border-white/15 bg-base/90 p-7 backdrop-blur">
           <h1 className="font-display text-2xl font-bold">{title}</h1>
-          <p className="mt-1 text-sm text-muted">{subtitle}</p>
+          <p className="mt-1 text-sm text-ink/70">{subtitle}</p>
           <div className="mt-6">{children}</div>
         </div>
 
-        <p
-          className={`mt-6 text-center text-sm ${
-            backgroundImage ? "font-medium text-white/85 [text-shadow:0_1px_3px_rgb(0_0_0/0.5)]" : "text-muted"
-          }`}
-        >
-          {footer}
+        <p className="mt-6 text-center text-sm">
+          <span
+            className={
+              backgroundImage
+                ? "inline-block rounded-full bg-ink/60 px-4 py-1.5 font-medium text-white [text-shadow:0_1px_2px_rgb(0_0_0/0.6)] backdrop-blur-sm"
+                : "text-muted"
+            }
+          >
+            {footer}
+          </span>
         </p>
       </div>
     </main>
