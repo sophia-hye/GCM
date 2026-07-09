@@ -120,7 +120,7 @@ const enTeamLead =
 const enTeam = [
   {
     name: "Oh Seong-gook",
-    role: "Founder · Director",
+    role: "Executive Director",
     bio: "Oversees elite tennis development and the design of individual growth roadmaps.",
     image: "/coaches/ohseonggook/profile.jpeg",
     achievements: [
@@ -157,8 +157,8 @@ const enTeam = [
   },
   {
     name: "Yoon Jae-won",
-    role: "Head Coach · Technique · Physical",
-    bio: "Head coach overseeing technical development, match operations, daily training and match coaching.",
+    role: "Academy Director",
+    bio: "Oversees technical development, match operations, daily training and match coaching.",
     image: "",
     achievements: [
       "Former Goyang City Hall tennis player",
@@ -180,7 +180,7 @@ const enTeam = [
   },
   {
     name: "Kim Ju-bin",
-    role: "Coach · Technique · Mental",
+    role: "Head Coach",
     bio: "Responsible for overall tennis development, correcting competition anxiety and designing routines during match training.",
     image: "/coaches/kimjubin/profile.jpeg",
     achievements: [
@@ -284,7 +284,7 @@ const enFaqContact = {
 };
 
 const enDirectorMessage = {
-  eyebrow: "Director's Message",
+  eyebrow: "Executive Director's Message",
   title: "A Message from the Director",
   image: "/coaches/ohseonggook/oh-director-2.png",
   signature: "Oh Seong-gook, Founder & Director, GCM Academy",

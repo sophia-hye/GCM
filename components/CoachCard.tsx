@@ -7,6 +7,8 @@ import { CourtLines } from "@/components/ui";
 type Member = {
   name: string;
   role: string;
+  nameEn?: string;
+  roleEn?: string;
   bio: string;
   image: string;
   achievements: readonly string[];
@@ -52,6 +54,12 @@ export function CoachCard({
         <div className="mt-4">
           <h3 className="text-lg font-bold">{member.name}</h3>
           <p className="mt-1 text-sm font-semibold text-court">{member.role}</p>
+          {member.nameEn ? (
+            <p className="mt-1 text-xs text-muted">{member.nameEn}</p>
+          ) : null}
+          {member.roleEn ? (
+            <p className="text-xs font-semibold text-ink/70">{member.roleEn}</p>
+          ) : null}
           <p className="mt-2 text-sm leading-relaxed text-muted">{member.bio}</p>
           {hasBio ? (
             <span className="mt-3 inline-block text-xs font-semibold text-court">
@@ -74,6 +82,12 @@ export function CoachCard({
               <div>
                 <h3 className="font-display text-2xl font-extrabold">{member.name}</h3>
                 <p className="mt-1 text-sm font-semibold text-court-bright">{member.role}</p>
+                {member.roleEn ? (
+                  <p className="mt-0.5 text-xs text-muted">
+                    {member.nameEn ? `${member.nameEn} · ` : ""}
+                    {member.roleEn}
+                  </p>
+                ) : null}
               </div>
               <button
                 type="button"
