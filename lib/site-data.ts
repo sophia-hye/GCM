@@ -123,7 +123,7 @@ export const founding = {
 };
 
 export const directorMessage = {
-  eyebrow: "Director's Message",
+  eyebrow: "Executive Director's Message",
   title: "대표 원장 인사말",
   image: "/coaches/ohseonggook/oh-director-2.png",
   signature: "GCM 아카데미 대표 원장 오성국 올림",
@@ -189,7 +189,9 @@ export const teamLead =
 export const team = [
   {
     name: "오성국",
-    role: "대표 · 원장",
+    role: "대표",
+    nameEn: "Seong-gook Oh",
+    roleEn: "Executive Director",
     bio: "엘리트 테니스 육성과 선수별 성장 로드맵 설계를 총괄합니다.",
     image: "/coaches/ohseonggook/profile.jpeg",
     achievements: [
@@ -226,8 +228,10 @@ export const team = [
   },
   {
     name: "윤재원",
-    role: "헤드 코치 · 기술 · 피지컬",
-    bio: "기술 발달과 경기 운영, 일일 트레이닝과 매치 코칭 전반을 총괄하는 헤드 코치입니다.",
+    role: "원장",
+    nameEn: "Jae-won Yun",
+    roleEn: "Academy Director",
+    bio: "기술 발달과 경기 운영, 일일 트레이닝과 매치 코칭 전반을 총괄합니다.",
     image: "",
     achievements: [
       "前 고양시청 테니스 선수",
@@ -249,7 +253,9 @@ export const team = [
   },
   {
     name: "김주빈",
-    role: "코치 · 기술 · 멘탈",
+    role: "헤드코치",
+    nameEn: "Ju-bin Kim",
+    roleEn: "Head Coach",
     bio: "테니스의 전반적 발달과 경기 훈련 시 불안심리 교정 및 루틴 설계를 담당합니다.",
     image: "/coaches/kimjubin/profile.jpeg",
     achievements: [
