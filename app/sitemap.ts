@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.8, changeFrequency: "monthly" },
     { path: "/coaches", priority: 0.8, changeFrequency: "monthly" },
     { path: "/players", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/voices", priority: 0.7, changeFrequency: "weekly" },
     { path: "/gallery", priority: 0.7, changeFrequency: "weekly" },
     { path: "/training", priority: 0.8, changeFrequency: "monthly" },
     { path: "/recreational", priority: 0.7, changeFrequency: "monthly" },

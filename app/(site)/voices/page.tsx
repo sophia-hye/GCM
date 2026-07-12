@@ -1,8 +1,9 @@
+import { PageJsonLd } from "@/components/PageJsonLd";
 import Link from "next/link";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 
-export const metadata = { title: "선수와 학부모의 이야기 | GCM Tennis Academy" };
+export const metadata = { title: "선수와 학부모의 이야기 | GCM 테니스 아카데미", description: "GCM 선수와 학부모가 직접 전하는 후기와 이야기." };
 
 type Voice = {
   id: string;
@@ -31,6 +32,7 @@ export default async function VoicesPage({
 
   return (
     <div className="pt-16">
+      <PageJsonLd name="선수·학부모 이야기" path="/voices" />
       <Section id="voices">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading eyebrow="Voices" title="선수와 학부모의 이야기" />
