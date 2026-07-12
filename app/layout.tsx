@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site-url";
+import { StructuredData } from "@/components/StructuredData";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -16,22 +17,37 @@ const playfair = Playfair_Display({
   style: ["italic", "normal"],
 });
 
+const SITE_DESCRIPTION =
+  "기술·피지컬·멘탈을 통합한 고성능 테니스 아카데미. 오성국 대표(前 주니어 국가대표 코치)가 이끌며 UTR 성장 로드맵, ATP·WTA 프로 진출, 미국 대학(NCAA) 진학·장학 컨설팅까지 함께합니다.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "GCM Tennis Academy | 고성능 테니스 트레이닝",
-  description:
-    "기술 · 피지컬 · 멘탈을 통합한 고성능 테니스 아카데미. 진지한 선수를 위한 구조화된 트레이닝과 UTR 성장 로드맵, 프로·대학 진로를 함께합니다.",
+  title: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "GCM 테니스 아카데미",
+    "테니스 아카데미",
+    "테니스 유학",
+    "엘리트 테니스",
+    "선수 육성",
+    "NCAA 진학",
+    "테니스 장학",
+    "UTR",
+    "오성국",
+  ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "GCM Tennis Academy | 고성능 테니스 트레이닝",
-    description:
-      "기술 · 피지컬 · 멘탈을 하나로. 진지한 선수를 위한 고성능 트레이닝 환경.",
+    title: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
+    description: SITE_DESCRIPTION,
     type: "website",
-    siteName: "GCM Tennis Academy",
+    locale: "ko_KR",
+    url: SITE_URL,
+    siteName: "GCM 테니스 아카데미",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GCM Tennis Academy | 고성능 테니스 트레이닝",
-    description: "기술 · 피지컬 · 멘탈을 하나로. 진지한 선수를 위한 고성능 트레이닝 환경.",
+    title: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
+    description: SITE_DESCRIPTION,
   },
 };
 
@@ -43,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${archivo.variable} ${playfair.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-base text-ink">
+        <StructuredData />
         {children}
       </body>
     </html>
