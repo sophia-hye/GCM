@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { sendInquiryNotification } from "@/lib/email";
 
 export type AdultApplyState = { ok?: boolean; error?: string };
 
@@ -63,5 +64,12 @@ export async function submitAdultApplication(
     return { error: "전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." };
   }
 
+  await sendInquiryNotification({
+    tag: "성인반 신청",
+    name,
+    phone,
+    email: user.email ?? null,
+    message,
+  });
   return { ok: true };
 }
