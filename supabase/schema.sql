@@ -1,16 +1,13 @@
 -- ============================================================
--- GCM — Supabase schema (gcm_ 테이블 정의 + 크로스 로그인 트리거)
--- eqüre와 같은 Supabase 프로젝트(=같은 auth.users)를 공유한다.
--- equre_ 테이블 정의/RLS 는 eqüre 레포의 supabase/schema.sql 이 관리한다.
---
--- 가입 트리거는 이름을 분리(on_auth_user_created_gcm)하고 source 로 걸러서
--- eqüre 트리거(on_auth_user_created_equre)와 한 auth.users 에서 공존한다.
--- → GCM 가입(source != 'equre')이면 gcm_profiles(풀) + equre_profiles(최소행)을
---   함께 만들어, 어디서 가입하든 양쪽에서 로그인 가능(크로스 로그인).
+-- GCM — Supabase schema (GCM 전용 프로젝트)
+-- ※ Eqüre와 프로젝트를 분리했다. 이 프로젝트에는 gcm_ 테이블만 존재하며,
+--   equre_ 테이블/크로스 로그인 트리거는 더 이상 사용하지 않는다.
+--   Eqüre로의 정보 제공은 회원의 '선택 동의'(consent_third_party)에 따라
+--   앱 레벨에서 별도로 전송한다(트리거 아님).
 -- Supabase 대시보드 > SQL Editor 에 붙여넣고 실행.
 -- ============================================================
 
--- 0) 정리: 구버전 + 이전 통합본 + gcm_ 재생성 (equre_ 는 건드리지 않음)
+-- 0) 정리: 구버전 + 이전 통합본 + gcm_ 재생성
 drop trigger if exists on_auth_user_created on auth.users;       -- 이전 통합 트리거 제거
 drop trigger if exists on_auth_user_created_gcm on auth.users;
 drop function if exists public.handle_new_user cascade;          -- 이전 통합 함수
@@ -45,6 +42,8 @@ create table public.gcm_profiles (
   approved boolean not null default false, -- 관리자 승인된 우리팀 선수만 매치 셀프 피드백 작성 가능
   gender text check (gender in ('male', 'female')), -- 가입 시 직접 입력(소셜 미제공 대비)
   birth_date date,
+  consent_third_party boolean not null default false, -- Eqüre 제3자 제공 동의(선택). 동의자만 Eqüre로 전송
+  consented_at timestamptz,                            -- 제3자 제공 동의 시각(기록 보관용)
   created_at timestamptz not null default now()
 );
 -- 기존 DB:
@@ -142,40 +141,30 @@ create policy "gcm_checkins_insert_own" on public.gcm_checkins for insert with c
 create policy "gcm_checkins_admin_all" on public.gcm_checkins for all using (public.is_gcm_admin());
 
 -- ============================================================
--- 2) GCM 가입 트리거 — GCM 가입(source != 'equre')일 때
---    gcm_profiles(풀 데이터) + equre_profiles(최소행)를 함께 생성한다.
---    → GCM 가입자도 equre 에서 바로 로그인 가능(크로스 로그인).
---    eqüre 가입(source='equre')은 eqüre 트리거가 대칭으로 처리.
---    (트리거 이름이 달라 한 auth.users 에서 공존)
+-- 2) GCM 가입 트리거 — auth.users insert 시 gcm_profiles(풀 데이터)만 생성한다.
+--    ※ Supabase 프로젝트 분리: equre_profiles 크로스 write 는 제거했다.
+--      Eqüre 로 넘길지는 '선택 동의'(consent_third_party)에 따라 앱 레벨에서 별도 전송한다.
 -- ============================================================
 create or replace function public.gcm_handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
-  if coalesce(new.raw_user_meta_data ->> 'source', 'gcm') <> 'equre' then
-    -- 자기 쪽: 풀 데이터
-    insert into public.gcm_profiles (id, name, phone, email, role, source, gender, birth_date)
-    values (
-      new.id,
-      coalesce(new.raw_user_meta_data ->> 'name', ''),
-      new.raw_user_meta_data ->> 'phone',
-      coalesce(new.raw_user_meta_data ->> 'email', new.email),
-      coalesce(new.raw_user_meta_data ->> 'role', 'student'),
-      'gcm',
-      nullif(new.raw_user_meta_data ->> 'gender', ''),
-      (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date
-    )
-    on conflict (id) do nothing;
-
-    -- 상대 쪽(equre): 크로스 로그인용 최소행
-    insert into public.equre_profiles (id, email, name, source)
-    values (
-      new.id,
-      coalesce(new.raw_user_meta_data ->> 'email', new.email),
-      coalesce(new.raw_user_meta_data ->> 'name', ''),
-      'gcm'
-    )
-    on conflict (id) do nothing;
-  end if;
+  insert into public.gcm_profiles (
+    id, name, phone, email, role, source, gender, birth_date,
+    consent_third_party, consented_at
+  )
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data ->> 'name', ''),
+    new.raw_user_meta_data ->> 'phone',
+    coalesce(new.raw_user_meta_data ->> 'email', new.email),
+    coalesce(new.raw_user_meta_data ->> 'role', 'student'),
+    'gcm',
+    nullif(new.raw_user_meta_data ->> 'gender', ''),
+    (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date,
+    coalesce(new.raw_user_meta_data ->> 'consent_third_party', 'false')::boolean,
+    case when (new.raw_user_meta_data ->> 'consent_third_party') = 'true' then now() else null end
+  )
+  on conflict (id) do nothing;
   return new;
 end;
 $$;
