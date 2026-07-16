@@ -6,7 +6,6 @@ import { signUpMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
 import { PhoneInput } from "@/components/ui/PhoneInput";
 import { SocialAuth } from "@/components/auth/SocialAuth";
-import { ThirdPartyConsent } from "@/components/auth/ThirdPartyConsent";
 
 function PhoneField() {
   return (
@@ -66,7 +65,6 @@ export function SignupForm() {
             <option value="parent">학부모</option>
           </select>
         </div>
-        <ThirdPartyConsent />
         <ErrorMessage message={memberState.error} />
         <AuthSubmit pending={memberPending}>회원가입</AuthSubmit>
         <p className="text-center text-xs text-muted">

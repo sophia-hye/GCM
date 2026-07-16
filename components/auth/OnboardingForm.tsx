@@ -4,7 +4,6 @@ import { useActionState } from "react";
 import { completeOnboarding, type AuthState } from "@/app/auth/actions";
 import { AuthSubmit } from "@/components/auth/AuthShell";
 import { PhoneInput } from "@/components/ui/PhoneInput";
-import { ThirdPartyConsent } from "@/components/auth/ThirdPartyConsent";
 
 export function OnboardingForm() {
   const [state, action, pending] = useActionState<AuthState, FormData>(
@@ -55,8 +54,6 @@ export function OnboardingForm() {
           className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright"
         />
       </div>
-
-      <ThirdPartyConsent />
 
       {state.error ? (
         <p className="rounded-lg border border-danger/40 bg-danger/10 px-3 py-2 text-sm text-danger">
