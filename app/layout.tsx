@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, Playfair_Display } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site-url";
 import { StructuredData } from "@/components/StructuredData";
@@ -56,12 +57,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // GA4 측정 ID(NEXT_PUBLIC_GA_ID)가 설정된 경우에만 로드 (미설정 개발/프리뷰는 추적 안 함)
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="ko" className={`${archivo.variable} ${playfair.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-base text-ink">
         <StructuredData />
         {children}
       </body>
+      {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
     </html>
   );
 }
