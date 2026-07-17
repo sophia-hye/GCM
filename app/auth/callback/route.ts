@@ -12,6 +12,10 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // 비밀번호 재설정 흐름은 온보딩 검사 없이 재설정 페이지로 바로 이동
+      if (next === "/reset-password") {
+        return NextResponse.redirect(`${origin}/reset-password`);
+      }
       // 소셜 가입자는 전화번호/구분 정보가 없으므로 온보딩으로 유도
       const {
         data: { user },

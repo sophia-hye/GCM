@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { SITE_URL } from "@/lib/site-url";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
@@ -13,6 +15,7 @@ import { normalizePhone } from "@/lib/phone";
 import { forwardMemberToEqure } from "@/lib/equre";
 
 export type AuthState = { error?: string };
+export type PasswordResetState = { error?: string; ok?: boolean };
 
 const NOT_CONFIGURED =
   "백엔드(Supabase)가 아직 설정되지 않았습니다. .env.local에 자격증명을 입력해 주세요.";
@@ -331,4 +334,59 @@ export async function signUpAdmin(
   await signInAfterSignup(email, password);
   revalidatePath("/", "layout");
   redirect("/admin");
+}
+
+/**
+ * 비밀번호 재설정 요청 — 입력한 이메일로 재설정 링크를 발송한다.
+ * 보안상 계정 존재 여부는 노출하지 않고 항상 성공으로 응답한다.
+ */
+export async function requestPasswordReset(
+  _prev: PasswordResetState,
+  formData: FormData,
+): Promise<PasswordResetState> {
+  if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  if (!email || !isValidEmail(email)) {
+    return { error: "올바른 이메일을 입력해 주세요." };
+  }
+
+  const supabase = await createClient();
+  const origin = (await headers()).get("origin") || SITE_URL;
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/reset-password`,
+  });
+
+  // 계정 존재 여부 노출 방지 — 항상 성공 처리
+  return { ok: true };
+}
+
+/** 새 비밀번호 설정 — 재설정 링크로 생성된 세션에서 비밀번호를 변경한다. */
+export async function updatePassword(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  if (!isSupabaseConfigured()) return { error: NOT_CONFIGURED };
+
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+  if (password.length < 6) return { error: "비밀번호는 6자 이상이어야 합니다." };
+  if (password !== confirm) return { error: "비밀번호가 일치하지 않습니다." };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: "재설정 링크가 만료되었거나 유효하지 않습니다. 다시 요청해 주세요." };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    return { error: "비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해 주세요." };
+  }
+
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
+  redirect("/login?reset=1");
 }

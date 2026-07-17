@@ -18,6 +18,14 @@ export function LoginForm({ next }: { next?: string }) {
         {next ? <input type="hidden" name="next" value={next} /> : null}
         <AuthField label="이메일" name="email" type="email" placeholder="example@email.com" />
         <AuthField label="비밀번호" name="password" type="password" placeholder="••••••••" />
+        <div className="text-right">
+          <Link
+            href="/forgot-password"
+            className="text-xs text-muted transition-colors hover:text-court hover:underline"
+          >
+            비밀번호를 잊으셨나요?
+          </Link>
+        </div>
         <ErrorMessage message={memberState.error} />
         <AuthSubmit pending={memberPending}>로그인</AuthSubmit>
       </form>

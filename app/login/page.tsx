@@ -6,9 +6,9 @@ export const metadata = { title: "로그인 | GCM 아카데미" };
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; dup?: string }>;
+  searchParams: Promise<{ next?: string; dup?: string; reset?: string }>;
 }) {
-  const { next, dup } = await searchParams;
+  const { next, dup, reset } = await searchParams;
   return (
     <AuthShell
       title="로그인"
@@ -19,6 +19,11 @@ export default async function LoginPage({
       {dup ? (
         <p className="mb-5 rounded-lg border border-court/40 bg-court/10 px-4 py-3 text-sm text-court-bright">
           이미 가입된 전화번호입니다. 처음 가입하신 방법(이메일 · 카카오 · 네이버)으로 로그인해 주세요.
+        </p>
+      ) : null}
+      {reset ? (
+        <p className="mb-5 rounded-lg border border-court/40 bg-court/10 px-4 py-3 text-sm text-court-bright">
+          비밀번호가 변경되었습니다. 새 비밀번호로 로그인해 주세요.
         </p>
       ) : null}
       <LoginForm next={next} />
