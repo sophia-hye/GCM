@@ -1,0 +1,49 @@
+<!--
+  GCM 아카데미 — Supabase "Confirm signup" 이메일 템플릿
+  Supabase 대시보드 → Authentication → Emails → Templates → "Confirm signup"
+  변수: {{ .ConfirmationURL }} (이메일 인증 링크)
+  권장 Subject: GCM 아카데미 이메일 인증을 완료해 주세요
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f1ea;margin:0;padding:32px 12px;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="width:480px;max-width:100%;background-color:#ffffff;border:1px solid #e4e1d8;border-radius:16px;">
+        <tr>
+          <td style="padding:30px 34px 0 34px;">
+            <span style="font-size:22px;font-weight:800;color:#272219;letter-spacing:-0.02em;">GCM<span style="color:#c2492b;">.</span></span>
+            <span style="font-size:11px;color:#9a927f;letter-spacing:0.14em;text-transform:uppercase;margin-left:6px;">with eg&uuml;re</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:22px 34px 4px 34px;">
+            <h1 style="margin:0 0 12px 0;font-size:20px;line-height:1.35;font-weight:800;color:#272219;">이메일 인증을 완료해 주세요</h1>
+            <p style="margin:0 0 22px 0;font-size:15px;line-height:1.7;color:#5f5849;">
+              GCM 아카데미에 가입해 주셔서 감사합니다.<br>
+              아래 버튼을 눌러 이메일 인증을 완료하면 가입이 마무리됩니다.
+            </p>
+            <table role="presentation" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="border-radius:999px;background-color:#c2492b;">
+                  <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:14px 30px;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:999px;">이메일 인증하기</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:26px 34px 0 34px;">
+            <div style="border-top:1px solid #eae5d8;line-height:1px;font-size:1px;">&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 34px 30px 34px;">
+            <p style="margin:0;font-size:12px;line-height:1.7;color:#a8a190;">
+              본 메일은 GCM 아카데미 가입 인증 안내입니다. 요청하지 않으셨다면 무시하셔도 됩니다.<br>
+              문의: tennis.gcm@gmail.com &nbsp;·&nbsp; gcmacademy.com
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
