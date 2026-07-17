@@ -1,9 +1,10 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import { PageJsonLd } from "@/components/PageJsonLd";
 import Link from "next/link";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 
-export const metadata = { title: "선수와 학부모의 이야기 | GCM 테니스 아카데미", description: "GCM 선수와 학부모가 직접 전하는 후기와 이야기." };
+export const metadata = pageMetadata({ title: "선수와 학부모의 이야기 | GCM 테니스 아카데미", description: "GCM 선수와 학부모가 직접 전하는 후기와 이야기.", path: "/voices" });
 
 type Voice = {
   id: string;
