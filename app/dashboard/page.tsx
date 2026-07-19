@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "대시보드 | GCM 아카데미" };
@@ -18,7 +19,7 @@ export default async function DashboardHome() {
 
   const [{ data: profile }, { data: progress }, { data: lastCheckin }, { data: nextBooking }] =
     await Promise.all([
-      supabase.from("gcm_profiles").select("name").eq("id", user!.id).maybeSingle(),
+      supabase.from("gcm_profiles").select("name, role").eq("id", user!.id).maybeSingle(),
       supabase
         .from("gcm_progress")
         .select("stage, current_utr, target_utr")
@@ -83,6 +84,22 @@ export default async function DashboardHome() {
       <p className="mt-1 text-sm text-muted">
         오늘도 글로벌 무대를 향한 한 걸음. 현재 현황을 확인하세요.
       </p>
+
+      {profile?.role === "admin" ? (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-lime/40 bg-lime/10 p-5">
+          <div>
+            <p className="font-display text-sm font-bold text-ink">관리자 권한 계정</p>
+            <p className="mt-0.5 text-xs text-muted">회원 · 예약 · 문의를 관리자 콘솔에서 관리하세요.</p>
+          </div>
+          <Link
+            href="/admin"
+            className="inline-flex items-center gap-2 rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-[#08111f] transition hover:brightness-110"
+          >
+            관리자 콘솔로 이동
+            <span aria-hidden>→</span>
+          </Link>
+        </div>
+      ) : null}
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((card) => (
