@@ -12,7 +12,6 @@ import {
   isSupabaseConfigured,
 } from "@/lib/supabase/env";
 import { normalizePhone } from "@/lib/phone";
-import { forwardMemberToEqure } from "@/lib/equre";
 
 export type AuthState = { error?: string };
 export type PasswordResetState = { error?: string; ok?: boolean };
@@ -124,7 +123,6 @@ export async function completeOnboarding(
   const phone = normalizePhone(String(formData.get("phone") ?? ""));
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
-  const consentThirdParty = String(formData.get("consent_third_party") ?? "") === "on";
 
   if (!["student", "parent", "amateur"].includes(role)) {
     return { error: "구분을 선택해 주세요." };
@@ -150,12 +148,6 @@ export async function completeOnboarding(
     }
   }
 
-  // 개인정보 제3자 제공(Equre) 선택 동의 기록: 동의 여부/일시를 계정 메타데이터 + 프로필에 보관
-  const consentedAt = consentThirdParty ? new Date().toISOString() : null;
-  await supabase.auth.updateUser({
-    data: { consent_third_party: consentThirdParty, consented_at: consentedAt },
-  });
-
   const { error } = await supabase
     .from("gcm_profiles")
     .update({
@@ -163,8 +155,6 @@ export async function completeOnboarding(
       phone,
       gender,
       birth_date: birthDate,
-      consent_third_party: consentThirdParty,
-      consented_at: consentedAt,
     })
     .eq("id", user.id);
 
@@ -176,20 +166,6 @@ export async function completeOnboarding(
       return { error: "'아마추어 선수' 구분은 DB 역할 제약 적용 후 사용할 수 있습니다." };
     }
     return { error: "저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." };
-  }
-
-  // 제3자 제공에 '동의한' 소셜 가입 회원만 Eqüre 로 전송(방식 b). 실패해도 가입은 성공.
-  if (consentThirdParty && consentedAt) {
-    const meta = user.user_metadata ?? {};
-    await forwardMemberToEqure({
-      externalId: user.id,
-      email: user.email ?? "",
-      name: (meta.name as string) || (meta.full_name as string) || "",
-      phone,
-      gender,
-      birthDate,
-      consentedAt,
-    });
   }
 
   revalidatePath("/", "layout");
@@ -229,7 +205,6 @@ export async function signUpMember(
   const role = String(formData.get("role") ?? "student");
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
-  const consentThirdParty = String(formData.get("consent_third_party") ?? "") === "on";
   if (!name || !phone) return { error: "이름과 전화번호를 입력해 주세요." };
   if (!email) return { error: "이메일을 입력해 주세요." };
   if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
@@ -238,9 +213,8 @@ export async function signUpMember(
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
 
-  const consentedAt = consentThirdParty ? new Date().toISOString() : null;
   const admin = createAdminClient();
-  const { data, error } = await admin.auth.admin.createUser({
+  const { error } = await admin.auth.admin.createUser({
     email,
     password,
     email_confirm: true,
@@ -252,28 +226,12 @@ export async function signUpMember(
       source: "gcm",
       gender,
       birth_date: birthDate,
-      // 개인정보 제3자 제공(Equre) 선택 동의 기록 — 트리거가 gcm_profiles 에 저장. 미동의면 false.
-      consent_third_party: consentThirdParty,
-      consented_at: consentedAt,
     },
   });
 
   if (error) {
     const dup = error.message.toLowerCase().includes("already");
     return { error: dup ? "이미 가입된 이메일입니다." : error.message };
-  }
-
-  // 제3자 제공에 '동의한' 회원만 Eqüre 로 전송(방식 b). 실패해도 가입은 성공.
-  if (consentThirdParty && consentedAt && data.user) {
-    await forwardMemberToEqure({
-      externalId: data.user.id,
-      email,
-      name,
-      phone,
-      gender,
-      birthDate,
-      consentedAt,
-    });
   }
 
   await signInAfterSignup(email, password);

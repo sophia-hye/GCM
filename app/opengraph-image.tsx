@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFileSync } from "fs";
 import { join } from "path";
 
-export const alt = "GCM Tennis Academy — GCM. with egüre";
+export const alt = "GCM Tennis Academy";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -23,10 +23,9 @@ async function loadArchivo(): Promise<ArrayBuffer | null> {
   }
 }
 
-/** 링크 공유 썸네일(OG): 홈 로고(GCM. WITH egüre)를 테니스 배경 위에 표시 */
+/** 링크 공유 썸네일(OG): 홈 로고(GCM.)를 테니스 배경 위에 표시 */
 export default async function OpengraphImage() {
   const bg = toDataUrl("public/img/main-clay.png", "image/png");
-  const egure = toDataUrl("public/logo/equre_white.png", "image/png");
   const archivo = await loadArchivo();
 
   const boldFamily = archivo ? "Archivo" : "sans-serif";
@@ -59,11 +58,10 @@ export default async function OpengraphImage() {
             </span>
             <span style={{ fontFamily: boldFamily, fontSize: 168, fontWeight: 900, color: "#c2492b" }}>.</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", marginTop: 30, gap: 26 }}>
-            <span style={{ fontFamily: boldFamily, fontSize: 44, fontWeight: 900, letterSpacing: 10, color: "rgba(255,255,255,0.92)" }}>
-              WITH
+          <div style={{ display: "flex", alignItems: "center", marginTop: 30 }}>
+            <span style={{ fontFamily: boldFamily, fontSize: 40, fontWeight: 900, letterSpacing: 8, color: "rgba(255,255,255,0.92)" }}>
+              TENNIS ACADEMY
             </span>
-            <img src={egure} width={196} height={74} style={{ objectFit: "contain" }} />
           </div>
         </div>
       </div>

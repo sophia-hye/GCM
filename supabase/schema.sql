@@ -1,9 +1,6 @@
 -- ============================================================
 -- GCM — Supabase schema (GCM 전용 프로젝트)
--- ※ Eqüre와 프로젝트를 분리했다. 이 프로젝트에는 gcm_ 테이블만 존재하며,
---   equre_ 테이블/크로스 로그인 트리거는 더 이상 사용하지 않는다.
---   Eqüre로의 정보 제공은 회원의 '선택 동의'(consent_third_party)에 따라
---   앱 레벨에서 별도로 전송한다(트리거 아님).
+-- ※ 이 프로젝트에는 gcm_ 테이블만 존재한다.
 -- Supabase 대시보드 > SQL Editor 에 붙여넣고 실행.
 -- ============================================================
 
@@ -42,8 +39,6 @@ create table public.gcm_profiles (
   approved boolean not null default false, -- 관리자 승인된 우리팀 선수만 매치 셀프 피드백 작성 가능
   gender text check (gender in ('male', 'female')), -- 가입 시 직접 입력(소셜 미제공 대비)
   birth_date date,
-  consent_third_party boolean not null default false, -- Eqüre 제3자 제공 동의(선택). 동의자만 Eqüre로 전송
-  consented_at timestamptz,                            -- 제3자 제공 동의 시각(기록 보관용)
   created_at timestamptz not null default now()
 );
 -- 기존 DB:
@@ -142,15 +137,12 @@ create policy "gcm_checkins_admin_all" on public.gcm_checkins for all using (pub
 
 -- ============================================================
 -- 2) GCM 가입 트리거 — auth.users insert 시 gcm_profiles(풀 데이터)만 생성한다.
---    ※ Supabase 프로젝트 분리: equre_profiles 크로스 write 는 제거했다.
---      Eqüre 로 넘길지는 '선택 동의'(consent_third_party)에 따라 앱 레벨에서 별도 전송한다.
 -- ============================================================
 create or replace function public.gcm_handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
   insert into public.gcm_profiles (
-    id, name, phone, email, role, source, gender, birth_date,
-    consent_third_party, consented_at
+    id, name, phone, email, role, source, gender, birth_date
   )
   values (
     new.id,
@@ -160,9 +152,7 @@ begin
     coalesce(new.raw_user_meta_data ->> 'role', 'student'),
     'gcm',
     nullif(new.raw_user_meta_data ->> 'gender', ''),
-    (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date,
-    coalesce(new.raw_user_meta_data ->> 'consent_third_party', 'false')::boolean,
-    case when (new.raw_user_meta_data ->> 'consent_third_party') = 'true' then now() else null end
+    (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date
   )
   on conflict (id) do nothing;
   return new;
