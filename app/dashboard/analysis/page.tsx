@@ -51,10 +51,11 @@ export default async function DashboardMatchFeedbackPage({
     .maybeSingle();
   const canWrite = Boolean(profile?.approved || profile?.role === "admin");
 
-  // RLS: 선수는 본인 기록만, 코치는 전체. 여기서 선택한 유형(category)만 조회.
+  // My Page는 항상 '본인 기록만' 보여준다(관리자는 RLS상 전체 조회 가능하므로 명시적으로 본인 필터).
   const { data } = await supabase
     .from("gcm_match_analyses")
     .select("*")
+    .eq("user_id", user?.id ?? "")
     .eq("category", category)
     .order("match_date", { ascending: false });
   const analyses = (data ?? []) as Analysis[];

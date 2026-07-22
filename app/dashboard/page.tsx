@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "대시보드 | GCM 아카데미" };
@@ -15,6 +16,14 @@ export default async function DashboardHome() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // 관리자(코치)는 선수용 대시보드 홈 대신 본인 매치피드백 화면으로 보낸다.
+  const { data: roleRow } = await supabase
+    .from("gcm_profiles")
+    .select("role")
+    .eq("id", user!.id)
+    .maybeSingle();
+  if (roleRow?.role === "admin") redirect("/dashboard/analysis");
 
   const [{ data: profile }, { data: progress }, { data: lastCheckin }, { data: nextBooking }] =
     await Promise.all([

@@ -50,37 +50,19 @@ export default async function DashboardLayout({
     .eq("id", user.id)
     .maybeSingle();
 
-  // 관리자(코치)는 선수용 마이페이지를 쓰지 않는다.
-  // 메뉴를 섞지 않고, 관리자 콘솔로 이동하는 버튼만 안내한다.
-  if (profile?.role === "admin") {
-    return (
-      <main className="flex min-h-screen items-center justify-center px-5">
-        <div className="max-w-md rounded-2xl border border-line bg-card p-8 text-center">
-          <h1 className="font-display text-xl font-bold">관리자 계정</h1>
-          <p className="mt-3 text-sm text-muted">
-            관리자(코치) 계정입니다. 회원 관리와 매치피드백 확인은 관리자 콘솔에서 하실 수 있습니다.
-          </p>
-          <Link
-            href="/admin"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-[#08111f] transition hover:brightness-110"
-          >
-            관리자 콘솔로 이동
-            <span aria-hidden>→</span>
-          </Link>
-          <Link href="/" className="mt-4 block text-xs text-muted hover:text-ink">
-            사이트로 돌아가기
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
   const roleLabel: Record<string, string> = {
     student: "선수",
     parent: "학부모",
+    admin: "관리자",
   };
 
-  const menu = baseMenu;
+  const isAdmin = profile?.role === "admin";
+  // 관리자(코치)도 본인이 선수면 매치피드백은 작성해야 한다.
+  // 그래서 관리자에겐 선수 전용 메뉴는 감추고 '매치피드백'만 노출하며,
+  // 관리자 콘솔은 메뉴와 섞지 않고 별도 버튼으로 제공한다.
+  const menu = isAdmin
+    ? [{ label: "매치피드백", href: "/dashboard/analysis" }]
+    : baseMenu;
 
   return (
     <div className="min-h-screen">
@@ -120,6 +102,15 @@ export default async function DashboardLayout({
               </Link>
             ))}
           </nav>
+          {isAdmin ? (
+            <Link
+              href="/admin"
+              className="mt-4 flex items-center justify-center gap-1 rounded-full bg-lime px-4 py-2.5 text-sm font-semibold text-[#08111f] transition hover:brightness-110"
+            >
+              관리자 콘솔
+              <span aria-hidden>→</span>
+            </Link>
+          ) : null}
         </aside>
         <div>{children}</div>
       </Container>
