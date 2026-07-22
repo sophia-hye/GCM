@@ -4,6 +4,7 @@ import { Programs } from "@/components/sections/Programs";
 import { Players } from "@/components/sections/Players";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { ChampionsCTA } from "@/components/sections/ChampionsCTA";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Players />
       <Testimonials />
       <CTABanner />
+      <ChampionsCTA />
     </>
   );
 }
