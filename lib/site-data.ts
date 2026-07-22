@@ -24,7 +24,7 @@ export const nav = [
   { label: "Coaches", href: "/coaches" },
   { label: "Players", href: "/players" },
   { label: "Voices", href: "/voices" },
-  { label: "Match Feedback", href: "/dashboard/analysis" },
+  { label: "Match Feedback", href: "/match-feedback" },
   { label: "Gallery", href: "/gallery" },
   { label: "Training", href: "/training" },
   { label: "Kids & Amateur", href: "/recreational" },
