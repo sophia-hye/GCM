@@ -201,9 +201,9 @@ alter table public.gcm_profiles
 -- ============================================================
 
 -- ============================================================
--- 경기 후기 (gcm_match_analyses)
---   선수가 시합 후 후기 작성 → 코치(관리자)만 확인·피드백.
---   선수는 '작성만' 가능(조회 불가), 관리자만 전체 조회/피드백.
+-- 매치피드백 (gcm_match_analyses)
+--   선수가 시합 후 스스로 기록 → 코치(관리자)가 확인하고 피드백.
+--   선수는 '본인 것만' 작성/조회(다른 선수 것은 못 봄), 관리자만 전체 조회/피드백.
 -- ============================================================
 create table if not exists public.gcm_match_analyses (
   id uuid primary key default gen_random_uuid(),
@@ -221,9 +221,13 @@ create table if not exists public.gcm_match_analyses (
 alter table public.gcm_match_analyses enable row level security;
 create index if not exists gcm_match_analyses_user_idx
   on public.gcm_match_analyses (user_id, match_date desc);
--- 선수: 본인 명의로 '작성만' 가능(조회 정책 없음 → 코치만 확인)
+-- 선수: 본인 것만 작성/조회(다른 선수 것은 못 봄)
+create policy "gcm_ma_select_own" on public.gcm_match_analyses
+  for select using (auth.uid() = user_id);
 create policy "gcm_ma_insert_own" on public.gcm_match_analyses
   for insert with check (auth.uid() = user_id);
+create policy "gcm_ma_update_own" on public.gcm_match_analyses
+  for update using (auth.uid() = user_id);
 -- 관리자(코치): 전체 조회 + 피드백 작성/수정
 create policy "gcm_ma_admin_all" on public.gcm_match_analyses
   for all using (public.is_gcm_admin()) with check (public.is_gcm_admin());

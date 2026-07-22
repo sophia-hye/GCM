@@ -11,7 +11,7 @@ const baseMenu = [
   { label: "발달/진로 단계", href: "/dashboard/progress" },
   { label: "일정/예약", href: "/dashboard/schedule" },
   { label: "멘탈 체크인", href: "/dashboard/checkin" },
-  { label: "커뮤니티", href: "/dashboard/community" },
+  { label: "매치피드백", href: "/dashboard/analysis" },
   { label: "내 전략 보고서", href: "/dashboard/strategy" },
 ];
 

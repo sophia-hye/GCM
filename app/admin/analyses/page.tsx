@@ -2,7 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { saveCoachFeedback } from "@/app/admin/actions";
 
-export const metadata = { title: "매치 셀프 피드백 | GCM Admin" };
+export const metadata = { title: "매치피드백 | GCM Admin" };
 
 const PAGE_SIZE = 20;
 
@@ -20,11 +20,11 @@ type Row = {
 };
 
 const FIELDS: { key: keyof Row; label: string }[] = [
-  { key: "better_than_last", label: "잘됐던 부분" },
+  { key: "better_than_last", label: "잘 됐던 부분" },
   { key: "improved_than_last", label: "좋아진 부분" },
-  { key: "worse_than_last", label: "안됐던 부분" },
+  { key: "worse_than_last", label: "안 됐던 부분" },
   { key: "needed", label: "필요한 부분" },
-  { key: "needed_practice", label: "필요한 연습" },
+  { key: "needed_practice", label: "필요한 부분과 안 됐던 부분에 따른 필요한 연습" },
 ];
 
 export default async function AdminAnalysesPage({
@@ -75,8 +75,8 @@ export default async function AdminAnalysesPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-bold">매치 셀프 피드백</h1>
-        <p className="mt-1 text-sm text-muted">선수가 제출한 매치 셀프 피드백을 확인하고 코치 피드백을 남깁니다.</p>
+        <h1 className="font-display text-2xl font-bold">매치피드백</h1>
+        <p className="mt-1 text-sm text-muted">선수가 제출한 매치피드백을 확인하고 코치 피드백을 남깁니다.</p>
       </div>
 
       {/* 필터 */}

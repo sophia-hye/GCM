@@ -35,8 +35,8 @@ export function MatchAnalysisForm() {
       action={formAction}
       className="space-y-5 rounded-2xl border border-line bg-card p-6"
     >
-      <h2 className="font-display text-lg font-bold">매치 후기 작성</h2>
-      <p className="-mt-2 text-xs text-muted">작성한 후기는 코치님만 확인합니다.</p>
+      <h2 className="font-display text-lg font-bold">매치피드백 작성</h2>
+      <p className="-mt-2 text-xs text-muted">본인과 코치님만 볼 수 있습니다. 다른 선수에게는 공개되지 않습니다.</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm text-muted">
@@ -63,7 +63,7 @@ export function MatchAnalysisForm() {
       ) : null}
       {state.ok ? (
         <p className="rounded-lg border border-lime/40 bg-lime/10 px-3 py-2 text-sm text-lime">
-          제출되었습니다. 코치님이 확인합니다.
+          제출되었습니다. 코치가 확인 후 피드백을 드립니다.
         </p>
       ) : null}
 
