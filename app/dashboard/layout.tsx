@@ -49,34 +49,10 @@ export default async function DashboardLayout({
     .eq("id", user.id)
     .maybeSingle();
 
-  // 관리자(코치)는 선수용 마이페이지를 쓰지 않는다. 메뉴를 섞지 않고,
-  // 관리자 콘솔로 이동하는 버튼만 안내한다. (본인 매치피드백은 별도 /match-feedback 에서 작성)
-  if (profile?.role === "admin") {
-    return (
-      <main className="flex min-h-screen items-center justify-center px-5">
-        <div className="max-w-md rounded-2xl border border-line bg-card p-8 text-center">
-          <h1 className="font-display text-xl font-bold">관리자 계정</h1>
-          <p className="mt-3 text-sm text-muted">
-            관리자(코치) 계정입니다. 회원 관리와 매치피드백 확인은 관리자 콘솔에서, 본인 매치피드백 작성은 상단 메뉴의 매치피드백에서 하실 수 있습니다.
-          </p>
-          <Link
-            href="/admin"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-[#08111f] transition hover:brightness-110"
-          >
-            관리자 콘솔로 이동
-            <span aria-hidden>→</span>
-          </Link>
-          <Link href="/match-feedback" className="mt-4 block text-xs font-semibold text-court hover:underline">
-            내 매치피드백 작성하기
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
   const roleLabel: Record<string, string> = {
     student: "선수",
     parent: "학부모",
+    admin: "관리자",
   };
 
   const menu = baseMenu;
