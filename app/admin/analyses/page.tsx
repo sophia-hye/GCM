@@ -8,8 +8,10 @@ const PAGE_SIZE = 20;
 
 type Row = {
   id: string;
+  category: string;
   match_date: string;
   opponent: string | null;
+  final_result: string | null;
   better_than_last: string | null;
   improved_than_last: string | null;
   worse_than_last: string | null;
@@ -17,6 +19,11 @@ type Row = {
   needed_practice: string | null;
   coach_feedback: string | null;
   profiles: { name: string | null } | null;
+};
+
+const CATEGORY_LABEL: Record<string, string> = {
+  tournament: "🏆 토너먼트",
+  training: "🎾 정규 훈련",
 };
 
 const FIELDS: { key: keyof Row; label: string }[] = [
@@ -30,11 +37,12 @@ const FIELDS: { key: keyof Row; label: string }[] = [
 export default async function AdminAnalysesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; member?: string; page?: string }>;
+  searchParams: Promise<{ status?: string; member?: string; category?: string; page?: string }>;
 }) {
   const sp = await searchParams;
   const status = sp.status === "pending" || sp.status === "done" ? sp.status : "";
   const member = sp.member || "";
+  const cat = sp.category === "tournament" || sp.category === "training" ? sp.category : "";
   const page = Math.max(1, Number(sp.page) || 1);
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
@@ -54,6 +62,7 @@ export default async function AdminAnalysesPage({
   if (status === "pending") query = query.is("coach_feedback", null);
   else if (status === "done") query = query.not("coach_feedback", "is", null);
   if (member) query = query.eq("user_id", member);
+  if (cat) query = query.eq("category", cat);
   query = query.order("match_date", { ascending: false }).range(from, to);
 
   const { data, count } = await query;
@@ -65,6 +74,7 @@ export default async function AdminAnalysesPage({
     const u = new URLSearchParams();
     if (status) u.set("status", status);
     if (member) u.set("member", member);
+    if (cat) u.set("category", cat);
     if (p > 1) u.set("page", String(p));
     const s = u.toString();
     return s ? `/admin/analyses?${s}` : "/admin/analyses";
@@ -81,6 +91,14 @@ export default async function AdminAnalysesPage({
 
       {/* 필터 */}
       <form method="get" className="flex flex-wrap items-end gap-2">
+        <label className="flex flex-col gap-1 text-xs text-muted">
+          유형
+          <select name="category" defaultValue={cat} className={FIELD}>
+            <option value="">전체</option>
+            <option value="tournament">토너먼트</option>
+            <option value="training">정규 훈련</option>
+          </select>
+        </label>
         <label className="flex flex-col gap-1 text-xs text-muted">
           상태
           <select name="status" defaultValue={status} className={FIELD}>
@@ -103,7 +121,7 @@ export default async function AdminAnalysesPage({
         <button type="submit" className="rounded-lg border border-line px-4 py-2 text-sm font-semibold hover:border-court-bright">
           적용
         </button>
-        {(status || member) ? (
+        {(status || member || cat) ? (
           <Link href="/admin/analyses" className="px-2 py-2 text-sm text-muted hover:text-ink">
             초기화
           </Link>
@@ -115,14 +133,20 @@ export default async function AdminAnalysesPage({
         <div className="space-y-4">
           {rows.map((r) => (
             <div key={r.id} className="rounded-2xl border border-line bg-card p-5">
-              <div className="flex items-center justify-between gap-2">
-                <p className="font-semibold">
-                  {r.profiles?.name ?? "-"}
-                  <span className="ml-2 text-sm text-muted">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="font-semibold">
+                    {r.profiles?.name ?? "-"}
+                    <span className="ml-2 text-xs font-medium text-court-bright">
+                      {CATEGORY_LABEL[r.category] ?? r.category}
+                    </span>
+                  </p>
+                  <p className="mt-0.5 text-sm text-muted">
                     {r.match_date}
                     {r.opponent ? ` · ${r.opponent}` : ""}
-                  </span>
-                </p>
+                    {r.final_result ? ` · 최종성적 ${r.final_result}` : ""}
+                  </p>
+                </div>
                 <span
                   className={`shrink-0 rounded-md px-2 py-1 text-xs ${
                     r.coach_feedback ? "bg-lime/15 text-lime" : "bg-court/15 text-court-bright"

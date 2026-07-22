@@ -208,16 +208,24 @@ alter table public.gcm_profiles
 create table if not exists public.gcm_match_analyses (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.gcm_profiles (id) on delete cascade,
+  category text not null default 'tournament'
+    check (category in ('tournament', 'training')), -- 토너먼트(공식 시합) / 정규 훈련
   match_date date not null,
-  opponent text,
-  better_than_last text,        -- 전 시합보다 잘됐던 부분
-  improved_than_last text,      -- 전 시합보다 좋아진 부분
-  worse_than_last text,         -- 전 시합보다 안됐던 부분
+  opponent text,                -- 토너먼트: 대회명 / 정규 훈련: 훈련 내용·주제
+  final_result text,            -- 토너먼트 최종성적(정규 훈련은 미사용)
+  better_than_last text,        -- 잘 됐던 부분
+  improved_than_last text,      -- 좋아진 부분
+  worse_than_last text,         -- 안 됐던 부분
   needed text,                  -- 필요한 부분
-  needed_practice text,         -- 안됐던/필요한 부분에 따른 필요한 연습
+  needed_practice text,         -- 필요한 부분과 안 됐던 부분에 따른 필요한 연습
   coach_feedback text,          -- 코치(관리자) 피드백
   created_at timestamptz not null default now()
 );
+-- 기존 DB에 컬럼 추가(테이블 재생성 없이 단독 실행 가능):
+--   alter table public.gcm_match_analyses
+--     add column if not exists category text not null default 'tournament'
+--       check (category in ('tournament','training')),
+--     add column if not exists final_result text;
 alter table public.gcm_match_analyses enable row level security;
 create index if not exists gcm_match_analyses_user_idx
   on public.gcm_match_analyses (user_id, match_date desc);

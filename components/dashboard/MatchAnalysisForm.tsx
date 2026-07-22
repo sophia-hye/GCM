@@ -3,6 +3,8 @@
 import { useActionState, useRef, useEffect } from "react";
 import { submitMatchAnalysis, type AnalysisState } from "@/app/actions/analysis";
 
+export type FeedbackCategory = "tournament" | "training";
+
 const FIELD =
   "w-full rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright";
 
@@ -18,7 +20,34 @@ const PROMPTS: { name: string; label: string; placeholder: string }[] = [
   },
 ];
 
-export function MatchAnalysisForm() {
+const META: Record<
+  FeedbackCategory,
+  {
+    heading: string;
+    dateLabel: string;
+    contextLabel: string;
+    contextPlaceholder: string;
+    showResult: boolean;
+  }
+> = {
+  tournament: {
+    heading: "토너먼트 피드백 작성",
+    dateLabel: "경기 날짜 *",
+    contextLabel: "대회 (선택)",
+    contextPlaceholder: "예) ○○오픈 16강",
+    showResult: true,
+  },
+  training: {
+    heading: "정규 훈련 피드백 작성",
+    dateLabel: "훈련 날짜 *",
+    contextLabel: "훈련 내용 / 주제 (선택)",
+    contextPlaceholder: "예) 서브 집중, 랠리 지구력…",
+    showResult: false,
+  },
+};
+
+export function MatchAnalysisForm({ category }: { category: FeedbackCategory }) {
+  const meta = META[category];
   const [state, formAction, pending] = useActionState<AnalysisState, FormData>(
     submitMatchAnalysis,
     {},
@@ -35,19 +64,34 @@ export function MatchAnalysisForm() {
       action={formAction}
       className="space-y-5 rounded-2xl border border-line bg-card p-6"
     >
-      <h2 className="font-display text-lg font-bold">매치피드백 작성</h2>
-      <p className="-mt-2 text-xs text-muted">본인과 코치님만 볼 수 있습니다. 다른 선수에게는 공개되지 않습니다.</p>
+      <input type="hidden" name="category" value={category} />
+      <h2 className="font-display text-lg font-bold">{meta.heading}</h2>
+      <p className="-mt-2 text-xs text-muted">
+        본인과 코치님만 볼 수 있습니다. 다른 선수에게는 공개되지 않습니다.
+      </p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm text-muted">
-          경기 날짜 *
+          {meta.dateLabel}
           <input type="date" name="match_date" required className={FIELD} />
         </label>
         <label className="flex flex-col gap-1 text-sm text-muted">
-          상대 / 대회 (선택)
-          <input type="text" name="opponent" placeholder="예) ○○오픈 16강 / 김○○" className={FIELD} />
+          {meta.contextLabel}
+          <input type="text" name="opponent" placeholder={meta.contextPlaceholder} className={FIELD} />
         </label>
       </div>
+
+      {meta.showResult ? (
+        <label className="flex flex-col gap-1 text-sm text-muted">
+          최종성적 (선택)
+          <input
+            type="text"
+            name="final_result"
+            placeholder="예) 우승 / 준우승 / 16강 진출 / 2-1 승"
+            className={FIELD}
+          />
+        </label>
+      ) : null}
 
       {PROMPTS.map((p) => (
         <label key={p.name} className="flex flex-col gap-1 text-sm text-muted">
@@ -72,7 +116,7 @@ export function MatchAnalysisForm() {
         disabled={pending}
         className="inline-flex items-center justify-center rounded-full bg-court px-7 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-60"
       >
-        {pending ? "제출 중..." : "분석 제출"}
+        {pending ? "제출 중..." : "제출"}
       </button>
     </form>
   );

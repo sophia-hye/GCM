@@ -27,7 +27,10 @@ export async function submitMatchAnalysis(
   }
 
   const matchDate = String(formData.get("match_date") ?? "").trim();
-  if (!matchDate) return { error: "경기 날짜를 입력해 주세요." };
+  if (!matchDate) return { error: "날짜를 입력해 주세요." };
+
+  const rawCategory = String(formData.get("category") ?? "tournament");
+  const category = rawCategory === "training" ? "training" : "tournament";
 
   const text = (k: string) => {
     const v = String(formData.get(k) ?? "").trim();
@@ -36,8 +39,11 @@ export async function submitMatchAnalysis(
 
   const { error } = await supabase.from("gcm_match_analyses").insert({
     user_id: user.id,
+    category,
     match_date: matchDate,
     opponent: text("opponent"),
+    // 최종성적은 토너먼트에서만 입력받는다.
+    final_result: category === "tournament" ? text("final_result") : null,
     better_than_last: text("better_than_last"),
     improved_than_last: text("improved_than_last"),
     worse_than_last: text("worse_than_last"),
