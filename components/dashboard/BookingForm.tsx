@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
-import { createBooking, type BookingState } from "@/app/dashboard/actions";
+import { createBooking, type BookingState } from "@/app/(site)/dashboard/actions";
 
 export function BookingForm() {
   const [state, action, pending] = useActionState<BookingState, FormData>(

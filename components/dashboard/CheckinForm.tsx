@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { createCheckin, type CheckinState } from "@/app/dashboard/actions";
+import { createCheckin, type CheckinState } from "@/app/(site)/dashboard/actions";
 
 const MOODS = [
   { score: 1, emoji: "😣", label: "매우 힘듦" },
