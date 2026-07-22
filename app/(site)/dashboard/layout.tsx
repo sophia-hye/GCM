@@ -55,6 +55,15 @@ export default async function DashboardLayout({
     .eq("id", user.id)
     .maybeSingle();
 
+  // 관리자(코치)에겐 선수용 서브메뉴(사이드바)가 불필요하다 → 인사말+카드만 전체폭으로.
+  if (profile?.role === "admin") {
+    return (
+      <div className="pt-16">
+        <Container className="py-10">{children}</Container>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-16">
       <Container className="grid gap-8 py-10 lg:grid-cols-[200px_1fr]">
