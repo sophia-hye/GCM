@@ -7,11 +7,15 @@ const FIELD =
   "w-full rounded-lg border border-line bg-base px-3 py-2 text-sm outline-none focus:border-court-bright";
 
 const PROMPTS: { name: string; label: string; placeholder: string }[] = [
-  { name: "better_than_last", label: "전 시합보다 잘됐던 부분", placeholder: "예) 첫 서브 성공률, 침착함…" },
-  { name: "improved_than_last", label: "전 시합보다 좋아진 부분", placeholder: "예) 백핸드 안정감, 풋워크…" },
-  { name: "worse_than_last", label: "전 시합보다 안됐던 부분", placeholder: "예) 리턴 범실, 체력 저하…" },
+  { name: "better_than_last", label: "잘 됐던 부분", placeholder: "예) 첫 서브 성공률, 침착함…" },
+  { name: "improved_than_last", label: "좋아진 부분", placeholder: "예) 백핸드 안정감, 풋워크…" },
+  { name: "worse_than_last", label: "안 됐던 부분", placeholder: "예) 리턴 범실, 체력 저하…" },
   { name: "needed", label: "필요한 부분", placeholder: "지금 가장 보완이 필요한 점" },
-  { name: "needed_practice", label: "필요한 연습", placeholder: "안됐던/필요한 부분에 맞는 연습 계획" },
+  {
+    name: "needed_practice",
+    label: "필요한 부분과 안 됐던 부분에 따른 필요한 연습",
+    placeholder: "안 됐던·필요한 부분에 맞는 연습 계획",
+  },
 ];
 
 export function MatchAnalysisForm() {
@@ -31,7 +35,8 @@ export function MatchAnalysisForm() {
       action={formAction}
       className="space-y-5 rounded-2xl border border-line bg-card p-6"
     >
-      <h2 className="font-display text-lg font-bold">매치 셀프 피드백 작성</h2>
+      <h2 className="font-display text-lg font-bold">매치 후기 작성</h2>
+      <p className="-mt-2 text-xs text-muted">작성한 후기는 코치님만 확인합니다.</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm text-muted">
@@ -58,7 +63,7 @@ export function MatchAnalysisForm() {
       ) : null}
       {state.ok ? (
         <p className="rounded-lg border border-lime/40 bg-lime/10 px-3 py-2 text-sm text-lime">
-          제출되었습니다. 코치가 확인 후 피드백을 드립니다.
+          제출되었습니다. 코치님이 확인합니다.
         </p>
       ) : null}
 
