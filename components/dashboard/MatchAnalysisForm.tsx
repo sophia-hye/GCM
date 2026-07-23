@@ -67,7 +67,7 @@ export function MatchAnalysisForm({ category }: { category: FeedbackCategory }) 
       <input type="hidden" name="category" value={category} />
       <h2 className="font-display text-lg font-bold">{meta.heading}</h2>
       <p className="-mt-2 text-xs text-muted">
-        본인과 코치님만 볼 수 있습니다. 다른 선수에게는 공개되지 않습니다.
+        작성하면 GCM 코치님이 확인하고 피드백을 드립니다. 다른 선수에게는 공개되지 않습니다.
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2">
