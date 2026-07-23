@@ -12,6 +12,7 @@ export async function Footer() {
     rep: en ? `Director ${site.rep}.` : `대표 ${site.rep}.`,
     est: `Since ${site.foundedDate}`,
     consult: en ? "Book consulting / inquiry" : "상담 예약 / 문의",
+    kakao: en ? "KakaoTalk @지씨엠" : "카카오톡 채널 @지씨엠",
     terms: en ? "Terms" : "이용약관",
     privacy: en ? "Privacy Policy" : "개인정보 처리방침",
     rights: en
@@ -46,6 +47,16 @@ export async function Footer() {
             <Link href={site.instagram} className="hover:text-court-bright">
               Instagram @gcm_tennis
             </Link>
+            {site.kakao ? (
+              <Link
+                href={site.kakao}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-court-bright"
+              >
+                {L.kakao}
+              </Link>
+            ) : null}
             <Link href="/consulting" className="hover:text-court-bright">
               {L.consult}
             </Link>
