@@ -32,8 +32,17 @@ const instagramIcon = (
   </svg>
 );
 
+const kakaoIcon = (
+  <svg viewBox="0 0 24 24" className={iconClass} fill="currentColor" aria-hidden>
+    <path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.94 5.34 4.87 6.73-.16.55-.86 3-.9 3.19 0 0-.02.15.08.21.1.06.22.01.22.01.28-.04 3.2-2.16 3.71-2.53.56.08 1.13.12 1.72.12 5.52 0 10-3.58 10-8S17.52 3 12 3z" />
+  </svg>
+);
+
 const items: Item[] = [
   { href: "/consulting", label: "상담 신청", icon: consultationIcon },
+  ...(site.kakao
+    ? [{ href: site.kakao, label: "카카오톡 채널", external: true, icon: kakaoIcon }]
+    : []),
   { href: "/contact", label: "연락처", icon: contactIcon },
   { href: site.instagram, label: "인스타그램", external: true, icon: instagramIcon },
 ];
