@@ -47,7 +47,7 @@ export const siteGuide = [
   },
   {
     no: "02",
-    label: "Director",
+    label: "Executive Director",
     href: "/about#director-message",
     title: "대표 원장 인사말",
     desc: "국제무대를 거친 대표 원장 오성국이 전하는 GCM의 철학과 학부모께 드리는 약속.",
@@ -59,7 +59,7 @@ export const siteGuide = [
     href: "/coaches",
     title: "코치진 소개",
     desc: "대표 오성국과 헤드 · 멘탈 코치진의 약력과 지도 철학.",
-    items: ["대표 · 원장 오성국", "헤드 코치 · 기술/피지컬", "코치 · 기술/멘탈"],
+    items: ["대표 오성국", "원장 윤재원", "헤드코치 김주빈"],
   },
   {
     no: "04",
