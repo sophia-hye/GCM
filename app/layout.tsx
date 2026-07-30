@@ -57,8 +57,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // GA4 측정 ID(NEXT_PUBLIC_GA_ID)가 설정된 경우에만 로드 (미설정 개발/프리뷰는 추적 안 함)
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  // GA4 측정 ID: env(NEXT_PUBLIC_GA_ID)가 있으면 우선, 없으면 프로덕션 배포에서만 기본 ID 사용.
+  // (로컬·프리뷰 트래픽이 GA에 섞이지 않도록 production 에서만 로드)
+  const gaId =
+    process.env.NEXT_PUBLIC_GA_ID ??
+    (process.env.VERCEL_ENV === "production" ? "G-XV035JGQB7" : undefined);
 
   return (
     <html lang="ko" className={`${archivo.variable} ${playfair.variable} h-full antialiased`}>
