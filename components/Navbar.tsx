@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -49,21 +48,6 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
             {site.name}
             <span className="text-lime">.</span>
           </span>
-          <span
-            className={`text-[10px] font-medium uppercase tracking-widest ${
-              solid ? "text-muted" : "text-white/70"
-            }`}
-          >
-            with
-          </span>
-          <Image
-            src="/logo/equre.png"
-            alt="egüre"
-            width={2670}
-            height={1006}
-            priority
-            className={`h-4 w-auto translate-y-[6px] ${solid ? "" : "invert"}`}
-          />
         </Link>
 
         <nav className="hidden items-center gap-4 px-4 xl:flex 2xl:gap-6">
