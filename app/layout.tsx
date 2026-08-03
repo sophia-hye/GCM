@@ -19,7 +19,7 @@ const playfair = Playfair_Display({
 });
 
 const SITE_DESCRIPTION =
-  "기술·피지컬·멘탈을 통합한 고성능 테니스 아카데미. 오성국 대표(前 주니어 국가대표 코치)가 이끌며 UTR 성장 로드맵, ATP·WTA 프로 진출, 미국 대학(NCAA) 진학·장학 컨설팅까지 함께합니다.";
+  "엘리트 선수 육성 | ATP•WTA•ITF 프로/주니어 집중 훈련 | 테니스 대학리그 진출 (미국 NCAA 진학)";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
