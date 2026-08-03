@@ -22,14 +22,14 @@ export const site = {
 export const nav = [
   { label: "About", href: "/about" },
   { label: "Coaches", href: "/coaches" },
+  { label: "Match Feedback", href: "/match-feedback" },
+  { label: "Consulting", href: "/consulting" },
+  { label: "Scholarship", href: "/scholarship" },
   { label: "Players", href: "/players" },
   { label: "Voices", href: "/voices" },
-  { label: "Match Feedback", href: "/match-feedback" },
   { label: "Gallery", href: "/gallery" },
   { label: "Training", href: "/training" },
   { label: "Kids & Amateur", href: "/recreational" },
-  { label: "Consulting", href: "/consulting" },
-  { label: "Scholarship", href: "/scholarship" },
 ] as const;
 
 // 홈에서 각 메뉴(탭)에 어떤 내용이 있는지 미리 보여주는 안내 카드
