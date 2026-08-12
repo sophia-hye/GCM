@@ -60,7 +60,7 @@ export default async function AdminContentPage({
         {fields.map((f) => (
           <ContentFieldForm
             key={f.key}
-            field={{ key: f.key, label: f.label, multiline: f.multiline, paragraphs: f.paragraphs }}
+            field={{ key: f.key, label: f.label, multiline: f.multiline, paragraphs: f.paragraphs, list: f.list }}
             value={overrides.get(f.key) ?? f.default}
             overridden={overrides.has(f.key)}
           />

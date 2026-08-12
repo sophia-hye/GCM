@@ -10,6 +10,7 @@ import {
   consulting,
   scholarship,
   recreational,
+  programs,
 } from "@/lib/site-data";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
@@ -26,6 +27,7 @@ export type CmsField = {
   label: string;
   multiline: boolean;
   paragraphs?: boolean; // true 면 빈 줄로 문단 분리
+  list?: boolean; // true 면 한 줄에 하나씩(항목 리스트)
   default: string;
 };
 
@@ -61,12 +63,27 @@ export const CMS_FIELDS: CmsField[] = [
   { key: "section.ctaSub", section: "홈", label: "하단 CTA 설명", multiline: true, default: faqContact.sub },
   // 코치진 페이지
   { key: "section.teamLead", section: "코치진", label: "코치진 섹션 리드", multiline: true, default: teamLead },
-  // 컨설팅·장학·취미반 페이지
-  { key: "section.consultingTitle", section: "컨설팅·장학·취미반", label: "컨설팅 제목", multiline: false, default: consulting.title },
-  { key: "section.consultingLead", section: "컨설팅·장학·취미반", label: "컨설팅 리드", multiline: true, default: consulting.lead },
-  { key: "section.scholarshipTitle", section: "컨설팅·장학·취미반", label: "장학 제목", multiline: false, default: scholarship.title },
-  { key: "section.scholarshipLead", section: "컨설팅·장학·취미반", label: "장학 리드", multiline: true, default: scholarship.lead },
-  { key: "section.recreationalLead", section: "컨설팅·장학·취미반", label: "키즈·취미반 리드", multiline: true, default: recreational.lead },
+  // 컨설팅·취미반
+  { key: "section.consultingTitle", section: "컨설팅·취미반", label: "컨설팅 제목", multiline: false, default: consulting.title },
+  { key: "section.consultingLead", section: "컨설팅·취미반", label: "컨설팅 리드", multiline: true, default: consulting.lead },
+  { key: "section.recreationalLead", section: "컨설팅·취미반", label: "키즈·취미반 리드", multiline: true, default: recreational.lead },
+
+  // 트레이닝 (프로그램 3개 × 대상·단계·설명·항목)
+  ...programs.flatMap((p, i) => [
+    { key: `program.${i}.target`, section: "트레이닝", label: `프로그램 ${i + 1} (${p.key}) — 대상`, multiline: false, default: p.target },
+    { key: `program.${i}.duration`, section: "트레이닝", label: `프로그램 ${i + 1} — 단계/기간`, multiline: false, default: p.duration },
+    { key: `program.${i}.desc`, section: "트레이닝", label: `프로그램 ${i + 1} — 설명`, multiline: true, default: p.desc },
+    { key: `program.${i}.points`, section: "트레이닝", label: `프로그램 ${i + 1} — 항목`, multiline: true, list: true, default: p.points.join("\n") },
+  ]),
+
+  // 장학 (리드 + 상세 항목 + 신청 준비물)
+  { key: "section.scholarshipTitle", section: "장학", label: "장학 제목", multiline: false, default: scholarship.title },
+  { key: "section.scholarshipLead", section: "장학", label: "장학 리드", multiline: true, default: scholarship.lead },
+  ...scholarship.points.flatMap((p, i) => [
+    { key: `scholarship.point.${i}.title`, section: "장학", label: `항목 ${i + 1} — 제목`, multiline: false, default: p.title },
+    { key: `scholarship.point.${i}.body`, section: "장학", label: `항목 ${i + 1} — 내용`, multiline: true, default: p.body },
+  ]),
+  { key: "scholarship.apply", section: "장학", label: "신청 시 준비물", multiline: true, list: true, default: scholarship.apply.join("\n") },
 ];
 
 export function fieldFor(key: string): CmsField | undefined {
@@ -78,7 +95,9 @@ export const CMS_SECTIONS: { slug: string; label: string }[] = [
   { slug: "home", label: "홈" },
   { slug: "director", label: "대표 원장 인사말" },
   { slug: "coach", label: "코치진" },
-  { slug: "pages", label: "컨설팅·장학·취미반" },
+  { slug: "training", label: "트레이닝" },
+  { slug: "scholarship", label: "장학" },
+  { slug: "pages", label: "컨설팅·취미반" },
 ];
 
 /** 오버라이드 맵을 한 번만 조회(요청 단위 캐시). 테이블 없거나 미설정이면 빈 맵. */
@@ -108,4 +127,18 @@ export function cmsParas(map: Map<string, string>, key: string, fallback: string
   if (v == null) return fallback;
   const parts = v.split(/\n{2,}/).map((s) => s.trim()).filter(Boolean);
   return parts.length > 0 ? parts : fallback;
+}
+
+/** 리스트 리졸브(줄바꿈 기준 분리, 항목당 한 줄). 한국어일 때만 오버라이드 적용. */
+export function cmsList(
+  map: Map<string, string>,
+  key: string,
+  fallback: readonly string[],
+  ko: boolean,
+): string[] {
+  if (!ko) return [...fallback];
+  const v = map.get(key);
+  if (v == null) return [...fallback];
+  const parts = v.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+  return parts.length > 0 ? parts : [...fallback];
 }
