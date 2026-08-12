@@ -71,6 +71,14 @@ export function fieldFor(key: string): CmsField | undefined {
   return CMS_FIELDS.find((f) => f.key === key);
 }
 
+/** 편집 페이지 탭(섹션) 목록. slug 는 URL 파라미터로 사용. */
+export const CMS_SECTIONS: { slug: string; label: string }[] = [
+  { slug: "director", label: "대표 원장 인사말" },
+  { slug: "hero", label: "홈 슬로건 (히어로)" },
+  { slug: "coach", label: "코치 소개" },
+  { slug: "section", label: "주요 섹션 문구" },
+];
+
 /** 오버라이드 맵을 한 번만 조회(요청 단위 캐시). 테이블 없거나 미설정이면 빈 맵. */
 export const getContentMap = cache(async (): Promise<Map<string, string>> => {
   const map = new Map<string, string>();
