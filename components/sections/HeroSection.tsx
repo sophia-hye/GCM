@@ -6,9 +6,12 @@ import { Button, Container } from "@/components/ui";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { getDict, getUI } from "@/lib/site-content";
 
-export function HeroSection() {
+type Slide = { eyebrow: string; headline: string; accent: string; sub: string };
+
+export function HeroSection({ koSlides }: { koSlides?: Slide[] }) {
   const locale = useLocale();
-  const { heroSlides } = getDict(locale);
+  const dict = getDict(locale);
+  const heroSlides = locale === "ko" && koSlides ? koSlides : dict.heroSlides;
   const ui = getUI(locale);
   const [index, setIndex] = useState(0);
 
