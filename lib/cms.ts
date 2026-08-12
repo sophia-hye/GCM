@@ -11,6 +11,7 @@ import {
   scholarship,
   recreational,
   programs,
+  siteGuide,
 } from "@/lib/site-data";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
@@ -84,6 +85,13 @@ export const CMS_FIELDS: CmsField[] = [
     { key: `scholarship.point.${i}.body`, section: "장학", label: `항목 ${i + 1} — 내용`, multiline: true, default: p.body },
   ]),
   { key: "scholarship.apply", section: "장학", label: "신청 시 준비물", multiline: true, list: true, default: scholarship.apply.join("\n") },
+
+  // 홈 EXPLORE 카드 (카드별 제목·설명·항목)
+  ...siteGuide.flatMap((g) => [
+    { key: `guide.${g.label}.title`, section: "홈 EXPLORE 카드", label: `${g.label} 카드 — 제목`, multiline: false, default: g.title },
+    { key: `guide.${g.label}.desc`, section: "홈 EXPLORE 카드", label: `${g.label} 카드 — 설명`, multiline: true, default: g.desc },
+    { key: `guide.${g.label}.items`, section: "홈 EXPLORE 카드", label: `${g.label} 카드 — 항목`, multiline: true, list: true, default: g.items.join("\n") },
+  ]),
 ];
 
 export function fieldFor(key: string): CmsField | undefined {
@@ -93,6 +101,7 @@ export function fieldFor(key: string): CmsField | undefined {
 /** 편집 페이지 탭(섹션) 목록. slug 는 URL 파라미터로 사용. */
 export const CMS_SECTIONS: { slug: string; label: string }[] = [
   { slug: "home", label: "홈" },
+  { slug: "explore", label: "홈 EXPLORE 카드" },
   { slug: "director", label: "대표 원장 인사말" },
   { slug: "coach", label: "코치진" },
   { slug: "training", label: "트레이닝" },
