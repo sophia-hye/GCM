@@ -4,22 +4,29 @@ import { useEffect, useState } from "react";
 
 type Popup = { id: string; image_url: string; link_url: string | null };
 
-const HIDE_KEY = "gcm_popups_hide_until";
+const HIDE_KEY = "gcm_popups_hide";
 
 export function PopupModal({ popups }: { popups: Popup[] }) {
   const [open, setOpen] = useState(false);
   const [dontShowToday, setDontShowToday] = useState(false);
 
+  // 현재 팝업 세트의 서명(ID 조합). 세트가 바뀌면 서명도 바뀌어 다시 노출된다.
+  const sig = popups.map((p) => p.id).sort().join(",");
+
   useEffect(() => {
-    if (popups.length === 0) return;
+    if (!sig) return;
     try {
-      const until = Number(localStorage.getItem(HIDE_KEY) || 0);
-      if (Date.now() < until) return;
+      const raw = localStorage.getItem(HIDE_KEY);
+      if (raw) {
+        const [untilStr, storedSig] = raw.split("|");
+        // 같은 팝업 세트를 '오늘 하루 보지 않기' 한 경우에만 숨긴다.
+        if (Date.now() < Number(untilStr || 0) && storedSig === sig) return;
+      }
     } catch {
       // localStorage 불가 환경이면 그냥 표시
     }
     setOpen(true);
-  }, [popups.length]);
+  }, [sig]);
 
   if (!open || popups.length === 0) return null;
 
@@ -28,7 +35,7 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
       try {
         const end = new Date();
         end.setHours(23, 59, 59, 999);
-        localStorage.setItem(HIDE_KEY, String(end.getTime()));
+        localStorage.setItem(HIDE_KEY, `${end.getTime()}|${sig}`);
       } catch {
         // 무시
       }
