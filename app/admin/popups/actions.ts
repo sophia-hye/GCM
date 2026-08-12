@@ -6,8 +6,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import type { AdminState } from "@/app/admin/actions";
 
 const MAX_POPUPS = 3;
+const BUCKET = "gallery";
 
-/** 현재 세션이 admin 인지 확인 */
 async function requireAdmin(): Promise<boolean> {
   const supabase = await createClient();
   const {
@@ -22,43 +22,51 @@ async function requireAdmin(): Promise<boolean> {
   return data?.role === "admin";
 }
 
-/** 팝업 등록 — 이미지 업로드(gallery 버킷 popups/ 경로) 후 행 생성. 최대 3개. */
-export async function createPopup(
-  _prev: AdminState,
-  formData: FormData,
-): Promise<AdminState> {
-  if (!(await requireAdmin())) return { error: "권한이 없습니다." };
+export type UploadUrlResult =
+  | { ok: true; path: string; token: string }
+  | { ok: false; error: string };
+
+/**
+ * 팝업 이미지용 '서명 업로드 URL' 발급.
+ * 브라우저가 이 토큰으로 Supabase 스토리지에 '직접' 업로드한다(Vercel 함수 크기 제한 우회).
+ */
+export async function createPopupUploadUrl(fileName: string): Promise<UploadUrlResult> {
+  if (!(await requireAdmin())) return { ok: false, error: "권한이 없습니다." };
 
   const admin = createAdminClient();
-
   const { count } = await admin
     .from("gcm_popups")
     .select("id", { count: "exact", head: true });
   if ((count ?? 0) >= MAX_POPUPS) {
-    return { error: `팝업은 최대 ${MAX_POPUPS}개까지 등록할 수 있습니다. 기존 팝업을 삭제 후 추가해 주세요.` };
+    return { ok: false, error: `팝업은 최대 ${MAX_POPUPS}개까지 등록할 수 있습니다. 기존 팝업을 삭제 후 추가해 주세요.` };
   }
 
-  const file = formData.get("image");
-  const linkUrl = String(formData.get("link_url") ?? "").trim();
-  if (!(file instanceof File) || file.size === 0) {
-    return { error: "이미지를 선택해 주세요." };
-  }
-  if (!file.type.startsWith("image/")) {
-    return { error: "이미지 파일만 업로드할 수 있습니다." };
-  }
-
-  const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+  const ext = (fileName.split(".").pop() || "jpg").toLowerCase();
   const path = `popups/${crypto.randomUUID()}.${ext}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const { error: upErr } = await admin.storage
-    .from("gallery")
-    .upload(path, buffer, { contentType: file.type, upsert: false });
-  if (upErr) return { error: `이미지 업로드 실패: ${upErr.message}` };
-  const { data: pub } = admin.storage.from("gallery").getPublicUrl(path);
+  const { data, error } = await admin.storage.from(BUCKET).createSignedUploadUrl(path);
+  if (error || !data) {
+    return { ok: false, error: `업로드 URL 발급 실패: ${error?.message ?? "unknown"}` };
+  }
+  return { ok: true, path: data.path, token: data.token };
+}
 
+/** 업로드 완료된 이미지 경로로 팝업 레코드 생성. */
+export async function savePopup(path: string, linkUrl: string): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "권한이 없습니다." };
+  if (!path) return { error: "이미지 경로가 없습니다." };
+
+  const admin = createAdminClient();
+  const { count } = await admin
+    .from("gcm_popups")
+    .select("id", { count: "exact", head: true });
+  if ((count ?? 0) >= MAX_POPUPS) {
+    return { error: `팝업은 최대 ${MAX_POPUPS}개까지 등록할 수 있습니다.` };
+  }
+
+  const { data: pub } = admin.storage.from(BUCKET).getPublicUrl(path);
   const { error } = await admin.from("gcm_popups").insert({
     image_url: pub.publicUrl,
-    link_url: linkUrl || null,
+    link_url: linkUrl.trim() || null,
     active: true,
     sort_order: count ?? 0,
   });
