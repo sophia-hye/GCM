@@ -10,7 +10,7 @@ export function ContentFieldForm({
   value,
   overridden,
 }: {
-  field: Pick<CmsField, "key" | "label" | "multiline" | "paragraphs">;
+  field: Pick<CmsField, "key" | "label" | "multiline" | "paragraphs" | "list">;
   value: string;
   overridden: boolean;
 }) {
@@ -18,7 +18,7 @@ export function ContentFieldForm({
 
   const inputClass =
     "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright";
-  const rows = field.paragraphs ? 10 : 4;
+  const rows = field.paragraphs ? 10 : field.list ? 5 : 4;
 
   return (
     <form action={action} className="rounded-2xl border border-line bg-card p-5">
@@ -42,6 +42,8 @@ export function ContentFieldForm({
 
       {field.paragraphs ? (
         <p className="mt-1 text-[11px] text-muted">문단은 사이에 <b>빈 줄</b>을 넣어 구분합니다.</p>
+      ) : field.list ? (
+        <p className="mt-1 text-[11px] text-muted">항목은 <b>한 줄에 하나씩</b> 입력합니다.</p>
       ) : null}
 
       <div className="mt-3 flex items-center gap-3">

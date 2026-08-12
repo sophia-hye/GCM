@@ -3,7 +3,7 @@ import { Section, SectionHeading, Button } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
-import { getContentMap, cmsText } from "@/lib/cms";
+import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 
 export async function Programs() {
   const locale = await getLocale();
@@ -45,12 +45,18 @@ export async function Programs() {
               {p.no}
             </span>
             <h3 className="mt-4 font-display text-2xl font-bold">{p.key}</h3>
-            <p className="mt-1 text-sm font-semibold text-court">{p.target}</p>
-            <p className="mt-1 text-xs text-muted">{p.duration}</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted">{p.desc}</p>
+            <p className="mt-1 text-sm font-semibold text-court">
+              {cmsText(map, `program.${i}.target`, p.target, ko)}
+            </p>
+            <p className="mt-1 text-xs text-muted">
+              {cmsText(map, `program.${i}.duration`, p.duration, ko)}
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              {cmsText(map, `program.${i}.desc`, p.desc, ko)}
+            </p>
 
             <ul className="mt-5 space-y-2 text-sm text-ink/90">
-              {p.points.map((point) => (
+              {cmsList(map, `program.${i}.points`, p.points, ko).map((point) => (
                 <li key={point} className="flex gap-2">
                   <span className="text-court">·</span>
                   {point}
