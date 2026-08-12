@@ -8,6 +8,8 @@ import { ChampionsCTA } from "@/components/sections/ChampionsCTA";
 import { PopupModal } from "@/components/PopupModal";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { heroSlides as koHeroSlides } from "@/lib/site-data";
+import { getContentMap, cmsText } from "@/lib/cms";
 
 async function getActivePopups() {
   if (!isSupabaseConfigured()) return [];
@@ -26,9 +28,16 @@ async function getActivePopups() {
 
 export default async function Home() {
   const popups = await getActivePopups();
+  const map = await getContentMap();
+  const koSlides = koHeroSlides.map((s, i) => ({
+    ...s,
+    headline: cmsText(map, `hero.${i}.headline`, s.headline, true),
+    accent: cmsText(map, `hero.${i}.accent`, s.accent, true),
+    sub: cmsText(map, `hero.${i}.sub`, s.sub, true),
+  }));
   return (
     <>
-      <HeroSection />
+      <HeroSection koSlides={koSlides} />
       <SiteGuide />
       <Programs />
       <Players />

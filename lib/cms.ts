@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { directorMessage as d } from "@/lib/site-data";
+import { directorMessage as d, heroSlides, team } from "@/lib/site-data";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 
@@ -28,6 +28,20 @@ export const CMS_FIELDS: CmsField[] = [
   { key: "director.quote", section: "대표 원장 인사말", label: "인용 문구", multiline: true, default: d.quote },
   { key: "director.after", section: "대표 원장 인사말", label: "소개 페이지 인사말 — 뒷부분 (빈 줄로 문단 구분)", multiline: true, paragraphs: true, default: d.after.join(PARA) },
   { key: "director.signature", section: "대표 원장 인사말", label: "서명", multiline: false, default: d.signature },
+
+  // 홈 히어로 슬로건 (슬라이드 3개 × headline·accent·sub)
+  ...heroSlides.flatMap((s, i) => [
+    { key: `hero.${i}.headline`, section: "홈 슬로건 (히어로)", label: `슬라이드 ${i + 1} — 헤드라인`, multiline: false, default: s.headline },
+    { key: `hero.${i}.accent`, section: "홈 슬로건 (히어로)", label: `슬라이드 ${i + 1} — 강조어(이탤릭)`, multiline: false, default: s.accent },
+    { key: `hero.${i}.sub`, section: "홈 슬로건 (히어로)", label: `슬라이드 ${i + 1} — 설명 문구`, multiline: true, default: s.sub },
+  ]),
+
+  // 코치 소개 (코치 3명 × 이름·직함·소개)
+  ...team.slice(0, 3).flatMap((m, i) => [
+    { key: `coach.${i}.name`, section: "코치 소개", label: `코치 ${i + 1} — 이름`, multiline: false, default: m.name },
+    { key: `coach.${i}.role`, section: "코치 소개", label: `코치 ${i + 1} — 직함`, multiline: false, default: m.role },
+    { key: `coach.${i}.bio`, section: "코치 소개", label: `코치 ${i + 1} — 소개`, multiline: true, default: m.bio },
+  ]),
 ];
 
 export function fieldFor(key: string): CmsField | undefined {
