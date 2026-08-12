@@ -4,7 +4,7 @@ import { Section } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
-import { getContentMap, cmsText, cmsParas } from "@/lib/cms";
+import { getContentMap, cmsText, cmsParas, cmsList } from "@/lib/cms";
 
 /** 홈 둘러보기: 각 메뉴(탭)에 어떤 내용이 있는지 카드로 미리 안내 */
 export async function SiteGuide() {
@@ -106,11 +106,15 @@ export async function SiteGuide() {
                 </span>
               </div>
 
-              <h3 className="mt-4 font-display text-xl font-bold">{g.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{g.desc}</p>
+              <h3 className="mt-4 font-display text-xl font-bold">
+                {cmsText(map, `guide.${g.label}.title`, g.title, ko)}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {cmsText(map, `guide.${g.label}.desc`, g.desc, ko)}
+              </p>
 
               <ul className="mt-4 space-y-1.5 text-sm text-ink/90">
-                {g.items.map((it) => (
+                {cmsList(map, `guide.${g.label}.items`, g.items, ko).map((it) => (
                   <li key={it} className="flex gap-2">
                     <span className="text-court">·</span>
                     {it}
