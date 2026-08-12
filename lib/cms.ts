@@ -42,29 +42,31 @@ export const CMS_FIELDS: CmsField[] = [
 
   // 홈 히어로 슬로건 (슬라이드 3개 × headline·accent·sub)
   ...heroSlides.flatMap((s, i) => [
-    { key: `hero.${i}.headline`, section: "홈 슬로건 (히어로)", label: `슬라이드 ${i + 1} — 헤드라인`, multiline: false, default: s.headline },
-    { key: `hero.${i}.accent`, section: "홈 슬로건 (히어로)", label: `슬라이드 ${i + 1} — 강조어(이탤릭)`, multiline: false, default: s.accent },
-    { key: `hero.${i}.sub`, section: "홈 슬로건 (히어로)", label: `슬라이드 ${i + 1} — 설명 문구`, multiline: true, default: s.sub },
+    { key: `hero.${i}.headline`, section: "홈", label: `슬라이드 ${i + 1} — 헤드라인`, multiline: false, default: s.headline },
+    { key: `hero.${i}.accent`, section: "홈", label: `슬라이드 ${i + 1} — 강조어(이탤릭)`, multiline: false, default: s.accent },
+    { key: `hero.${i}.sub`, section: "홈", label: `슬라이드 ${i + 1} — 설명 문구`, multiline: true, default: s.sub },
   ]),
 
   // 코치 소개 (코치 3명 × 이름·직함·소개)
   ...team.slice(0, 3).flatMap((m, i) => [
-    { key: `coach.${i}.name`, section: "코치 소개", label: `코치 ${i + 1} — 이름`, multiline: false, default: m.name },
-    { key: `coach.${i}.role`, section: "코치 소개", label: `코치 ${i + 1} — 직함`, multiline: false, default: m.role },
-    { key: `coach.${i}.bio`, section: "코치 소개", label: `코치 ${i + 1} — 소개`, multiline: true, default: m.bio },
+    { key: `coach.${i}.name`, section: "코치진", label: `코치 ${i + 1} — 이름`, multiline: false, default: m.name },
+    { key: `coach.${i}.role`, section: "코치진", label: `코치 ${i + 1} — 직함`, multiline: false, default: m.role },
+    { key: `coach.${i}.bio`, section: "코치진", label: `코치 ${i + 1} — 소개`, multiline: true, default: m.bio },
   ]),
 
-  // 주요 섹션 문구
-  { key: "section.siteGuideLead", section: "주요 섹션 문구", label: "홈 둘러보기(Explore) 리드", multiline: true, default: siteGuideLead },
-  { key: "section.teamLead", section: "주요 섹션 문구", label: "코치진 섹션 리드", multiline: true, default: teamLead },
-  { key: "section.programsLead", section: "주요 섹션 문구", label: "트레이닝 시스템 리드", multiline: true, default: programsLead },
-  { key: "section.ctaTitle", section: "주요 섹션 문구", label: "하단 CTA 제목", multiline: false, default: faqContact.title },
-  { key: "section.ctaSub", section: "주요 섹션 문구", label: "하단 CTA 설명", multiline: true, default: faqContact.sub },
-  { key: "section.consultingTitle", section: "주요 섹션 문구", label: "컨설팅 제목", multiline: false, default: consulting.title },
-  { key: "section.consultingLead", section: "주요 섹션 문구", label: "컨설팅 리드", multiline: true, default: consulting.lead },
-  { key: "section.scholarshipTitle", section: "주요 섹션 문구", label: "장학 제목", multiline: false, default: scholarship.title },
-  { key: "section.scholarshipLead", section: "주요 섹션 문구", label: "장학 리드", multiline: true, default: scholarship.lead },
-  { key: "section.recreationalLead", section: "주요 섹션 문구", label: "키즈·취미반 리드", multiline: true, default: recreational.lead },
+  // 홈 페이지 섹션 리드
+  { key: "section.siteGuideLead", section: "홈", label: "둘러보기(Explore) 리드", multiline: true, default: siteGuideLead },
+  { key: "section.programsLead", section: "홈", label: "트레이닝 시스템 리드", multiline: true, default: programsLead },
+  { key: "section.ctaTitle", section: "홈", label: "하단 CTA 제목", multiline: false, default: faqContact.title },
+  { key: "section.ctaSub", section: "홈", label: "하단 CTA 설명", multiline: true, default: faqContact.sub },
+  // 코치진 페이지
+  { key: "section.teamLead", section: "코치진", label: "코치진 섹션 리드", multiline: true, default: teamLead },
+  // 컨설팅·장학·취미반 페이지
+  { key: "section.consultingTitle", section: "컨설팅·장학·취미반", label: "컨설팅 제목", multiline: false, default: consulting.title },
+  { key: "section.consultingLead", section: "컨설팅·장학·취미반", label: "컨설팅 리드", multiline: true, default: consulting.lead },
+  { key: "section.scholarshipTitle", section: "컨설팅·장학·취미반", label: "장학 제목", multiline: false, default: scholarship.title },
+  { key: "section.scholarshipLead", section: "컨설팅·장학·취미반", label: "장학 리드", multiline: true, default: scholarship.lead },
+  { key: "section.recreationalLead", section: "컨설팅·장학·취미반", label: "키즈·취미반 리드", multiline: true, default: recreational.lead },
 ];
 
 export function fieldFor(key: string): CmsField | undefined {
@@ -73,10 +75,10 @@ export function fieldFor(key: string): CmsField | undefined {
 
 /** 편집 페이지 탭(섹션) 목록. slug 는 URL 파라미터로 사용. */
 export const CMS_SECTIONS: { slug: string; label: string }[] = [
+  { slug: "home", label: "홈" },
   { slug: "director", label: "대표 원장 인사말" },
-  { slug: "hero", label: "홈 슬로건 (히어로)" },
-  { slug: "coach", label: "코치 소개" },
-  { slug: "section", label: "주요 섹션 문구" },
+  { slug: "coach", label: "코치진" },
+  { slug: "pages", label: "컨설팅·장학·취미반" },
 ];
 
 /** 오버라이드 맵을 한 번만 조회(요청 단위 캐시). 테이블 없거나 미설정이면 빈 맵. */
