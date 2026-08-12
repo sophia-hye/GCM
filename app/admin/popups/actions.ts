@@ -82,25 +82,57 @@ export async function savePopup(path: string, linkUrl: string): Promise<AdminSta
   return { ok: true };
 }
 
-/** 팝업 활성/비활성 토글 */
-export async function togglePopup(formData: FormData): Promise<void> {
-  if (!(await requireAdmin())) return;
-  const id = String(formData.get("id") ?? "");
-  const active = String(formData.get("active") ?? "") === "true";
-  if (!id) return;
+/** 팝업 활성/비활성 설정 */
+export async function setPopupActive(id: string, active: boolean): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "권한이 없습니다." };
+  if (!id) return { error: "id 없음" };
   const admin = createAdminClient();
-  await admin.from("gcm_popups").update({ active }).eq("id", id);
+  const { error } = await admin.from("gcm_popups").update({ active }).eq("id", id);
+  if (error) return { error: "변경 실패: " + error.message };
   revalidatePath("/admin/popups");
   revalidatePath("/");
+  return { ok: true };
 }
 
 /** 팝업 삭제 */
-export async function deletePopup(formData: FormData): Promise<void> {
-  if (!(await requireAdmin())) return;
-  const id = String(formData.get("id") ?? "");
-  if (!id) return;
+export async function removePopup(id: string): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "권한이 없습니다." };
+  if (!id) return { error: "id 없음" };
   const admin = createAdminClient();
-  await admin.from("gcm_popups").delete().eq("id", id);
+  const { error } = await admin.from("gcm_popups").delete().eq("id", id);
+  if (error) return { error: "삭제 실패: " + error.message };
   revalidatePath("/admin/popups");
   revalidatePath("/");
+  return { ok: true };
+}
+
+/** 팝업 링크 수정 */
+export async function updatePopupLink(id: string, linkUrl: string): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "권한이 없습니다." };
+  if (!id) return { error: "id 없음" };
+  const admin = createAdminClient();
+  const { error } = await admin
+    .from("gcm_popups")
+    .update({ link_url: linkUrl.trim() || null })
+    .eq("id", id);
+  if (error) return { error: "저장 실패: " + error.message };
+  revalidatePath("/admin/popups");
+  revalidatePath("/");
+  return { ok: true };
+}
+
+/** 팝업 이미지 교체 (업로드 완료된 경로로) */
+export async function updatePopupImage(id: string, path: string): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "권한이 없습니다." };
+  if (!id || !path) return { error: "id/경로 없음" };
+  const admin = createAdminClient();
+  const { data: pub } = admin.storage.from(BUCKET).getPublicUrl(path);
+  const { error } = await admin
+    .from("gcm_popups")
+    .update({ image_url: pub.publicUrl })
+    .eq("id", id);
+  if (error) return { error: "이미지 교체 실패: " + error.message };
+  revalidatePath("/admin/popups");
+  revalidatePath("/");
+  return { ok: true };
 }
