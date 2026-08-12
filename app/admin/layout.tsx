@@ -15,6 +15,7 @@ const menu = [
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
   { label: "갤러리 관리", href: "/admin/gallery" },
   { label: "팝업 관리", href: "/admin/popups" },
+  { label: "콘텐츠 편집", href: "/admin/content" },
 ];
 
 export default async function AdminLayout({

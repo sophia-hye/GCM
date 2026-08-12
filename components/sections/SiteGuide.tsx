@@ -4,12 +4,19 @@ import { Section } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
+import { getContentMap, cmsText, cmsParas } from "@/lib/cms";
 
 /** 홈 둘러보기: 각 메뉴(탭)에 어떤 내용이 있는지 카드로 미리 안내 */
 export async function SiteGuide() {
   const locale = await getLocale();
+  const ko = locale === "ko";
   const { siteGuide, siteGuideLead, directorMessage: d } = getDict(locale);
   const ui = getUI(locale);
+  const map = await getContentMap();
+  const dEyebrow = cmsText(map, "director.eyebrow", d.eyebrow, ko);
+  const dTitle = cmsText(map, "director.title", d.title, ko);
+  const dHomeSummary = cmsParas(map, "director.homeSummary", d.homeSummary, ko);
+  const dQuote = cmsText(map, "director.quote", d.quote, ko);
 
   return (
     <Section id="explore" reveal={false}>
@@ -39,17 +46,17 @@ export async function SiteGuide() {
       <Reveal delay={80}>
         <div className="mt-10 rounded-2xl border border-line bg-card/30 p-6 sm:p-8 lg:p-10">
           <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-court-bright">
-            {d.eyebrow}
+            {dEyebrow}
           </p>
           <h3 className="mt-2 font-display text-2xl font-bold leading-snug sm:text-3xl">
-            {d.title}
+            {dTitle}
           </h3>
 
           <div className="mt-6 grid items-start gap-8 sm:grid-cols-[200px_1fr] sm:gap-10">
             <div className="mx-auto w-full max-w-[200px] overflow-hidden rounded-2xl border border-line sm:mx-0">
               <Image
                 src={d.image}
-                alt={d.title}
+                alt={dTitle}
                 width={520}
                 height={650}
                 className="aspect-[4/5] h-auto w-full object-cover"
@@ -58,14 +65,14 @@ export async function SiteGuide() {
 
             <div className="max-w-2xl">
               <div className="space-y-4 text-base leading-relaxed text-ink/85">
-                {d.homeSummary.map((para, i) => (
+                {dHomeSummary.map((para, i) => (
                   <p key={i} className="whitespace-pre-line">
                     {para}
                   </p>
                 ))}
               </div>
               <blockquote className="mt-6 border-l-2 border-court pl-5 font-display text-base font-semibold leading-relaxed text-ink">
-                {d.quote}
+                {dQuote}
               </blockquote>
               <div className="mt-7">
                 <Link
