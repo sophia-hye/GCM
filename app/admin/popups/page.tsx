@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { PopupsAdminForm } from "@/app/admin/popups/PopupsAdminForm";
-import { togglePopup, deletePopup } from "@/app/admin/popups/actions";
+import { PopupCard } from "@/app/admin/popups/PopupCard";
 
 export const metadata = { title: "팝업 관리 | GCM Admin" };
 
@@ -37,58 +37,7 @@ export default async function AdminPopupsPage() {
         {popups.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {popups.map((p) => (
-              <div key={p.id} className="overflow-hidden rounded-2xl border border-line bg-card">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.image_url}
-                  alt="팝업 이미지"
-                  className="aspect-[4/5] w-full bg-base object-contain"
-                />
-                <div className="space-y-3 p-4">
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`rounded-md px-2 py-1 text-xs font-semibold ${
-                        p.active ? "bg-lime/15 text-lime" : "bg-muted/15 text-muted"
-                      }`}
-                    >
-                      {p.active ? "노출 중" : "숨김"}
-                    </span>
-                    {p.link_url ? (
-                      <a
-                        href={p.link_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="max-w-[55%] truncate text-xs text-court-bright hover:underline"
-                      >
-                        {p.link_url}
-                      </a>
-                    ) : (
-                      <span className="text-xs text-muted">링크 없음</span>
-                    )}
-                  </div>
-                  <div className="flex gap-2">
-                    <form action={togglePopup}>
-                      <input type="hidden" name="id" value={p.id} />
-                      <input type="hidden" name="active" value={p.active ? "false" : "true"} />
-                      <button
-                        type="submit"
-                        className="rounded-lg border border-line px-3 py-1.5 text-xs font-semibold hover:border-court-bright"
-                      >
-                        {p.active ? "숨기기" : "노출하기"}
-                      </button>
-                    </form>
-                    <form action={deletePopup}>
-                      <input type="hidden" name="id" value={p.id} />
-                      <button
-                        type="submit"
-                        className="rounded-lg border border-danger/40 px-3 py-1.5 text-xs font-semibold text-danger hover:bg-danger/10"
-                      >
-                        삭제
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
+              <PopupCard key={p.id} popup={p} />
             ))}
           </div>
         ) : (
