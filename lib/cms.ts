@@ -12,9 +12,14 @@ import {
   recreational,
   programs,
   siteGuide,
+  founding,
+  whoWeAre,
 } from "@/lib/site-data";
+import { getConsultingExtra } from "@/lib/consulting-content";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+
+const cx = getConsultingExtra("ko");
 
 /**
  * 콘텐츠 편집(CMS) 레지스트리.
@@ -92,6 +97,27 @@ export const CMS_FIELDS: CmsField[] = [
     { key: `guide.${g.label}.desc`, section: "홈 EXPLORE 카드", label: `${g.label} 카드 — 설명`, multiline: true, default: g.desc },
     { key: `guide.${g.label}.items`, section: "홈 EXPLORE 카드", label: `${g.label} 카드 — 항목`, multiline: true, list: true, default: g.items.join("\n") },
   ]),
+
+  // 소개(About) 상세
+  { key: "founding.title", section: "소개(About)", label: "설립 배경 — 제목", multiline: false, default: founding.title },
+  { key: "founding.lead", section: "소개(About)", label: "설립 배경 — 리드", multiline: true, default: founding.lead },
+  { key: "founding.paragraphs", section: "소개(About)", label: "설립 배경 — 본문 (빈 줄로 문단 구분)", multiline: true, paragraphs: true, default: founding.paragraphs.join(PARA) },
+  { key: "whoWeAre.title", section: "소개(About)", label: "GCM은 어떤 곳인가 — 제목", multiline: false, default: whoWeAre.title },
+  { key: "whoWeAre.lead", section: "소개(About)", label: "GCM은 어떤 곳인가 — 리드", multiline: true, default: whoWeAre.lead },
+  ...whoWeAre.pillars.flatMap((p, i) => [
+    { key: `whoWeAre.pillar.${i}.title`, section: "소개(About)", label: `핵심가치 ${i + 1} — 제목`, multiline: false, default: p.title },
+    { key: `whoWeAre.pillar.${i}.body`, section: "소개(About)", label: `핵심가치 ${i + 1} — 내용`, multiline: true, default: p.body },
+  ]),
+
+  // 컨설팅 페이지 전문 (주요 헤딩·리드)
+  { key: "cx.hero.title", section: "컨설팅 전문", label: "히어로 — 제목", multiline: true, default: cx.hero.title },
+  { key: "cx.hero.sub", section: "컨설팅 전문", label: "히어로 — 설명", multiline: true, default: cx.hero.sub },
+  { key: "cx.philosophy.title", section: "컨설팅 전문", label: "철학 — 제목", multiline: false, default: cx.philosophy.title },
+  { key: "cx.philosophy.paragraphs", section: "컨설팅 전문", label: "철학 — 본문 (빈 줄로 문단 구분)", multiline: true, paragraphs: true, default: cx.philosophy.paragraphs.join(PARA) },
+  { key: "cx.investment.title", section: "컨설팅 전문", label: "투자 — 제목", multiline: false, default: cx.investment.title },
+  { key: "cx.investment.sub", section: "컨설팅 전문", label: "투자 — 설명", multiline: true, default: cx.investment.sub },
+  { key: "cx.roleModels.title", section: "컨설팅 전문", label: "롤모델 — 제목", multiline: false, default: cx.roleModels.title },
+  { key: "cx.roleModels.lead", section: "컨설팅 전문", label: "롤모델 — 리드", multiline: true, default: cx.roleModels.lead },
 ];
 
 export function fieldFor(key: string): CmsField | undefined {
@@ -107,6 +133,8 @@ export const CMS_SECTIONS: { slug: string; label: string }[] = [
   { slug: "training", label: "트레이닝" },
   { slug: "scholarship", label: "장학" },
   { slug: "pages", label: "컨설팅·취미반" },
+  { slug: "about", label: "소개(About)" },
+  { slug: "consulting", label: "컨설팅 전문" },
 ];
 
 /** 오버라이드 맵을 한 번만 조회(요청 단위 캐시). 테이블 없거나 미설정이면 빈 맵. */
