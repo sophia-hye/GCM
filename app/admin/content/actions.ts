@@ -49,10 +49,8 @@ export async function saveContentField(
     }
   }
 
-  // 콘텐츠가 노출되는 페이지 갱신 (홈=히어로·인사말, 소개=인사말, 코치=코치소개)
-  revalidatePath("/");
-  revalidatePath("/about");
-  revalidatePath("/coaches");
+  // 콘텐츠가 여러 페이지에 걸쳐 노출되므로 루트 레이아웃 전체를 갱신한다.
+  revalidatePath("/", "layout");
   revalidatePath("/admin/content");
   return { ok: true };
 }

@@ -1,5 +1,16 @@
 import { cache } from "react";
-import { directorMessage as d, heroSlides, team } from "@/lib/site-data";
+import {
+  directorMessage as d,
+  heroSlides,
+  team,
+  siteGuideLead,
+  teamLead,
+  programsLead,
+  faqContact,
+  consulting,
+  scholarship,
+  recreational,
+} from "@/lib/site-data";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 
@@ -42,6 +53,18 @@ export const CMS_FIELDS: CmsField[] = [
     { key: `coach.${i}.role`, section: "코치 소개", label: `코치 ${i + 1} — 직함`, multiline: false, default: m.role },
     { key: `coach.${i}.bio`, section: "코치 소개", label: `코치 ${i + 1} — 소개`, multiline: true, default: m.bio },
   ]),
+
+  // 주요 섹션 문구
+  { key: "section.siteGuideLead", section: "주요 섹션 문구", label: "홈 둘러보기(Explore) 리드", multiline: true, default: siteGuideLead },
+  { key: "section.teamLead", section: "주요 섹션 문구", label: "코치진 섹션 리드", multiline: true, default: teamLead },
+  { key: "section.programsLead", section: "주요 섹션 문구", label: "트레이닝 시스템 리드", multiline: true, default: programsLead },
+  { key: "section.ctaTitle", section: "주요 섹션 문구", label: "하단 CTA 제목", multiline: false, default: faqContact.title },
+  { key: "section.ctaSub", section: "주요 섹션 문구", label: "하단 CTA 설명", multiline: true, default: faqContact.sub },
+  { key: "section.consultingTitle", section: "주요 섹션 문구", label: "컨설팅 제목", multiline: false, default: consulting.title },
+  { key: "section.consultingLead", section: "주요 섹션 문구", label: "컨설팅 리드", multiline: true, default: consulting.lead },
+  { key: "section.scholarshipTitle", section: "주요 섹션 문구", label: "장학 제목", multiline: false, default: scholarship.title },
+  { key: "section.scholarshipLead", section: "주요 섹션 문구", label: "장학 리드", multiline: true, default: scholarship.lead },
+  { key: "section.recreationalLead", section: "주요 섹션 문구", label: "키즈·취미반 리드", multiline: true, default: recreational.lead },
 ];
 
 export function fieldFor(key: string): CmsField | undefined {

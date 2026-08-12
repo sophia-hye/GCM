@@ -20,7 +20,11 @@ export async function Team() {
 
   return (
     <Section id="team">
-      <SectionHeading eyebrow="Team" title={ui.teamTitle} lead={teamLead} />
+      <SectionHeading
+        eyebrow="Team"
+        title={ui.teamTitle}
+        lead={cmsText(map, "section.teamLead", teamLead, ko)}
+      />
 
       <div className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
         {members.map((member, i) => (

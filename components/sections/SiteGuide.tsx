@@ -39,7 +39,9 @@ export async function SiteGuide() {
           Starts Here
         </h2>
 
-        <p className="mt-5 text-lg leading-relaxed text-muted">{siteGuideLead}</p>
+        <p className="mt-5 text-lg leading-relaxed text-muted">
+          {cmsText(map, "section.siteGuideLead", siteGuideLead, ko)}
+        </p>
       </Reveal>
 
       {/* 대표 원장 인사말 — 요약 전문을 카드 안에 노출 */}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
+import { getContentMap, cmsText } from "@/lib/cms";
 
 const CLASS_IMAGES: Record<string, string> = {
   KIDS: "/img/kids-class.png",
@@ -10,15 +11,17 @@ const CLASS_IMAGES: Record<string, string> = {
 
 export async function Recreational() {
   const locale = await getLocale();
+  const ko = locale === "ko";
   const { recreational } = getDict(locale);
   const ui = getUI(locale);
+  const map = await getContentMap();
 
   return (
     <Section id="recreational" tone="muted">
       <SectionHeading
         eyebrow="Kids & Amateur Club"
         title={ui.recreationalTitle}
-        lead={recreational.lead}
+        lead={cmsText(map, "section.recreationalLead", recreational.lead, ko)}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2">
         {recreational.classes.map((c) => (
