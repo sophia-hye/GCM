@@ -1,16 +1,18 @@
 "use client";
 
-import { useActionState, useRef, useEffect } from "react";
-import { createPopup } from "@/app/admin/popups/actions";
-import type { AdminState } from "@/app/admin/actions";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+import { createPopupUploadUrl, savePopup } from "@/app/admin/popups/actions";
+
+const MAX_BYTES = 10 * 1024 * 1024; // 10MB
 
 export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
-  const [state, action, pending] = useActionState<AdminState, FormData>(createPopup, {});
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state.ok) formRef.current?.reset();
-  }, [state.ok]);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [ok, setOk] = useState(false);
 
   const fieldClass =
     "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
@@ -23,16 +25,71 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
     );
   }
 
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    setOk(false);
+
+    const fd = new FormData(e.currentTarget);
+    const file = fd.get("image");
+    const linkUrl = String(fd.get("link_url") ?? "");
+
+    if (!(file instanceof File) || file.size === 0) {
+      setError("이미지를 선택해 주세요.");
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      setError("이미지 파일만 업로드할 수 있습니다.");
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      setError("이미지는 10MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
+      return;
+    }
+
+    setPending(true);
+    try {
+      // 1) 서버에서 서명 업로드 URL 발급
+      const urlRes = await createPopupUploadUrl(file.name);
+      if (!urlRes.ok) {
+        setError(urlRes.error);
+        return;
+      }
+      // 2) 브라우저 → Supabase 스토리지로 직접 업로드 (Vercel 우회)
+      const supabase = createClient();
+      const { error: upErr } = await supabase.storage
+        .from("gallery")
+        .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType: file.type });
+      if (upErr) {
+        setError(`업로드 실패: ${upErr.message}`);
+        return;
+      }
+      // 3) 서버에 레코드 저장
+      const saveRes = await savePopup(urlRes.path, linkUrl);
+      if (saveRes.error) {
+        setError(saveRes.error);
+        return;
+      }
+      setOk(true);
+      formRef.current?.reset();
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "업로드 중 오류가 발생했습니다.");
+    } finally {
+      setPending(false);
+    }
+  }
+
   return (
     <form
       ref={formRef}
-      action={action}
+      onSubmit={onSubmit}
       className="space-y-4 rounded-2xl border border-line bg-card p-6"
     >
       <h2 className="font-display text-lg font-bold">새 팝업 추가</h2>
 
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-muted">팝업 이미지</label>
+        <label className="mb-1.5 block text-xs font-semibold text-muted">팝업 이미지 (최대 10MB)</label>
         <input
           type="file"
           name="image"
@@ -54,12 +111,12 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
         />
       </div>
 
-      {state.error ? (
+      {error ? (
         <p className="rounded-lg border border-danger/40 bg-danger/10 px-3 py-2 text-sm text-danger">
-          {state.error}
+          {error}
         </p>
       ) : null}
-      {state.ok ? (
+      {ok ? (
         <p className="rounded-lg border border-lime/40 bg-lime/10 px-3 py-2 text-sm text-lime">
           팝업이 등록되었습니다.
         </p>
