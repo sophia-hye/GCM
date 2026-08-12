@@ -1,19 +1,22 @@
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
+import { getContentMap, cmsText } from "@/lib/cms";
 
 export async function Scholarship() {
   const locale = await getLocale();
+  const ko = locale === "ko";
   const { scholarship } = getDict(locale);
   const ui = getUI(locale);
+  const map = await getContentMap();
   const applyLabel = locale === "en" ? "Required for application" : "신청 시 준비 항목";
 
   return (
     <Section id="scholarship">
       <SectionHeading
         eyebrow="Apply for Scholarship"
-        title={scholarship.title}
-        lead={scholarship.lead}
+        title={cmsText(map, "section.scholarshipTitle", scholarship.title, ko)}
+        lead={cmsText(map, "section.scholarshipLead", scholarship.lead, ko)}
       />
 
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">

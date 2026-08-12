@@ -3,16 +3,23 @@ import { Section, SectionHeading, Button } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
+import { getContentMap, cmsText } from "@/lib/cms";
 
 export async function Programs() {
   const locale = await getLocale();
+  const ko = locale === "ko";
   const { programs, programsLead } = getDict(locale);
   const ui = getUI(locale);
+  const map = await getContentMap();
 
   return (
     <Section id="programs" reveal={false}>
       <Reveal>
-        <SectionHeading eyebrow="Programmes" title={ui.programsTitle} lead={programsLead} />
+        <SectionHeading
+          eyebrow="Programmes"
+          title={ui.programsTitle}
+          lead={cmsText(map, "section.programsLead", programsLead, ko)}
+        />
       </Reveal>
       <Reveal className="mt-12">
         <Image

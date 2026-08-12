@@ -1,12 +1,20 @@
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict } from "@/lib/site-content";
+import { getContentMap, cmsText } from "@/lib/cms";
 
 export async function ConsultingIntro() {
-  const { consulting } = getDict(await getLocale());
+  const locale = await getLocale();
+  const ko = locale === "ko";
+  const { consulting } = getDict(locale);
+  const map = await getContentMap();
   return (
     <Section id="consulting">
-      <SectionHeading eyebrow="Consulting" title={consulting.title} lead={consulting.lead} />
+      <SectionHeading
+        eyebrow="Consulting"
+        title={cmsText(map, "section.consultingTitle", consulting.title, ko)}
+        lead={cmsText(map, "section.consultingLead", consulting.lead, ko)}
+      />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {consulting.services.map((s, i) => (
           <div key={s.title} className="border-t border-line pt-6">
