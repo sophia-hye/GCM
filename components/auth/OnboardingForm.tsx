@@ -23,6 +23,7 @@ export function OnboardingForm() {
           <option value="student">선수 본인</option>
           <option value="amateur">아마추어 선수</option>
           <option value="parent">학부모</option>
+          <option value="others">기타 (Others)</option>
         </select>
       </div>
 

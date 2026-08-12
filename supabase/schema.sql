@@ -30,7 +30,7 @@ drop table if exists public.profiles cascade;
 -- ============================================================
 create table public.gcm_profiles (
   id uuid primary key references auth.users (id) on delete cascade,
-  role text not null default 'student' check (role in ('student', 'parent', 'amateur', 'admin')),
+  role text not null default 'student' check (role in ('student', 'parent', 'amateur', 'others', 'admin')),
   name text not null default '',
   phone text,
   email text,
@@ -192,7 +192,7 @@ create policy "gcm_gallery_admin_all" on public.gcm_gallery for all using (publi
 alter table public.gcm_profiles drop constraint if exists gcm_profiles_role_check;
 alter table public.gcm_profiles
   add constraint gcm_profiles_role_check
-  check (role in ('student', 'parent', 'amateur', 'admin'));
+  check (role in ('student', 'parent', 'amateur', 'others', 'admin'));
 
 -- ============================================================
 -- 관리자 지정 (시드/가입 후 1회):

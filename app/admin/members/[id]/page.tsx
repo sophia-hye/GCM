@@ -6,7 +6,7 @@ import { setMemberApproved } from "@/app/admin/actions";
 
 export const metadata = { title: "회원 상세 | GCM Admin" };
 
-const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어" };
+const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어", others: "기타" };
 const moodEmoji: Record<number, string> = { 1: "😣", 2: "😕", 3: "😐", 4: "🙂", 5: "😄" };
 
 export default async function MemberDetailPage({
