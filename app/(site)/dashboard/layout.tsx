@@ -64,13 +64,7 @@ export default async function DashboardLayout({
     return (
       <div className="pt-16">
         <Container className="py-10">
-          <div className="mb-6 flex flex-wrap justify-end gap-2">
-            <Link
-              href="/admin/analyses"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-court-bright"
-            >
-              매치피드백
-            </Link>
+          <div className="mb-6 flex justify-end">
             <Link
               href="/admin"
               className="inline-flex items-center gap-2 rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-[#08111f] transition hover:brightness-110"
