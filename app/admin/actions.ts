@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isAdminConfigured } from "@/lib/supabase/env";
 import { normalizePhone, toE164 } from "@/lib/phone";
+import { FAQ_MAX } from "@/lib/faq";
 
 export type AdminState = { ok?: boolean; error?: string };
 
@@ -226,4 +227,107 @@ export async function setVoiceStatus(formData: FormData): Promise<void> {
     .eq("id", id);
   revalidatePath("/admin/voices");
   revalidatePath("/voices");
+}
+
+/* ============================================================
+ * FAQ (gcm_faqs) — Contact 페이지 FAQ 관리, 최대 10개
+ * ============================================================ */
+const faqTableMissing =
+  "저장에 실패했습니다. gcm_faqs 테이블이 없으면 supabase/schema.sql의 FAQ 블록을 SQL Editor에서 먼저 실행해 주세요.";
+
+/** FAQ 신규 등록 (최대 10개) */
+export async function createFaq(_prev: AdminState, formData: FormData): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "관리자 로그인이 필요합니다." };
+
+  const question = String(formData.get("question") ?? "").trim();
+  const answer = String(formData.get("answer") ?? "").trim();
+  if (!question || !answer) return { error: "질문과 답변을 모두 입력해 주세요." };
+
+  const supabase = await createClient();
+  const { count, error: countErr } = await supabase
+    .from("gcm_faqs")
+    .select("id", { count: "exact", head: true });
+  if (countErr) return { error: faqTableMissing };
+  if ((count ?? 0) >= FAQ_MAX) {
+    return { error: `FAQ는 최대 ${FAQ_MAX}개까지 등록할 수 있습니다.` };
+  }
+
+  const { data: last } = await supabase
+    .from("gcm_faqs")
+    .select("sort_order")
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  const nextOrder = (last?.sort_order ?? 0) + 1;
+
+  const { error } = await supabase
+    .from("gcm_faqs")
+    .insert({ question, answer, sort_order: nextOrder });
+  if (error) return { error: faqTableMissing };
+
+  revalidatePath("/admin/faq");
+  revalidatePath("/contact");
+  return { ok: true };
+}
+
+/** FAQ 내용 수정 / 공개여부 토글 */
+export async function updateFaq(_prev: AdminState, formData: FormData): Promise<AdminState> {
+  if (!(await requireAdmin())) return { error: "관리자 로그인이 필요합니다." };
+
+  const id = String(formData.get("id") ?? "");
+  const question = String(formData.get("question") ?? "").trim();
+  const answer = String(formData.get("answer") ?? "").trim();
+  const published = formData.get("published") === "on";
+  if (!id) return { error: "잘못된 요청입니다." };
+  if (!question || !answer) return { error: "질문과 답변을 모두 입력해 주세요." };
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("gcm_faqs")
+    .update({ question, answer, published })
+    .eq("id", id);
+  if (error) return { error: faqTableMissing };
+
+  revalidatePath("/admin/faq");
+  revalidatePath("/contact");
+  return { ok: true };
+}
+
+/** FAQ 삭제 */
+export async function deleteFaq(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const supabase = await createClient();
+  await supabase.from("gcm_faqs").delete().eq("id", id);
+  revalidatePath("/admin/faq");
+  revalidatePath("/contact");
+}
+
+/** FAQ 순서 이동 (인접 항목과 sort_order 교환) */
+export async function moveFaq(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  const dir = String(formData.get("dir") ?? "");
+  if (!id || !["up", "down"].includes(dir)) return;
+
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("gcm_faqs")
+    .select("id, sort_order")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+  const rows = (data ?? []) as { id: string; sort_order: number }[];
+  const idx = rows.findIndex((r) => r.id === id);
+  if (idx === -1) return;
+  const swapIdx = dir === "up" ? idx - 1 : idx + 1;
+  if (swapIdx < 0 || swapIdx >= rows.length) return;
+
+  const a = rows[idx];
+  const b = rows[swapIdx];
+  await supabase.from("gcm_faqs").update({ sort_order: b.sort_order }).eq("id", a.id);
+  await supabase.from("gcm_faqs").update({ sort_order: a.sort_order }).eq("id", b.id);
+  revalidatePath("/admin/faq");
+  revalidatePath("/contact");
 }
