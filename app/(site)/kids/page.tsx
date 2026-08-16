@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { KidsBenefits } from "@/components/sections/KidsBenefits";
+import { TennisCoreValues } from "@/components/sections/TennisCoreValues";
 
 export const metadata = pageMetadata({
   title: "Kids — 왜 아이의 첫 스포츠는 테니스인가 | GCM 테니스 아카데미",
@@ -11,6 +12,7 @@ export default function KidsPage() {
   return (
     <div className="pt-16">
       <KidsBenefits />
+      <TennisCoreValues />
     </div>
   );
 }
