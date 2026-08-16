@@ -121,6 +121,7 @@ const enTeam = [
   {
     name: "Oh Seong-gook",
     role: "Executive Director",
+    dept: "tennis",
     bio: "Oversees elite tennis development and the design of individual growth roadmaps.",
     image: "/coaches/ohseonggook/profile.jpeg",
     achievements: [
@@ -158,6 +159,7 @@ const enTeam = [
   {
     name: "Yoon Jae-won",
     role: "Academy Director",
+    dept: "tennis",
     bio: "Oversees technical development, match operations, daily training and match coaching.",
     image: "",
     achievements: [
@@ -181,6 +183,7 @@ const enTeam = [
   {
     name: "Kim Ju-bin",
     role: "Head Coach",
+    dept: "tennis",
     bio: "Responsible for overall tennis development, correcting competition anxiety and designing routines during match training.",
     image: "/coaches/kimjubin/profile.jpeg",
     achievements: [

@@ -220,6 +220,7 @@ export const team = [
   {
     name: "오성국",
     role: "대표",
+    dept: "tennis",
     nameEn: "Seong-gook Oh",
     roleEn: "Executive Director",
     bio: "엘리트 테니스 육성과 선수별 성장 로드맵 설계를 총괄합니다.",
@@ -259,6 +260,7 @@ export const team = [
   {
     name: "윤재원",
     role: "원장",
+    dept: "tennis",
     nameEn: "Jae-won Yun",
     roleEn: "Academy Director",
     bio: "기술 발달과 경기 운영, 일일 트레이닝과 매치 코칭 전반을 총괄합니다.",
@@ -284,6 +286,7 @@ export const team = [
   {
     name: "김주빈",
     role: "헤드코치",
+    dept: "tennis",
     nameEn: "Ju-bin Kim",
     roleEn: "Head Coach",
     bio: "테니스의 전반적 발달과 경기 훈련 시 불안심리 교정 및 루틴 설계를 담당합니다.",

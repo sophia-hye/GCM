@@ -79,7 +79,7 @@ export function WhyTennis() {
             <h1 className="mx-auto mt-5 max-w-3xl font-display text-3xl font-black leading-[1.2] text-white sm:text-5xl">
               AI가 대체할 수 없는
               <br />
-              <span className="text-[#ffd15c]">1% 영리더</span>의 아우라
+              <span className="text-[#d4ff3d]">1% 영리더</span>의 아우라
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
               AI 시대의 핵심 인재상은 '정답 찾기(Knowledge)'에서 '맥락 파악과 주체적 판단(Meta)'으로
@@ -88,7 +88,7 @@ export function WhyTennis() {
             </p>
             <div className="mx-auto mt-9 grid max-w-3xl gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/20 bg-white/5 p-5 text-left backdrop-blur-sm">
-                <span className="inline-block rounded-full border border-[#ffd15c]/60 bg-[#ffd15c]/15 px-3 py-1 font-display text-sm font-bold text-[#ffd15c]">
+                <span className="inline-block rounded-full border border-[#d4ff3d]/60 bg-[#d4ff3d]/15 px-3 py-1 font-display text-sm font-bold text-[#d4ff3d]">
                   비인지적 능력 (Soft Skills)
                 </span>
                 <p className="mt-2.5 text-sm text-white/85">
@@ -96,7 +96,7 @@ export function WhyTennis() {
                 </p>
               </div>
               <div className="rounded-2xl border border-white/20 bg-white/5 p-5 text-left backdrop-blur-sm">
-                <span className="inline-block rounded-full border border-[#ffd15c]/60 bg-[#ffd15c]/15 px-3 py-1 font-display text-sm font-bold text-[#ffd15c]">
+                <span className="inline-block rounded-full border border-[#d4ff3d]/60 bg-[#d4ff3d]/15 px-3 py-1 font-display text-sm font-bold text-[#d4ff3d]">
                   실시간 뇌지컬 (Meta-Cognitive)
                 </span>
                 <p className="mt-2.5 text-sm text-white/85">
