@@ -2,7 +2,7 @@ import { Section, SectionHeading } from "@/components/ui";
 import { CoachCard } from "@/components/CoachCard";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
-import { getContentMap, cmsText } from "@/lib/cms";
+import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 import { educationCoaches } from "@/lib/education-coaches";
 
 export async function Team() {
@@ -69,27 +69,30 @@ export async function Team() {
           </div>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {educationCoaches.map((c) => (
-              <div key={c.no} className="rounded-2xl border border-line bg-card/40 p-6">
-                <span className="font-display text-sm font-semibold tabular-nums text-muted">
-                  {c.no}
-                </span>
-                <h4 className="mt-2 break-keep font-display text-xl font-bold">
-                  {ko ? c.title.ko : c.title.en}
-                </h4>
-                <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
-                  {ko ? c.desc.ko : c.desc.en}
-                </p>
-                <ul className="mt-4 space-y-2.5 border-t border-line pt-4">
-                  {c.points.map((p, i) => (
-                    <li key={i} className="flex gap-2 break-keep text-sm leading-relaxed text-ink/85">
-                      <span className="mt-0.5 shrink-0 font-semibold text-court">+</span>
-                      <span>{ko ? p.ko : p.en}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {educationCoaches.map((c, ci) => {
+              const fbPoints = c.points.map((p) => (ko ? p.ko : p.en));
+              return (
+                <div key={c.no} className="rounded-2xl border border-line bg-card/40 p-6">
+                  <span className="font-display text-sm font-semibold tabular-nums text-muted">
+                    {c.no}
+                  </span>
+                  <h4 className="mt-2 break-keep font-display text-xl font-bold">
+                    {cmsText(map, `eduCoach.${ci}.title`, ko ? c.title.ko : c.title.en, ko)}
+                  </h4>
+                  <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
+                    {cmsText(map, `eduCoach.${ci}.desc`, ko ? c.desc.ko : c.desc.en, ko)}
+                  </p>
+                  <ul className="mt-4 space-y-2.5 border-t border-line pt-4">
+                    {cmsList(map, `eduCoach.${ci}.points`, fbPoints, ko).map((p, i) => (
+                      <li key={i} className="flex gap-2 break-keep text-sm leading-relaxed text-ink/85">
+                        <span className="mt-0.5 shrink-0 font-semibold text-court">+</span>
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
