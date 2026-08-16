@@ -114,6 +114,7 @@ export function WhyTennis() {
           eyebrow="Core Competencies"
           title="테니스가 길러주는 4가지 핵심 역량"
           lead="주체성, 회복 탄력성, 정직한 태도, 전략적 사고 — 미래의 사회적 인재상과 완벽히 궤를 같이 합니다."
+          wideLead
         />
         <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-2">
           {CORE.map((c) => (
@@ -140,6 +141,7 @@ export function WhyTennis() {
           eyebrow="Unrivaled"
           title="테니스만이 가진 독보적인 강점"
           lead="축구·수영·골프·농구와 비교했을 때, 테니스만의 Unique하고 Unrivaled한 가치."
+          wideLead
         />
         <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-2">
           {UNIQUE.map((u, i) => (
@@ -157,6 +159,7 @@ export function WhyTennis() {
           eyebrow="Symbolic Capital"
           title="Top Class가 테니스에 빠지는 이유"
           lead="어릴 때 배우는 테니스는 상류 사회·비즈니스 인프라에 자연스럽게 진입하는 최고의 '상징 자본'과 '인적 자산'입니다."
+          wideLead
         />
         <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3">
           {TOPCLASS.map((t, i) => (
@@ -181,6 +184,7 @@ export function WhyTennis() {
           eyebrow="Mindset"
           title="위기를 대하는 태도가 달라집니다"
           lead="코트 위에서 외로움을 견디고 순간의 위기를 전략으로 극복한 경험은, 훗날 거대한 위기 상황에서 엄청난 멘탈 자산이 됩니다."
+          wideLead
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           <Reveal className="rounded-2xl border border-line bg-base/40 p-6">

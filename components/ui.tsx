@@ -79,6 +79,7 @@ export function SectionHeading({
   lead,
   center = false,
   nowrap = false,
+  wideLead = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -86,6 +87,8 @@ export function SectionHeading({
   center?: boolean;
   /** 데스크탑(lg+)에서 제목을 한 줄로 유지 */
   nowrap?: boolean;
+  /** 설명(lead)의 폭 제한(max-w-2xl)을 풀어 넓은 화면에서 한 줄로 유지 */
+  wideLead?: boolean;
 }) {
   return (
     <div className={center ? "mx-auto text-center" : ""}>
@@ -99,9 +102,9 @@ export function SectionHeading({
       </h2>
       {lead ? (
         <p
-          className={`mt-5 max-w-2xl whitespace-pre-line break-keep text-lg leading-relaxed text-muted ${
-            center ? "mx-auto" : ""
-          }`}
+          className={`mt-5 whitespace-pre-line break-keep text-lg leading-relaxed text-muted ${
+            wideLead ? "" : "max-w-2xl"
+          } ${center ? "mx-auto" : ""}`}
         >
           {lead}
         </p>
