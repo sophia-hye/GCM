@@ -5,9 +5,8 @@ import { site } from "@/lib/site-data";
 
 type Bi = { ko: string; en: string };
 
-const REASONS: { emoji: string; title: Bi; sub: Bi; source: Bi; body: Bi }[] = [
+const REASONS: { title: Bi; sub: Bi; source: Bi; body: Bi }[] = [
   {
-    emoji: "🧠",
     title: { ko: "전두엽 & 소뇌 동시 자극", en: "Frontal Lobe & Cerebellum, Activated at Once" },
     sub: { ko: "학습 집중력 향상", en: "Sharper focus for learning" },
     source: {
@@ -20,7 +19,6 @@ const REASONS: { emoji: string; title: Bi; sub: Bi; source: Bi; body: Bi }[] = [
     },
   },
   {
-    emoji: "📏",
     title: { ko: "성장판 자극 및 전신 코어 강화", en: "Growth-Plate Stimulation & Full-Body Core" },
     sub: { ko: "균형 잡힌 신체 발달", en: "Balanced physical development" },
     source: {
@@ -33,7 +31,6 @@ const REASONS: { emoji: string; title: Bi; sub: Bi; source: Bi; body: Bi }[] = [
     },
   },
   {
-    emoji: "🛡️",
     title: { ko: "회복탄력성 & 높은 멘탈 지수", en: "Resilience & a High Mental Index" },
     sub: { ko: "자기 효능감 · 위기 관리", en: "Self-efficacy & crisis management" },
     source: { ko: "미국 스포츠심리학회(AASP) 연구", en: "Association for Applied Sport Psychology (AASP)" },
@@ -43,7 +40,6 @@ const REASONS: { emoji: string; title: Bi; sub: Bi; source: Bi; body: Bi }[] = [
     },
   },
   {
-    emoji: "🤝",
     title: { ko: "평생 유지되는 사회성 & 매너", en: "Lifelong Social Skills & Manners" },
     sub: { ko: "배려심 · 공감 능력", en: "Consideration & empathy" },
     source: {
@@ -56,7 +52,6 @@ const REASONS: { emoji: string; title: Bi; sub: Bi; source: Bi; body: Bi }[] = [
     },
   },
   {
-    emoji: "❤️",
     title: { ko: "장기적 신체 건강 & 수명 연장", en: "Long-Term Health & Longevity" },
     sub: { ko: "평생의 신체·정신 자산", en: "A lifelong physical & mental asset" },
     source: { ko: "코펜하겐 심장 연구 (Copenhagen City Heart Study)", en: "Copenhagen City Heart Study" },
@@ -119,15 +114,15 @@ export async function KidsBenefits() {
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {REASONS.map((r, i) => (
             <Reveal
-              key={r.emoji}
+              key={r.title.en}
               delay={i * 60}
               className={`rounded-2xl border border-line bg-card/40 p-6 ${
                 i === REASONS.length - 1 ? "md:col-span-2" : ""
               }`}
             >
               <div className="flex items-start gap-4">
-                <span className="text-3xl leading-none" aria-hidden>
-                  {r.emoji}
+                <span className="font-display text-lg font-black tabular-nums text-court/40">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <h3 className="break-keep font-display text-xl font-bold">{t(r.title)}</h3>
@@ -146,8 +141,8 @@ export async function KidsBenefits() {
       {/* VIP 특별 혜택 CTA */}
       <Section tone="muted">
         <Reveal className="mx-auto max-w-2xl rounded-3xl border border-court/25 bg-court/5 p-8 text-center sm:p-12">
-          <p className="text-3xl" aria-hidden>
-            🎁
+          <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-court-bright">
+            VIP Offer
           </p>
           <h2 className="mt-3 break-keep font-display text-2xl font-black sm:text-3xl">
             {ko ? "GCM KIDS VIP 특별 혜택" : "GCM KIDS VIP Special Offer"}
