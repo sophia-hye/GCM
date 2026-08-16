@@ -88,10 +88,10 @@ export function SectionHeading({
   nowrap?: boolean;
 }) {
   return (
-    <div className={`${nowrap ? "max-w-none" : "max-w-2xl"} ${center ? "mx-auto text-center" : ""}`}>
+    <div className={center ? "mx-auto text-center" : ""}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <h2
-        className={`mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl ${
+        className={`mt-4 break-keep font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl ${
           nowrap ? "lg:whitespace-nowrap" : ""
         }`}
       >
@@ -99,8 +99,8 @@ export function SectionHeading({
       </h2>
       {lead ? (
         <p
-          className={`mt-5 whitespace-pre-line text-lg leading-relaxed text-muted ${
-            nowrap && center ? "mx-auto max-w-2xl" : ""
+          className={`mt-5 max-w-2xl whitespace-pre-line break-keep text-lg leading-relaxed text-muted ${
+            center ? "mx-auto" : ""
           }`}
         >
           {lead}

@@ -43,6 +43,8 @@ body {
   background-color: var(--color-base);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  /* 한글 단어 중간에서 줄바꿈되지 않도록(단어/어절 단위 줄바꿈) */
+  word-break: keep-all;
   /* 평면감 제거용 따뜻한 클레이 톤 배경 레이어 (이미지 없이 깊이감) */
   background-image:
     radial-gradient(1100px 620px at 100% -8%, rgba(194, 73, 43, 0.07), transparent 60%),
