@@ -8,8 +8,8 @@ import { getLocale } from "@/lib/i18n";
 import { formatEventDate, type SeouliteEvent } from "@/lib/events";
 
 export const metadata = pageMetadata({
-  title: "Seoulite Net'work | GCM 테니스 아카데미",
-  description: "한남동에서 열리는 GCM Seoulite Net'work 월간 모임. 그날의 순간들을 후기로 만나보세요.",
+  title: "한남 GCM Festival | GCM 테니스 아카데미",
+  description: "한남동에서 열리는 GCM 한남 GCM Festival 월간 모임. 그날의 순간들을 후기로 만나보세요.",
   path: "/events/seoulite",
 });
 
@@ -32,7 +32,7 @@ export default async function SeoulitePage() {
       <div className="pt-16">
         <ComingSoon
           eyebrow="Social Events"
-          title="Seoulite Net'work"
+          title="한남 GCM Festival"
           desc="한남동에서 열리는 월간 모임 후기를 준비하고 있습니다. 곧 만나보실 수 있습니다."
         />
       </div>
@@ -44,7 +44,7 @@ export default async function SeoulitePage() {
       <Section>
         <SectionHeading
           eyebrow="Social Events"
-          title="Seoulite Net'work"
+          title="한남 GCM Festival"
           lead={
             ko
               ? "한남동에서 열리는 GCM의 월간 모임. 그날의 순간들을 담았습니다."

@@ -13,7 +13,7 @@ const menu = [
   { label: "매치피드백", href: "/admin/analyses" },
   { label: "선수 관리", href: "/admin/players" },
   { label: "프로그램(상점) 관리", href: "/admin/programs" },
-  { label: "Seoulite 모임 관리", href: "/admin/events" },
+  { label: "한남 GCM Festival 관리", href: "/admin/events" },
   { label: "이야기 게시판", href: "/admin/voices" },
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
   { label: "갤러리 관리", href: "/admin/gallery" },
