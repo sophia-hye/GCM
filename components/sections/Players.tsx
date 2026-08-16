@@ -1,15 +1,40 @@
 import { Section, SectionHeading } from "@/components/ui";
+import { PlayerCard } from "@/components/PlayerCard";
+import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
 import { getUI } from "@/lib/site-content";
+import type { Player } from "@/lib/players";
 
 export async function Players() {
-  const ui = getUI(await getLocale());
+  const locale = await getLocale();
+  const ko = locale === "ko";
+  const ui = getUI(locale);
+
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("gcm_players")
+    .select("id, slug, name, grad_year, utr, track, result, video_url, image, bio, sort_order, published")
+    .eq("published", true)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: false });
+
+  const players = (data ?? []) as Player[];
+
   return (
     <Section id="players" tone="muted">
       <SectionHeading eyebrow="Our Players" title={ui.playersTitle} lead={ui.playersLead} />
-      <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
-        <p className="text-sm text-muted">{ui.playersComing}</p>
-      </div>
+
+      {players.length > 0 ? (
+        <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {players.map((p) => (
+            <PlayerCard key={p.id} player={p} ko={ko} />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
+          <p className="text-sm text-muted">{ui.playersComing}</p>
+        </div>
+      )}
     </Section>
   );
 }
