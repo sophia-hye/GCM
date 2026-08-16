@@ -10,7 +10,7 @@ import { formatEventDate, type SeouliteEvent } from "@/lib/events";
 export const metadata = pageMetadata({
   title: "한남 GCM Festival | GCM 테니스 아카데미",
   description: "한남동에서 열리는 GCM 한남 GCM Festival 월간 모임. 그날의 순간들을 후기로 만나보세요.",
-  path: "/events/seoulite",
+  path: "/events/hannam-festival",
 });
 
 export default async function SeoulitePage() {
@@ -56,7 +56,7 @@ export default async function SeoulitePage() {
           {events.map((ev) => (
             <Link
               key={ev.id}
-              href={`/events/seoulite/${ev.slug}`}
+              href={`/events/hannam-festival/${ev.slug}`}
               className="group relative aspect-square overflow-hidden rounded-lg bg-court-deep"
             >
               {ev.images[0] ? (
