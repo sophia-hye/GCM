@@ -2,6 +2,7 @@ import { cache } from "react";
 import { getDict } from "@/lib/site-content";
 import { getConsultingExtra } from "@/lib/consulting-content";
 import { educationCoaches } from "@/lib/education-coaches";
+import { WTL_TEXT, LEADER_REASONS, LIFE_CHANGES } from "@/lib/why-tennis-content";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 
@@ -130,6 +131,30 @@ export const CMS_FIELDS: CmsField[] = [
   { key: "cx.investment.sub", section: "컨설팅 전문", label: "투자 — 설명", multiline: true, default: s(cxK.investment.sub), defaultEn: s(cxE.investment.sub) },
   { key: "cx.roleModels.title", section: "컨설팅 전문", label: "롤모델 — 제목", multiline: false, default: s(cxK.roleModels.title), defaultEn: s(cxE.roleModels.title) },
   { key: "cx.roleModels.lead", section: "컨설팅 전문", label: "롤모델 — 리드", multiline: true, default: s(cxK.roleModels.lead), defaultEn: s(cxE.roleModels.lead) },
+
+  // Why Tennis (The Court of Leaders)
+  { key: "wtl.hero.intro", section: "Why Tennis", label: "히어로 — 설명", multiline: true, default: WTL_TEXT.heroIntro.ko, defaultEn: WTL_TEXT.heroIntro.en },
+  { key: "wtl.leaders.title", section: "Why Tennis", label: "리더 섹션 — 제목", multiline: false, default: WTL_TEXT.leadersTitle.ko, defaultEn: WTL_TEXT.leadersTitle.en },
+  { key: "wtl.leaders.lead", section: "Why Tennis", label: "리더 섹션 — 리드", multiline: true, default: WTL_TEXT.leadersLead.ko, defaultEn: WTL_TEXT.leadersLead.en },
+  ...LEADER_REASONS.flatMap((r, i) => [
+    { key: `wtl.leader.${i}.title`, section: "Why Tennis", label: `이유 ${i + 1} — 제목`, multiline: false, default: r.title.ko, defaultEn: r.title.en },
+    { key: `wtl.leader.${i}.lead`, section: "Why Tennis", label: `이유 ${i + 1} — 리드`, multiline: true, default: r.lead.ko, defaultEn: r.lead.en },
+    ...r.points.flatMap((p, pi) => [
+      { key: `wtl.leader.${i}.p${pi}k`, section: "Why Tennis", label: `이유 ${i + 1} — 포인트 ${pi + 1} 제목`, multiline: false, default: p.k.ko, defaultEn: p.k.en },
+      { key: `wtl.leader.${i}.p${pi}v`, section: "Why Tennis", label: `이유 ${i + 1} — 포인트 ${pi + 1} 내용`, multiline: true, default: p.v.ko, defaultEn: p.v.en },
+    ]),
+  ]),
+  { key: "wtl.brand.q", section: "Why Tennis", label: "브랜드 카피 — 질문", multiline: true, default: WTL_TEXT.brandQ.ko, defaultEn: WTL_TEXT.brandQ.en },
+  { key: "wtl.brand.body", section: "Why Tennis", label: "브랜드 카피 — 본문", multiline: true, default: WTL_TEXT.brandBody.ko, defaultEn: WTL_TEXT.brandBody.en },
+  { key: "wtl.brand.close", section: "Why Tennis", label: "브랜드 카피 — 마무리", multiline: false, default: WTL_TEXT.brandClose.ko, defaultEn: WTL_TEXT.brandClose.en },
+  { key: "wtl.life.title", section: "Why Tennis", label: "라이프스타일 — 제목", multiline: false, default: WTL_TEXT.lifeTitle.ko, defaultEn: WTL_TEXT.lifeTitle.en },
+  { key: "wtl.life.lead", section: "Why Tennis", label: "라이프스타일 — 리드", multiline: true, default: WTL_TEXT.lifeLead.ko, defaultEn: WTL_TEXT.lifeLead.en },
+  ...LIFE_CHANGES.flatMap((c, i) => [
+    { key: `wtl.life.${i}.title`, section: "Why Tennis", label: `변화 ${i + 1} — 제목`, multiline: false, default: c.title.ko, defaultEn: c.title.en },
+    { key: `wtl.life.${i}.points`, section: "Why Tennis", label: `변화 ${i + 1} — 항목`, multiline: true, list: true, default: c.points.map((p) => p.ko).join("\n"), defaultEn: c.points.map((p) => p.en).join("\n") },
+  ]),
+  { key: "wtl.cta.body", section: "Why Tennis", label: "CTA — 설명", multiline: true, default: WTL_TEXT.ctaBody.ko, defaultEn: WTL_TEXT.ctaBody.en },
+  { key: "wtl.cta.button", section: "Why Tennis", label: "CTA — 버튼", multiline: false, default: WTL_TEXT.ctaButton.ko, defaultEn: WTL_TEXT.ctaButton.en },
 ];
 
 export function fieldFor(key: string): CmsField | undefined {
@@ -146,6 +171,7 @@ export const CMS_SECTIONS: { slug: string; label: string }[] = [
   { slug: "pages", label: "컨설팅·취미반" },
   { slug: "about", label: "소개(About)" },
   { slug: "consulting", label: "컨설팅 전문" },
+  { slug: "why-tennis", label: "Why Tennis" },
 ];
 
 /** 오버라이드 키 조합: `${locale}::${key}` */
