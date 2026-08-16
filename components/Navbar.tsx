@@ -59,7 +59,16 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                 className={`flex items-center gap-1 whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors hover:opacity-80 ${linkColor}`}
               >
                 {group.label}
-                <span className="text-[9px] opacity-70">▾</span>
+                <svg
+                  className="h-3 w-3 opacity-70 transition-transform duration-200 group-hover:rotate-180"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  aria-hidden
+                >
+                  <path d="M2.5 4.5 6 8l3.5-3.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </button>
               <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
                 <div className="min-w-[190px] rounded-xl border border-line bg-base/95 p-2 shadow-xl backdrop-blur">
