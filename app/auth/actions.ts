@@ -62,9 +62,9 @@ export async function signInMember(
   if (safeNext) {
     redirect(safeNext);
   }
-  // 관리자 계정이면 관리자 페이지로, 그 외에는 홈으로 이동
+  // 관리자 계정이면 마이페이지(대시보드)로, 그 외에는 홈으로 이동
   if (profile?.role === "admin") {
-    redirect("/admin");
+    redirect("/dashboard");
   }
   redirect("/");
 }
