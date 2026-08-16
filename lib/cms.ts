@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { getDict } from "@/lib/site-content";
 import { getConsultingExtra } from "@/lib/consulting-content";
+import { educationCoaches } from "@/lib/education-coaches";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 
@@ -67,6 +68,12 @@ export const CMS_FIELDS: CmsField[] = [
   { key: "section.ctaSub", section: "홈", label: "하단 CTA 설명", multiline: true, default: s(K.faqContact.sub), defaultEn: s(E.faqContact.sub) },
 
   { key: "section.teamLead", section: "코치진", label: "코치진 섹션 리드", multiline: true, default: s(K.teamLead), defaultEn: s(E.teamLead) },
+
+  ...educationCoaches.flatMap((c, i) => [
+    { key: `eduCoach.${i}.title`, section: "코치진", label: `교육 코치 ${i + 1} — 이름`, multiline: false, default: c.title.ko, defaultEn: c.title.en },
+    { key: `eduCoach.${i}.desc`, section: "코치진", label: `교육 코치 ${i + 1} — 설명`, multiline: true, default: c.desc.ko, defaultEn: c.desc.en },
+    { key: `eduCoach.${i}.points`, section: "코치진", label: `교육 코치 ${i + 1} — 항목`, multiline: true, list: true, default: c.points.map((p) => p.ko).join("\n"), defaultEn: c.points.map((p) => p.en).join("\n") },
+  ]),
 
   { key: "section.consultingTitle", section: "컨설팅·취미반", label: "컨설팅 제목", multiline: false, default: s(K.consulting.title), defaultEn: s(E.consulting.title) },
   { key: "section.consultingLead", section: "컨설팅·취미반", label: "컨설팅 리드", multiline: true, default: s(K.consulting.lead), defaultEn: s(E.consulting.lead) },
