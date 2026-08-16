@@ -266,3 +266,23 @@ create policy "gcm_voices_insert_own" on public.gcm_voices for insert
 -- 승인/반려/수정은 관리자만
 create policy "gcm_voices_admin_all" on public.gcm_voices for all
   using (public.is_gcm_admin()) with check (public.is_gcm_admin());
+
+-- ============================================================
+-- 8) FAQ (gcm_faqs) — 관리자가 Contact 페이지 FAQ 관리 (최대 10개는 앱에서 제한)
+--    이 블록만 SQL Editor 에 붙여넣어 단독 실행 가능(다른 테이블 영향 없음).
+-- ============================================================
+create table if not exists public.gcm_faqs (
+  id uuid primary key default gen_random_uuid(),
+  question text not null,
+  answer text not null,
+  sort_order int not null default 0,
+  published boolean not null default true,
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_faqs enable row level security;
+create index if not exists gcm_faqs_order_idx on public.gcm_faqs (sort_order asc, created_at asc);
+drop policy if exists "gcm_faqs_select_published" on public.gcm_faqs;
+create policy "gcm_faqs_select_published" on public.gcm_faqs for select using (published = true);
+drop policy if exists "gcm_faqs_admin_all" on public.gcm_faqs;
+create policy "gcm_faqs_admin_all" on public.gcm_faqs for all
+  using (public.is_gcm_admin()) with check (public.is_gcm_admin());

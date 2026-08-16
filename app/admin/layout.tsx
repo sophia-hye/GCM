@@ -14,6 +14,7 @@ const menu = [
   { label: "이야기 게시판", href: "/admin/voices" },
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
   { label: "갤러리 관리", href: "/admin/gallery" },
+  { label: "FAQ 관리", href: "/admin/faq" },
   { label: "팝업 관리", href: "/admin/popups" },
   { label: "콘텐츠 편집", href: "/admin/content" },
 ];
