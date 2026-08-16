@@ -41,8 +41,8 @@ export const educationCoaches: EduCoach[] = [
     no: "02",
     title: { ko: "생활관리코치", en: "Life Coach" },
     desc: {
-      ko: "미국 생활 적응과 전인적 성장을 위한 자기관리·리더십·독립성을 기르는 과정입니다.",
-      en: "Develops self-management, leadership and independence for life in the US and whole-person growth.",
+      ko: "글로벌 생활 적응과 전인적 성장을 위한 자기관리·리더십·독립성을 기르는 과정입니다.",
+      en: "Develops self-management, leadership and independence for adapting to global life and whole-person growth.",
     },
     points: [
       { ko: "생활 적응 코칭: 교통, 은행, 통신, 예절, 의사소통", en: "Daily-life adaptation: transit, banking, telecom, etiquette, communication" },

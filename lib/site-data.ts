@@ -45,6 +45,7 @@ export const nav = [
     items: [
       { label: "Testimonials", href: "/voices" },
       { label: "Gallery", href: "/gallery" },
+      { label: "Consulting", href: "/consulting" },
     ],
   },
   {
