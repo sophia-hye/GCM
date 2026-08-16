@@ -26,10 +26,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const ev = await getEvent(slug);
-  if (!ev) return { title: "Seoulite Net'work | GCM 테니스 아카데미" };
+  if (!ev) return { title: "한남 GCM Festival | GCM 테니스 아카데미" };
   return pageMetadata({
-    title: `${ev.title} | Seoulite Net'work`,
-    description: ev.body?.slice(0, 100) || "GCM Seoulite Net'work 모임 후기.",
+    title: `${ev.title} | 한남 GCM Festival`,
+    description: ev.body?.slice(0, 100) || "GCM 한남 GCM Festival 모임 후기.",
     path: `/events/seoulite/${ev.slug}`,
   });
 }
@@ -51,11 +51,11 @@ export default async function EventDetailPage({
     <div className="pt-16">
       <Container className="py-16 sm:py-24">
         <Link href="/events/seoulite" className="text-sm font-semibold text-muted hover:text-court">
-          ← {ko ? "Seoulite Net'work" : "Back to Seoulite Net'work"}
+          ← {ko ? "한남 GCM Festival" : "Back to 한남 GCM Festival"}
         </Link>
 
         <div className="mt-8 max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">Seoulite Net&apos;work</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">한남 GCM Festival</p>
           <h1 className="mt-3 break-keep font-display text-3xl font-black leading-[1.15] sm:text-4xl">
             {ev.title}
           </h1>

@@ -132,7 +132,7 @@ function EventForm({
       </div>
       <label className="flex items-center gap-2 text-sm text-muted">
         <input type="checkbox" name="published" defaultChecked={initial?.published ?? false} className="h-4 w-4" />
-        공개 (체크 시 Seoulite 페이지에 노출)
+        공개 (체크 시 한남 GCM Festival 페이지에 노출)
       </label>
 
       {error ? (
