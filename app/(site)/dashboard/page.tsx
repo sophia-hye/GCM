@@ -11,35 +11,26 @@ export default async function DashboardHome() {
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("name, role")
+    .select("name")
     .eq("id", user!.id)
     .maybeSingle();
 
-  const isAdmin = profile?.role === "admin";
-
-  const cards = isAdmin
-    ? [
-        {
-          title: "매치피드백 관리",
-          desc: "선수들이 작성한 토너먼트·정규 훈련 피드백을 확인하고 코치 피드백을 남깁니다.",
-          href: "/admin/analyses",
-          cta: "관리하기",
-        },
-      ]
-    : [
-        {
-          title: "토너먼트 피드백",
-          desc: "대회 경기를 스스로 돌아보고 기록합니다. 코치 피드백도 여기서 확인하세요.",
-          href: "/match-feedback?type=tournament",
-          cta: "작성하기",
-        },
-        {
-          title: "정규 훈련 피드백",
-          desc: "정규 훈련 내용을 돌아보고 기록합니다. 코치 피드백도 여기서 확인하세요.",
-          href: "/match-feedback?type=training",
-          cta: "작성하기",
-        },
-      ];
+  // 마이페이지는 선수(회원) 화면 — 항상 매치피드백 '작성하기'를 노출한다.
+  // 코치용 매치피드백 관리는 관리자 콘솔(/admin/analyses)에서만 제공한다.
+  const cards = [
+    {
+      title: "토너먼트 피드백",
+      desc: "대회 경기를 스스로 돌아보고 기록합니다. 코치 피드백도 여기서 확인하세요.",
+      href: "/match-feedback?type=tournament",
+      cta: "작성하기",
+    },
+    {
+      title: "정규 훈련 피드백",
+      desc: "정규 훈련 내용을 돌아보고 기록합니다. 코치 피드백도 여기서 확인하세요.",
+      href: "/match-feedback?type=training",
+      cta: "작성하기",
+    },
+  ];
 
   return (
     <div>
