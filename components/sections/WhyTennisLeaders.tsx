@@ -309,7 +309,7 @@ export async function WhyTennisLeaders() {
           <div className="mt-9 flex justify-center">
             <Link
               href="/apply/adult"
-              className="inline-flex items-center gap-2 rounded-full bg-[#d4ff3d] px-9 py-4 font-display text-base font-black text-[#14210a] shadow-lg transition hover:brightness-105 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-[#d4ff3d] px-9 py-4 font-display text-base font-black text-black shadow-lg transition hover:brightness-105 hover:-translate-y-0.5"
             >
               {ko ? "첫 레슨 체험 신청하기" : "Book your first trial lesson"}
               <span aria-hidden>→</span>
