@@ -68,12 +68,19 @@ export default async function AdminContentPage({
   const active = CMS_SECTIONS.find((s) => s.slug === tab) ?? CMS_SECTIONS[0];
 
   const supabase = await createClient();
-  const { data } = await supabase.from("gcm_content").select("key, value");
-  const overrides = new Map<string, string>((data ?? []).map((r) => [r.key, r.value]));
+  const { data } = await supabase.from("gcm_content").select("key, value, locale");
+  // `${locale}::${key}` 로 저장
+  const overrides = new Map<string, string>(
+    (data ?? []).map((r) => [`${r.locale === "en" ? "en" : "ko"}::${r.key}`, r.value]),
+  );
+  const koKey = (k: string) => `ko::${k}`;
+  const enKey = (k: string) => `en::${k}`;
 
   const fields = CMS_FIELDS.filter((f) => f.section === active.label);
   const editedCount = (slugLabel: string) =>
-    CMS_FIELDS.filter((f) => f.section === slugLabel && overrides.has(f.key)).length;
+    CMS_FIELDS.filter(
+      (f) => f.section === slugLabel && (overrides.has(koKey(f.key)) || overrides.has(enKey(f.key))),
+    ).length;
 
   return (
     <div className="space-y-6">
@@ -148,8 +155,10 @@ export default async function AdminContentPage({
           <ContentFieldForm
             key={f.key}
             field={{ key: f.key, label: f.label, multiline: f.multiline, paragraphs: f.paragraphs, list: f.list }}
-            value={overrides.get(f.key) ?? f.default}
-            overridden={overrides.has(f.key)}
+            koValue={overrides.get(koKey(f.key)) ?? f.default}
+            enValue={overrides.get(enKey(f.key)) ?? f.defaultEn}
+            koOverridden={overrides.has(koKey(f.key))}
+            enOverridden={overrides.has(enKey(f.key))}
           />
         ))}
       </div>
