@@ -34,6 +34,7 @@ export const nav = [
     label: "Who we are",
     items: [
       { label: "Players", href: "/players" },
+      { label: "Scholars", href: "/scholarship" },
       { label: "Amateurs", href: "/amateurs" },
       { label: "Kids", href: "/kids" },
     ],
@@ -77,7 +78,7 @@ export const siteGuide = [
   {
     no: "02",
     label: "Executive Director",
-    href: "/about#director-message",
+    href: "/director-message",
     title: "대표 원장 인사말",
     desc: "국제무대를 거친 대표 원장 오성국이 전하는 GCM의 철학과 학부모께 드리는 약속.",
     items: ["대표 원장 인사말", "교육 철학 · 비전", "학부모께 드리는 말"],
