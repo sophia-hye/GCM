@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { site } from "@/lib/site-data";
 import { Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
@@ -44,34 +43,60 @@ export async function Footer() {
             <a href={`mailto:${site.email}`} className="hover:text-court-bright">
               {site.email}
             </a>
-            <Link href={site.instagram} className="hover:text-court-bright">
+            <a
+              href={site.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-court-bright"
+            >
               Instagram @gcm_tennis
-            </Link>
+            </a>
+            <a
+              href="https://www.instagram.com/gcm.kids/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-court-bright"
+            >
+              Instagram @gcm.kids
+            </a>
+            <a
+              href="https://www.instagram.com/gcm_amateur_tennis/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-court-bright"
+            >
+              Instagram @gcm_amateur_tennis
+            </a>
             {site.kakao ? (
-              <Link
+              <a
                 href={site.kakao}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-court-bright"
               >
                 {L.kakao}
-              </Link>
+              </a>
             ) : null}
-            <Link href="/consulting" className="hover:text-court-bright">
+            <a
+              href="/consulting"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-court-bright"
+            >
               {L.consult}
-            </Link>
+            </a>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>{L.rights}</p>
           <div className="flex gap-4">
-            <Link href="/terms" className="hover:text-ink">
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
               {L.terms}
-            </Link>
-            <Link href="/privacy" className="hover:text-ink">
+            </a>
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
               {L.privacy}
-            </Link>
+            </a>
           </div>
         </div>
       </Container>
