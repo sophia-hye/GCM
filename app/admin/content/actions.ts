@@ -29,24 +29,24 @@ export async function saveContentField(
 
   const key = String(formData.get("key") ?? "");
   const value = String(formData.get("value") ?? "");
+  const locale = String(formData.get("locale") ?? "ko") === "en" ? "en" : "ko";
   const field = fieldFor(key);
   if (!field) return { error: "알 수 없는 항목입니다." };
 
   const admin = createAdminClient();
+  const codeDefault = locale === "en" ? field.defaultEn : field.default;
+  const tableHint =
+    "저장 실패. gcm_content 에 locale 컬럼이 필요합니다. supabase/content.sql(또는 ALTER 블록)을 먼저 실행해 주세요.";
 
   // 기본값과 동일하거나 비어 있으면 오버라이드 제거 → 코드 기본값 사용
-  if (value.trim() === "" || value.trim() === field.default.trim()) {
-    const { error } = await admin.from("gcm_content").delete().eq("key", key);
-    if (error) {
-      return { error: "저장 실패. gcm_content 테이블이 없으면 supabase/content.sql 을 먼저 실행해 주세요." };
-    }
+  if (value.trim() === "" || value.trim() === codeDefault.trim()) {
+    const { error } = await admin.from("gcm_content").delete().eq("key", key).eq("locale", locale);
+    if (error) return { error: tableHint };
   } else {
     const { error } = await admin
       .from("gcm_content")
-      .upsert({ key, value, updated_at: new Date().toISOString() }, { onConflict: "key" });
-    if (error) {
-      return { error: "저장 실패. gcm_content 테이블이 없으면 supabase/content.sql 을 먼저 실행해 주세요." };
-    }
+      .upsert({ key, locale, value, updated_at: new Date().toISOString() }, { onConflict: "key,locale" });
+    if (error) return { error: tableHint };
   }
 
   // 콘텐츠가 여러 페이지에 걸쳐 노출되므로 루트 레이아웃 전체를 갱신한다.
