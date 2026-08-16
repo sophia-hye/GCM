@@ -19,6 +19,7 @@ type NavAuth = { name: string; role: string } | null;
 export function Navbar({ auth = null }: { auth?: NavAuth }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
   const locale = useLocale();
@@ -31,10 +32,9 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // solid: 밝은 배경 위(다크 텍스트). 투명: Home 최상단의 어두운 Hero 위(흰 텍스트).
   const solid = scrolled || open || !isHome;
   const logoColor = solid ? "text-ink" : "text-white";
-  const linkColor = solid ? "text-ink" : "text-white/80";
+  const linkColor = solid ? "text-ink" : "text-white/85";
 
   return (
     <header
@@ -50,21 +50,34 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-4 px-4 xl:flex 2xl:gap-6">
-          {nav.map((item) => {
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`whitespace-nowrap text-sm transition-colors hover:opacity-80 ${
-                  active ? (solid ? "text-court" : "text-lime") : linkColor
-                }`}
+        {/* 데스크톱: 그룹 + 드롭다운(hover) */}
+        <nav className="hidden items-center gap-1 xl:flex">
+          {nav.map((group) => (
+            <div key={group.label} className="group relative">
+              <button
+                type="button"
+                className={`flex items-center gap-1 whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors hover:opacity-80 ${linkColor}`}
               >
-                {item.label}
-              </Link>
-            );
-          })}
+                {group.label}
+                <span className="text-[9px] opacity-70">▾</span>
+              </button>
+              <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                <div className="min-w-[190px] rounded-xl border border-line bg-base/95 p-2 shadow-xl backdrop-blur">
+                  {group.items.map((it) => (
+                    <Link
+                      key={it.href}
+                      href={it.href}
+                      className={`block whitespace-nowrap rounded-lg px-3 py-2 text-sm transition-colors hover:bg-card ${
+                        pathname === it.href ? "font-semibold text-court" : "text-ink"
+                      }`}
+                    >
+                      {it.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-4 xl:flex">
@@ -106,30 +119,49 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
           className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
-            solid
-              ? "border-line text-ink"
-              : "border-white/70 bg-black/30 text-white backdrop-blur"
+            solid ? "border-line text-ink" : "border-white/70 bg-black/30 text-white backdrop-blur"
           }`}
         >
           <span className="text-lg">{open ? "✕" : "☰"}</span>
         </button>
       </Container>
 
+      {/* 모바일: 아코디언 */}
       {open ? (
         <Container className="xl:hidden">
-          <nav className="flex flex-col gap-1 border-t border-line py-4">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-lg px-2 py-2 text-sm hover:bg-card hover:text-ink ${
-                  pathname === item.href ? "text-court" : "text-ink"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="flex max-h-[76vh] flex-col gap-1 overflow-y-auto border-t border-line py-4">
+            {nav.map((group) => {
+              const isOpen = openGroup === group.label;
+              return (
+                <div key={group.label}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenGroup(isOpen ? null : group.label)}
+                    className="flex w-full items-center justify-between rounded-lg px-2 py-2.5 text-sm font-semibold text-ink hover:bg-card"
+                  >
+                    {group.label}
+                    <span className="text-muted">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  {isOpen ? (
+                    <div className="mb-1 ml-2 flex flex-col border-l border-line pl-2">
+                      {group.items.map((it) => (
+                        <Link
+                          key={it.href}
+                          href={it.href}
+                          onClick={() => setOpen(false)}
+                          className={`rounded-lg px-2 py-2 text-sm hover:bg-card ${
+                            pathname === it.href ? "font-semibold text-court" : "text-muted"
+                          }`}
+                        >
+                          {it.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+
             <div className="px-2 py-2">
               <LocaleToggle />
             </div>

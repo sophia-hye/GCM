@@ -7,6 +7,7 @@ import { Container } from "@/components/ui";
 
 const baseMenu = [
   { label: "대시보드", href: "/dashboard" },
+  { label: "매치피드백", href: "/match-feedback" },
   { label: "발달/진로 단계", href: "/dashboard/progress" },
   { label: "일정/예약", href: "/dashboard/schedule" },
   { label: "멘탈 체크인", href: "/dashboard/checkin" },
