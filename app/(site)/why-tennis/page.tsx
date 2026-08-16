@@ -1,16 +1,20 @@
 import { pageMetadata } from "@/lib/page-metadata";
-import { WhyTennis } from "@/components/sections/WhyTennis";
+import { ComingSoon } from "@/components/sections/ComingSoon";
 
 export const metadata = pageMetadata({
-  title: "Why Tennis — 왜 테니스인가 | GCM 테니스 아카데미",
-  description: "테니스가 길러주는 주체성·회복 탄력성·정직성·전략적 사고. AI 시대가 요구하는 1% 리더의 역량을 조기에 입히는 최고의 인성·리더십 교육.",
+  title: "Why Tennis | GCM 테니스 아카데미",
+  description: "GCM이 전하는 '왜 테니스인가'. 곧 만나보실 수 있습니다.",
   path: "/why-tennis",
 });
 
 export default function WhyTennisPage() {
   return (
     <div className="pt-16">
-      <WhyTennis />
+      <ComingSoon
+        eyebrow="Why GCM"
+        title="Why Tennis"
+        desc="곧 새로운 내용으로 찾아뵙겠습니다."
+      />
     </div>
   );
 }
