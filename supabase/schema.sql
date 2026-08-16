@@ -320,3 +320,27 @@ create policy "gcm_programs_select_published" on public.gcm_programs for select 
 drop policy if exists "gcm_programs_admin_all" on public.gcm_programs;
 create policy "gcm_programs_admin_all" on public.gcm_programs for all
   using (public.is_gcm_admin()) with check (public.is_gcm_admin());
+
+-- ============================================================
+-- 10) Seoulite Net'work (gcm_events) — 관리자가 등록하는 월간 모임 후기(인스타 피드형)
+--     images[0] 가 피드 썸네일(커버). 이 블록만 단독 실행 가능.
+-- ============================================================
+create table if not exists public.gcm_events (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique not null,
+  title text not null,
+  location text,
+  event_date date,
+  body text,
+  images text[] not null default '{}',
+  published boolean not null default false,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_events enable row level security;
+create index if not exists gcm_events_order_idx on public.gcm_events (sort_order asc, created_at desc);
+drop policy if exists "gcm_events_select_published" on public.gcm_events;
+create policy "gcm_events_select_published" on public.gcm_events for select using (published = true);
+drop policy if exists "gcm_events_admin_all" on public.gcm_events;
+create policy "gcm_events_admin_all" on public.gcm_events for all
+  using (public.is_gcm_admin()) with check (public.is_gcm_admin());
