@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { KidsBenefits } from "@/components/sections/KidsBenefits";
+import { RecreationalClass } from "@/components/sections/RecreationalClass";
 import { TennisCoreValues } from "@/components/sections/TennisCoreValues";
 
 export const metadata = pageMetadata({
@@ -12,6 +13,7 @@ export default function KidsPage() {
   return (
     <div className="pt-16">
       <KidsBenefits />
+      <RecreationalClass classKey="KIDS" eyebrow="Kids Class" />
       <TennisCoreValues />
     </div>
   );
