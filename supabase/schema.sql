@@ -294,3 +294,29 @@ create policy "gcm_faqs_select_published" on public.gcm_faqs for select using (p
 drop policy if exists "gcm_faqs_admin_all" on public.gcm_faqs;
 create policy "gcm_faqs_admin_all" on public.gcm_faqs for all
   using (public.is_gcm_admin()) with check (public.is_gcm_admin());
+
+-- ============================================================
+-- 9) Education Program / Store (gcm_programs) — 관리자가 등록하는 판매 프로그램
+--    나중에 온라인 결제(PG) 연동을 염두에 둔 구조. price 는 원(KRW) 정수.
+--    이 블록만 SQL Editor 에 붙여넣어 단독 실행 가능(다른 테이블 영향 없음).
+-- ============================================================
+create table if not exists public.gcm_programs (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique not null,
+  title text not null,
+  summary text,
+  description text,
+  price integer,            -- 원(KRW) 정수. null 이면 '가격 문의'
+  duration text,            -- 예: '8주 과정'
+  image text,
+  published boolean not null default false,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_programs enable row level security;
+create index if not exists gcm_programs_order_idx on public.gcm_programs (sort_order asc, created_at desc);
+drop policy if exists "gcm_programs_select_published" on public.gcm_programs;
+create policy "gcm_programs_select_published" on public.gcm_programs for select using (published = true);
+drop policy if exists "gcm_programs_admin_all" on public.gcm_programs;
+create policy "gcm_programs_admin_all" on public.gcm_programs for all
+  using (public.is_gcm_admin()) with check (public.is_gcm_admin());
