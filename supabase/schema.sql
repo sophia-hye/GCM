@@ -344,3 +344,29 @@ create policy "gcm_events_select_published" on public.gcm_events for select usin
 drop policy if exists "gcm_events_admin_all" on public.gcm_events;
 create policy "gcm_events_admin_all" on public.gcm_events for all
   using (public.is_gcm_admin()) with check (public.is_gcm_admin());
+
+-- ============================================================
+-- 11) GCM's Products (gcm_products) — 관리자가 등록하는 판매 상품(굿즈/장비 등)
+--     구조는 gcm_programs 와 동일. price 는 원(KRW) 정수. 온라인 결제(PG) 연동 대비.
+--     이 블록만 단독 실행 가능.
+-- ============================================================
+create table if not exists public.gcm_products (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique not null,
+  title text not null,
+  summary text,
+  description text,
+  price integer,            -- 원(KRW) 정수. null 이면 '가격 문의'
+  duration text,            -- 옵션/규격 등 부가 표기(선택)
+  image text,
+  published boolean not null default false,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+alter table public.gcm_products enable row level security;
+create index if not exists gcm_products_order_idx on public.gcm_products (sort_order asc, created_at desc);
+drop policy if exists "gcm_products_select_published" on public.gcm_products;
+create policy "gcm_products_select_published" on public.gcm_products for select using (published = true);
+drop policy if exists "gcm_products_admin_all" on public.gcm_products;
+create policy "gcm_products_admin_all" on public.gcm_products for all
+  using (public.is_gcm_admin()) with check (public.is_gcm_admin());

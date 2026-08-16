@@ -12,6 +12,7 @@ const menu = [
   { label: "예약 관리", href: "/admin/bookings" },
   { label: "매치피드백", href: "/admin/analyses" },
   { label: "선수 관리", href: "/admin/players" },
+  { label: "GCM's Products 관리", href: "/admin/products" },
   { label: "프로그램(상점) 관리", href: "/admin/programs" },
   { label: "한남 GCM Festival 관리", href: "/admin/events" },
   { label: "이야기 게시판", href: "/admin/voices" },
