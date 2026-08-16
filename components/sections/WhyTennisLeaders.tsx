@@ -1,4 +1,5 @@
-import { Section, SectionHeading, Container, Button } from "@/components/ui";
+import Link from "next/link";
+import { Section, SectionHeading, Container } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
 
@@ -282,10 +283,10 @@ export async function WhyTennisLeaders() {
         </div>
       </Section>
 
-      {/* 동기부여 CTA */}
-      <Section>
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="break-keep font-display text-2xl font-black leading-snug sm:text-3xl">
+      {/* 동기부여 CTA — 강조(빨강 배경 · 흰 글씨 · 라임 버튼) */}
+      <Section tone="court">
+        <Reveal className="mx-auto max-w-2xl text-center text-white">
+          <h2 className="break-keep font-display text-3xl font-black leading-snug sm:text-4xl">
             {ko ? (
               <>
                 단 한 번의 스트로크가
@@ -300,15 +301,19 @@ export async function WhyTennisLeaders() {
               </>
             )}
           </h2>
-          <p className="mx-auto mt-5 max-w-xl break-keep text-sm leading-relaxed text-muted sm:text-base">
+          <p className="mx-auto mt-5 max-w-xl break-keep text-sm leading-relaxed text-white/85 sm:text-base">
             {ko
               ? "라켓을 쥐고 코트 위에 서는 순간, 당신을 짓누르던 모든 잡념은 사라지고 오직 날아오는 공과 나 자신에게만 몰입하게 됩니다. 더 탄탄해지는 몸, 압도적인 해소감, 건강한 라이프스타일을 공유하는 새로운 사람들. 테니스는 더 매력적이고 에너제틱한 ‘나의 새로운 라이프스타일’을 만드는 과정입니다."
               : "The moment you grip the racket and step on court, every weight on your mind lifts and you focus only on the ball and yourself. A firmer body, an overwhelming release, new people who share a healthy lifestyle. Tennis is the process of building a more attractive, more energetic 'new lifestyle of yours'."}
           </p>
-          <div className="mt-8 flex justify-center">
-            <Button href="/apply/adult" variant="court">
+          <div className="mt-9 flex justify-center">
+            <Link
+              href="/apply/adult"
+              className="inline-flex items-center gap-2 rounded-full bg-[#d4ff3d] px-9 py-4 font-display text-base font-black text-[#14210a] shadow-lg transition hover:brightness-105 hover:-translate-y-0.5"
+            >
               {ko ? "첫 레슨 체험 신청하기" : "Book your first trial lesson"}
-            </Button>
+              <span aria-hidden>→</span>
+            </Link>
           </div>
         </Reveal>
       </Section>
