@@ -51,7 +51,7 @@ export const nav = [
   {
     label: "Social Events",
     items: [
-      { label: "한남 GCM Festival", href: "/events/seoulite" },
+      { label: "한남 GCM Festival", href: "/events/hannam-festival" },
       { label: "Membership", href: "/membership" },
     ],
   },

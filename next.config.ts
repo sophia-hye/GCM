@@ -17,6 +17,17 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "4mb",
     },
   },
+  async redirects() {
+    // 기존 Seoulite Net'work URL → 한남 GCM Festival 로 영구 이동
+    return [
+      { source: "/events/seoulite", destination: "/events/hannam-festival", permanent: true },
+      {
+        source: "/events/seoulite/:slug",
+        destination: "/events/hannam-festival/:slug",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

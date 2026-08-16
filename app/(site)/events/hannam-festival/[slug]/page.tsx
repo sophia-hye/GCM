@@ -30,7 +30,7 @@ export async function generateMetadata({
   return pageMetadata({
     title: `${ev.title} | 한남 GCM Festival`,
     description: ev.body?.slice(0, 100) || "GCM 한남 GCM Festival 모임 후기.",
-    path: `/events/seoulite/${ev.slug}`,
+    path: `/events/hannam-festival/${ev.slug}`,
   });
 }
 
@@ -50,7 +50,7 @@ export default async function EventDetailPage({
   return (
     <div className="pt-16">
       <Container className="py-16 sm:py-24">
-        <Link href="/events/seoulite" className="text-sm font-semibold text-muted hover:text-court">
+        <Link href="/events/hannam-festival" className="text-sm font-semibold text-muted hover:text-court">
           ← {ko ? "한남 GCM Festival" : "Back to 한남 GCM Festival"}
         </Link>
 
