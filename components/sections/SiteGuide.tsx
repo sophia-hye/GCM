@@ -90,6 +90,30 @@ export async function SiteGuide() {
         </div>
       </Reveal>
 
+      {/* Match Feedback 강조 — 시합/훈련 후 기록 유도 */}
+      <Reveal delay={40}>
+        <Link
+          href="/match-feedback"
+          className="group mt-8 flex flex-col items-start gap-4 rounded-2xl border border-court/30 bg-court/5 p-6 transition-colors hover:border-court hover:bg-court/10 sm:flex-row sm:items-center sm:justify-between sm:p-7"
+        >
+          <div>
+            <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-court-bright">
+              Match Feedback
+            </p>
+            <h3 className="mt-1.5 font-display text-xl font-bold sm:text-2xl">
+              시합·훈련 후, 나의 매치 피드백을 남겨보세요
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted">
+              경기와 훈련을 스스로 돌아본 기록을 남기면, 코치가 확인하고 피드백을 드립니다.
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-court px-5 py-2.5 text-sm font-semibold text-white transition group-hover:brightness-110">
+            매치 피드백 작성
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
+          </span>
+        </Link>
+      </Reveal>
+
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {siteGuide.map((g, i) => (
           <Reveal key={g.href} delay={i * 80} className="h-full">
