@@ -19,17 +19,46 @@ export const site = {
   foundedDate: "2023.01.02",
 } as const;
 
+/** 상단 내비게이션 — 그룹 + 서브메뉴(드롭다운) */
 export const nav = [
-  { label: "About", href: "/about" },
-  { label: "Coaches", href: "/coaches" },
-  { label: "Match Feedback", href: "/match-feedback" },
-  { label: "Consulting", href: "/consulting" },
-  { label: "Scholarship", href: "/scholarship" },
-  { label: "Players", href: "/players" },
-  { label: "Voices", href: "/voices" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Training", href: "/training" },
-  { label: "Kids & Amateur", href: "/recreational" },
+  {
+    label: "Why GCM",
+    items: [
+      { label: "About", href: "/about" },
+      { label: "대표원장 인사말", href: "/director-message" },
+      { label: "Why Tennis", href: "/why-tennis" },
+      { label: "Our Team", href: "/coaches" },
+    ],
+  },
+  {
+    label: "Who we are",
+    items: [
+      { label: "Players", href: "/players" },
+      { label: "Amateurs", href: "/amateurs" },
+      { label: "Kids", href: "/kids" },
+    ],
+  },
+  {
+    label: "Our Story",
+    items: [
+      { label: "Testimonials", href: "/voices" },
+      { label: "Gallery", href: "/gallery" },
+    ],
+  },
+  {
+    label: "Social Events",
+    items: [
+      { label: "Seoulite Net'work", href: "/events/seoulite" },
+      { label: "Membership", href: "/membership" },
+    ],
+  },
+  {
+    label: "Store",
+    items: [
+      { label: "GCM's Products", href: "/store/products" },
+      { label: "Education Program", href: "/store/programs" },
+    ],
+  },
 ] as const;
 
 // 홈에서 각 메뉴(탭)에 어떤 내용이 있는지 미리 보여주는 안내 카드

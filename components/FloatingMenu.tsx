@@ -38,16 +38,17 @@ const kakaoIcon = (
   </svg>
 );
 
+// 순서: 카톡 채널 · 인스타그램 · Contact · 상담하기 (카톡·인스타는 새 창)
 const items: Item[] = [
-  { href: "/consulting", label: "상담 신청", icon: consultationIcon },
   ...(site.kakao
     ? [{ href: site.kakao, label: "카카오톡 채널", external: true, icon: kakaoIcon }]
     : []),
-  { href: "/contact", label: "연락처", icon: contactIcon },
   { href: site.instagram, label: "인스타그램", external: true, icon: instagramIcon },
+  { href: "/contact", label: "Contact", icon: contactIcon },
+  { href: "/consulting", label: "상담하기", icon: consultationIcon },
 ];
 
-/** 화면 우측에 항상 떠 있는 바로가기 패널 (상담 · 연락처 · 인스타그램) */
+/** 화면 우측에 항상 떠 있는 바로가기 패널 (카톡 · 인스타 · Contact · 상담) */
 export function FloatingMenu() {
   return (
     <div className="fixed bottom-6 right-4 z-50 flex flex-col items-center gap-1 rounded-full border border-line bg-base/85 p-1.5 shadow-lg ring-1 ring-white/10 backdrop-blur sm:right-6">
