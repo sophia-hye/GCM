@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { isVideoUrl, isSvgUrl } from "@/lib/media";
+import { convertHeicIfNeeded } from "@/lib/heic-convert";
 import {
   setPopupActive,
   removePopup,
@@ -42,21 +43,28 @@ export function PopupCard({ popup }: { popup: Popup }) {
   }
 
   async function onReplaceImage(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const isSvg = /\.svg$/i.test(file.name);
-    if (!file.type.startsWith("image/") && !file.type.startsWith("video/") && !isSvg) {
+    const original = e.target.files?.[0];
+    if (!original) return;
+    if (
+      !original.type.startsWith("image/") &&
+      !original.type.startsWith("video/") &&
+      !/\.svg$/i.test(original.name) &&
+      !/\.(heic|heif)$/i.test(original.name)
+    ) {
       setError("이미지 · 동영상 · SVG 파일만 업로드할 수 있습니다.");
       return;
     }
-    if (file.size > 50 * 1024 * 1024) {
-      setError("파일은 50MB 이하만 올릴 수 있습니다.");
-      return;
-    }
-    const contentType = file.type || (isSvg ? "image/svg+xml" : "application/octet-stream");
     setBusy(true);
     setError(null);
     try {
+      // 아이폰 HEIC 는 크롬/윈도우에서 안 보이므로 업로드 전에 JPEG 로 변환
+      const file = await convertHeicIfNeeded(original);
+      const isSvg = /\.svg$/i.test(file.name);
+      if (file.size > 50 * 1024 * 1024) {
+        setError("파일은 50MB 이하만 올릴 수 있습니다.");
+        return;
+      }
+      const contentType = file.type || (isSvg ? "image/svg+xml" : "application/octet-stream");
       const urlRes = await createPopupUploadUrl(file.name);
       if (!urlRes.ok) {
         setError(urlRes.error);
@@ -184,7 +192,7 @@ export function PopupCard({ popup }: { popup: Popup }) {
           >
             이미지 교체
           </button>
-          <input ref={fileRef} type="file" accept="image/*,video/*,.svg" onChange={onReplaceImage} className="hidden" />
+          <input ref={fileRef} type="file" accept="image/*,video/*,.svg,.heic,.heif" onChange={onReplaceImage} className="hidden" />
 
           <button
             type="button"
