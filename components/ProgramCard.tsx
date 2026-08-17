@@ -29,7 +29,11 @@ export function ProgramCard({ program, ko = true }: { program: Program; ko?: boo
           <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">{program.summary}</p>
         ) : null}
         <p className="mt-3 font-display text-base font-bold text-court-bright">
-          {formatPrice(program.price, ko)}
+          {program.price == null
+            ? ko
+              ? "회원 전용 · 상담 문의"
+              : "Members only · Consult"
+            : formatPrice(program.price, ko)}
         </p>
       </div>
     </Link>

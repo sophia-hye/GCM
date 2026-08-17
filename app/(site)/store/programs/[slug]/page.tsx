@@ -157,15 +157,36 @@ export default async function ProgramDetailPage({
               <p className="text-xs font-semibold uppercase tracking-widest text-muted">
                 {ko ? "참가 안내" : "Enrollment"}
               </p>
-              <p className="mt-2 font-display text-2xl font-black text-court-bright">
-                {formatPrice(program.price, ko)}
-              </p>
-              {program.duration ? (
-                <p className="mt-2 text-sm text-muted">{program.duration}</p>
-              ) : null}
-              <div className="mt-5">
-                <PurchaseButton programId={program.id} price={program.price} ko={ko} />
-              </div>
+              {program.price == null ? (
+                <>
+                  <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-ink/85">
+                    {ko
+                      ? "회원 또는 회원의 지인만 지원 가능합니다."
+                      : "Open to GCM members and their acquaintances only."}
+                  </p>
+                  {program.duration ? (
+                    <p className="mt-2 text-sm text-muted">{program.duration}</p>
+                  ) : null}
+                  <Link
+                    href="/consulting"
+                    className="mt-5 block w-full rounded-full bg-court px-6 py-3.5 text-center text-sm font-bold text-white transition hover:bg-court-deep"
+                  >
+                    {ko ? "상담하기" : "Request consultation"}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="mt-2 font-display text-2xl font-black text-court-bright">
+                    {formatPrice(program.price, ko)}
+                  </p>
+                  {program.duration ? (
+                    <p className="mt-2 text-sm text-muted">{program.duration}</p>
+                  ) : null}
+                  <div className="mt-5">
+                    <PurchaseButton programId={program.id} price={program.price} ko={ko} />
+                  </div>
+                </>
+              )}
             </div>
           </aside>
         </div>
