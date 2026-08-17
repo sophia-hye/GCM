@@ -48,6 +48,7 @@ export const nav = [
       { label: "Consulting", href: "/consulting" },
     ],
   },
+  { label: "Match Feedback", href: "/match-feedback" },
   {
     label: "Social Events",
     items: [

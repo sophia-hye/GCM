@@ -52,7 +52,16 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
 
         {/* 데스크톱: 그룹 + 드롭다운(hover) */}
         <nav className="hidden items-center gap-1 xl:flex">
-          {nav.map((group) => (
+          {nav.map((group) =>
+            "href" in group ? (
+              <Link
+                key={group.label}
+                href={group.href}
+                className={`whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors hover:opacity-80 ${linkColor}`}
+              >
+                {group.label}
+              </Link>
+            ) : (
             <div key={group.label} className="group relative">
               <button
                 type="button"
@@ -86,7 +95,8 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                 </div>
               </div>
             </div>
-          ))}
+            ),
+          )}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-4 xl:flex">
@@ -140,6 +150,20 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
         <Container className="xl:hidden">
           <nav className="flex max-h-[76vh] flex-col gap-1 overflow-y-auto border-t border-line py-4">
             {nav.map((group) => {
+              if ("href" in group) {
+                return (
+                  <Link
+                    key={group.label}
+                    href={group.href}
+                    onClick={() => setOpen(false)}
+                    className={`rounded-lg px-2 py-2.5 text-sm font-semibold hover:bg-card ${
+                      pathname === group.href ? "text-court" : "text-ink"
+                    }`}
+                  >
+                    {group.label}
+                  </Link>
+                );
+              }
               const isOpen = openGroup === group.label;
               return (
                 <div key={group.label}>
