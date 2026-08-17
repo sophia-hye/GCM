@@ -112,6 +112,13 @@ const enWhoWeAre = {
       body: "We balance individual growth with academics and design a long-term pathway for each athlete.",
     },
   ],
+  story: [
+    "GCM was founded to be an academy that takes responsibility for an athlete's growth and career to the very end.",
+    "Good players are not made by chance. Even talented players stall without a growth path. GCM diagnoses where an athlete stands today and connects training, competition, mental routines and career planning into one. We see athletes as a process of growing to the next level, not as short-term results.",
+    "The path of elite tennis is not completed by talent alone. It requires systematic training, data-based career design, and mental care that holds you steady when you waver.",
+    "GCM (Global Champions Makers) is an integrated performance model where multiple experts take responsibility for one athlete, designing the path from junior to pro and college.",
+    "We don't leave results to chance. We believe a structured process creates results.",
+  ],
 };
 
 const enTeamLead =

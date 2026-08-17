@@ -33,6 +33,15 @@ export async function WhyNow() {
           </div>
         ))}
       </div>
+      {whoWeAre.story?.length ? (
+        <div className="mt-16 max-w-2xl space-y-5 border-t border-line pt-10">
+          {whoWeAre.story.map((p) => (
+            <p key={p} className="whitespace-pre-line text-base leading-relaxed text-muted">
+              {p}
+            </p>
+          ))}
+        </div>
+      ) : null}
     </Section>
   );
 }
