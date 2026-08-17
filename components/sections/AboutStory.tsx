@@ -17,9 +17,9 @@ export async function AboutStory() {
         title={cmsText(map, "founding.title", founding.title, ko)}
         lead={cmsText(map, "founding.lead", founding.lead, ko)}
       />
-      <div className="mt-12 grid gap-8 sm:grid-cols-[220px_1fr] sm:gap-10">
+      <div className="mt-12 max-w-3xl">
         {directorMessage.image ? (
-          <div className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-line sm:mx-0">
+          <div className="mb-5 w-44 overflow-hidden rounded-2xl border border-line sm:float-left sm:mb-2 sm:mr-7 sm:w-52">
             <Image
               src={directorMessage.image}
               alt={ko ? "오성국 대표 원장" : "Executive Director"}
@@ -29,13 +29,14 @@ export async function AboutStory() {
             />
           </div>
         ) : null}
-        <div className="max-w-2xl space-y-5">
+        <div className="space-y-5">
           {paragraphs.map((p) => (
             <p key={p} className="whitespace-pre-line text-base leading-relaxed text-muted">
               {p}
             </p>
           ))}
         </div>
+        <div className="clear-both" />
       </div>
     </Section>
   );
