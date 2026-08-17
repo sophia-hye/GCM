@@ -13,11 +13,12 @@ async function getProgram(slug: string): Promise<Program | null> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("gcm_programs")
-    .select("id, slug, title, summary, description, price, duration, image, sort_order, published")
+    .select("*")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
-  return (data as Program) ?? null;
+  if (!data) return null;
+  return { ...(data as Program), images: (data.images as string[] | null) ?? [] };
 }
 
 type Section = { title: string; items: string[]; paras: string[] };
@@ -175,6 +176,29 @@ export default async function ProgramDetailPage({
             </div>
           </aside>
         </div>
+
+        {/* 갤러리 (대표 이미지 제외한 나머지) */}
+        {program.images.length > 1 ? (
+          <div className="mt-14 border-t border-line pt-10">
+            <h2 className="font-display text-lg font-bold">{ko ? "갤러리" : "Gallery"}</h2>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {program.images.slice(1).map((src, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-court-deep"
+                >
+                  <Image
+                    src={src}
+                    alt={`${program.title} ${i + 2}`}
+                    fill
+                    sizes="(max-width: 640px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </Container>
     </div>
   );

@@ -7,6 +7,7 @@ export type Program = {
   price: number | null;
   duration: string | null;
   image: string | null;
+  images: string[]; // 갤러리(여러 장). 첫 장이 대표 이미지
   sort_order: number;
   published: boolean;
 };

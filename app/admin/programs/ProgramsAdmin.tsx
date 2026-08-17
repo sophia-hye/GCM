@@ -18,17 +18,21 @@ const MAX_BYTES = 10 * 1024 * 1024; // 10MB
 const fieldClass =
   "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
-async function uploadImage(file: File): Promise<string> {
-  if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
-  if (file.size > MAX_BYTES) throw new Error("이미지는 10MB 이하만 올릴 수 있습니다.");
-  const urlRes = await createProgramUploadUrl(file.name);
-  if (!urlRes.ok) throw new Error(urlRes.error);
+async function uploadImages(files: File[]): Promise<string[]> {
   const supabase = createClient();
-  const { error } = await supabase.storage
-    .from("gallery")
-    .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType: file.type });
-  if (error) throw new Error(`업로드 실패: ${error.message}`);
-  return urlRes.path;
+  const paths: string[] = [];
+  for (const file of files) {
+    if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
+    if (file.size > MAX_BYTES) throw new Error("사진은 각 10MB 이하만 올릴 수 있습니다.");
+    const urlRes = await createProgramUploadUrl(file.name);
+    if (!urlRes.ok) throw new Error(urlRes.error);
+    const { error } = await supabase.storage
+      .from("gallery")
+      .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType: file.type });
+    if (error) throw new Error(`업로드 실패: ${error.message}`);
+    paths.push(urlRes.path);
+  }
+  return paths;
 }
 
 type FormValues = {
@@ -50,7 +54,7 @@ function ProgramForm({
   initial?: Partial<Program>;
   requireImage: boolean;
   submitLabel: string;
-  onSubmit: (values: FormValues, imagePath?: string) => Promise<{ error?: string; ok?: boolean }>;
+  onSubmit: (values: FormValues, imagePaths?: string[]) => Promise<{ error?: string; ok?: boolean }>;
   onCancel?: () => void;
 }) {
   const router = useRouter();
@@ -62,7 +66,7 @@ function ProgramForm({
     e.preventDefault();
     setError(null);
     const fd = new FormData(e.currentTarget);
-    const file = fd.get("image");
+    const files = fd.getAll("image").filter((f): f is File => f instanceof File && f.size > 0);
     const values: FormValues = {
       title: String(fd.get("title") ?? ""),
       summary: String(fd.get("summary") ?? ""),
@@ -71,17 +75,16 @@ function ProgramForm({
       duration: String(fd.get("duration") ?? ""),
       published: fd.get("published") === "on",
     };
-    const hasFile = file instanceof File && file.size > 0;
-    if (requireImage && !hasFile) {
-      setError("대표 이미지를 선택해 주세요.");
+    if (requireImage && files.length === 0) {
+      setError("사진을 1장 이상 선택해 주세요.");
       return;
     }
 
     setPending(true);
     try {
-      let imagePath: string | undefined;
-      if (hasFile) imagePath = await uploadImage(file as File);
-      const res = await onSubmit(values, imagePath);
+      let imagePaths: string[] | undefined;
+      if (files.length > 0) imagePaths = await uploadImages(files);
+      const res = await onSubmit(values, imagePaths);
       if (res.error) {
         setError(res.error);
         return;
@@ -122,12 +125,13 @@ function ProgramForm({
       </div>
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-muted">
-          대표 이미지 {requireImage ? "*" : "(교체 시에만 선택)"}
+          사진 (여러 장, 각 최대 10MB · 첫 사진이 대표){requireImage ? " *" : " — 다시 선택 시 전체 교체"}
         </label>
         <input
           type="file"
           name="image"
           accept="image/*"
+          multiple
           className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-court file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-court-deep"
         />
       </div>
@@ -210,7 +214,7 @@ function ProgramRow({ program, index, total }: { program: Program; index: number
             requireImage={false}
             submitLabel="저장"
             onCancel={() => setEditing(false)}
-            onSubmit={(values, imagePath) => updateProgram(program.id, { ...values, imagePath })}
+            onSubmit={(values, imagePaths) => updateProgram(program.id, { ...values, imagePaths })}
           />
         </div>
       ) : null}
@@ -238,7 +242,7 @@ export function ProgramsAdmin({ rows }: { rows: Program[] }) {
               requireImage
               submitLabel="프로그램 등록"
               onCancel={() => setAdding(false)}
-              onSubmit={(values, imagePath) => saveProgram({ ...values, imagePath })}
+              onSubmit={(values, imagePaths) => saveProgram({ ...values, imagePaths })}
             />
           </div>
         ) : null}

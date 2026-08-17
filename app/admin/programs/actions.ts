@@ -46,8 +46,15 @@ type ProgramInput = {
   price: string; // 폼 문자열 → 원 정수로 파싱
   duration: string;
   published: boolean;
-  imagePath?: string;
+  imagePaths?: string[]; // 업로드 완료된 경로들(첫 장이 대표 이미지)
 };
+
+function toPublicUrls(admin: ReturnType<typeof createAdminClient>, paths: string[]): string[] {
+  return paths.map((p) => admin.storage.from(BUCKET).getPublicUrl(p).data.publicUrl);
+}
+
+const galleryHint =
+  "저장에 실패했습니다. gcm_programs 에 images 컬럼이 필요합니다. supabase/schema.sql의 gcm_programs images ALTER 블록을 먼저 실행해 주세요.";
 
 function normalize(input: ProgramInput) {
   const digits = input.price.replace(/[^\d]/g, "");
@@ -70,10 +77,12 @@ export async function saveProgram(input: ProgramInput): Promise<AdminState> {
   if (!(await requireAdmin())) return { error: "권한이 없습니다." };
   const fields = normalize(input);
   if (!fields.title) return { error: "프로그램 제목을 입력해 주세요." };
-  if (!input.imagePath) return { error: "대표 이미지를 업로드해 주세요." };
+  if (!input.imagePaths || input.imagePaths.length === 0) {
+    return { error: "대표 이미지를 1장 이상 업로드해 주세요." };
+  }
 
   const admin = createAdminClient();
-  const { data: pub } = admin.storage.from(BUCKET).getPublicUrl(input.imagePath);
+  const urls = toPublicUrls(admin, input.imagePaths);
   const { count } = await admin.from("gcm_programs").select("id", { count: "exact", head: true });
   const { data: last } = await admin
     .from("gcm_programs")
@@ -85,10 +94,11 @@ export async function saveProgram(input: ProgramInput): Promise<AdminState> {
   const { error } = await admin.from("gcm_programs").insert({
     ...fields,
     slug: slugifyProgram(fields.title, crypto.randomUUID()),
-    image: pub.publicUrl,
+    image: urls[0],
+    images: urls,
     sort_order: (last?.sort_order ?? (count ?? 0)) + 1,
   });
-  if (error) return { error: tableMissing };
+  if (error) return { error: galleryHint };
 
   revalidatePath("/admin/programs");
   revalidatePath("/store/programs");
@@ -104,13 +114,14 @@ export async function updateProgram(id: string, input: ProgramInput): Promise<Ad
 
   const admin = createAdminClient();
   const patch: Record<string, unknown> = { ...fields };
-  if (input.imagePath) {
-    const { data: pub } = admin.storage.from(BUCKET).getPublicUrl(input.imagePath);
-    patch.image = pub.publicUrl;
+  if (input.imagePaths && input.imagePaths.length > 0) {
+    const urls = toPublicUrls(admin, input.imagePaths);
+    patch.image = urls[0];
+    patch.images = urls;
   }
 
   const { error } = await admin.from("gcm_programs").update(patch).eq("id", id);
-  if (error) return { error: tableMissing };
+  if (error) return { error: galleryHint };
 
   revalidatePath("/admin/programs");
   revalidatePath("/store/programs");
