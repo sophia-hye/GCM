@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -13,8 +12,10 @@ import {
   moveProgram,
 } from "@/app/admin/programs/actions";
 import { formatPrice, type Program } from "@/lib/programs";
+import { MediaFill } from "@/components/MediaFill";
 
-const MAX_BYTES = 10 * 1024 * 1024; // 10MB
+const MAX_IMG = 10 * 1024 * 1024; // 이미지 10MB
+const MAX_VIDEO = 50 * 1024 * 1024; // 동영상 50MB
 const fieldClass =
   "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
@@ -22,8 +23,13 @@ async function uploadImages(files: File[]): Promise<string[]> {
   const supabase = createClient();
   const paths: string[] = [];
   for (const file of files) {
-    if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
-    if (file.size > MAX_BYTES) throw new Error("사진은 각 10MB 이하만 올릴 수 있습니다.");
+    const isVideo = file.type.startsWith("video/");
+    if (!file.type.startsWith("image/") && !isVideo) {
+      throw new Error("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
+    }
+    if (file.size > (isVideo ? MAX_VIDEO : MAX_IMG)) {
+      throw new Error(isVideo ? "동영상은 각 50MB 이하만 올릴 수 있습니다." : "사진은 각 10MB 이하만 올릴 수 있습니다.");
+    }
     const urlRes = await createProgramUploadUrl(file.name);
     if (!urlRes.ok) throw new Error(urlRes.error);
     const { error } = await supabase.storage
@@ -125,12 +131,12 @@ function ProgramForm({
       </div>
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-muted">
-          사진 (여러 장, 각 최대 10MB · 첫 사진이 대표){requireImage ? " *" : " — 다시 선택 시 전체 교체"}
+          사진 · 동영상 (여러 개, 사진 10MB / 동영상 50MB · 첫 파일이 대표){requireImage ? " *" : " — 다시 선택 시 전체 교체"}
         </label>
         <input
           type="file"
           name="image"
-          accept="image/*"
+          accept="image/*,video/*"
           multiple
           className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-court file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-court-deep"
         />
@@ -180,7 +186,7 @@ function ProgramRow({ program, index, total }: { program: Program; index: number
       <div className="flex items-center gap-4">
         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-court-deep">
           {program.image ? (
-            <Image src={program.image} alt={program.title} fill sizes="64px" className="object-cover" />
+            <MediaFill src={program.image} alt={program.title} sizes="64px" className="object-cover" />
           ) : null}
         </div>
         <div className="min-w-0 flex-1">

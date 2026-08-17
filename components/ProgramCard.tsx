@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CourtLines } from "@/components/ui";
+import { MediaFill } from "@/components/MediaFill";
 import { formatPrice, type Program } from "@/lib/programs";
 
 export function ProgramCard({ program, ko = true }: { program: Program; ko?: boolean }) {
@@ -8,10 +8,9 @@ export function ProgramCard({ program, ko = true }: { program: Program; ko?: boo
     <Link href={`/store/programs/${program.slug}`} className="group block">
       <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
         {program.image ? (
-          <Image
+          <MediaFill
             src={program.image}
             alt={program.title}
-            fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
