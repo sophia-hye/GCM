@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { createPopupUploadUrl, savePopup } from "@/app/admin/popups/actions";
+import { convertHeicIfNeeded } from "@/lib/heic-convert";
 
 const MAX_BYTES = 50 * 1024 * 1024; // 50MB (동영상 대비)
 
@@ -38,21 +39,25 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
       setError("이미지를 선택해 주세요.");
       return;
     }
-    const isSvg = /\.svg$/i.test(file.name);
-    if (!file.type.startsWith("image/") && !file.type.startsWith("video/") && !isSvg) {
+    const isHeicName = /\.(heic|heif)$/i.test(file.name);
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/") && !/\.svg$/i.test(file.name) && !isHeicName) {
       setError("이미지 · 동영상 · SVG 파일만 업로드할 수 있습니다.");
       return;
     }
-    if (file.size > MAX_BYTES) {
-      setError("파일은 50MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
-      return;
-    }
-    const contentType = file.type || (isSvg ? "image/svg+xml" : "application/octet-stream");
 
     setPending(true);
     try {
+      // 아이폰 HEIC 는 크롬/윈도우에서 안 보이므로 업로드 전에 JPEG 로 변환
+      const upload = await convertHeicIfNeeded(file);
+      const isSvg = /\.svg$/i.test(upload.name);
+      if (upload.size > MAX_BYTES) {
+        setError("파일은 50MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
+        return;
+      }
+      const contentType = upload.type || (isSvg ? "image/svg+xml" : "application/octet-stream");
+
       // 1) 서버에서 서명 업로드 URL 발급
-      const urlRes = await createPopupUploadUrl(file.name);
+      const urlRes = await createPopupUploadUrl(upload.name);
       if (!urlRes.ok) {
         setError(urlRes.error);
         return;
@@ -61,7 +66,7 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
       const supabase = createClient();
       const { error: upErr } = await supabase.storage
         .from("gallery")
-        .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType });
+        .uploadToSignedUrl(urlRes.path, urlRes.token, upload, { contentType });
       if (upErr) {
         setError(`업로드 실패: ${upErr.message}`);
         return;
@@ -97,7 +102,7 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
         <input
           type="file"
           name="image"
-          accept="image/*,video/*,.svg"
+          accept="image/*,video/*,.svg,.heic,.heif"
           required
           className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-court file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-court-deep"
         />
