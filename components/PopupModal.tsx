@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isVideoUrl } from "@/lib/media";
+import { isVideoUrl, isSvgUrl } from "@/lib/media";
 
 type Popup = { id: string; image_url: string; link_url: string | null };
 
@@ -11,9 +11,10 @@ function PopupMedia({ url }: { url: string }) {
       <video src={url} className="block w-full rounded-lg" autoPlay muted loop playsInline controls />
     );
   }
-  // 이미지 · SVG(정적/SMIL/CSS 애니메이션 포함)는 img 로 렌더
+  // SVG 는 Supabase 가 강제 다운로드(attachment)로 서빙하므로 동일 출처 프록시로 inline 재서빙
+  const src = isSvgUrl(url) ? `/api/popup-media?u=${encodeURIComponent(url)}` : url;
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={url} alt="공지 팝업" className="block w-full rounded-lg" />;
+  return <img src={src} alt="공지 팝업" className="block w-full rounded-lg" />;
 }
 
 /** 종료 시각(오늘 자정)까지 이 팝업을 숨긴다 */

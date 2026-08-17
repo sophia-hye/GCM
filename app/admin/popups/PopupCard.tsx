@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { isVideoUrl } from "@/lib/media";
+import { isVideoUrl, isSvgUrl } from "@/lib/media";
 import {
   setPopupActive,
   removePopup,
@@ -91,7 +91,11 @@ export function PopupCard({ popup }: { popup: Popup }) {
         <video src={popup.image_url} className="aspect-[4/5] w-full bg-base object-contain" muted playsInline controls />
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
+        <img
+          src={isSvgUrl(popup.image_url) ? `/api/popup-media?u=${encodeURIComponent(popup.image_url)}` : popup.image_url}
+          alt="팝업 이미지"
+          className="aspect-[4/5] w-full bg-base object-contain"
+        />
       )}
 
       <div className="space-y-3 p-4">
