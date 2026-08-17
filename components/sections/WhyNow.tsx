@@ -1,13 +1,14 @@
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict } from "@/lib/site-content";
-import { getContentMap, cmsText } from "@/lib/cms";
+import { getContentMap, cmsText, cmsParas } from "@/lib/cms";
 
 export async function WhyNow() {
   const locale = await getLocale();
   const ko = locale === "ko";
   const { whoWeAre } = getDict(locale);
   const map = await getContentMap();
+  const story = cmsParas(map, "whoWeAre.story", whoWeAre.story ?? [], ko);
   return (
     <Section id="values" tone="muted">
       <SectionHeading
@@ -33,9 +34,9 @@ export async function WhyNow() {
           </div>
         ))}
       </div>
-      {whoWeAre.story?.length ? (
+      {story.length ? (
         <div className="mt-16 max-w-2xl space-y-5 border-t border-line pt-10">
-          {whoWeAre.story.map((p) => (
+          {story.map((p) => (
             <p key={p} className="whitespace-pre-line text-base leading-relaxed text-muted">
               {p}
             </p>
