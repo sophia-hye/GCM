@@ -91,6 +91,31 @@ export default async function AdminContentPage({
         </p>
       </div>
 
+      {/* 자주 헷갈리는 부분: 캠프·상품 등은 여기서 편집되지 않음 */}
+      <div className="rounded-xl border border-court-bright/40 bg-court-bright/5 p-4 text-sm">
+        <p className="font-semibold text-court-bright">
+          여기서는 <b>고정 텍스트 문구</b>만 수정됩니다. 아래 항목은 전용 관리 페이지에서 수정하세요.
+        </p>
+        <ul className="mt-2 space-y-1 text-muted">
+          <li>
+            · Education Program <b className="text-ink">캠프</b>(하버드 여름 캠프 · 보스턴 겨울 스쿨링 등) 제목·설명·가격·사진 →{" "}
+            <Link href="/admin/programs" className="font-semibold text-court hover:underline">
+              프로그램 관리
+            </Link>
+            <span className="text-muted"> (콘텐츠 편집기의 “프로그램” 항목은 트레이닝 Kids/Junior/Pro 티어로, 캠프와 다릅니다)</span>
+          </li>
+          <li>
+            · GCM&apos;s Products →{" "}
+            <Link href="/admin/products" className="font-semibold text-court hover:underline">
+              GCM&apos;s Products 관리
+            </Link>
+          </li>
+          <li>
+            · 갤러리 / 이벤트(Festival) / 팝업 / 선수 → 각 전용 관리 페이지 (아래 “메뉴별 안내” 참고)
+          </li>
+        </ul>
+      </div>
+
       {/* 현재 메뉴/서브메뉴 구조 → 콘텐츠 편집 위치 안내 */}
       <details className="rounded-2xl border border-line bg-card/50 p-5">
         <summary className="cursor-pointer text-sm font-semibold text-ink">
