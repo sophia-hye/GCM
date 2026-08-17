@@ -38,14 +38,16 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
       setError("이미지를 선택해 주세요.");
       return;
     }
-    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
-      setError("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
+    const isSvg = /\.svg$/i.test(file.name);
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/") && !isSvg) {
+      setError("이미지 · 동영상 · SVG 파일만 업로드할 수 있습니다.");
       return;
     }
     if (file.size > MAX_BYTES) {
       setError("파일은 50MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
       return;
     }
+    const contentType = file.type || (isSvg ? "image/svg+xml" : "application/octet-stream");
 
     setPending(true);
     try {
@@ -59,7 +61,7 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
       const supabase = createClient();
       const { error: upErr } = await supabase.storage
         .from("gallery")
-        .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType: file.type });
+        .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType });
       if (upErr) {
         setError(`업로드 실패: ${upErr.message}`);
         return;
@@ -90,12 +92,12 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
 
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-muted">
-          팝업 이미지 또는 동영상 (최대 50MB)
+          팝업 이미지 · 동영상 · SVG (최대 50MB)
         </label>
         <input
           type="file"
           name="image"
-          accept="image/*,video/*"
+          accept="image/*,video/*,.svg"
           required
           className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-court file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-court-deep"
         />
