@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import { Container, CourtLines } from "@/components/ui";
 import { PurchaseButton } from "@/components/PurchaseButton";
+import { MediaFill } from "@/components/MediaFill";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
 import { formatPrice, type Program } from "@/lib/programs";
@@ -84,14 +84,7 @@ export default async function ProgramDetailPage({
       {/* 히어로 배너 */}
       <section className="relative overflow-hidden bg-court-deep text-white">
         {program.image ? (
-          <Image
-            src={program.image}
-            alt={program.title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-45"
-          />
+          <MediaFill src={program.image} alt={program.title} priority sizes="100vw" className="object-cover opacity-45" />
         ) : (
           <CourtLines className="absolute inset-0 h-full w-full text-white/10" />
         )}
@@ -187,10 +180,9 @@ export default async function ProgramDetailPage({
                   key={i}
                   className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-court-deep"
                 >
-                  <Image
+                  <MediaFill
                     src={src}
                     alt={`${program.title} ${i + 2}`}
-                    fill
                     sizes="(max-width: 640px) 50vw, 33vw"
                     className="object-cover"
                   />
