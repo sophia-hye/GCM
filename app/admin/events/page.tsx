@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { SeouliteEvent } from "@/lib/events";
 import { EventsAdmin } from "./EventsAdmin";
 
-export const metadata = { title: "한남 GCM Festival 관리 | GCM Admin" };
+export const metadata = { title: "GCM Festival at Hannam 관리 | GCM Admin" };
 
 export default async function AdminEventsPage() {
   const supabase = await createClient();
@@ -16,9 +16,9 @@ export default async function AdminEventsPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-bold">한남 GCM Festival 모임 관리</h1>
+      <h1 className="font-display text-2xl font-bold">GCM Festival at Hannam 모임 관리</h1>
       <p className="mt-1 text-sm text-muted">
-        월간 모임 후기를 등록하면 공개된 글만 Social Events &gt; 한남 GCM Festival 페이지에
+        월간 모임 후기를 등록하면 공개된 글만 Social Events &gt; GCM Festival at Hannam 페이지에
         인스타 피드형 카드로 노출되고, 각 상세 페이지가 생성됩니다.
       </p>
 

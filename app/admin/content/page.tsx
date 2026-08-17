@@ -37,7 +37,7 @@ const MENU_MAP: { group: string; items: { label: string; where: string; href?: s
   {
     group: "Social Events",
     items: [
-      { label: "한남 GCM Festival", where: "한남 GCM Festival 관리", href: "/admin/events" },
+      { label: "GCM Festival at Hannam", where: "GCM Festival at Hannam 관리", href: "/admin/events" },
       { label: "Membership", where: "코드 (준비중 페이지)" },
     ],
   },

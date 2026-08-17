@@ -10,7 +10,7 @@ export default async function NewVoicePage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?next=/voices/new");
+  if (!user) redirect("/login?next=/testimonial/new");
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
@@ -22,7 +22,7 @@ export default async function NewVoicePage() {
     <div className="pt-16">
       <Section>
         <SectionHeading
-          eyebrow="Voices"
+          eyebrow="Testimonial"
           title="이야기 남기기"
           lead="GCM과 함께한 경험을 자유롭게 들려주세요. 관리자 승인 후 게시판에 공개됩니다."
         />

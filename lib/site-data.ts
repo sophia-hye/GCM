@@ -43,7 +43,7 @@ export const nav = [
   {
     label: "Our Story",
     items: [
-      { label: "Testimonials", href: "/voices" },
+      { label: "Testimonial", href: "/testimonial" },
       { label: "Gallery", href: "/gallery" },
       { label: "Consulting", href: "/consulting" },
     ],
@@ -52,7 +52,7 @@ export const nav = [
   {
     label: "Social Events",
     items: [
-      { label: "한남 GCM Festival", href: "/events/hannam-festival" },
+      { label: "GCM Festival at Hannam", href: "/events/gcm-festival-at-hannam" },
       { label: "Membership", href: "/membership" },
     ],
   },
@@ -544,9 +544,6 @@ export const schedule = [
   { date: "2026.08", title: "UTR 쇼케이스", place: "서울", target: "주니어 / 대학 지망" },
   { date: "2026.09", title: "국제 토너먼트 동행", place: "해외", target: "프로 트랙" },
 ];
-
-/** 선수·학부모 후기 — 동의 확인 후 콘텐츠 업로드 예정 (현재 영역만 유지) */
-export const testimonials: { quote: string; author: string }[] = [];
 
 export const faqContact = {
   title: "ARE YOU READY TO GO PRO & GROW?",

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 
-export const metadata = pageMetadata({ title: "선수와 학부모의 이야기 | GCM 테니스 아카데미", description: "GCM 선수와 학부모가 직접 전하는 후기와 이야기.", path: "/voices" });
+export const metadata = pageMetadata({ title: "선수와 학부모의 이야기 | GCM 테니스 아카데미", description: "GCM 선수와 학부모가 직접 전하는 후기와 이야기.", path: "/testimonial" });
 
 type Voice = {
   id: string;
@@ -33,11 +33,11 @@ export default async function VoicesPage({
 
   return (
     <div className="pt-16">
-      <PageJsonLd name="선수·학부모 이야기" path="/voices" />
-      <Section id="voices">
+      <PageJsonLd name="선수·학부모 이야기" path="/testimonial" />
+      <Section id="testimonial">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Voices" title="선수와 학부모의 이야기" />
-          <Button href="/voices/new" variant="court">
+          <SectionHeading eyebrow="Testimonial" title="선수와 학부모의 이야기" />
+          <Button href="/testimonial/new" variant="court">
             이야기 남기기
           </Button>
         </div>
@@ -67,7 +67,7 @@ export default async function VoicesPage({
           <div className="mt-12 rounded-2xl border border-dashed border-line px-6 py-16 text-center text-sm text-muted">
             아직 공개된 이야기가 없습니다. 첫 이야기를 남겨주세요.
             <div className="mt-4">
-              <Link href="/voices/new" className="font-semibold text-court hover:underline">
+              <Link href="/testimonial/new" className="font-semibold text-court hover:underline">
                 이야기 남기기 →
               </Link>
             </div>

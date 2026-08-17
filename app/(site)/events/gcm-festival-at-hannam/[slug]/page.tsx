@@ -26,11 +26,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const ev = await getEvent(slug);
-  if (!ev) return { title: "한남 GCM Festival | GCM 테니스 아카데미" };
+  if (!ev) return { title: "GCM Festival at Hannam | GCM 테니스 아카데미" };
   return pageMetadata({
-    title: `${ev.title} | 한남 GCM Festival`,
-    description: ev.body?.slice(0, 100) || "GCM 한남 GCM Festival 모임 후기.",
-    path: `/events/hannam-festival/${ev.slug}`,
+    title: `${ev.title} | GCM Festival at Hannam`,
+    description: ev.body?.slice(0, 100) || "GCM Festival at Hannam 모임 후기.",
+    path: `/events/gcm-festival-at-hannam/${ev.slug}`,
   });
 }
 
@@ -50,12 +50,12 @@ export default async function EventDetailPage({
   return (
     <div className="pt-16">
       <Container className="py-16 sm:py-24">
-        <Link href="/events/hannam-festival" className="text-sm font-semibold text-muted hover:text-court">
-          ← {ko ? "한남 GCM Festival" : "Back to 한남 GCM Festival"}
+        <Link href="/events/gcm-festival-at-hannam" className="text-sm font-semibold text-muted hover:text-court">
+          ← {ko ? "GCM Festival at Hannam" : "Back to GCM Festival at Hannam"}
         </Link>
 
         <div className="mt-8 max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">한남 GCM Festival</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-court">GCM Festival at Hannam</p>
           <h1 className="mt-3 break-keep font-display text-3xl font-black leading-[1.15] sm:text-4xl">
             {ev.title}
           </h1>
