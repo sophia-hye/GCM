@@ -124,6 +124,7 @@ export const CMS_FIELDS: CmsField[] = [
       { key: `whoWeAre.pillar.${i}.body`, section: "소개(About)", label: `핵심가치 ${i + 1} — 내용`, multiline: true, default: s(p.body), defaultEn: s(e.body) },
     ];
   }),
+  { key: "whoWeAre.story", section: "소개(About)", label: "GCM은 어떤 곳인가 — 하단 스토리 (빈 줄로 문단 구분)", multiline: true, paragraphs: true, default: j(K.whoWeAre.story), defaultEn: j(E.whoWeAre.story) },
 
   { key: "cx.hero.title", section: "컨설팅 전문", label: "히어로 — 제목", multiline: true, default: s(cxK.hero.title), defaultEn: s(cxE.hero.title) },
   { key: "cx.hero.sub", section: "컨설팅 전문", label: "히어로 — 설명", multiline: true, default: s(cxK.hero.sub), defaultEn: s(cxE.hero.sub) },
