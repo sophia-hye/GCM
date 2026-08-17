@@ -46,8 +46,8 @@ export default async function StoreProductsPage() {
           title="GCM's Products"
           lead={
             ko
-              ? "네트(Net)를 활용해 Kids부터 시니어까지 모두 함께하는 힐링 복합 커뮤니티. GCM 전용 코트 밖에서도 다양한 방법으로 테니스를 즐기고 커뮤니티를 넓혀 보세요."
-              : "A healing community around the net — for everyone from kids to seniors. Enjoy tennis in many ways beyond the GCM court and grow the community."
+              ? '네트(Net)를 활용해 Kids부터 시니어까지 모두 함께하는 힐링 복합 커뮤니티. GCM 전용 코트 밖에서도 다양한 방법으로 테니스를 즐기는 GCM Social "NET" Working!'
+              : 'A healing community around the net — for everyone from kids to seniors. Enjoy tennis in many ways beyond the GCM court. GCM Social "NET" Working!'
           }
           wideLead
         />
