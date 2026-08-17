@@ -1,26 +1,83 @@
-import { testimonials } from "@/lib/site-data";
-import { Section, SectionHeading } from "@/components/ui";
+import Link from "next/link";
+import { Section, SectionHeading, Button } from "@/components/ui";
+import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getLocale } from "@/lib/i18n";
 import { getUI } from "@/lib/site-content";
 
+type Voice = {
+  id: string;
+  relation: string;
+  author_name: string;
+  title: string | null;
+  body: string;
+};
+
+const relationLabel: Record<string, string> = { player: "선수", parent: "학부모" };
+
+/** 홈 미리보기용 최신 후기 3개 */
+async function getRecentVoices(): Promise<Voice[]> {
+  if (!isSupabaseConfigured()) return [];
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("gcm_voices")
+      .select("id, relation, author_name, title, body")
+      .eq("status", "published")
+      .order("published_at", { ascending: false })
+      .limit(3);
+    return (data ?? []) as Voice[];
+  } catch {
+    return [];
+  }
+}
+
 export async function Testimonials() {
   const ui = getUI(await getLocale());
+  const voices = await getRecentVoices();
+
   return (
     <Section>
-      <SectionHeading eyebrow="Voices" title={ui.testimonialsTitle} />
-      {testimonials.length > 0 ? (
-        <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <figure key={t.author} className="border-t border-line pt-6">
-              <blockquote className="font-accent text-lg italic leading-relaxed text-ink">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-5 text-sm font-semibold text-court">
-                {t.author}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <SectionHeading eyebrow="Testimonial" title={ui.testimonialsTitle} />
+        {voices.length > 0 ? (
+          <Link
+            href="/testimonial"
+            className="text-sm font-semibold text-court transition-colors hover:text-court-deep"
+          >
+            전체 보기 →
+          </Link>
+        ) : null}
+      </div>
+
+      {voices.length > 0 ? (
+        <>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {voices.map((v) => (
+              <Link
+                key={v.id}
+                href="/testimonial"
+                className="group flex flex-col rounded-2xl border border-line bg-card/40 p-6 transition-colors hover:border-court-bright"
+              >
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-court-bright">
+                  {relationLabel[v.relation] ?? v.relation}
+                </span>
+                {v.title ? (
+                  <h3 className="mt-3 break-keep font-display text-lg font-bold">{v.title}</h3>
+                ) : null}
+                <p className="mt-3 line-clamp-4 flex-1 break-keep text-sm leading-relaxed text-ink/85">
+                  {v.body}
+                </p>
+                <p className="mt-4 text-sm font-semibold text-muted">— {v.author_name}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button href="/testimonial" variant="court">
+              선수 · 학부모 이야기 더 보기
+            </Button>
+          </div>
+        </>
       ) : (
         <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
           <p className="text-sm text-muted">{ui.testimonialsComing}</p>

@@ -14,7 +14,7 @@ const menu = [
   { label: "선수 관리", href: "/admin/players" },
   { label: "GCM's Products 관리", href: "/admin/products" },
   { label: "프로그램(상점) 관리", href: "/admin/programs" },
-  { label: "한남 GCM Festival 관리", href: "/admin/events" },
+  { label: "GCM Festival at Hannam 관리", href: "/admin/events" },
   { label: "이야기 게시판", href: "/admin/voices" },
   { label: "고객 관리(문의)", href: "/admin/inquiries" },
   { label: "갤러리 관리", href: "/admin/gallery" },

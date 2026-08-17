@@ -92,7 +92,7 @@ export async function saveEvent(input: EventInput): Promise<AdminState> {
   if (error) return { error: tableMissing };
 
   revalidatePath("/admin/events");
-  revalidatePath("/events/hannam-festival");
+  revalidatePath("/events/gcm-festival-at-hannam");
   return { ok: true };
 }
 
@@ -113,7 +113,7 @@ export async function updateEvent(id: string, input: EventInput): Promise<AdminS
   if (error) return { error: tableMissing };
 
   revalidatePath("/admin/events");
-  revalidatePath("/events/hannam-festival");
+  revalidatePath("/events/gcm-festival-at-hannam");
   return { ok: true };
 }
 
@@ -124,7 +124,7 @@ export async function setEventPublished(id: string, published: boolean): Promise
   const { error } = await admin.from("gcm_events").update({ published }).eq("id", id);
   if (error) return { error: "변경 실패: " + error.message };
   revalidatePath("/admin/events");
-  revalidatePath("/events/hannam-festival");
+  revalidatePath("/events/gcm-festival-at-hannam");
   return { ok: true };
 }
 
@@ -135,7 +135,7 @@ export async function removeEvent(id: string): Promise<AdminState> {
   const { error } = await admin.from("gcm_events").delete().eq("id", id);
   if (error) return { error: "삭제 실패: " + error.message };
   revalidatePath("/admin/events");
-  revalidatePath("/events/hannam-festival");
+  revalidatePath("/events/gcm-festival-at-hannam");
   return { ok: true };
 }
 
@@ -158,6 +158,6 @@ export async function moveEvent(id: string, dir: "up" | "down"): Promise<AdminSt
   await admin.from("gcm_events").update({ sort_order: b.sort_order }).eq("id", a.id);
   await admin.from("gcm_events").update({ sort_order: a.sort_order }).eq("id", b.id);
   revalidatePath("/admin/events");
-  revalidatePath("/events/hannam-festival");
+  revalidatePath("/events/gcm-festival-at-hannam");
   return { ok: true };
 }

@@ -18,12 +18,17 @@ const nextConfig: NextConfig = {
     },
   },
   async redirects() {
-    // 기존 Seoulite Net'work URL → 한남 GCM Festival 로 영구 이동
     return [
-      { source: "/events/seoulite", destination: "/events/hannam-festival", permanent: true },
+      // 후기 게시판: /voices → /testimonial 로 영구 이동
+      { source: "/voices", destination: "/testimonial", permanent: true },
+      { source: "/voices/:path*", destination: "/testimonial/:path*", permanent: true },
+      // 축제: 과거 Seoulite / 한남 GCM Festival URL → GCM Festival at Hannam 로 영구 이동
+      { source: "/events/seoulite", destination: "/events/gcm-festival-at-hannam", permanent: true },
+      { source: "/events/seoulite/:slug", destination: "/events/gcm-festival-at-hannam/:slug", permanent: true },
+      { source: "/events/hannam-festival", destination: "/events/gcm-festival-at-hannam", permanent: true },
       {
-        source: "/events/seoulite/:slug",
-        destination: "/events/hannam-festival/:slug",
+        source: "/events/hannam-festival/:slug",
+        destination: "/events/gcm-festival-at-hannam/:slug",
         permanent: true,
       },
     ];

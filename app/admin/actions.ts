@@ -226,7 +226,7 @@ export async function setVoiceStatus(formData: FormData): Promise<void> {
     .update({ status, published_at: status === "published" ? new Date().toISOString() : null })
     .eq("id", id);
   revalidatePath("/admin/voices");
-  revalidatePath("/voices");
+  revalidatePath("/testimonial");
 }
 
 /* ============================================================

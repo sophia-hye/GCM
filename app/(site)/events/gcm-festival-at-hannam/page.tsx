@@ -6,14 +6,16 @@ import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
 import { formatEventDate, type SeouliteEvent } from "@/lib/events";
 
+const FESTIVAL_NAME = "GCM Festival at Hannam";
+
 export const metadata = pageMetadata({
-  title: "한남 GCM Festival | GCM 테니스 아카데미",
+  title: `${FESTIVAL_NAME} | GCM 테니스 아카데미`,
   description:
-    "TENNIS. MUSIC. LIGHT. 한남에서 열리는 GCM Festival — 낮과 밤을 잇는 데이&나이트 테니스 축제. 2026.8.29 HANNAM, SEOUL.",
-  path: "/events/hannam-festival",
+    "TENNIS. MUSIC. LIGHT. 한남에서 열리는 GCM Festival at Hannam — 낮과 밤을 잇는 데이&나이트 테니스 축제. 2026.8.29 HANNAM, SEOUL.",
+  path: "/events/gcm-festival-at-hannam",
 });
 
-export default async function HannamFestivalPage() {
+export default async function GcmFestivalPage() {
   const ko = (await getLocale()) === "ko";
 
   const supabase = await createClient();
@@ -25,29 +27,35 @@ export default async function HannamFestivalPage() {
     .order("created_at", { ascending: false });
 
   const events = (data ?? []) as SeouliteEvent[];
-  const heroImg = events.flatMap((e) => e.images).find(Boolean) ?? null;
 
   return (
     <div className="pt-16">
-      {/* 축제 히어로 (Glow Night) — 업로드된 이미지가 배경으로 자동 반영 */}
+      {/* 축제 히어로 (Glow Night) */}
       <section className="relative overflow-hidden bg-[#07070e] text-white">
-        {heroImg ? (
-          <Image
-            src={heroImg}
-            alt="한남 GCM Festival"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-45"
-          />
-        ) : null}
+        {/* 모바일: 세로 이미지 / 데스크탑: 가로 이미지 */}
+        <Image
+          src="/img/festival-glow-vertical.png"
+          alt={FESTIVAL_NAME}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-50 sm:hidden"
+        />
+        <Image
+          src="/img/festival-glow.png"
+          alt={FESTIVAL_NAME}
+          fill
+          priority
+          sizes="100vw"
+          className="hidden object-cover opacity-50 sm:block"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-[#07070e]/85 via-[#0b0b1a]/80 to-[#07070e]/95" />
         <Container className="relative py-24 text-center sm:py-36">
           <p className="font-display text-xs font-bold uppercase tracking-[0.35em] text-[#d4ff3d]">
-            GCM Festival at Hannam
+            Social Events
           </p>
           <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-black leading-[1.05] sm:text-6xl">
-            한남 GCM <span className="text-[#d4ff3d]">Festival</span>
+            GCM Festival <span className="text-[#d4ff3d]">at Hannam</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-sm uppercase tracking-[0.15em] text-white/70 sm:text-base">
             A network built around the net.
@@ -84,6 +92,54 @@ export default async function HannamFestivalPage() {
         </Container>
       </section>
 
+      {/* 낮 & 밤 — 하나의 코트 */}
+      <section className="bg-[#07070e] pb-16 sm:pb-24">
+        <Container>
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+            {[
+              {
+                lg: "/img/festival-day.png",
+                sm: "/img/festival-day-vertical.png",
+                label: "Day Tennis",
+                sub: ko ? "낮의 코트" : "By day",
+              },
+              {
+                lg: "/img/festival-glow.png",
+                sm: "/img/festival-glow-vertical.png",
+                label: "Glow Night",
+                sub: ko ? "밤의 코트" : "By night",
+              },
+            ].map((v) => (
+              <figure
+                key={v.label}
+                className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/10 sm:aspect-[4/3]"
+              >
+                {/* 모바일: 세로 이미지 / 데스크탑: 가로 이미지 */}
+                <Image
+                  src={v.sm}
+                  alt={v.label}
+                  fill
+                  sizes="100vw"
+                  className="object-cover sm:hidden"
+                />
+                <Image
+                  src={v.lg}
+                  alt={v.label}
+                  fill
+                  sizes="50vw"
+                  className="hidden object-cover sm:block"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <figcaption className="absolute bottom-0 left-0 p-5">
+                  <p className="font-display text-xl font-black text-white">{v.label}</p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-[#d4ff3d]">{v.sub}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* 등록된 모임/현장 이미지 피드 */}
       {events.length > 0 ? (
         <Section>
@@ -92,7 +148,7 @@ export default async function HannamFestivalPage() {
             title={ko ? "현장의 순간들" : "Moments from the festival"}
             lead={
               ko
-                ? "한남 GCM Festival의 낮과 밤, 그날의 순간들을 담았습니다."
+                ? `${FESTIVAL_NAME}의 낮과 밤, 그날의 순간들을 담았습니다.`
                 : "Day and night at the GCM Festival — moments we captured."
             }
             wideLead
@@ -101,7 +157,7 @@ export default async function HannamFestivalPage() {
             {events.map((ev) => (
               <Link
                 key={ev.id}
-                href={`/events/hannam-festival/${ev.slug}`}
+                href={`/events/gcm-festival-at-hannam/${ev.slug}`}
                 className="group relative aspect-square overflow-hidden rounded-lg bg-court-deep"
               >
                 {ev.images[0] ? (

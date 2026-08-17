@@ -494,7 +494,7 @@ export const UI = {
     playersTitle: "Our Players",
     playersLead: "We build the brand together not after turning pro, but before.",
     playersComing: "Player information is being prepared and will be released soon.",
-    testimonialsTitle: "Voices of Athletes & Parents",
+    testimonialsTitle: "Testimonials from Athletes & Parents",
     testimonialsComing: "Stories from athletes and parents are being prepared and will be published in order after consent.",
     teamTitle: "Meet the Coaches",
     coachBio: "View bio →",

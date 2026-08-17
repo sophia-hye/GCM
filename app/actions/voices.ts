@@ -39,6 +39,6 @@ export async function submitVoice(_prev: VoiceState, formData: FormData): Promis
     return { error: "저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." };
   }
 
-  revalidatePath("/voices");
-  redirect("/voices?submitted=1");
+  revalidatePath("/testimonial");
+  redirect("/testimonial?submitted=1");
 }
