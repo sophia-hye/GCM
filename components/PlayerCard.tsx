@@ -7,6 +7,13 @@ export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean
     .filter(Boolean)
     .join(" · ");
 
+  const profile: { label: string; value: string }[] = [];
+  if (player.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: player.birthday });
+  if (player.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: player.birthplace });
+  if (player.plays) profile.push({ label: "Plays", value: player.plays });
+  if (player.backhand) profile.push({ label: "Backhand", value: player.backhand });
+  if (player.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: player.joined_date });
+
   return (
     <div className="group">
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
@@ -37,6 +44,16 @@ export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean
         <h3 className="text-lg font-bold">{player.name}</h3>
         {meta ? <p className="mt-1 text-sm font-semibold text-court">{meta}</p> : null}
         {player.result ? <p className="mt-1 text-xs text-ink/70">{player.result}</p> : null}
+        {profile.length ? (
+          <dl className="mt-3 space-y-1.5 border-t border-line pt-3">
+            {profile.map((r) => (
+              <div key={r.label} className="flex gap-3 text-xs leading-relaxed">
+                <dt className="w-20 shrink-0 font-semibold uppercase tracking-wide text-court">{r.label}</dt>
+                <dd className="break-keep text-ink/80">{r.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
         {player.bio ? <p className="mt-2 text-sm leading-relaxed text-muted">{player.bio}</p> : null}
         {player.video_url ? (
           <a

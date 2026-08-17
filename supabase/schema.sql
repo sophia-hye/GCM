@@ -82,14 +82,24 @@ create table public.gcm_players (
   video_url text,
   image text,
   bio text,
+  birthday text,
+  birthplace text,
+  plays text,
+  backhand text,
+  joined_date text,
   sort_order int not null default 0,
   published boolean not null default false,
   created_at timestamptz not null default now()
 );
--- 기존 DB(테이블이 이미 있는 경우) 아래 3줄만 실행:
+-- 기존 DB(테이블이 이미 있는 경우) 아래를 실행:
 --   alter table public.gcm_players add column if not exists image text;
 --   alter table public.gcm_players add column if not exists bio text;
 --   alter table public.gcm_players add column if not exists sort_order int not null default 0;
+--   alter table public.gcm_players add column if not exists birthday text;
+--   alter table public.gcm_players add column if not exists birthplace text;
+--   alter table public.gcm_players add column if not exists plays text;
+--   alter table public.gcm_players add column if not exists backhand text;
+--   alter table public.gcm_players add column if not exists joined_date text;
 alter table public.gcm_players enable row level security;
 create index if not exists gcm_players_order_idx on public.gcm_players (sort_order asc, created_at desc);
 create policy "gcm_players_select_published" on public.gcm_players for select using (published = true);
