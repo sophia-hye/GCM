@@ -46,3 +46,9 @@ next-env.d.ts
 docs/.bkit-memory.json
 docs/.pdca-status.json
 docs/.pdca-snapshots/
+
+# 공백 포함 원본 이미지(중복) — Vercel 배포 파이프라인 이슈 방지. festival-*.png 복사본 사용
+public/img/day tennis landscape.png
+public/img/day tennis vertical.png
+public/img/glow tennis landscape.png
+public/img/glow tennis vertical.png
