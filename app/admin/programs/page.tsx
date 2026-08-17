@@ -8,7 +8,7 @@ export default async function AdminProgramsPage() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("gcm_programs")
-    .select("id, slug, title, summary, description, price, duration, image, sort_order, published")
+    .select("*")
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
 

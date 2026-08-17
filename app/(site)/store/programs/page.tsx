@@ -19,7 +19,7 @@ export default async function StoreProgramsPage() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("gcm_programs")
-    .select("id, slug, title, summary, description, price, duration, image, sort_order, published")
+    .select("*")
     .eq("published", true)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });

@@ -308,11 +308,14 @@ create table if not exists public.gcm_programs (
   description text,
   price integer,            -- 원(KRW) 정수. null 이면 '가격 문의'
   duration text,            -- 예: '8주 과정'
-  image text,
+  image text,               -- 대표 이미지(= images[0])
+  images text[] not null default '{}',  -- 갤러리(여러 장)
   published boolean not null default false,
   sort_order int not null default 0,
   created_at timestamptz not null default now()
 );
+-- 기존 DB(테이블 존재 시) 아래 1줄만 실행:
+--   alter table public.gcm_programs add column if not exists images text[] not null default '{}';
 alter table public.gcm_programs enable row level security;
 create index if not exists gcm_programs_order_idx on public.gcm_programs (sort_order asc, created_at desc);
 drop policy if exists "gcm_programs_select_published" on public.gcm_programs;
