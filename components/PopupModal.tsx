@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isVideoUrl, isSvgUrl } from "@/lib/media";
+import { isVideoUrl } from "@/lib/media";
 
 type Popup = { id: string; image_url: string; link_url: string | null };
 
@@ -11,17 +11,7 @@ function PopupMedia({ url }: { url: string }) {
       <video src={url} className="block w-full rounded-lg" autoPlay muted loop playsInline controls />
     );
   }
-  if (isSvgUrl(url)) {
-    // 애니메이션 SVG 는 object 로 렌더해야 재생된다.
-    return (
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg">
-        <object data={url} type="image/svg+xml" aria-label="공지 팝업" className="absolute inset-0 h-full w-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={url} alt="공지 팝업" className="h-full w-full object-contain" />
-        </object>
-      </div>
-    );
-  }
+  // 이미지 · SVG(정적/SMIL/CSS 애니메이션 포함)는 img 로 렌더
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={url} alt="공지 팝업" className="block w-full rounded-lg" />;
 }
@@ -74,12 +64,13 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
       aria-modal="true"
       onClick={() => setVisibleIds([])}
     >
-      {/* 팝업을 각각 별도 카드로 표시 */}
-      <div className="flex flex-wrap items-start justify-center gap-4">
-        {visible.map((p) => (
+      {/* 데스크톱: 가로 나란히 / 모바일: 세로로 살짝 겹쳐서 */}
+      <div className="flex flex-col items-center gap-0 sm:flex-row sm:flex-wrap sm:items-start sm:justify-center sm:gap-4">
+        {visible.map((p, i) => (
           <div
             key={p.id}
-            className="w-full max-w-xs overflow-hidden rounded-2xl bg-white shadow-2xl sm:max-w-[300px]"
+            style={{ zIndex: visible.length - i }}
+            className="-mt-6 w-[300px] max-w-[calc(100vw-2rem)] shrink-0 overflow-hidden rounded-2xl bg-white shadow-2xl first:mt-0 sm:mt-0"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-3">
