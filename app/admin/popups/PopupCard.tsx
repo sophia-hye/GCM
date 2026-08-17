@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { isVideoUrl } from "@/lib/media";
+import { isVideoUrl, isSvgUrl } from "@/lib/media";
 import {
   setPopupActive,
   removePopup,
@@ -44,14 +44,16 @@ export function PopupCard({ popup }: { popup: Popup }) {
   async function onReplaceImage(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
-      setError("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
+    const isSvg = /\.svg$/i.test(file.name);
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/") && !isSvg) {
+      setError("이미지 · 동영상 · SVG 파일만 업로드할 수 있습니다.");
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
       setError("파일은 50MB 이하만 올릴 수 있습니다.");
       return;
     }
+    const contentType = file.type || (isSvg ? "image/svg+xml" : "application/octet-stream");
     setBusy(true);
     setError(null);
     try {
@@ -63,7 +65,7 @@ export function PopupCard({ popup }: { popup: Popup }) {
       const supabase = createClient();
       const { error: upErr } = await supabase.storage
         .from("gallery")
-        .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType: file.type });
+        .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType });
       if (upErr) {
         setError("업로드 실패: " + upErr.message);
         return;
@@ -87,6 +89,11 @@ export function PopupCard({ popup }: { popup: Popup }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {isVideoUrl(popup.image_url) ? (
         <video src={popup.image_url} className="aspect-[4/5] w-full bg-base object-contain" muted playsInline controls />
+      ) : isSvgUrl(popup.image_url) ? (
+        <object data={popup.image_url} type="image/svg+xml" aria-label="팝업 SVG" className="aspect-[4/5] w-full bg-base">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
+        </object>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
