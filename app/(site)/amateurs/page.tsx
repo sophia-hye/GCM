@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { RecreationalClass } from "@/components/sections/RecreationalClass";
+import { AmateurLifestyle } from "@/components/sections/AmateurLifestyle";
 
 export const metadata = pageMetadata({
   title: "성인 아마추어 테니스 클래스 | GCM 테니스 아카데미",
@@ -11,6 +12,7 @@ export default function AmateursPage() {
   return (
     <div className="pt-16">
       <RecreationalClass classKey="ADULT" eyebrow="Amateurs" />
+      <AmateurLifestyle />
     </div>
   );
 }
