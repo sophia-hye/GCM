@@ -1,8 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isVideoUrl } from "@/lib/media";
 
 type Popup = { id: string; image_url: string; link_url: string | null };
+
+function PopupMedia({ url }: { url: string }) {
+  if (isVideoUrl(url)) {
+    return (
+      <video
+        src={url}
+        className="w-full rounded-lg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls
+      />
+    );
+  }
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={url} alt="공지 팝업" className="w-full rounded-lg" />;
+}
 
 const HIDE_KEY = "gcm_popups_hide";
 
@@ -58,12 +77,10 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
           {popups.map((p) =>
             p.link_url ? (
               <a key={p.id} href={p.link_url} target="_blank" rel="noopener noreferrer">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.image_url} alt="공지 팝업" className="w-full rounded-lg" />
+                <PopupMedia url={p.image_url} />
               </a>
             ) : (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img key={p.id} src={p.image_url} alt="공지 팝업" className="w-full rounded-lg" />
+              <PopupMedia key={p.id} url={p.image_url} />
             ),
           )}
         </div>
