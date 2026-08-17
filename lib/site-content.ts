@@ -349,7 +349,7 @@ const enSiteGuide = [
     no: "04",
     label: "Players",
     href: "/players",
-    title: "Our Players",
+    title: "GCM Players",
     desc: "Stories of GCM athletes who grow with us from before they turn pro. (Coming soon)",
     items: ["Player stories", "Growth records", "Coming soon"],
   },
@@ -491,7 +491,7 @@ export const UI = {
   },
   en: {
     programsTitle: "Who Our Programs Are For",
-    playersTitle: "Our Players",
+    playersTitle: "GCM Players",
     playersLead: "We build the brand together not after turning pro, but before.",
     playersComing: "Player information is being prepared and will be released soon.",
     testimonialsTitle: "Testimonials from Athletes & Parents",
