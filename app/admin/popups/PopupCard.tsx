@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { isVideoUrl } from "@/lib/media";
 import {
   setPopupActive,
   removePopup,
@@ -43,12 +44,12 @@ export function PopupCard({ popup }: { popup: Popup }) {
   async function onReplaceImage(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setError("이미지 파일만 업로드할 수 있습니다.");
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+      setError("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      setError("이미지는 10MB 이하만 올릴 수 있습니다.");
+    if (file.size > 50 * 1024 * 1024) {
+      setError("파일은 50MB 이하만 올릴 수 있습니다.");
       return;
     }
     setBusy(true);
@@ -84,7 +85,12 @@ export function PopupCard({ popup }: { popup: Popup }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-card">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
+      {isVideoUrl(popup.image_url) ? (
+        <video src={popup.image_url} className="aspect-[4/5] w-full bg-base object-contain" muted playsInline controls />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
+      )}
 
       <div className="space-y-3 p-4">
         <span
@@ -172,7 +178,7 @@ export function PopupCard({ popup }: { popup: Popup }) {
           >
             이미지 교체
           </button>
-          <input ref={fileRef} type="file" accept="image/*" onChange={onReplaceImage} className="hidden" />
+          <input ref={fileRef} type="file" accept="image/*,video/*" onChange={onReplaceImage} className="hidden" />
 
           <button
             type="button"

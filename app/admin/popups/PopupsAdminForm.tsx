@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { createPopupUploadUrl, savePopup } from "@/app/admin/popups/actions";
 
-const MAX_BYTES = 10 * 1024 * 1024; // 10MB
+const MAX_BYTES = 50 * 1024 * 1024; // 50MB (동영상 대비)
 
 export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
   const router = useRouter();
@@ -38,12 +38,12 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
       setError("이미지를 선택해 주세요.");
       return;
     }
-    if (!file.type.startsWith("image/")) {
-      setError("이미지 파일만 업로드할 수 있습니다.");
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+      setError("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
       return;
     }
     if (file.size > MAX_BYTES) {
-      setError("이미지는 10MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
+      setError("파일은 50MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
       return;
     }
 
@@ -89,11 +89,13 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
       <h2 className="font-display text-lg font-bold">새 팝업 추가</h2>
 
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-muted">팝업 이미지 (최대 10MB)</label>
+        <label className="mb-1.5 block text-xs font-semibold text-muted">
+          팝업 이미지 또는 동영상 (최대 50MB)
+        </label>
         <input
           type="file"
           name="image"
-          accept="image/*"
+          accept="image/*,video/*"
           required
           className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-court file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-court-deep"
         />
