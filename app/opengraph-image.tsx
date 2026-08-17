@@ -1,13 +1,14 @@
 import { ImageResponse } from "next/og";
 import { readFileSync } from "fs";
-import { join } from "path";
 
 export const alt = "GCM Tennis Academy";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const toDataUrl = (p: string, mime: string) =>
-  `data:${mime};base64,${readFileSync(join(process.cwd(), p)).toString("base64")}`;
+// new URL(..., import.meta.url) 로 읽으면 번들러(NFT)가 이 파일 하나만 정확히 추적한다.
+// process.cwd() 기반 동적 경로는 프로젝트 전체를 서버리스 함수에 번들해 250MB 한도를 넘긴다.
+const toDataUrl = (assetUrl: URL, mime: string) =>
+  `data:${mime};base64,${readFileSync(assetUrl).toString("base64")}`;
 
 /** 굵은 Archivo(900 Black) 로드 — 실패 시 기본 폰트로 폴백 */
 async function loadArchivo(): Promise<ArrayBuffer | null> {
@@ -25,7 +26,7 @@ async function loadArchivo(): Promise<ArrayBuffer | null> {
 
 /** 링크 공유 썸네일(OG): 홈 로고(GCM.)를 테니스 배경 위에 표시 */
 export default async function OpengraphImage() {
-  const bg = toDataUrl("public/img/main-clay.png", "image/png");
+  const bg = toDataUrl(new URL("../public/img/main-clay.png", import.meta.url), "image/png");
   const archivo = await loadArchivo();
 
   const boldFamily = archivo ? "Archivo" : "sans-serif";
