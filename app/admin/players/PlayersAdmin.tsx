@@ -40,6 +40,11 @@ type FormValues = {
   result: string;
   bio: string;
   video_url: string;
+  birthday: string;
+  birthplace: string;
+  plays: string;
+  backhand: string;
+  joined_date: string;
   published: boolean;
 };
 
@@ -74,6 +79,11 @@ function PlayerForm({
       result: String(fd.get("result") ?? ""),
       bio: String(fd.get("bio") ?? ""),
       video_url: String(fd.get("video_url") ?? ""),
+      birthday: String(fd.get("birthday") ?? ""),
+      birthplace: String(fd.get("birthplace") ?? ""),
+      plays: String(fd.get("plays") ?? ""),
+      backhand: String(fd.get("backhand") ?? ""),
+      joined_date: String(fd.get("joined_date") ?? ""),
       published: fd.get("published") === "on",
     };
     const hasFile = file instanceof File && file.size > 0;
@@ -138,6 +148,33 @@ function PlayerForm({
         <label className="mb-1.5 block text-xs font-semibold text-muted">하이라이트 영상 URL (선택)</label>
         <input name="video_url" type="url" defaultValue={initial?.video_url ?? ""} placeholder="https://youtu.be/..." className={fieldClass} />
       </div>
+
+      <div className="rounded-xl border border-line bg-card/40 p-4">
+        <p className="mb-3 text-xs font-bold uppercase tracking-wider text-court-bright">선수 프로필 (선택)</p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-muted">생년월일 (Birthday)</label>
+            <input name="birthday" defaultValue={initial?.birthday ?? ""} placeholder="예: 2013.03.16" className={fieldClass} />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-muted">출생지 (Birthplace)</label>
+            <input name="birthplace" defaultValue={initial?.birthplace ?? ""} placeholder="예: 대한민국 용인시" className={fieldClass} />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-muted">Plays — 주 손 (오른손/왼손)</label>
+            <input name="plays" defaultValue={initial?.plays ?? ""} placeholder="예: 오른손" className={fieldClass} />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-muted">Backhand (양손/한손)</label>
+            <input name="backhand" defaultValue={initial?.backhand ?? ""} placeholder="예: 양손백핸드" className={fieldClass} />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="mb-1.5 block text-xs font-semibold text-muted">GCM 합류일 (Joining Date)</label>
+            <input name="joined_date" defaultValue={initial?.joined_date ?? ""} placeholder="예: 2023.01.02" className={fieldClass} />
+          </div>
+        </div>
+      </div>
+
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-muted">
           선수 사진 {requireImage ? "*" : "(교체 시에만 선택)"}
@@ -265,7 +302,7 @@ export function PlayersAdmin({ rows }: { rows: Player[] }) {
         {adding ? (
           <div className="mt-5">
             <PlayerForm
-              requireImage
+              requireImage={false}
               submitLabel="선수 등록"
               onCancel={() => setAdding(false)}
               onSubmit={(values, imagePath) => savePlayer({ ...values, imagePath })}

@@ -47,6 +47,11 @@ type PlayerInput = {
   result: string;
   bio: string;
   video_url: string;
+  birthday: string;
+  birthplace: string;
+  plays: string;
+  backhand: string;
+  joined_date: string;
   published: boolean;
   imagePath?: string; // 업로드 완료된 스토리지 경로(신규/교체 시)
 };
@@ -61,6 +66,11 @@ function normalize(input: PlayerInput) {
     result: input.result.trim() || null,
     bio: input.bio.trim() || null,
     video_url: input.video_url.trim() || null,
+    birthday: input.birthday.trim() || null,
+    birthplace: input.birthplace.trim() || null,
+    plays: input.plays.trim() || null,
+    backhand: input.backhand.trim() || null,
+    joined_date: input.joined_date.trim() || null,
     published: input.published,
   };
 }
@@ -73,10 +83,11 @@ export async function savePlayer(input: PlayerInput): Promise<AdminState> {
   if (!(await requireAdmin())) return { error: "권한이 없습니다." };
   const fields = normalize(input);
   if (!fields.name) return { error: "선수 이름을 입력해 주세요." };
-  if (!input.imagePath) return { error: "선수 사진을 업로드해 주세요." };
 
   const admin = createAdminClient();
-  const { data: pub } = admin.storage.from(BUCKET).getPublicUrl(input.imagePath);
+  const image = input.imagePath
+    ? admin.storage.from(BUCKET).getPublicUrl(input.imagePath).data.publicUrl
+    : null;
 
   const { count } = await admin.from("gcm_players").select("id", { count: "exact", head: true });
   const { data: last } = await admin
@@ -89,7 +100,7 @@ export async function savePlayer(input: PlayerInput): Promise<AdminState> {
   const { error } = await admin.from("gcm_players").insert({
     ...fields,
     slug: slugifyPlayer(fields.name, crypto.randomUUID()),
-    image: pub.publicUrl,
+    image,
     sort_order: (last?.sort_order ?? (count ?? 0)) + 1,
   });
   if (error) return { error: tableMissing };
