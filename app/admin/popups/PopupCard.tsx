@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { isVideoUrl, isSvgUrl } from "@/lib/media";
+import { isVideoUrl } from "@/lib/media";
 import {
   setPopupActive,
   removePopup,
@@ -89,11 +89,6 @@ export function PopupCard({ popup }: { popup: Popup }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {isVideoUrl(popup.image_url) ? (
         <video src={popup.image_url} className="aspect-[4/5] w-full bg-base object-contain" muted playsInline controls />
-      ) : isSvgUrl(popup.image_url) ? (
-        <object data={popup.image_url} type="image/svg+xml" aria-label="팝업 SVG" className="aspect-[4/5] w-full bg-base">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
-        </object>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={popup.image_url} alt="팝업 이미지" className="aspect-[4/5] w-full bg-base object-contain" />
@@ -185,7 +180,7 @@ export function PopupCard({ popup }: { popup: Popup }) {
           >
             이미지 교체
           </button>
-          <input ref={fileRef} type="file" accept="image/*,video/*" onChange={onReplaceImage} className="hidden" />
+          <input ref={fileRef} type="file" accept="image/*,video/*,.svg" onChange={onReplaceImage} className="hidden" />
 
           <button
             type="button"
