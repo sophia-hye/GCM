@@ -19,7 +19,7 @@ const MENU_MAP: { group: string; items: { label: string; where: string; href?: s
   {
     group: "Who we are",
     items: [
-      { label: "Players", where: "선수 관리", href: "/admin/players" },
+      { label: "Players", where: "편집기 · 선수(Players) 탭 (문구) · 선수 카드는 선수 관리", href: "/admin/content?tab=players" },
       { label: "Amateurs", where: "편집기 · 컨설팅·취미반 탭(리드) · 상세는 코드", href: "/admin/content?tab=pages" },
       { label: "Kids", where: "코드 고정 (KidsBenefits · TennisCoreValues)" },
       { label: "Scholars", where: "편집기 · 장학 탭", href: "/admin/content?tab=scholarship" },

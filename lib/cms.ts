@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { getDict } from "@/lib/site-content";
+import { getDict, getUI } from "@/lib/site-content";
 import { getConsultingExtra } from "@/lib/consulting-content";
 import { educationCoaches } from "@/lib/education-coaches";
 import { WTL_TEXT, LEADER_REASONS, LIFE_CHANGES } from "@/lib/why-tennis-content";
@@ -16,6 +16,8 @@ import { isSupabaseConfigured } from "@/lib/supabase/env";
  */
 const K = getDict("ko");
 const E = getDict("en");
+const uiK = getUI("ko");
+const uiE = getUI("en");
 const cxK = getConsultingExtra("ko");
 const cxE = getConsultingExtra("en");
 
@@ -126,6 +128,11 @@ export const CMS_FIELDS: CmsField[] = [
   }),
   { key: "whoWeAre.story", section: "소개(About)", label: "GCM은 어떤 곳인가 — 하단 스토리 (빈 줄로 문단 구분)", multiline: true, paragraphs: true, default: j(K.whoWeAre.story), defaultEn: j(E.whoWeAre.story) },
 
+  { key: "players.eyebrow", section: "선수(Players)", label: "상단 영문 라벨", multiline: false, default: "GCM Players", defaultEn: "GCM Players" },
+  { key: "players.title", section: "선수(Players)", label: "제목", multiline: false, default: s(uiK.playersTitle), defaultEn: s(uiE.playersTitle) },
+  { key: "players.lead", section: "선수(Players)", label: "리드", multiline: true, default: s(uiK.playersLead), defaultEn: s(uiE.playersLead) },
+  { key: "players.coming", section: "선수(Players)", label: "선수 미등록 시 안내 문구", multiline: true, default: s(uiK.playersComing), defaultEn: s(uiE.playersComing) },
+
   { key: "cx.hero.title", section: "컨설팅 전문", label: "히어로 — 제목", multiline: true, default: s(cxK.hero.title), defaultEn: s(cxE.hero.title) },
   { key: "cx.hero.sub", section: "컨설팅 전문", label: "히어로 — 설명", multiline: true, default: s(cxK.hero.sub), defaultEn: s(cxE.hero.sub) },
   { key: "cx.philosophy.title", section: "컨설팅 전문", label: "철학 — 제목", multiline: false, default: s(cxK.philosophy.title), defaultEn: s(cxE.philosophy.title) },
@@ -221,6 +228,7 @@ export const CMS_SECTIONS: { slug: string; label: string }[] = [
   { slug: "scholarship", label: "장학" },
   { slug: "pages", label: "컨설팅·취미반" },
   { slug: "about", label: "소개(About)" },
+  { slug: "players", label: "선수(Players)" },
   { slug: "consulting", label: "컨설팅 전문" },
   { slug: "why-tennis", label: "Why Tennis" },
   { slug: "kids", label: "Kids" },
