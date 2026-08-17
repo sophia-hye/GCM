@@ -236,7 +236,7 @@ const ko: ConsultingExtra = {
 const en: ConsultingExtra = {
   hero: {
     eyebrow: "TENNIS ELITE FROM KOREA",
-    title: "Athletics isn't only about playing well —\nit's about designing the path to grow.",
+    title: "GCM Players isn't only about playing well —\nit's about designing the path to grow.",
     sub: "Don't let your child's potential be defined by today's environment or limits.\nSo that every drop of sweat becomes the most brilliant life beyond age twenty,\nGCM opens the most secure roadmap for growth.",
   },
   philosophy: {

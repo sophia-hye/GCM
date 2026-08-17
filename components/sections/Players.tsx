@@ -22,7 +22,7 @@ export async function Players() {
 
   return (
     <Section id="players" tone="muted">
-      <SectionHeading eyebrow="Our Players" title={ui.playersTitle} lead={ui.playersLead} />
+      <SectionHeading eyebrow="GCM Players" title={ui.playersTitle} lead={ui.playersLead} />
 
       {players.length > 0 ? (
         <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
