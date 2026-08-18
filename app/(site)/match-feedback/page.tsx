@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Container } from "@/components/ui";
+import { Container, Button } from "@/components/ui";
 import { MatchAnalysisForm, type FeedbackCategory } from "@/components/dashboard/MatchAnalysisForm";
 
 export const metadata = { title: "매치피드백 | GCM 테니스 아카데미" };
@@ -47,7 +46,94 @@ export default async function MatchFeedbackPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?next=/match-feedback");
+
+  // 비로그인: 리다이렉트 대신 미리보기 + 로그인 CTA 를 보여준다.
+  if (!user) {
+    const sample: Analysis = {
+      id: "sample",
+      category,
+      match_date: "2026.03.15",
+      opponent: category === "tournament" ? "OO배 주니어 16강" : "서브 & 발리 집중 훈련",
+      final_result: category === "tournament" ? "8강 진출" : null,
+      better_than_last: "첫 서브 성공률이 높아 초반부터 리드를 잡았습니다.",
+      improved_than_last: "백핸드 크로스 안정감이 지난번보다 좋아졌습니다.",
+      worse_than_last: "듀스 접전에서 집중력이 흔들렸습니다.",
+      needed: "접전 상황에서의 멘탈 루틴이 필요합니다.",
+      needed_practice: "타이브레이크 시뮬레이션, 압박 상황 서브 연습.",
+      coach_feedback: "리드 관리가 좋아졌어요. 접전에서 루틴을 지키는 연습을 이어갑시다.",
+    };
+
+    return (
+      <div className="pt-16">
+        <Container className="py-12">
+          <div className="mx-auto max-w-3xl space-y-8">
+            <div>
+              <h1 className="font-display text-3xl font-bold">매치피드백</h1>
+              <p className="mt-1 text-sm text-muted">
+                시합·훈련 후 스스로 돌아본 내용을 기록하면 코치가 확인하고 피드백을 드립니다.
+              </p>
+            </div>
+
+            {/* 로그인 CTA */}
+            <div className="rounded-2xl border border-court/30 bg-court/5 p-6 text-center">
+              <p className="font-semibold text-court-bright">로그인이 필요한 메뉴입니다</p>
+              <p className="mt-1.5 break-keep text-sm leading-relaxed text-muted">
+                로그인하면 내 시합·훈련 기록을 작성하고 코치의 피드백을 받아볼 수 있습니다.
+                <br className="hidden sm:block" />
+                아래는 실제 화면 미리보기입니다.
+              </p>
+              <div className="mt-5">
+                <Button href="/login?next=/match-feedback" variant="court">
+                  로그인하기
+                </Button>
+              </div>
+            </div>
+
+            {/* 미리보기 (예시) */}
+            <div className="space-y-4">
+              <h2 className="font-display text-lg font-bold">
+                미리보기 <span className="text-xs font-normal text-muted">— 예시 화면</span>
+              </h2>
+              <div className="pointer-events-none select-none rounded-2xl border border-line bg-card/40 p-5 opacity-90">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="font-semibold">
+                    {sample.match_date}
+                    {sample.opponent ? (
+                      <span className="ml-2 text-sm text-muted">
+                        {contextLabel} · {sample.opponent}
+                      </span>
+                    ) : null}
+                  </p>
+                  {sample.final_result ? (
+                    <span className="rounded-md bg-lime/15 px-2 py-1 text-xs font-semibold text-lime">
+                      최종성적 · {sample.final_result}
+                    </span>
+                  ) : null}
+                </div>
+                <dl className="mt-3 space-y-2 text-sm">
+                  {FIELDS.map((f) =>
+                    sample[f.key] ? (
+                      <div key={f.key}>
+                        <dt className="text-xs font-semibold text-court-bright">{f.label}</dt>
+                        <dd className="whitespace-pre-line text-ink/90">{sample[f.key]}</dd>
+                      </div>
+                    ) : null,
+                  )}
+                </dl>
+                <div className="mt-4 rounded-lg border border-court/30 bg-court/5 p-3">
+                  <p className="text-xs font-semibold text-court-bright">코치 피드백</p>
+                  <p className="mt-1 whitespace-pre-line text-sm text-ink/90">{sample.coach_feedback}</p>
+                </div>
+              </div>
+              <p className="text-center text-xs text-muted">
+                실제 기록과 코치 피드백은 로그인 후 확인할 수 있습니다.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </div>
+    );
+  }
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
