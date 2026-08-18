@@ -8,7 +8,7 @@ export default function PlayersPage() {
   return (
     <div className="pt-16">
       <PageJsonLd name="배출·소속 선수" path="/players" />
-      <Players />
+      <Players detailed />
     </div>
   );
 }

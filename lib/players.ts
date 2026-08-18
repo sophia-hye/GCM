@@ -17,6 +17,7 @@ export type Player = {
   plays: string | null; // 주 손 (오른손/왼손)
   backhand: string | null; // 백핸드 (양손/한손)
   joined_date: string | null; // GCM 합류일
+  coach_note: string | null; // 코치's 노트
   sort_order: number;
   published: boolean;
 };

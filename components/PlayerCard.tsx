@@ -2,7 +2,15 @@ import Image from "next/image";
 import { CourtLines } from "@/components/ui";
 import { TRACK_LABEL, type Player } from "@/lib/players";
 
-export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean }) {
+export function PlayerCard({
+  player,
+  ko = true,
+  detailed = false,
+}: {
+  player: Player;
+  ko?: boolean;
+  detailed?: boolean;
+}) {
   const meta = [player.grad_year && `${player.grad_year}`, player.utr && `UTR ${player.utr}`]
     .filter(Boolean)
     .join(" · ");
@@ -73,6 +81,12 @@ export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean
               </div>
             ))}
           </dl>
+        ) : null}
+        {detailed && player.coach_note ? (
+          <div className="mt-4 rounded-lg border-l-2 border-court bg-court/5 px-3.5 py-3">
+            <p className="text-xs font-bold text-court-bright">Coach&apos;s Note</p>
+            <p className="mt-1.5 break-keep text-xs leading-relaxed text-ink/85">{player.coach_note}</p>
+          </div>
         ) : null}
         {player.video_url ? (
           <a
