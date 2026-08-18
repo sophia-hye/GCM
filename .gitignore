@@ -52,3 +52,12 @@ public/img/day tennis landscape.png
 public/img/day tennis vertical.png
 public/img/glow tennis landscape.png
 public/img/glow tennis vertical.png
+
+# 선수 사진 한글 원본(비ASCII) — 배포 이슈 방지. players/<slug>.png 복사본 사용
+public/players/김혜리.png
+public/players/신채원.png
+public/players/이웅현.png
+public/players/이유안.png
+public/players/이지훈.png
+public/players/이한나.png
+public/players/정서아.png
