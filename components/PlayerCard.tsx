@@ -14,6 +14,11 @@ export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean
   if (player.backhand) profile.push({ label: "Backhand", value: player.backhand });
   if (player.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: player.joined_date });
 
+  // bio 는 "한 줄 소개 #특성 #특성" 형식 — 소개(태그라인)와 해시태그(특성)로 분리
+  const bio = (player.bio ?? "").trim();
+  const tags = (bio.match(/#[^\s#]+/g) ?? []).map((t) => t.slice(1));
+  const tagline = bio.replace(/#[^\s#]+/g, "").replace(/\s+/g, " ").trim();
+
   return (
     <div className="group">
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
@@ -42,7 +47,22 @@ export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean
 
       <div className="mt-4">
         <h3 className="text-lg font-bold">{player.name}</h3>
-        {meta ? <p className="mt-1 text-sm font-semibold text-court">{meta}</p> : null}
+        {tagline ? (
+          <p className="mt-1 break-keep text-sm font-medium text-ink/80">{tagline}</p>
+        ) : null}
+        {tags.length ? (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-court/10 px-2.5 py-0.5 text-xs font-semibold text-court"
+              >
+                #{t}
+              </span>
+            ))}
+          </div>
+        ) : null}
+        {meta ? <p className="mt-2 text-sm font-semibold text-court">{meta}</p> : null}
         {player.result ? <p className="mt-1 text-xs text-ink/70">{player.result}</p> : null}
         {profile.length ? (
           <dl className="mt-3 space-y-1.5 border-t border-line pt-3">
@@ -54,7 +74,6 @@ export function PlayerCard({ player, ko = true }: { player: Player; ko?: boolean
             ))}
           </dl>
         ) : null}
-        {player.bio ? <p className="mt-2 text-sm leading-relaxed text-muted">{player.bio}</p> : null}
         {player.video_url ? (
           <a
             href={player.video_url}
