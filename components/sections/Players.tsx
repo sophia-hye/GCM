@@ -6,7 +6,7 @@ import { getUI } from "@/lib/site-content";
 import { getContentMap, cmsText } from "@/lib/cms";
 import type { Player } from "@/lib/players";
 
-export async function Players() {
+export async function Players({ detailed = false }: { detailed?: boolean }) {
   const locale = await getLocale();
   const ko = locale === "ko";
   const ui = getUI(locale);
@@ -31,9 +31,13 @@ export async function Players() {
       />
 
       {players.length > 0 ? (
-        <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          className={`mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 ${
+            detailed ? "lg:grid-cols-3" : "lg:grid-cols-4"
+          }`}
+        >
           {players.map((p) => (
-            <PlayerCard key={p.id} player={p} ko={ko} />
+            <PlayerCard key={p.id} player={p} ko={ko} detailed={detailed} />
           ))}
         </div>
       ) : (

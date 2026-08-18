@@ -45,6 +45,7 @@ type FormValues = {
   plays: string;
   backhand: string;
   joined_date: string;
+  coach_note: string;
   published: boolean;
 };
 
@@ -84,6 +85,7 @@ function PlayerForm({
       plays: String(fd.get("plays") ?? ""),
       backhand: String(fd.get("backhand") ?? ""),
       joined_date: String(fd.get("joined_date") ?? ""),
+      coach_note: String(fd.get("coach_note") ?? ""),
       published: fd.get("published") === "on",
     };
     const hasFile = file instanceof File && file.size > 0;
@@ -173,6 +175,17 @@ function PlayerForm({
             <input name="joined_date" defaultValue={initial?.joined_date ?? ""} placeholder="예: 2023.01.02" className={fieldClass} />
           </div>
         </div>
+      </div>
+
+      <div>
+        <label className="mb-1.5 block text-xs font-semibold text-muted">Coach&apos;s Note (선택)</label>
+        <textarea
+          name="coach_note"
+          rows={3}
+          defaultValue={initial?.coach_note ?? ""}
+          placeholder="코치진의 한마디 (선수 상세 카드에 표시)"
+          className={fieldClass}
+        />
       </div>
 
       <div>
