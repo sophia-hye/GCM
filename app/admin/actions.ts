@@ -213,6 +213,27 @@ export async function setMemberApproved(formData: FormData): Promise<void> {
   revalidatePath("/admin/members");
 }
 
+/** 관리자 승격 / 해제 — admin 만 실행. 본인 계정은 강등 불가. */
+export async function setMemberRole(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  const makeAdmin = String(formData.get("make_admin") ?? "") === "true";
+  if (!id) return;
+
+  const supabase = await createClient();
+  // 자기 자신 강등 방지(관리자 락아웃 예방)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!makeAdmin && user?.id === id) return;
+
+  // 승격 시 approved 도 함께 켠다(관리자는 항상 승인 상태). 해제 시 기본 역할(student)로.
+  const patch = makeAdmin ? { role: "admin", approved: true } : { role: "student" };
+  await supabase.from("gcm_profiles").update(patch).eq("id", id);
+  revalidatePath(`/admin/members/${id}`);
+  revalidatePath("/admin/members");
+}
+
 /** 관리자: 이야기 게시글 승인/반려 (published | rejected | pending) */
 export async function setVoiceStatus(formData: FormData): Promise<void> {
   if (!(await requireAdmin())) return;
