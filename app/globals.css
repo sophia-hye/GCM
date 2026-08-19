@@ -81,6 +81,13 @@ body {
   animation: fade-up 0.7s ease-out both;
 }
 
+/* 섹션 진입(Reveal): JS(IntersectionObserver/하이드레이션)에 의존하지 않는 순수 CSS.
+   both 채움 + 종료 상태 opacity:1 이라 어떤 환경에서도 콘텐츠가 영구히 숨겨지지 않는다.
+   (이전엔 JS 로 opacity-0 를 풀었는데, 긴 페이지에서 IO 가 안 불리면 통째로 안 보였음) */
+.reveal {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -99,7 +106,8 @@ body {
     scroll-behavior: auto;
   }
   .animate-fade-up,
-  .animate-marquee {
+  .animate-marquee,
+  .reveal {
     animation: none;
   }
 }
