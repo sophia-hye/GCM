@@ -18,6 +18,7 @@ const roleLabel: Record<string, string> = {
   student: "선수",
   parent: "학부모",
   amateur: "아마추어",
+  coach: "코치",
   others: "기타",
   admin: "관리자",
 };
