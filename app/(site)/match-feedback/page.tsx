@@ -137,10 +137,10 @@ export default async function MatchFeedbackPage({
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("approved, role")
+    .select("approved, is_admin")
     .eq("id", user.id)
     .maybeSingle();
-  const canWrite = Boolean(profile?.approved || profile?.role === "admin");
+  const canWrite = Boolean(profile?.approved || profile?.is_admin);
 
   // 항상 '본인 기록만' 보여준다(관리자는 RLS상 전체 조회 가능하므로 명시적으로 본인 필터).
   const { data } = await supabase

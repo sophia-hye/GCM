@@ -19,10 +19,10 @@ export async function submitMatchAnalysis(
   // 승인된 선수(또는 관리자)만 작성 가능
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("approved, role")
+    .select("approved, is_admin")
     .eq("id", user.id)
     .maybeSingle();
-  if (!(profile?.approved || profile?.role === "admin")) {
+  if (!(profile?.approved || profile?.is_admin)) {
     return { error: "작성 권한이 없습니다. 승인된 GCM 팀 선수만 작성할 수 있습니다." };
   }
 

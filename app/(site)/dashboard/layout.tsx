@@ -55,13 +55,13 @@ export default async function DashboardLayout({
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("name, role")
+    .select("name, role, is_admin")
     .eq("id", user.id)
     .maybeSingle();
 
-  // 관리자(코치)에겐 선수용 서브메뉴(사이드바)가 불필요하다 → 인사말+카드만 전체폭으로.
+  // 관리자에겐 선수용 서브메뉴(사이드바)가 불필요하다 → 인사말+카드만 전체폭으로.
   // 대신 관리자 콘솔로 바로 갈 수 있는 버튼을 상단에 노출한다.
-  if (profile?.role === "admin") {
+  if (profile?.is_admin) {
     return (
       <div className="pt-16">
         <Container className="py-10">

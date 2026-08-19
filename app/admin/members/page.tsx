@@ -29,14 +29,14 @@ export default async function MembersPage() {
   const { data: members } = await supabase
     .from("gcm_profiles")
     .select("id, name, phone, role, approved, created_at")
-    .neq("role", "admin")
+    .neq("is_admin", true)
     .order("created_at", { ascending: false });
 
-  // 관리자 계정(승격/해제 관리용) — 별도 섹션에 노출
+  // 관리자 계정(권한 부여/해제 관리용) — 별도 섹션에 노출
   const { data: admins } = await supabase
     .from("gcm_profiles")
-    .select("id, name, phone")
-    .eq("role", "admin")
+    .select("id, name, phone, role")
+    .eq("is_admin", true)
     .order("created_at", { ascending: true });
 
   // 로그인 수단 매핑 (service_role)
@@ -140,6 +140,9 @@ export default async function MembersPage() {
                 className="rounded-full border border-court/40 bg-card px-4 py-2 text-sm font-semibold text-court-bright hover:border-court"
               >
                 {a.name || "이름 미상"}
+                {a.role ? (
+                  <span className="ml-1.5 text-xs font-normal text-muted">({roleLabel[a.role] ?? a.role})</span>
+                ) : null}
                 {a.phone ? <span className="ml-2 text-xs font-normal text-muted">{a.phone}</span> : null}
               </Link>
             ))

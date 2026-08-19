@@ -30,7 +30,9 @@ drop table if exists public.profiles cascade;
 -- ============================================================
 create table public.gcm_profiles (
   id uuid primary key references auth.users (id) on delete cascade,
+  -- role 은 '구분'(선수/학부모/아마추어/코치/기타). 관리자 권한은 별도 is_admin 플래그로 관리한다.
   role text not null default 'student' check (role in ('student', 'parent', 'amateur', 'others', 'coach', 'admin')),
+  is_admin boolean not null default false, -- 관리자 콘솔 접근 권한(구분과 독립). 코치이면서 admin 도 가능.
   name text not null default '',
   phone text,
   email text,
@@ -45,13 +47,17 @@ create table public.gcm_profiles (
 --   alter table public.gcm_profiles add column if not exists approved boolean not null default false;
 --   alter table public.gcm_profiles add column if not exists gender text check (gender in ('male','female'));
 --   alter table public.gcm_profiles add column if not exists birth_date date;
+--   -- 구분과 admin 권한 분리(is_admin 도입):
+--   alter table public.gcm_profiles add column if not exists is_admin boolean not null default false;
+--   update public.gcm_profiles set is_admin = true where role = 'admin'; -- 기존 admin 이관
 create unique index gcm_profiles_phone_uniq
   on public.gcm_profiles (phone) where phone is not null and phone <> '';
 alter table public.gcm_profiles enable row level security;
 
+-- 관리자 판별: is_admin 플래그 기준(구분과 무관)
 create or replace function public.is_gcm_admin()
 returns boolean language sql security definer set search_path = public as $$
-  select exists (select 1 from public.gcm_profiles where id = auth.uid() and role = 'admin');
+  select exists (select 1 from public.gcm_profiles where id = auth.uid() and is_admin = true);
 $$;
 
 create policy "gcm_profiles_select_own" on public.gcm_profiles for select using (auth.uid() = id);
