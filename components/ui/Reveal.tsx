@@ -25,6 +25,8 @@ export function Reveal({
     }
     const el = ref.current;
     if (!el) return;
+    // threshold 0 = 화면에 조금이라도 들어오면 등장. (뷰포트보다 훨씬 긴 콘텐츠도
+    // 절대 숨겨지지 않도록 — threshold 를 높이면 긴 요소가 그 비율에 못 미쳐 계속 opacity:0 로 남는다.)
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -32,10 +34,15 @@ export function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+    // 안전장치: IntersectionObserver 가 어떤 이유로든 안 불려도 콘텐츠가 영구히 숨지 않도록.
+    const fallback = setTimeout(() => setShown(true), 1500);
+    return () => {
+      io.disconnect();
+      clearTimeout(fallback);
+    };
   }, []);
 
   return (
