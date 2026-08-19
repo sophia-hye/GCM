@@ -52,11 +52,11 @@ export default async function AdminLayout({
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("name, role")
+    .select("name, is_admin")
     .eq("id", user.id)
     .maybeSingle();
 
-  if (profile?.role !== "admin") redirect("/dashboard");
+  if (!profile?.is_admin) redirect("/dashboard");
 
   return (
     <div className="min-h-screen">

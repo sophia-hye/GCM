@@ -49,7 +49,7 @@ export async function signInMember(
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("role")
+    .select("is_admin")
     .eq("id", data.user.id)
     .maybeSingle();
 
@@ -63,7 +63,7 @@ export async function signInMember(
     redirect(safeNext);
   }
   // 관리자 계정이면 마이페이지(대시보드)로, 그 외에는 홈으로 이동
-  if (profile?.role === "admin") {
+  if (profile?.is_admin) {
     redirect("/dashboard");
   }
   redirect("/");
@@ -93,11 +93,11 @@ export async function signInAdmin(
 
   const { data: profile } = await supabase
     .from("gcm_profiles")
-    .select("role")
+    .select("is_admin")
     .eq("id", data.user.id)
     .maybeSingle();
 
-  if (!profile || profile.role !== "admin") {
+  if (!profile?.is_admin) {
     await supabase.auth.signOut();
     return { error: "관리자 권한이 없습니다." };
   }
@@ -124,7 +124,7 @@ export async function completeOnboarding(
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
 
-  if (!["student", "parent", "amateur", "others"].includes(role)) {
+  if (!["student", "parent", "amateur", "others", "coach"].includes(role)) {
     return { error: "구분을 선택해 주세요." };
   }
   if (!phone) return { error: "전화번호를 입력해 주세요." };
@@ -209,7 +209,7 @@ export async function signUpMember(
   if (!email) return { error: "이메일을 입력해 주세요." };
   if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
   if (password.length < 6) return { error: "비밀번호는 6자 이상이어야 합니다." };
-  if (!["student", "parent", "amateur", "others"].includes(role)) return { error: "잘못된 역할입니다." };
+  if (!["student", "parent", "amateur", "others", "coach"].includes(role)) return { error: "잘못된 역할입니다." };
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
 
@@ -273,7 +273,7 @@ export async function signUpAdmin(
     email,
     password,
     email_confirm: true,
-    user_metadata: { name, phone, email, role: "admin", source: "gcm" },
+    user_metadata: { name, phone, email, role: "others", source: "gcm" },
   });
 
   if (error) {
@@ -281,11 +281,11 @@ export async function signUpAdmin(
     return { error: dup ? "이미 가입된 이메일입니다." : error.message };
   }
 
-  // 트리거가 role 을 반영하지만 혹시 모를 경우를 대비해 명시적으로 보정
+  // 관리자 자가가입: 구분은 '기타', is_admin 플래그로 관리자 권한 부여
   if (data.user) {
     await admin
       .from("gcm_profiles")
-      .update({ role: "admin", name, phone, email })
+      .update({ is_admin: true, name, phone, email })
       .eq("id", data.user.id);
   }
 

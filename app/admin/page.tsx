@@ -11,7 +11,7 @@ export default async function AdminHome() {
       supabase
         .from("gcm_profiles")
         .select("id", { count: "exact", head: true })
-        .neq("role", "admin"),
+        .neq("is_admin", true),
       supabase.from("gcm_inquiries").select("id", { count: "exact", head: true }),
       supabase
         .from("gcm_inquiries")

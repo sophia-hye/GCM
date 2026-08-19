@@ -14,10 +14,10 @@ async function requireAdmin(): Promise<boolean> {
   if (!user) return false;
   const { data } = await supabase
     .from("gcm_profiles")
-    .select("role")
+    .select("is_admin")
     .eq("id", user.id)
     .maybeSingle();
-  return data?.role === "admin";
+  return data?.is_admin === true;
 }
 
 /** 콘텐츠 필드 저장. 기본값과 같거나 비우면 오버라이드 삭제(기본값으로 복원). */

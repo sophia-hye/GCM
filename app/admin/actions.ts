@@ -18,10 +18,10 @@ async function requireAdmin(): Promise<boolean> {
   if (!user) return false;
   const { data } = await supabase
     .from("gcm_profiles")
-    .select("role")
+    .select("is_admin")
     .eq("id", user.id)
     .maybeSingle();
-  return data?.role === "admin";
+  return data?.is_admin === true;
 }
 
 /** 회원(선수/학부모) 등록 — service_role 로 계정 생성, 비밀번호=전화번호 */
@@ -209,6 +209,27 @@ export async function setMemberApproved(formData: FormData): Promise<void> {
 
   const supabase = await createClient();
   await supabase.from("gcm_profiles").update({ approved }).eq("id", id);
+  revalidatePath(`/admin/members/${id}`);
+  revalidatePath("/admin/members");
+}
+
+/** 관리자 권한 부여 / 해제 — admin 만 실행. 구분(role)과 무관하게 is_admin 플래그만 토글. 본인 계정은 해제 불가. */
+export async function setMemberAdmin(formData: FormData): Promise<void> {
+  if (!(await requireAdmin())) return;
+  const id = String(formData.get("id") ?? "");
+  const makeAdmin = String(formData.get("make_admin") ?? "") === "true";
+  if (!id) return;
+
+  const supabase = await createClient();
+  // 자기 자신 admin 해제 방지(관리자 락아웃 예방)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!makeAdmin && user?.id === id) return;
+
+  // 권한 부여 시 approved 도 함께 켠다. 구분(role)은 건드리지 않는다.
+  const patch = makeAdmin ? { is_admin: true, approved: true } : { is_admin: false };
+  await supabase.from("gcm_profiles").update(patch).eq("id", id);
   revalidatePath(`/admin/members/${id}`);
   revalidatePath("/admin/members");
 }

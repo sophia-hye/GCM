@@ -7,7 +7,7 @@ import { setMemberApproved } from "@/app/admin/actions";
 
 export const metadata = { title: "회원 관리 | GCM Admin" };
 
-const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어", others: "기타" };
+const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어", coach: "코치", others: "기타" };
 
 type AuthUserLite = {
   id: string;
@@ -29,8 +29,15 @@ export default async function MembersPage() {
   const { data: members } = await supabase
     .from("gcm_profiles")
     .select("id, name, phone, role, approved, created_at")
-    .neq("role", "admin")
+    .neq("is_admin", true)
     .order("created_at", { ascending: false });
+
+  // 관리자 계정(권한 부여/해제 관리용) — 별도 섹션에 노출
+  const { data: admins } = await supabase
+    .from("gcm_profiles")
+    .select("id, name, phone, role")
+    .eq("is_admin", true)
+    .order("created_at", { ascending: true });
 
   // 로그인 수단 매핑 (service_role)
   const methodById: Record<string, string> = {};
@@ -116,6 +123,33 @@ export default async function MembersPage() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* 관리자 계정 — 승격/해제는 각 계정 상세에서 */}
+      <div className="rounded-2xl border border-court/30 bg-court/5 p-5">
+        <h2 className="font-display text-lg font-bold">관리자 계정 ({admins?.length ?? 0})</h2>
+        <p className="mt-1 text-sm text-muted">
+          이름을 누르면 상세에서 관리자 해제를 할 수 있습니다. 일반 회원을 관리자로 올리려면 위 목록에서 해당 회원 상세로 들어가 “관리자로 승격”을 누르세요.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {admins && admins.length > 0 ? (
+            admins.map((a) => (
+              <Link
+                key={a.id}
+                href={`/admin/members/${a.id}`}
+                className="rounded-full border border-court/40 bg-card px-4 py-2 text-sm font-semibold text-court-bright hover:border-court"
+              >
+                {a.name || "이름 미상"}
+                {a.role ? (
+                  <span className="ml-1.5 text-xs font-normal text-muted">({roleLabel[a.role] ?? a.role})</span>
+                ) : null}
+                {a.phone ? <span className="ml-2 text-xs font-normal text-muted">{a.phone}</span> : null}
+              </Link>
+            ))
+          ) : (
+            <p className="text-sm text-muted">관리자 계정이 없습니다.</p>
+          )}
+        </div>
       </div>
 
       {/* 수기 등록(오프라인 회원 등)은 보조 기능으로 접어둠 */}

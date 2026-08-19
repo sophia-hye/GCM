@@ -65,7 +65,17 @@ export default function RootLayout({
 
   return (
     <html lang="ko" className={`${archivo.variable} ${playfair.variable} h-full antialiased`}>
+      <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
       <body className="min-h-full flex flex-col bg-base text-ink">
+        {/* 한글 본문 폰트(Wanted Sans)를 렌더 블로킹 없이 로드 — CDN 지연/차단 시에도 앱 CSS는 즉시 적용되고 폰트만 폴백(system-ui) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var l=document.createElement('link');l.rel='stylesheet';" +
+              "l.href='https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css';" +
+              "l.media='print';l.onload=function(){l.media='all'};document.head.appendChild(l);})();",
+          }}
+        />
         <StructuredData />
         {children}
       </body>

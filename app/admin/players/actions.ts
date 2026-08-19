@@ -16,10 +16,10 @@ async function requireAdmin(): Promise<boolean> {
   if (!user) return false;
   const { data } = await supabase
     .from("gcm_profiles")
-    .select("role")
+    .select("is_admin")
     .eq("id", user.id)
     .maybeSingle();
-  return data?.role === "admin";
+  return data?.is_admin === true;
 }
 
 export type UploadUrlResult =

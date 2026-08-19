@@ -53,7 +53,7 @@ export default async function AdminAnalysesPage({
   const { data: members } = await supabase
     .from("gcm_profiles")
     .select("id, name")
-    .neq("role", "admin")
+    .neq("is_admin", true)
     .order("name");
 
   let query = supabase

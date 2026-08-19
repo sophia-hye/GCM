@@ -2,11 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ProgressForm } from "@/components/admin/ProgressForm";
-import { setMemberApproved } from "@/app/admin/actions";
+import { setMemberApproved, setMemberAdmin } from "@/app/admin/actions";
 
 export const metadata = { title: "회원 상세 | GCM Admin" };
 
-const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어", others: "기타" };
+const roleLabel: Record<string, string> = { student: "선수", parent: "학부모", amateur: "아마추어", coach: "코치", others: "기타" };
 const moodEmoji: Record<number, string> = { 1: "😣", 2: "😕", 3: "😐", 4: "🙂", 5: "😄" };
 
 export default async function MemberDetailPage({
@@ -19,11 +19,17 @@ export default async function MemberDetailPage({
 
   const { data: member } = await supabase
     .from("gcm_profiles")
-    .select("id, name, phone, role, approved, gender, birth_date")
+    .select("id, name, phone, role, approved, gender, birth_date, is_admin")
     .eq("id", id)
     .maybeSingle();
 
   if (!member) notFound();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isSelf = user?.id === member.id;
+  const isAdmin = member.is_admin === true;
 
   const genderLabel = member.gender === "male" ? "남" : member.gender === "female" ? "여" : "-";
 
@@ -87,6 +93,45 @@ export default async function MemberDetailPage({
             {member.approved ? "승인 해제" : "선수 승인"}
           </button>
         </form>
+      </div>
+
+      {/* 관리자 권한 승격 / 해제 */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-court/30 bg-court/5 p-5">
+        <div>
+          <p className="font-semibold">
+            관리자 권한{" "}
+            <span
+              className={`ml-1 rounded-md px-2 py-0.5 text-xs ${
+                isAdmin ? "bg-court/20 text-court-bright" : "bg-card text-muted"
+              }`}
+            >
+              {isAdmin ? "관리자" : "일반 회원"}
+            </span>
+          </p>
+          <p className="mt-1 text-sm text-muted">
+            {isAdmin
+              ? "이 회원은 관리자입니다. 해제해도 구분(코치 등)은 그대로 유지되고 관리자 권한만 사라집니다."
+              : "권한을 부여하면 이 회원이 로그인 시 관리자 페이지에 접근할 수 있습니다. 구분은 그대로 유지됩니다."}
+          </p>
+        </div>
+        {isSelf ? (
+          <span className="rounded-full bg-card px-5 py-2.5 text-sm font-semibold text-muted">
+            본인 계정 (변경 불가)
+          </span>
+        ) : (
+          <form action={setMemberAdmin}>
+            <input type="hidden" name="id" value={member.id} />
+            <input type="hidden" name="make_admin" value={isAdmin ? "false" : "true"} />
+            <button
+              type="submit"
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold text-white ${
+                isAdmin ? "bg-muted hover:brightness-110" : "bg-court hover:bg-court-deep"
+              }`}
+            >
+              {isAdmin ? "관리자 해제" : "관리자로 승격"}
+            </button>
+          </form>
+        )}
       </div>
 
       <ProgressForm userId={member.id} initial={progress ?? {}} />
