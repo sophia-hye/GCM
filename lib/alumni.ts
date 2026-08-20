@@ -10,8 +10,6 @@ export type AlumniBlock =
   | { type: "highlight"; text: string }
   /** 박스 없이 볼드체 문장으로만 강조 */
   | { type: "bold"; text: string }
-  /** 포인트(강조) 색상 글씨로 강조 */
-  | { type: "point"; text: string }
   /** 네모 박스 + 포인트 색상 폰트로 강조 */
   | { type: "box"; text: string }
   | { type: "heading"; text: string }
@@ -101,7 +99,7 @@ export const ALUMNI: Alumni[] = [
         text: "오늘의 제가 있기까지, 제 삶의 가장 결정적인 문을 열어주신 SS스포츠진흥재단 박상순 회장님과 GCM 아카데미의 오성국 대표님께 깊은 감사의 마음을 전하고 싶습니다.",
       },
       {
-        type: "point",
+        type: "quote",
         text: "경제적·환경적 장벽 없이 오직 스포츠와 학업에만 집중할 수 있도록 든든하게 뒷받침해 주신 SS스포츠진흥재단 박상순 회장님의 지원이 있었기에 지금의 스탠포드 명세인이 존재할 수 있었습니다.",
       },
       {

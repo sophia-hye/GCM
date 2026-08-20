@@ -97,16 +97,6 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
               </p>
             );
           }
-          if (block.type === "point") {
-            return (
-              <p
-                key={i}
-                className="break-keep text-lg font-bold leading-relaxed text-court"
-              >
-                {block.text}
-              </p>
-            );
-          }
           if (block.type === "box") {
             return (
               <p
