@@ -1,5 +1,6 @@
 import { Section, SectionHeading } from "@/components/ui";
 import { PlayerCard } from "@/components/PlayerCard";
+import { PlayersListJsonLd } from "@/components/PlayerJsonLd";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
 import { getUI } from "@/lib/site-content";
@@ -24,6 +25,7 @@ export async function Players({ detailed = false }: { detailed?: boolean }) {
 
   return (
     <Section id="players" tone="muted">
+      {detailed && players.length > 0 ? <PlayersListJsonLd players={players} /> : null}
       <SectionHeading
         eyebrow={cmsText(map, "players.eyebrow", "GCM Players", ko)}
         title={cmsText(map, "players.title", ui.playersTitle, ko)}
