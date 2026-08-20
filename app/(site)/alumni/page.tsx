@@ -1,10 +1,13 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
+import { AlumniCard } from "@/components/alumni/AlumniCard";
+import { ALUMNI } from "@/lib/alumni";
 
 export const metadata = pageMetadata({
   title: "Alumni Network | GCM 테니스 아카데미",
-  description: "GCM을 거쳐 간 졸업생들이 이어가는 네트워크 — 멘토링, 커리어 연계, 글로벌 네트워킹. 곧 만나보실 수 있습니다.",
+  description:
+    "GCM을 거쳐 프로 · NCAA · 글로벌 무대로 나아간 졸업생들의 이야기. 코트 위의 인연이 평생의 자산이 됩니다.",
   path: "/alumni",
 });
 
@@ -33,39 +36,46 @@ export default async function AlumniPage() {
   return (
     <div className="pt-16">
       <Section>
-        <div className="flex flex-col items-start gap-4">
-          <SectionHeading
-            eyebrow="Who we are"
-            title="Alumni Network"
-            lead={
-              ko
-                ? "GCM을 거쳐 간 졸업생들이 이어가는 네트워크. 코트 위의 인연이 평생의 자산이 됩니다."
-                : "A network carried on by GCM alumni — connections on court that become lifelong assets."
-            }
-            wideLead
-          />
-          <span className="inline-block rounded-full border border-line px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-muted">
-            Coming Soon
-          </span>
-        </div>
+        <SectionHeading
+          eyebrow="Who we are"
+          title="Alumni Network"
+          lead={
+            ko
+              ? "GCM을 거쳐 간 졸업생들이 이어가는 네트워크. 코트 위의 인연이 평생의 자산이 됩니다."
+              : "A network carried on by GCM alumni — connections on court that become lifelong assets."
+          }
+          wideLead
+        />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {ALUMNI.map((alumni) => (
+            <AlumniCard key={alumni.slug} alumni={alumni} />
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="muted">
+        <SectionHeading
+          eyebrow="What we offer"
+          title={ko ? "졸업생 네트워크가 잇는 것" : "What the network connects"}
+          lead={
+            ko
+              ? "재학생과 졸업생을 잇는 멘토링부터 글로벌 커리어 네트워크까지, GCM의 인연은 코트 밖에서도 이어집니다."
+              : "From mentoring to a global career network, GCM connections continue beyond the court."
+          }
+          wideLead
+        />
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PREVIEW.map((item) => {
             const t = ko ? item.ko : item.en;
             return (
-              <div key={t.title} className="rounded-2xl border border-line bg-card/40 p-6">
+              <div key={t.title} className="rounded-2xl border border-line bg-base/50 p-6">
                 <h3 className="break-keep font-display text-lg font-bold">{t.title}</h3>
                 <p className="mt-2 break-keep text-sm leading-relaxed text-muted">{t.desc}</p>
               </div>
             );
           })}
         </div>
-
-        <p className="mt-12 break-keep text-sm text-muted">
-          {ko
-            ? "졸업생 네트워크는 현재 준비 중입니다. 곧 더 풍성한 소식으로 찾아뵙겠습니다."
-            : "The Alumni Network is being prepared. We'll be back soon with more."}
-        </p>
       </Section>
     </div>
   );
