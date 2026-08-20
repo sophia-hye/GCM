@@ -90,6 +90,13 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
               </p>
             );
           }
+          if (block.type === "bold") {
+            return (
+              <p key={i} className="break-keep text-base font-bold leading-loose text-ink">
+                {block.text}
+              </p>
+            );
+          }
           if (block.type === "signature") {
             return (
               <p key={i} className="!mt-10 break-keep text-right text-sm font-semibold text-ink">
