@@ -8,6 +8,12 @@ export type AlumniBlock =
   | { type: "quote"; text: string }
   /** 감사/헌사 등 본문 중간에서 부각시키는 강조 콜아웃 */
   | { type: "highlight"; text: string }
+  /** 박스 없이 볼드체 문장으로만 강조 */
+  | { type: "bold"; text: string }
+  /** 포인트(강조) 색상 글씨로 강조 */
+  | { type: "point"; text: string }
+  /** 네모 박스 + 포인트 색상 폰트로 강조 */
+  | { type: "box"; text: string }
   | { type: "heading"; text: string }
   | { type: "signature"; text: string };
 
@@ -91,15 +97,15 @@ export const ALUMNI: Alumni[] = [
         text: "현재 저는 미국 스탠포드 대학교에서 100% 장학생으로서 학업(GPA 4.0)과 NCAA 최고 수준의 테니스 선수 생활을 병행하며, 장차 국제 스포츠 기구(IOC, WTA) 및 글로벌 스포츠 무대를 이끌어갈 리더로서의 꿈을 펼쳐나가고 있습니다.",
       },
       {
-        type: "highlight",
+        type: "bold",
         text: "오늘의 제가 있기까지, 제 삶의 가장 결정적인 문을 열어주신 SS스포츠진흥재단 박상순 회장님과 GCM 아카데미의 오성국 대표님께 깊은 감사의 마음을 전하고 싶습니다.",
       },
       {
-        type: "highlight",
+        type: "point",
         text: "경제적·환경적 장벽 없이 오직 스포츠와 학업에만 집중할 수 있도록 든든하게 뒷받침해 주신 SS스포츠진흥재단 박상순 회장님의 지원이 있었기에 지금의 스탠포드 명세인이 존재할 수 있었습니다.",
       },
       {
-        type: "quote",
+        type: "box",
         text: "스탠포드 입학 & 100% 장학금, 도전할 수 있게 언제나 자신감을 채워주신 오성국 코치님",
       },
       {
