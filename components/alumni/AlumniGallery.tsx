@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { createPortal } from "react-dom";
 import { useCallback, useEffect, useState } from "react";
 
 /**
@@ -58,14 +59,17 @@ export function AlumniGallery({ images, name }: { images: string[]; name: string
         ))}
       </ul>
 
-      {isOpen ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${name} 사진 크게 보기`}
-          onClick={close}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-8"
-        >
+      {isOpen && typeof document !== "undefined"
+        ? createPortal(
+            // 조상의 transform(.reveal 등장 애니메이션)이 position:fixed 의 기준이 되어
+            // 모달이 뷰포트 밖으로 밀리는 문제를 피하려고 body 로 포탈 렌더한다.
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${name} 사진 크게 보기`}
+              onClick={close}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-8"
+            >
           <button
             type="button"
             onClick={close}
@@ -119,8 +123,10 @@ export function AlumniGallery({ images, name }: { images: string[]; name: string
           <span className="absolute bottom-5 left-1/2 -translate-x-1/2 text-sm font-medium text-white/80">
             {openIndex + 1} / {images.length}
           </span>
-        </div>
-      ) : null}
+        </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }
