@@ -12,6 +12,10 @@ export type AlumniBlock =
 export type Alumni = {
   slug: string;
   name: string;
+  /** 영문/로마자 이름 (구조화 데이터 alternateName) */
+  nameEn?: string;
+  /** 재학/소속 대학 (구조화 데이터 alumniOf) */
+  university?: string;
   /** 카드/헤더의 한 줄 소속 (예: 스탠포드 대학교 · NCAA D1 주장) */
   role: string;
   /** 해시태그 (# 없이 저장) */
@@ -30,6 +34,8 @@ export const ALUMNI: Alumni[] = [
   {
     slug: "myung-se-in",
     name: "명세인",
+    nameEn: "Myung Se-in",
+    university: "Stanford University",
     role: "스탠포드 대학교 사회학과 · 여자 테니스 대표팀(NCAA D1) 주장",
     hashtags: ["스탠포드"],
     summary:

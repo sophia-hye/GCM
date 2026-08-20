@@ -4,7 +4,47 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import { Container } from "@/components/ui";
 import { AlumniGallery } from "@/components/alumni/AlumniGallery";
-import { ALUMNI, getAlumni } from "@/lib/alumni";
+import { ALUMNI, getAlumni, type Alumni } from "@/lib/alumni";
+import { SITE_URL } from "@/lib/site-url";
+
+function AlumniJsonLd({ alumni }: { alumni: Alumni }) {
+  const person: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: alumni.name,
+    url: `${SITE_URL}/alumni/${alumni.slug}`,
+    description: alumni.summary,
+    image: `${SITE_URL}${alumni.mainImage}`,
+    jobTitle: "테니스 선수",
+    nationality: "KR",
+    knowsAbout: ["Tennis", "테니스"],
+    memberOf: { "@type": "SportsOrganization", name: "GCM 테니스 아카데미", url: SITE_URL },
+  };
+  if (alumni.nameEn) person.alternateName = alumni.nameEn;
+  if (alumni.university) {
+    person.alumniOf = { "@type": "CollegeOrUniversity", name: alumni.university };
+  }
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "홈", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Alumni", item: `${SITE_URL}/alumni` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: alumni.name,
+        item: `${SITE_URL}/alumni/${alumni.slug}`,
+      },
+    ],
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify([person, breadcrumb]) }}
+    />
+  );
+}
 
 export function generateStaticParams() {
   return ALUMNI.map((a) => ({ slug: a.slug }));
@@ -36,6 +76,7 @@ export default async function AlumniDetailPage({
 
   return (
     <div className="pt-16">
+      <AlumniJsonLd alumni={alumni} />
       <section className="py-20 sm:py-28">
         <Container className="max-w-3xl">
           <Link

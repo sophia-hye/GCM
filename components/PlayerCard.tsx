@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CourtLines } from "@/components/ui";
 import { TRACK_LABEL, type Player } from "@/lib/players";
 
@@ -28,7 +29,7 @@ export function PlayerCard({
   const tagline = bio.replace(/#[^\s#]+/g, "").replace(/\s+/g, " ").trim();
 
   return (
-    <div className="group">
+    <Link href={`/players/${player.slug}`} className="group block">
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
         {player.image ? (
           <Image
@@ -88,17 +89,11 @@ export function PlayerCard({
             <p className="mt-1.5 break-keep text-xs leading-relaxed text-ink/85">{player.coach_note}</p>
           </div>
         ) : null}
-        {player.video_url ? (
-          <a
-            href={player.video_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-block text-xs font-semibold text-court hover:text-court-deep"
-          >
-            {ko ? "하이라이트 영상 →" : "Highlights →"}
-          </a>
-        ) : null}
+        <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
+          {ko ? "자세히 보기" : "View profile"}
+          <span className="transition-transform group-hover:translate-x-0.5">→</span>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
