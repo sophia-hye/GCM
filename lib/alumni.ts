@@ -17,6 +17,7 @@ export type AlumniArticle = {
   title: string;
   source: string;
   url: string;
+  image: string;
 };
 
 export type Alumni = {
@@ -66,21 +67,25 @@ export const ALUMNI: Alumni[] = [
         title: "'Be Stanford Cardinals!' 국내 테니스 선수 최초 스탠포드 진학한, 명세인",
         source: "네이버 스포츠",
         url: "https://naver.me/FDGXbfxh",
+        image: "/alumni/myung-se-in/articles/1.jpg",
       },
       {
         title: "오산GS 명세인, 이덕희배 국제주니어테니스 여자 단식 우승",
         source: "중부일보",
         url: "https://naver.me/GKIYLbtG",
+        image: "/alumni/myung-se-in/2.jpeg",
       },
       {
         title: "\"한국 테니스의 밀알이 되겠다\" SS스포츠진흥협회 x KATA, 첫 교류전 성료",
         source: "네이버 스포츠",
         url: "https://naver.me/5CCmSCjw",
+        image: "/alumni/myung-se-in/articles/3.jpg",
       },
       {
         title: "(주)지엔비에스엔지니어링, 주니어 선수 명세인 후원",
         source: "테니스피플",
         url: "https://naver.me/Gp0gbsyd",
+        image: "/alumni/myung-se-in/articles/4.jpg",
       },
     ],
     body: [
