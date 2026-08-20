@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { getPublishedPlayers } from "@/lib/players-query";
-import { ALUMNI } from "@/lib/alumni";
 
 /** 공개 페이지 사이트맵 (검색엔진 색인용) — 정적 경로 + 선수·Alumni 개별 페이지 */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -49,13 +48,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // 개별 Alumni 페이지
-  const alumniEntries: MetadataRoute.Sitemap = ALUMNI.map((a) => ({
-    url: `${SITE_URL}/alumni/${a.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
-
-  return [...staticEntries, ...playerEntries, ...alumniEntries];
+  return [...staticEntries, ...playerEntries];
 }

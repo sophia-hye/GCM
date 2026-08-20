@@ -6,8 +6,16 @@
 export type AlumniBlock =
   | { type: "p"; text: string }
   | { type: "quote"; text: string }
+  /** 감사/헌사 등 본문 중간에서 부각시키는 강조 콜아웃 */
+  | { type: "highlight"; text: string }
   | { type: "heading"; text: string }
   | { type: "signature"; text: string };
+
+export type AlumniArticle = {
+  title: string;
+  source: string;
+  url: string;
+};
 
 export type Alumni = {
   slug: string;
@@ -26,6 +34,8 @@ export type Alumni = {
   mainImage: string;
   /** 인스타그램형 그리드용 사진들 */
   gallery: string[];
+  /** 관련 기사 (새 창으로 열림) */
+  articles: AlumniArticle[];
   /** 상세 편지 본문 블록 */
   body: AlumniBlock[];
 };
@@ -49,6 +59,28 @@ export const ALUMNI: Alumni[] = [
       "/alumni/myung-se-in/5.jpeg",
       "/alumni/myung-se-in/6.jpeg",
     ],
+    articles: [
+      {
+        title: "'Be Stanford Cardinals!' 국내 테니스 선수 최초 스탠포드 진학한, 명세인",
+        source: "네이버 스포츠",
+        url: "https://naver.me/FDGXbfxh",
+      },
+      {
+        title: "오산GS 명세인, 이덕희배 국제주니어테니스 여자 단식 우승",
+        source: "중부일보",
+        url: "https://naver.me/GKIYLbtG",
+      },
+      {
+        title: "\"한국 테니스의 밀알이 되겠다\" SS스포츠진흥협회 x KATA, 첫 교류전 성료",
+        source: "네이버 스포츠",
+        url: "https://naver.me/5CCmSCjw",
+      },
+      {
+        title: "(주)지엔비에스엔지니어링, 주니어 선수 명세인 후원",
+        source: "테니스피플",
+        url: "https://naver.me/Gp0gbsyd",
+      },
+    ],
     body: [
       {
         type: "p",
@@ -59,12 +91,12 @@ export const ALUMNI: Alumni[] = [
         text: "현재 저는 미국 스탠포드 대학교에서 100% 장학생으로서 학업(GPA 4.0)과 NCAA 최고 수준의 테니스 선수 생활을 병행하며, 장차 국제 스포츠 기구(IOC, WTA) 및 글로벌 스포츠 무대를 이끌어갈 리더로서의 꿈을 펼쳐나가고 있습니다.",
       },
       {
-        type: "p",
-        text: "오늘의 제가 있기까지, 제 삶의 가장 결정적인 문을 열어주신 SS스포츠진흥재단 박상순 이사장님과 GCM 아카데미의 오성국 대표님께 깊은 감사의 마음을 전하고 싶습니다.",
+        type: "highlight",
+        text: "오늘의 제가 있기까지, 제 삶의 가장 결정적인 문을 열어주신 SS스포츠진흥재단 박상순 회장님과 GCM 아카데미의 오성국 대표님께 깊은 감사의 마음을 전하고 싶습니다.",
       },
       {
         type: "p",
-        text: "경제적·환경적 장벽 없이 오직 스포츠와 학업에만 집중할 수 있도록 든든하게 뒷받침해 주신 SS스포츠진흥재단의 지원이 있었기에 지금의 스탠포드 명세인이 존재할 수 있었습니다.",
+        text: "경제적·환경적 장벽 없이 오직 스포츠와 학업에만 집중할 수 있도록 든든하게 뒷받침해 주신 SS스포츠진흥재단 박상순 회장님의 지원이 있었기에 지금의 스탠포드 명세인이 존재할 수 있었습니다.",
       },
       {
         type: "quote",
@@ -76,7 +108,11 @@ export const ALUMNI: Alumni[] = [
       },
       {
         type: "p",
-        text: "단순히 테니스 기술 지도에 그치지 않고, 미국 대학 스포츠 시스템 안에서 치열하게 살아남을 수 있는 강력한 멘탈 관리와 컨설팅을 지금 이 순간까지도 지속해 주고 계십니다. 코치님의 흔들림 없는 믿음 덕분에 저는 '완전한 자신감'을 가지고, 팀의 리더로 성장할 수 있었습니다.",
+        text: "단순히 테니스 기술 지도에 그치지 않고, 미국 대학 스포츠 시스템 안에서 치열하게 살아남을 수 있는 강력한 멘탈 관리와 컨설팅을 지금 이 순간까지도 지속해 주고 계십니다.",
+      },
+      {
+        type: "highlight",
+        text: "오성국 코치님의 흔들림 없는 믿음 덕분에 저는 '완전한 자신감'을 가지고, 팀의 리더로 성장할 수 있었습니다.",
       },
       { type: "heading", text: "🎾 GCM 후배들에게" },
       {
@@ -103,7 +139,3 @@ export const ALUMNI: Alumni[] = [
     ],
   },
 ];
-
-export function getAlumni(slug: string): Alumni | undefined {
-  return ALUMNI.find((a) => a.slug === slug);
-}
