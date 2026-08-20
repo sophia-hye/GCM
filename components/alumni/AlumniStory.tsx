@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { AlumniGallery } from "@/components/alumni/AlumniGallery";
 import { SITE_URL } from "@/lib/site-url";
 import type { Alumni } from "@/lib/alumni";
@@ -41,21 +42,35 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
     <article id={alumni.slug} className="mx-auto max-w-3xl">
       <AlumniJsonLd alumni={alumni} />
 
-      <header className="border-b border-line pb-8">
-        <div className="flex flex-wrap gap-1.5">
-          {alumni.hashtags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full bg-court/10 px-3 py-1 text-xs font-semibold text-court"
-            >
-              #{t}
-            </span>
-          ))}
+      {/* 히어로 — 대표 사진을 배경으로, 이름/소속을 그 위에 오버레이 */}
+      <header className="relative overflow-hidden rounded-2xl bg-court-deep">
+        <div className="relative aspect-[4/5] sm:aspect-[16/12]">
+          <Image
+            src={alumni.mainImage}
+            alt={alumni.name}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
         </div>
-        <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-          {alumni.name}
-        </h2>
-        <p className="mt-3 break-keep text-base text-muted">{alumni.role}</p>
+        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+          <div className="flex flex-wrap gap-1.5">
+            {alumni.hashtags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm"
+              >
+                #{t}
+              </span>
+            ))}
+          </div>
+          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-white drop-shadow sm:text-5xl">
+            {alumni.name}
+          </h2>
+          <p className="mt-2 break-keep text-sm text-white/85 sm:text-base">{alumni.role}</p>
+        </div>
       </header>
 
       <div className="mt-8 space-y-5">
@@ -122,20 +137,29 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
                 href={a.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col justify-between rounded-2xl border border-line bg-card/40 p-5 transition-all hover:-translate-y-0.5 hover:border-court/50 hover:shadow-md"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-card/40 transition-all hover:-translate-y-0.5 hover:border-court/50 hover:shadow-md"
               >
-                <div>
-                  <span className="inline-block rounded-full bg-court/10 px-2.5 py-0.5 text-xs font-semibold text-court">
+                <div className="relative aspect-[16/10] overflow-hidden bg-court-deep">
+                  <Image
+                    src={a.image}
+                    alt={a.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 384px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
                     {a.source}
                   </span>
-                  <p className="mt-3 break-keep text-sm font-semibold leading-relaxed text-ink">
+                </div>
+                <div className="flex flex-1 flex-col justify-between p-5">
+                  <p className="break-keep text-sm font-semibold leading-relaxed text-ink">
                     {a.title}
                   </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
+                    기사 보기
+                    <span className="transition-transform group-hover:translate-x-0.5">↗</span>
+                  </span>
                 </div>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
-                  기사 보기
-                  <span className="transition-transform group-hover:translate-x-0.5">↗</span>
-                </span>
               </a>
             ))}
           </div>
