@@ -97,16 +97,6 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
               </p>
             );
           }
-          if (block.type === "box") {
-            return (
-              <p
-                key={i}
-                className="!my-7 break-keep rounded-lg border-2 border-court px-5 py-4 text-lg font-bold leading-relaxed text-court-deep"
-              >
-                {block.text}
-              </p>
-            );
-          }
           if (block.type === "signature") {
             return (
               <p key={i} className="!mt-10 break-keep text-right text-sm font-semibold text-ink">

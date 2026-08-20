@@ -10,8 +10,6 @@ export type AlumniBlock =
   | { type: "highlight"; text: string }
   /** 박스 없이 볼드체 문장으로만 강조 */
   | { type: "bold"; text: string }
-  /** 네모 박스 + 포인트 색상 폰트로 강조 */
-  | { type: "box"; text: string }
   | { type: "heading"; text: string }
   | { type: "signature"; text: string };
 
@@ -103,7 +101,7 @@ export const ALUMNI: Alumni[] = [
         text: "경제적·환경적 장벽 없이 오직 스포츠와 학업에만 집중할 수 있도록 든든하게 뒷받침해 주신 SS스포츠진흥재단 박상순 회장님의 지원이 있었기에 지금의 스탠포드 명세인이 존재할 수 있었습니다.",
       },
       {
-        type: "box",
+        type: "highlight",
         text: "스탠포드 입학 & 100% 장학금, 도전할 수 있게 언제나 자신감을 채워주신 오성국 코치님",
       },
       {
