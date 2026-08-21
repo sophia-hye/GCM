@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { AlumniGallery } from "@/components/alumni/AlumniGallery";
 import { SITE_URL } from "@/lib/site-url";
-import type { Alumni } from "@/lib/alumni";
+import { localizeAlumni, type Alumni } from "@/lib/alumni";
 
 function AlumniJsonLd({ alumni }: { alumni: Alumni }) {
   const person: Record<string, unknown> = {
@@ -37,7 +37,8 @@ function AlumniJsonLd({ alumni }: { alumni: Alumni }) {
 }
 
 /** Alumni 한 명의 전체 스토리 — 헤더 + 편지 본문 + 관련 기사 + 사진 그리드 */
-export function AlumniStory({ alumni }: { alumni: Alumni }) {
+export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
+  const a = localizeAlumni(alumni, ko);
   return (
     <article id={alumni.slug} className="mx-auto max-w-3xl">
       <AlumniJsonLd alumni={alumni} />
@@ -46,8 +47,8 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
       <header className="relative overflow-hidden rounded-2xl bg-court-deep">
         <div className="relative aspect-[4/5] sm:aspect-[16/12]">
           <Image
-            src={alumni.mainImage}
-            alt={alumni.name}
+            src={a.mainImage}
+            alt={a.name}
             fill
             priority
             sizes="(max-width: 768px) 100vw, 768px"
@@ -57,7 +58,7 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
         </div>
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
           <div className="flex flex-wrap gap-1.5">
-            {alumni.hashtags.map((t) => (
+            {a.hashtags.map((t) => (
               <span
                 key={t}
                 className="rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm"
@@ -67,14 +68,14 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
             ))}
           </div>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-white drop-shadow sm:text-5xl">
-            {alumni.name}
+            {a.name}
           </h2>
-          <p className="mt-2 break-keep text-sm text-white/85 sm:text-base">{alumni.role}</p>
+          <p className="mt-2 break-keep text-sm text-white/85 sm:text-base">{a.role}</p>
         </div>
       </header>
 
       <div className="mt-8 space-y-5">
-        {alumni.body.map((block, i) => {
+        {a.body.map((block, i) => {
           if (block.type === "heading") {
             return (
               <h3
@@ -127,36 +128,38 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
         })}
       </div>
 
-      {alumni.articles.length ? (
+      {a.articles.length ? (
         <section className="mt-14">
-          <h3 className="mb-5 font-display text-xl font-bold tracking-tight">관련 기사</h3>
+          <h3 className="mb-5 font-display text-xl font-bold tracking-tight">
+            {ko ? "관련 기사" : "In the News"}
+          </h3>
           <div className="grid gap-4 sm:grid-cols-2">
-            {alumni.articles.map((a) => (
+            {a.articles.map((ar) => (
               <a
-                key={a.url}
-                href={a.url}
+                key={ar.url}
+                href={ar.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-card/40 transition-all hover:-translate-y-0.5 hover:border-court/50 hover:shadow-md"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-court-deep">
                   <Image
-                    src={a.image}
-                    alt={a.title}
+                    src={ar.image}
+                    alt={ar.title}
                     fill
                     sizes="(max-width: 640px) 100vw, 384px"
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
-                    {a.source}
+                    {ar.source}
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <p className="break-keep text-sm font-semibold leading-relaxed text-ink">
-                    {a.title}
+                    {ar.title}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
-                    기사 보기
+                    {ko ? "기사 보기" : "Read article"}
                     <span className="transition-transform group-hover:translate-x-0.5">↗</span>
                   </span>
                 </div>
@@ -168,7 +171,7 @@ export function AlumniStory({ alumni }: { alumni: Alumni }) {
 
       <section className="mt-14">
         <h3 className="mb-5 font-display text-xl font-bold tracking-tight">Photos</h3>
-        <AlumniGallery images={alumni.gallery} name={alumni.name} />
+        <AlumniGallery images={a.gallery} name={a.name} ko={ko} />
       </section>
     </article>
   );

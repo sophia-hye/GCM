@@ -13,8 +13,6 @@ type Voice = {
   body: string;
 };
 
-const relationLabel: Record<string, string> = { player: "선수", parent: "학부모" };
-
 /** 홈 미리보기용 최신 후기 3개 */
 async function getRecentVoices(): Promise<Voice[]> {
   if (!isSupabaseConfigured()) return [];
@@ -33,7 +31,12 @@ async function getRecentVoices(): Promise<Voice[]> {
 }
 
 export async function Testimonials() {
-  const ui = getUI(await getLocale());
+  const locale = await getLocale();
+  const ko = locale === "ko";
+  const ui = getUI(locale);
+  const relationLabel: Record<string, string> = ko
+    ? { player: "선수", parent: "학부모" }
+    : { player: "Player", parent: "Parent" };
   const voices = await getRecentVoices();
 
   return (
@@ -45,7 +48,7 @@ export async function Testimonials() {
             href="/testimonial"
             className="text-sm font-semibold text-court transition-colors hover:text-court-deep"
           >
-            전체 보기 →
+            {ko ? "전체 보기 →" : "View all →"}
           </Link>
         ) : null}
       </div>
@@ -74,7 +77,7 @@ export async function Testimonials() {
           </div>
           <div className="mt-10 text-center">
             <Button href="/testimonial" variant="court">
-              선수 · 학부모 이야기 더 보기
+              {ko ? "선수 · 학부모 이야기 더 보기" : "More Player & Parent Stories"}
             </Button>
           </div>
         </>

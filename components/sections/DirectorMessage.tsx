@@ -35,7 +35,7 @@ export async function DirectorMessage() {
             />
           </div>
           <p className="mt-3 text-center text-sm font-semibold text-ink lg:text-left">
-            오성국 <span className="font-normal text-muted">· 대표 원장</span>
+            오성국 <span className="font-normal text-muted">{ko ? "· 대표 원장" : "· Executive Director"}</span>
           </p>
         </div>
 

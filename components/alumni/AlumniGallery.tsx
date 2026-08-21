@@ -8,7 +8,15 @@ import { useCallback, useEffect, useState } from "react";
  * 인스타그램 피드형 정사각 그리드. 사진 클릭 시 크게 보기 라이트박스 모달.
  * 그리드 자체는 JS 없이도 렌더/표시되며, 확대 모달만 클라이언트 상호작용으로 동작한다.
  */
-export function AlumniGallery({ images, name }: { images: string[]; name: string }) {
+export function AlumniGallery({
+  images,
+  name,
+  ko = true,
+}: {
+  images: string[];
+  name: string;
+  ko?: boolean;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const isOpen = openIndex !== null;
 
@@ -45,7 +53,7 @@ export function AlumniGallery({ images, name }: { images: string[]; name: string
               type="button"
               onClick={() => setOpenIndex(i)}
               className="group relative block aspect-square w-full overflow-hidden rounded-lg bg-court-deep"
-              aria-label={`${name} 사진 ${i + 1} 크게 보기`}
+              aria-label={ko ? `${name} 사진 ${i + 1} 크게 보기` : `View ${name} photo ${i + 1}`}
             >
               <Image
                 src={src}
@@ -66,14 +74,14 @@ export function AlumniGallery({ images, name }: { images: string[]; name: string
             <div
               role="dialog"
               aria-modal="true"
-              aria-label={`${name} 사진 크게 보기`}
+              aria-label={ko ? `${name} 사진 크게 보기` : `${name} photo viewer`}
               onClick={close}
               className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-8"
             >
           <button
             type="button"
             onClick={close}
-            aria-label="닫기"
+            aria-label={ko ? "닫기" : "Close"}
             className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
           >
             &times;
@@ -87,7 +95,7 @@ export function AlumniGallery({ images, name }: { images: string[]; name: string
                   e.stopPropagation();
                   show(-1);
                 }}
-                aria-label="이전 사진"
+                aria-label={ko ? "이전 사진" : "Previous photo"}
                 className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20 sm:left-6"
               >
                 &#8249;
@@ -98,7 +106,7 @@ export function AlumniGallery({ images, name }: { images: string[]; name: string
                   e.stopPropagation();
                   show(1);
                 }}
-                aria-label="다음 사진"
+                aria-label={ko ? "다음 사진" : "Next photo"}
                 className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20 sm:right-6"
               >
                 &#8250;

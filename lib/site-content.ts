@@ -244,7 +244,7 @@ const enProcessSteps = [
 
 const enScholarship = {
   title: "Apply for Full · Partial Scholarship",
-  lead: "We offer a limited number of scholarship spots each year. We select athletes with attitude, competitiveness and character.",
+  lead: "A special, limited scholarship opportunity created for genuine growth. So that athletes with good character, burning grit and the right attitude can thrive, GCM is waiting for your challenge today. This isn't the story of someone special — it can begin with the courage to say 'I can do it too' and a heart set on your goal. Follow in the footsteps of our Stanford scholarship recipient and take on new possibilities and dreams!",
   points: [
     { title: "Eligibility", body: "We welcome junior athletes aiming for the ATP · WTA." },
     { title: "Selection Criteria", body: "We comprehensively review attitude, competitiveness, ITF/national ranking, recent results and coachability." },

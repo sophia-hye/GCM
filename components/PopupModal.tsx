@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { isVideoUrl, isSvgUrl } from "@/lib/media";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 type Popup = { id: string; image_url: string; link_url: string | null };
 
-function PopupMedia({ url }: { url: string }) {
+function PopupMedia({ url, alt }: { url: string; alt: string }) {
   if (isVideoUrl(url)) {
     return (
       <video src={url} className="block w-full rounded-lg" autoPlay muted loop playsInline controls />
@@ -14,7 +15,7 @@ function PopupMedia({ url }: { url: string }) {
   // SVG 는 Supabase 가 강제 다운로드(attachment)로 서빙하므로 동일 출처 프록시로 inline 재서빙
   const src = isSvgUrl(url) ? `/api/popup-media?u=${encodeURIComponent(url)}` : url;
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt="공지 팝업" className="block w-full rounded-lg" />;
+  return <img src={src} alt={alt} className="block w-full rounded-lg" />;
 }
 
 /** 종료 시각(오늘 자정)까지 이 팝업을 숨긴다 */
@@ -23,6 +24,8 @@ function hideKey(id: string) {
 }
 
 export function PopupModal({ popups }: { popups: Popup[] }) {
+  const ko = useLocale() === "ko";
+  const altText = ko ? "공지 팝업" : "Notice popup";
   // 표시할 팝업 id 목록 (마운트 시 '오늘 하루 보지 않기' 처리된 것 제외)
   const [visibleIds, setVisibleIds] = useState<string[]>([]);
   const [hideToday, setHideToday] = useState<Record<string, boolean>>({});
@@ -79,18 +82,18 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
             <div className="p-3">
               {p.link_url ? (
                 <>
-                  <PopupMedia url={p.image_url} />
+                  <PopupMedia url={p.image_url} alt={altText} />
                   <a
                     href={p.link_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-2 block rounded-lg bg-court px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-court-deep"
                   >
-                    바로가기 →
+                    {ko ? "바로가기 →" : "Go →"}
                   </a>
                 </>
               ) : (
-                <PopupMedia url={p.image_url} />
+                <PopupMedia url={p.image_url} alt={altText} />
               )}
             </div>
             <div className="flex items-center justify-between border-t border-line px-4 py-2.5">
@@ -101,14 +104,14 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
                   onChange={(e) => setHideToday((s) => ({ ...s, [p.id]: e.target.checked }))}
                   className="h-4 w-4 accent-court"
                 />
-                오늘 하루 보지 않기
+                {ko ? "오늘 하루 보지 않기" : "Don't show today"}
               </label>
               <button
                 type="button"
                 onClick={() => closeOne(p.id)}
                 className="rounded-full bg-ink px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-125"
               >
-                닫기
+                {ko ? "닫기" : "Close"}
               </button>
             </div>
           </div>
