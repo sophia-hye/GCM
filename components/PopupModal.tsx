@@ -60,7 +60,9 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4 py-10"
+      // 헤더(z-50)보다 낮게 두어 상단 네비/언어 토글이 팝업 위에서도 클릭되도록 한다.
+      // (라이트박스 등 진짜 모달은 z-[100]로 별도 최상단 유지)
+      className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-black/60 px-4 pb-10 pt-24"
       role="dialog"
       aria-modal="true"
       onClick={() => setVisibleIds([])}
