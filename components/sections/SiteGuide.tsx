@@ -101,14 +101,18 @@ export async function SiteGuide() {
               Match Feedback
             </p>
             <h3 className="mt-1.5 font-display text-xl font-bold sm:text-2xl">
-              시합·훈련 후, 나의 매치 피드백을 남겨보세요
+              {ko
+                ? "시합·훈련 후, 나의 매치 피드백을 남겨보세요"
+                : "After a match or training, leave your match feedback"}
             </h3>
             <p className="mt-1.5 text-sm leading-relaxed text-muted">
-              경기와 훈련을 스스로 돌아본 기록을 남기면, 코치가 확인하고 피드백을 드립니다.
+              {ko
+                ? "경기와 훈련을 스스로 돌아본 기록을 남기면, 코치가 확인하고 피드백을 드립니다."
+                : "Leave a record reflecting on your matches and training, and your coach will review it and give you feedback."}
             </p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-court px-5 py-2.5 text-sm font-semibold text-white transition group-hover:brightness-110">
-            매치 피드백 작성
+            {ko ? "매치 피드백 작성" : "Write Match Feedback"}
             <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </span>
         </Link>

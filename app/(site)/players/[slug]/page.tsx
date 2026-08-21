@@ -7,6 +7,7 @@ import { Container } from "@/components/ui";
 import { PlayerJsonLd } from "@/components/PlayerJsonLd";
 import { TRACK_LABEL } from "@/lib/players";
 import { getPublishedPlayers, getPlayerBySlug, parseBio } from "@/lib/players-query";
+import { getLocale } from "@/lib/i18n";
 
 export async function generateStaticParams() {
   const players = await getPublishedPlayers();
@@ -46,21 +47,24 @@ export default async function PlayerDetailPage({
   const player = await getPlayerBySlug(slug);
   if (!player) notFound();
 
+  const ko = (await getLocale()) === "ko";
+  const trackLabel = player.track
+    ? ko
+      ? TRACK_LABEL[player.track].ko
+      : TRACK_LABEL[player.track].en
+    : null;
+
   const { tagline, tags } = parseBio(player.bio);
-  const meta = [
-    player.track ? TRACK_LABEL[player.track].ko : null,
-    player.grad_year,
-    player.utr ? `UTR ${player.utr}` : null,
-  ]
+  const meta = [trackLabel, player.grad_year, player.utr ? `UTR ${player.utr}` : null]
     .filter(Boolean)
     .join(" · ");
 
   const profile: { label: string; value: string }[] = [];
-  if (player.birthday) profile.push({ label: "생년월일", value: player.birthday });
-  if (player.birthplace) profile.push({ label: "출생지", value: player.birthplace });
+  if (player.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: player.birthday });
+  if (player.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: player.birthplace });
   if (player.plays) profile.push({ label: "Plays", value: player.plays });
   if (player.backhand) profile.push({ label: "Backhand", value: player.backhand });
-  if (player.joined_date) profile.push({ label: "GCM 합류", value: player.joined_date });
+  if (player.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: player.joined_date });
 
   return (
     <div className="pt-16">
@@ -71,7 +75,7 @@ export default async function PlayerDetailPage({
             href="/players"
             className="inline-flex items-center gap-1 text-sm font-semibold text-muted transition-colors hover:text-court"
           >
-            <span>←</span> 배출·소속 선수
+            <span>←</span> {ko ? "배출·소속 선수" : "Players"}
           </Link>
 
           <div className="mt-6 grid gap-8 sm:grid-cols-2 sm:gap-12">
@@ -92,7 +96,7 @@ export default async function PlayerDetailPage({
               )}
               {player.track ? (
                 <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                  {TRACK_LABEL[player.track].ko}
+                  {trackLabel}
                 </span>
               ) : null}
             </div>
@@ -143,7 +147,7 @@ export default async function PlayerDetailPage({
                   rel="noopener noreferrer"
                   className="mt-6 inline-block text-sm font-semibold text-court hover:text-court-deep"
                 >
-                  하이라이트 영상 →
+                  {ko ? "하이라이트 영상 →" : "Highlights →"}
                 </a>
               ) : null}
             </div>

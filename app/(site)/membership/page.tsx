@@ -1,14 +1,20 @@
 import { ComingSoon } from "@/components/sections/ComingSoon";
+import { getLocale } from "@/lib/i18n";
 
 export const metadata = { title: "Membership | GCM 테니스 아카데미" };
 
-export default function MembershipPage() {
+export default async function MembershipPage() {
+  const ko = (await getLocale()) === "ko";
   return (
     <div className="pt-16">
       <ComingSoon
         eyebrow="Social Events"
         title="Membership"
-        desc="GCM 멤버십을 준비하고 있습니다. 곧 안내드리겠습니다."
+        desc={
+          ko
+            ? "GCM 멤버십을 준비하고 있습니다. 곧 안내드리겠습니다."
+            : "We're preparing GCM Membership. We'll share more soon."
+        }
       />
     </div>
   );

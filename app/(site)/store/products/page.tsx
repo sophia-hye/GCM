@@ -32,7 +32,11 @@ export default async function StoreProductsPage() {
         <ComingSoon
           eyebrow="Store"
           title="GCM's Products"
-          desc="상품을 준비하고 있습니다. 곧 만나보실 수 있습니다."
+          desc={
+            ko
+              ? "상품을 준비하고 있습니다. 곧 만나보실 수 있습니다."
+              : "We're preparing our products. See you soon."
+          }
         />
       </div>
     );

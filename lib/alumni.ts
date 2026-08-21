@@ -15,7 +15,9 @@ export type AlumniBlock =
 
 export type AlumniArticle = {
   title: string;
+  titleEn: string;
   source: string;
+  sourceEn: string;
   url: string;
   image: string;
 };
@@ -29,10 +31,13 @@ export type Alumni = {
   university?: string;
   /** 카드/헤더의 한 줄 소속 (예: 스탠포드 대학교 · NCAA D1 주장) */
   role: string;
+  roleEn: string;
   /** 해시태그 (# 없이 저장) */
   hashtags: string[];
+  hashtagsEn: string[];
   /** 카드에 노출할 2~3줄 요약 */
   summary: string;
+  summaryEn: string;
   /** 카드 대표 이미지 */
   mainImage: string;
   /** 인스타그램형 그리드용 사진들 */
@@ -41,7 +46,42 @@ export type Alumni = {
   articles: AlumniArticle[];
   /** 상세 편지 본문 블록 */
   body: AlumniBlock[];
+  bodyEn: AlumniBlock[];
 };
+
+export type LocalizedAlumni = {
+  slug: string;
+  name: string;
+  role: string;
+  hashtags: string[];
+  summary: string;
+  mainImage: string;
+  gallery: string[];
+  university?: string;
+  articles: { title: string; source: string; url: string; image: string }[];
+  body: AlumniBlock[];
+};
+
+/** 로케일에 맞춰 Alumni 필드를 선택해 평탄화 */
+export function localizeAlumni(a: Alumni, ko: boolean): LocalizedAlumni {
+  return {
+    slug: a.slug,
+    name: ko ? a.name : a.nameEn ?? a.name,
+    role: ko ? a.role : a.roleEn,
+    hashtags: ko ? a.hashtags : a.hashtagsEn,
+    summary: ko ? a.summary : a.summaryEn,
+    mainImage: a.mainImage,
+    gallery: a.gallery,
+    university: a.university,
+    articles: a.articles.map((ar) => ({
+      title: ko ? ar.title : ar.titleEn,
+      source: ko ? ar.source : ar.sourceEn,
+      url: ar.url,
+      image: ar.image,
+    })),
+    body: ko ? a.body : a.bodyEn,
+  };
+}
 
 export const ALUMNI: Alumni[] = [
   {
@@ -50,9 +90,13 @@ export const ALUMNI: Alumni[] = [
     nameEn: "Myung Se-in",
     university: "Stanford University",
     role: "스탠포드 대학교 사회학과 · 여자 테니스 대표팀(NCAA D1) 주장",
+    roleEn: "Stanford University, Sociology · Captain, Women's Tennis (NCAA D1)",
     hashtags: ["스탠포드"],
+    hashtagsEn: ["Stanford"],
     summary:
       "스탠포드 대학교 사회학과 재학 중이자 여자 테니스 대표팀(NCAA Division I) 주장. 100% 장학생으로 학업(GPA 4.0)과 NCAA 정상급 선수 생활을 병행하며, 국제 스포츠 무대를 이끌 'Global Sports Leader'의 꿈을 향해 나아가고 있습니다.",
+    summaryEn:
+      "A Sociology student at Stanford University and captain of the women's tennis team (NCAA Division I). A full-ride scholar balancing academics (GPA 4.0) with top-level NCAA tennis, chasing a dream to become a 'Global Sports Leader' on the world stage.",
     mainImage: "/alumni/myung-se-in/main.jpeg",
     gallery: [
       "/alumni/myung-se-in/1.jpeg",
@@ -65,25 +109,33 @@ export const ALUMNI: Alumni[] = [
     articles: [
       {
         title: "'Be Stanford Cardinals!' 국내 테니스 선수 최초 스탠포드 진학한, 명세인",
+        titleEn: "'Be Stanford Cardinals!' Myung Se-in, first Korean tennis player to enter Stanford",
         source: "네이버 스포츠",
+        sourceEn: "Naver Sports",
         url: "https://naver.me/FDGXbfxh",
         image: "/alumni/myung-se-in/articles/1.jpg",
       },
       {
         title: "오산GS 명세인, 이덕희배 국제주니어테니스 여자 단식 우승",
+        titleEn: "Osan GS's Myung Se-in wins the Lee Duck-hee Cup junior girls' singles title",
         source: "중부일보",
+        sourceEn: "Joongboo Ilbo",
         url: "https://naver.me/GKIYLbtG",
         image: "/alumni/myung-se-in/2.jpeg",
       },
       {
         title: "\"한국 테니스의 밀알이 되겠다\" SS스포츠진흥협회 x KATA, 첫 교류전 성료",
+        titleEn: "'To be a seed for Korean tennis' — SS Sports Assoc. x KATA hold their first exchange match",
         source: "네이버 스포츠",
+        sourceEn: "Naver Sports",
         url: "https://naver.me/5CCmSCjw",
         image: "/alumni/myung-se-in/articles/3.jpg",
       },
       {
         title: "(주)지엔비에스엔지니어링, 주니어 선수 명세인 후원",
+        titleEn: "GNBS Engineering sponsors junior player Myung Se-in",
         source: "테니스피플",
+        sourceEn: "Tennis People",
         url: "https://naver.me/Gp0gbsyd",
         image: "/alumni/myung-se-in/articles/4.jpg",
       },
@@ -143,6 +195,62 @@ export const ALUMNI: Alumni[] = [
         text: "저 역시 한국과 미국을 잇고, 더 나아가 대한민국 테니스 및 세계 스포츠 산업의 판도를 바꾸는 'Global Sports Leader'로서 후배 여러분의 멋진 롤모델이자 든든한 선배가 될 수 있도록 미국 현지에서 더욱 최선을 다하겠습니다. 꿈을 향해 도전하는 모든 GCM 후배들을 진심으로 응원합니다!",
       },
       { type: "signature", text: "스탠포드 대학교 D1 테니스팀 주장, 명세인 올림" },
+    ],
+    bodyEn: [
+      {
+        type: "p",
+        text: "Hello to GCM Academy's juniors and parents! I'm Myung Se-in, a GCM Alumni majoring in Sociology at Stanford University and serving as captain of Stanford's women's tennis team (NCAA Division I).",
+      },
+      {
+        type: "p",
+        text: "As a full-ride scholarship student at Stanford, I balance academics (GPA 4.0) with tennis at the highest NCAA level, pursuing my dream of one day becoming a leader who guides international sports bodies (IOC, WTA) and the global sports stage.",
+      },
+      {
+        type: "bold",
+        text: "For everything that has brought me here, I want to express my deepest gratitude to Chairman Park Sang-soon of the SS Sports Promotion Foundation and to Director Oh Seong-gook of GCM Academy, who opened the most decisive doors of my life.",
+      },
+      {
+        type: "quote",
+        text: "It was the steadfast support of Chairman Park Sang-soon of the SS Sports Promotion Foundation — letting me focus purely on sport and study, free of financial and environmental barriers — that made today's Stanford Myung Se-in possible.",
+      },
+      {
+        type: "highlight",
+        text: "Coach Oh Seong-gook, who always filled me with the confidence to reach Stanford, win a full scholarship, and dare to try.",
+      },
+      {
+        type: "p",
+        text: "When I first set out to study in the U.S. and aimed for Stanford, I too felt the anxiety and uncertainty of 'can I really do this?' But Coach Oh Seong-gook of GCM Academy believed in my potential 100% and instilled courage and daring in me right to the end.",
+      },
+      {
+        type: "p",
+        text: "Beyond teaching tennis technique, he continues — even now — to provide the powerful mental management and consulting I need to fiercely survive within the U.S. collegiate sports system.",
+      },
+      {
+        type: "highlight",
+        text: "Thanks to Coach Oh Seong-gook's unwavering belief, I gained 'complete confidence' and grew into a leader of my team.",
+      },
+      { type: "heading", text: "🎾 To GCM's Juniors" },
+      {
+        type: "quote",
+        text: "Even when you feel you fall short right now, diligence and mindset carve the path.",
+      },
+      {
+        type: "p",
+        text: "To all of you training hard at GCM right now — there will be times you doubt yourself, when your finances, talent or circumstances seem to fall short.",
+      },
+      {
+        type: "p",
+        text: "But remember: the most powerful weapons in sport and in life are 'sustained diligence' and 'the right mindset'.",
+      },
+      {
+        type: "p",
+        text: "If you fully trust GCM Academy's structured training system and Coach Oh Seong-gook's heartfelt mental care, and give your best each day, results beyond anything you imagine will surely come.",
+      },
+      {
+        type: "p",
+        text: "I too will do my utmost here in the U.S. — bridging Korea and America, and going further to reshape Korean tennis and the global sports industry as a 'Global Sports Leader' — so that I can be a great role model and dependable senior for you. I wholeheartedly cheer for every GCM junior chasing their dreams!",
+      },
+      { type: "signature", text: "From Myung Se-in, Captain, Stanford University D1 Tennis Team" },
     ],
   },
 ];

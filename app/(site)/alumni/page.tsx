@@ -38,14 +38,18 @@ export default async function AlumniPage() {
       <Section>
         <SectionHeading
           eyebrow="GCM Alumni"
-          title="졸업생 이야기"
-          lead="GCM을 거쳐 세계 무대로 나아간 졸업생의 여정. 코트 위의 인연이 평생의 자산이 됩니다."
+          title={ko ? "졸업생 이야기" : "Alumni Stories"}
+          lead={
+            ko
+              ? "GCM을 거쳐 세계 무대로 나아간 졸업생의 여정. 코트 위의 인연이 평생의 자산이 됩니다."
+              : "The journeys of alumni who went from GCM to the world stage. Connections on court become lifelong assets."
+          }
           wideLead
         />
 
         <div className="mt-14 space-y-24">
           {ALUMNI.map((alumni) => (
-            <AlumniStory key={alumni.slug} alumni={alumni} />
+            <AlumniStory key={alumni.slug} alumni={alumni} ko={ko} />
           ))}
         </div>
       </Section>

@@ -3,6 +3,7 @@ import { PageJsonLd } from "@/components/PageJsonLd";
 import Link from "next/link";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
+import { getLocale } from "@/lib/i18n";
 
 export const metadata = pageMetadata({ title: "선수와 학부모의 이야기 | GCM 테니스 아카데미", description: "GCM 선수와 학부모가 직접 전하는 후기와 이야기.", path: "/testimonial" });
 
@@ -15,13 +16,15 @@ type Voice = {
   created_at: string;
 };
 
-const relationLabel: Record<string, string> = { player: "선수", parent: "학부모" };
-
 export default async function VoicesPage({
   searchParams,
 }: {
   searchParams: Promise<{ submitted?: string }>;
 }) {
+  const ko = (await getLocale()) === "ko";
+  const relationLabel: Record<string, string> = ko
+    ? { player: "선수", parent: "학부모" }
+    : { player: "Player", parent: "Parent" };
   const { submitted } = await searchParams;
   const supabase = await createClient();
   const { data } = await supabase
@@ -36,15 +39,20 @@ export default async function VoicesPage({
       <PageJsonLd name="선수·학부모 이야기" path="/testimonial" />
       <Section id="testimonial">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Testimonial" title="선수와 학부모의 이야기" />
+          <SectionHeading
+            eyebrow="Testimonial"
+            title={ko ? "선수와 학부모의 이야기" : "Stories from Players and Parents"}
+          />
           <Button href="/testimonial/new" variant="court">
-            이야기 남기기
+            {ko ? "이야기 남기기" : "Share Your Story"}
           </Button>
         </div>
 
         {submitted ? (
           <p className="mt-6 rounded-lg border border-lime/40 bg-lime/10 px-4 py-3 text-sm text-lime">
-            소중한 이야기가 접수되었습니다. 관리자 확인·승인 후 게시판에 공개됩니다. 감사합니다.
+            {ko
+              ? "소중한 이야기가 접수되었습니다. 관리자 확인·승인 후 게시판에 공개됩니다. 감사합니다."
+              : "Your story has been received. It will be published after review and approval by an administrator. Thank you."}
           </p>
         ) : null}
 
@@ -65,10 +73,12 @@ export default async function VoicesPage({
           </div>
         ) : (
           <div className="mt-12 rounded-2xl border border-dashed border-line px-6 py-16 text-center text-sm text-muted">
-            아직 공개된 이야기가 없습니다. 첫 이야기를 남겨주세요.
+            {ko
+              ? "아직 공개된 이야기가 없습니다. 첫 이야기를 남겨주세요."
+              : "No stories have been published yet. Be the first to share yours."}
             <div className="mt-4">
               <Link href="/testimonial/new" className="font-semibold text-court hover:underline">
-                이야기 남기기 →
+                {ko ? "이야기 남기기 →" : "Share Your Story →"}
               </Link>
             </div>
           </div>
