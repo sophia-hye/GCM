@@ -64,3 +64,6 @@ public/players/정서아.png
 
 # Alumni 사진 공백 원본(비ASCII/공백) — 배포 이슈 방지. alumni/<slug>/ 사본 사용
 public/alumni/myung se in/
+
+# bkit 플러그인 상태(로컬 툴링)
+.bkit/

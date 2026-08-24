@@ -9,6 +9,22 @@ const statusLabel: Record<string, string> = {
   closed: "종료",
 };
 
+/** 접수 일시를 한국시간(KST)으로 표기 (예: 2026.08.24 14:30) */
+function formatKST(iso: string | null): string {
+  if (!iso) return "";
+  const parts = new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date(iso));
+  const p = Object.fromEntries(parts.map((x) => [x.type, x.value]));
+  return `${p.year}.${p.month}.${p.day} ${p.hour}:${p.minute}`;
+}
+
 export default async function InquiriesPage() {
   const supabase = await createClient();
   const { data: inquiries } = await supabase
@@ -37,9 +53,14 @@ export default async function InquiriesPage() {
                     <p className="text-xs text-muted">{q.email}</p>
                   ) : null}
                 </div>
-                <span className="rounded-md bg-court/15 px-2 py-1 text-xs text-court-bright">
-                  {statusLabel[q.status] ?? q.status}
-                </span>
+                <div className="flex flex-col items-end gap-1">
+                  <span className="rounded-md bg-court/15 px-2 py-1 text-xs text-court-bright">
+                    {statusLabel[q.status] ?? q.status}
+                  </span>
+                  {q.created_at ? (
+                    <span className="text-xs tabular-nums text-muted">{formatKST(q.created_at)}</span>
+                  ) : null}
+                </div>
               </div>
 
               <p className="mt-3 whitespace-pre-wrap text-sm text-ink/90">{q.message}</p>
