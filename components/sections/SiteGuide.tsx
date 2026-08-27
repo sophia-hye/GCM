@@ -97,9 +97,12 @@ export async function SiteGuide() {
           {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <video
             src="/video/Home.mp4"
-            controls
+            autoPlay
+            muted
+            loop
             playsInline
-            preload="metadata"
+            controls
+            preload="auto"
             className="h-auto w-full"
           />
         </div>
