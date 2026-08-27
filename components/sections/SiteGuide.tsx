@@ -90,6 +90,21 @@ export async function SiteGuide() {
         </div>
       </Reveal>
 
+      {/* 홈 소개 영상 — 대표원장 인사말 카드 바로 아래. 용량이 크므로 preload=metadata 로
+          방문 시 자동 다운로드하지 않고, 재생 시에만 로드한다. */}
+      <Reveal delay={60}>
+        <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-black">
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+          <video
+            src="/video/Home.mp4"
+            controls
+            playsInline
+            preload="metadata"
+            className="h-auto w-full"
+          />
+        </div>
+      </Reveal>
+
       {/* Match Feedback 강조 — 시합/훈련 후 기록 유도 */}
       <Reveal delay={40}>
         <Link
