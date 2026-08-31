@@ -19,6 +19,7 @@ export function PlayerCard({
   const profile: { label: string; value: string }[] = [];
   if (player.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: player.birthday });
   if (player.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: player.birthplace });
+  if (player.nationality) profile.push({ label: ko ? "국적" : "Nationality", value: player.nationality });
   if (player.plays) profile.push({ label: "Plays", value: player.plays });
   if (player.backhand) profile.push({ label: "Backhand", value: player.backhand });
   if (player.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: player.joined_date });

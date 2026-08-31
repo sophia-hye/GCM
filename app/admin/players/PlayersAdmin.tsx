@@ -42,6 +42,7 @@ type FormValues = {
   video_url: string;
   birthday: string;
   birthplace: string;
+  nationality: string;
   plays: string;
   backhand: string;
   joined_date: string;
@@ -82,6 +83,7 @@ function PlayerForm({
       video_url: String(fd.get("video_url") ?? ""),
       birthday: String(fd.get("birthday") ?? ""),
       birthplace: String(fd.get("birthplace") ?? ""),
+      nationality: String(fd.get("nationality") ?? ""),
       plays: String(fd.get("plays") ?? ""),
       backhand: String(fd.get("backhand") ?? ""),
       joined_date: String(fd.get("joined_date") ?? ""),
@@ -161,6 +163,10 @@ function PlayerForm({
           <div>
             <label className="mb-1.5 block text-xs font-semibold text-muted">출생지 (Birthplace)</label>
             <input name="birthplace" defaultValue={initial?.birthplace ?? ""} placeholder="예: 대한민국 용인시" className={fieldClass} />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-muted">국적 (Nationality)</label>
+            <input name="nationality" defaultValue={initial?.nationality ?? ""} placeholder="예: 대한민국" className={fieldClass} />
           </div>
           <div>
             <label className="mb-1.5 block text-xs font-semibold text-muted">Plays — 주 손 (오른손/왼손)</label>
