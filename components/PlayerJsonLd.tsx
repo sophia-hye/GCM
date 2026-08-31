@@ -33,7 +33,7 @@ export function playerPerson(player: Player): Record<string, unknown> {
     url: `${SITE_URL}/players/${player.slug}`,
     jobTitle: "테니스 선수",
     memberOf: ORG,
-    nationality: "KR",
+    nationality: player.nationality ?? "KR",
     knowsAbout: ["Tennis", "테니스"],
   };
   if (player.image) person.image = `${SITE_URL}${player.image}`;

@@ -14,6 +14,7 @@ export type Player = {
   // 선수 프로필 정보
   birthday: string | null; // 생년월일 (예: 2013.03.16)
   birthplace: string | null; // 출생지
+  nationality: string | null; // 국적
   plays: string | null; // 주 손 (오른손/왼손)
   backhand: string | null; // 백핸드 (양손/한손)
   joined_date: string | null; // GCM 합류일

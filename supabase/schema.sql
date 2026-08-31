@@ -90,6 +90,7 @@ create table public.gcm_players (
   bio text,
   birthday text,
   birthplace text,
+  nationality text,
   plays text,
   backhand text,
   joined_date text,
@@ -104,6 +105,7 @@ create table public.gcm_players (
 --   alter table public.gcm_players add column if not exists sort_order int not null default 0;
 --   alter table public.gcm_players add column if not exists birthday text;
 --   alter table public.gcm_players add column if not exists birthplace text;
+--   alter table public.gcm_players add column if not exists nationality text;
 --   alter table public.gcm_players add column if not exists plays text;
 --   alter table public.gcm_players add column if not exists backhand text;
 --   alter table public.gcm_players add column if not exists joined_date text;

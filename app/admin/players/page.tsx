@@ -8,7 +8,9 @@ export default async function AdminPlayersPage() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("gcm_players")
-    .select("id, slug, name, grad_year, utr, track, result, video_url, image, bio, sort_order, published")
+    .select(
+      "id, slug, name, grad_year, utr, track, result, video_url, image, bio, birthday, birthplace, nationality, plays, backhand, joined_date, coach_note, sort_order, published",
+    )
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
 

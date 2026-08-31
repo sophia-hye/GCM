@@ -49,6 +49,7 @@ type PlayerInput = {
   video_url: string;
   birthday: string;
   birthplace: string;
+  nationality: string;
   plays: string;
   backhand: string;
   joined_date: string;
@@ -69,6 +70,7 @@ function normalize(input: PlayerInput) {
     video_url: input.video_url.trim() || null,
     birthday: input.birthday.trim() || null,
     birthplace: input.birthplace.trim() || null,
+    nationality: input.nationality.trim() || null,
     plays: input.plays.trim() || null,
     backhand: input.backhand.trim() || null,
     joined_date: input.joined_date.trim() || null,
