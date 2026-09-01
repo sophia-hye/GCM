@@ -267,6 +267,9 @@ function PlayerRow({ player, index, total }: { player: Player; index: number; to
   return (
     <li className="rounded-2xl border border-line bg-card p-4">
       <div className="flex items-center gap-4">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-court/15 font-display text-sm font-bold tabular-nums text-court-bright" aria-label={`순서 ${index + 1}`}>
+          {index + 1}
+        </span>
         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-court-deep">
           {player.image ? (
             <Image src={player.image} alt={player.name} fill sizes="64px" className="object-cover object-top" />
@@ -347,6 +350,9 @@ export function PlayersAdmin({ rows }: { rows: Player[] }) {
 
       <div>
         <h2 className="font-display text-lg font-bold">등록된 선수 ({rows.length})</h2>
+        <p className="mt-1 text-sm text-muted">
+          왼쪽 번호가 /players 노출 순서입니다. 각 행의 <span className="font-semibold text-ink">↑ / ↓</span> 버튼으로 순서를 조정하면 사이트에 바로 반영됩니다.
+        </p>
         {rows.length === 0 ? (
           <p className="mt-3 text-sm text-muted">아직 등록된 선수가 없습니다.</p>
         ) : (
