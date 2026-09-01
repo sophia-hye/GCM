@@ -46,6 +46,7 @@ type FormValues = {
   plays: string;
   backhand: string;
   joined_date: string;
+  description: string;
   coach_note: string;
   published: boolean;
 };
@@ -87,6 +88,7 @@ function PlayerForm({
       plays: String(fd.get("plays") ?? ""),
       backhand: String(fd.get("backhand") ?? ""),
       joined_date: String(fd.get("joined_date") ?? ""),
+      description: String(fd.get("description") ?? ""),
       coach_note: String(fd.get("coach_note") ?? ""),
       published: fd.get("published") === "on",
     };
@@ -181,6 +183,19 @@ function PlayerForm({
             <input name="joined_date" defaultValue={initial?.joined_date ?? ""} placeholder="예: 2023.01.02" className={fieldClass} />
           </div>
         </div>
+      </div>
+
+      <div>
+        <label className="mb-1.5 block text-xs font-semibold text-muted">선수 소개 (선택)</label>
+        <textarea
+          name="description"
+          rows={5}
+          defaultValue={initial?.description ?? ""}
+          placeholder={
+            "선수 상세 페이지에 노출되는 소개 글. 문단은 빈 줄로 구분됩니다.\n따옴표(\" \")로 감싼 문단은 인용구(포부)처럼 강조됩니다."
+          }
+          className={fieldClass}
+        />
       </div>
 
       <div>
