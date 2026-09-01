@@ -18,6 +18,23 @@ const MAX_BYTES = 10 * 1024 * 1024; // 10MB
 const fieldClass =
   "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
+/** bio("한 줄 소개 #태그 #태그")를 태그라인과 태그(# 없이)로 분리 */
+function splitBio(bio?: string | null): { tagline: string; tags: string[] } {
+  const b = (bio ?? "").trim();
+  const tags = (b.match(/#[^\s#]+/g) ?? []).map((t) => t.slice(1));
+  const tagline = b.replace(/#[^\s#]+/g, "").replace(/\s+/g, " ").trim();
+  return { tagline, tags };
+}
+
+/** 태그라인 + 태그 입력을 bio 저장 형식("소개 #태그 #태그")으로 합침 */
+function combineBio(tagline: string, hashtagsRaw: string): string {
+  const tags = hashtagsRaw
+    .split(/[,\s]+/)
+    .map((t) => t.replace(/^#/, "").trim())
+    .filter(Boolean);
+  return [tagline.trim(), tags.map((t) => `#${t}`).join(" ")].filter(Boolean).join(" ").trim();
+}
+
 /** 파일을 서명 URL로 업로드하고 저장된 경로를 반환 */
 async function uploadPhoto(file: File): Promise<string> {
   if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
@@ -80,7 +97,7 @@ function PlayerForm({
       grad_year: String(fd.get("grad_year") ?? ""),
       utr: String(fd.get("utr") ?? ""),
       result: String(fd.get("result") ?? ""),
-      bio: String(fd.get("bio") ?? ""),
+      bio: combineBio(String(fd.get("bio") ?? ""), String(fd.get("hashtags") ?? "")),
       video_url: String(fd.get("video_url") ?? ""),
       birthday: String(fd.get("birthday") ?? ""),
       birthplace: String(fd.get("birthplace") ?? ""),
@@ -147,8 +164,24 @@ function PlayerForm({
         <input name="result" defaultValue={initial?.result ?? ""} placeholder="예: 프로 투어 데뷔" className={fieldClass} />
       </div>
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-muted">소개 (선택)</label>
-        <textarea name="bio" rows={2} defaultValue={initial?.bio ?? ""} className={fieldClass} />
+        <label className="mb-1.5 block text-xs font-semibold text-muted">한 줄 소개 · 태그라인 (선택)</label>
+        <textarea
+          name="bio"
+          rows={2}
+          defaultValue={splitBio(initial?.bio).tagline}
+          placeholder="카드/상세 상단에 크게 보이는 한 줄 소개"
+          className={fieldClass}
+        />
+      </div>
+      <div>
+        <label className="mb-1.5 block text-xs font-semibold text-muted">해시태그 (선택)</label>
+        <input
+          name="hashtags"
+          defaultValue={splitBio(initial?.bio).tags.join(", ")}
+          placeholder="쉼표로 구분 · 예: 국가대표, 그랜드슬램, 대구시청 (# 없이 입력)"
+          className={fieldClass}
+        />
+        <p className="mt-1 text-[11px] text-muted">쉼표(,) 또는 공백으로 구분해 입력하면 카드에 #태그 형태로 표시됩니다.</p>
       </div>
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-muted">하이라이트 영상 URL (선택)</label>
