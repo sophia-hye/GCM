@@ -154,10 +154,42 @@ export default async function PlayerDetailPage({
             </div>
           </div>
 
+          {player.description ? (
+            <div className="mt-12">
+              <h2 className="font-display text-xl font-bold tracking-tight">
+                {ko ? "선수 소개" : "About"}
+              </h2>
+              <div className="mt-5 space-y-5">
+                {player.description.split(/\n{2,}/).map((para, i) => {
+                  const t = para.trim();
+                  if (!t) return null;
+                  const isQuote =
+                    (t.startsWith('"') || t.startsWith("“")) &&
+                    (t.endsWith('"') || t.endsWith("”"));
+                  return isQuote ? (
+                    <blockquote
+                      key={i}
+                      className="break-keep border-l-4 border-court pl-5 font-display text-lg font-semibold leading-relaxed text-ink"
+                    >
+                      {t}
+                    </blockquote>
+                  ) : (
+                    <p
+                      key={i}
+                      className="whitespace-pre-line break-keep text-base leading-loose text-ink/85"
+                    >
+                      {t}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
           {player.coach_note ? (
             <div className="mt-10 rounded-2xl border-l-2 border-court bg-court/5 px-6 py-5">
               <p className="text-sm font-bold text-court-bright">Coach&apos;s Note</p>
-              <p className="mt-2 break-keep leading-relaxed text-ink/85">{player.coach_note}</p>
+              <p className="mt-2 whitespace-pre-line break-keep leading-relaxed text-ink/85">{player.coach_note}</p>
             </div>
           ) : null}
         </Container>

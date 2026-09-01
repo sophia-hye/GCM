@@ -94,6 +94,7 @@ create table public.gcm_players (
   plays text,
   backhand text,
   joined_date text,
+  description text,
   coach_note text,
   sort_order int not null default 0,
   published boolean not null default false,
@@ -109,6 +110,7 @@ create table public.gcm_players (
 --   alter table public.gcm_players add column if not exists plays text;
 --   alter table public.gcm_players add column if not exists backhand text;
 --   alter table public.gcm_players add column if not exists joined_date text;
+--   alter table public.gcm_players add column if not exists description text;
 --   alter table public.gcm_players add column if not exists coach_note text;
 alter table public.gcm_players enable row level security;
 create index if not exists gcm_players_order_idx on public.gcm_players (sort_order asc, created_at desc);

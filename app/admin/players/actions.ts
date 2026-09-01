@@ -53,6 +53,7 @@ type PlayerInput = {
   plays: string;
   backhand: string;
   joined_date: string;
+  description: string;
   coach_note: string;
   published: boolean;
   imagePath?: string; // 업로드 완료된 스토리지 경로(신규/교체 시)
@@ -74,6 +75,7 @@ function normalize(input: PlayerInput) {
     plays: input.plays.trim() || null,
     backhand: input.backhand.trim() || null,
     joined_date: input.joined_date.trim() || null,
+    description: input.description.trim() || null,
     coach_note: input.coach_note.trim() || null,
     published: input.published,
   };
