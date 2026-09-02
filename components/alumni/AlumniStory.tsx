@@ -129,6 +129,19 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
               </ul>
             );
           }
+          if (block.type === "coachnote") {
+            return (
+              <div
+                key={i}
+                className="!my-8 rounded-2xl border-l-2 border-court bg-court/5 px-6 py-5"
+              >
+                <p className="text-sm font-bold text-court-bright">Coach&apos;s Note</p>
+                <p className="mt-2 whitespace-pre-line break-keep leading-relaxed text-ink/85">
+                  {block.text}
+                </p>
+              </div>
+            );
+          }
           if (block.type === "signature") {
             return (
               <p key={i} className="!mt-10 break-keep text-right text-sm font-semibold text-ink">

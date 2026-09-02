@@ -12,6 +12,8 @@ export type AlumniBlock =
   | { type: "bold"; text: string }
   /** 불릿 리스트 (경력·성적 등) */
   | { type: "list"; items: string[] }
+  /** 코치진 한마디 — players의 Coach's Note 박스와 동일 스타일 */
+  | { type: "coachnote"; text: string }
   | { type: "heading"; text: string }
   | { type: "signature"; text: string };
 
@@ -311,7 +313,6 @@ export const ALUMNI: Alumni[] = [
         type: "p",
         text: "특히 사회적 선한 영향력과 이타심을 바탕으로 세워진 (주)두나미스를 통해, 한국을 넘어 전 세계로 가치를 전하는 소명 중심의 기업가로 성장하고 있습니다. 현재는 사업을 연쇄적으로 성장시키는 동시에 GCM 주니어 후배들의 '인생 멘토'로서 코트 밖 원하는 어떤 진로로도 성공할 수 있다는 입체적인 롤모델을 제시하고 있습니다. 테니스로 시작해 세계 무대를 경험하고 글로벌 사업가로 스펙트럼을 넓힌 그의 여정은, 테니스 유학을 고민하는 주니어 선수들과 학부모님들에게 최고의 성공 모델이 되어줍니다.",
       },
-      { type: "heading", text: "GCM의 코칭 & 멘토링 Testimonial" },
       {
         type: "quote",
         text: "GCM은 포핸드, 백핸드가 아닌 '인생이라는 게임에서 승리하는 법'과 '선한 영향력'을 배우게 합니다.",
@@ -324,19 +325,14 @@ export const ALUMNI: Alumni[] = [
         type: "p",
         text: "무엇보다 GCM 코치진으로부터 체득한 선한 영향력과 이타심의 가치는 김주안 선수가 끊임없이 새로운 목표에 도전하고 사회에 기여하는 동기부여의 원동력이 되었습니다. 테니스를 인생의 나침반이자 정체성을 찾아가는 도구로 삼아 명문대 진학, 가치 중심의 창업, 그리고 후배 멘토링으로 이어지는 김주안 선수의 성공 사례에는, 선수의 삶 전체를 함께 고민하고 지속적으로 지지해 온 GCM의 독보적인 멘토링 시스템이 존재했습니다.",
       },
-      { type: "heading", text: "선수 한 줄 포부" },
+      { type: "heading", text: "🎾 GCM 후배들에게" },
       {
         type: "quote",
         text: "GCM에서 배운 멘탈리티와 선한 영향력은 테니스를 넘어 인생이라는 더 큰 기회에 도전하게 만드는 가장 강력한 힘입니다. 코트 위에서 키운 집념으로 세계에 그리고 사회에 영향력을 끼치는 기업으로 성장시켜, GCM 후배들에게도 삶의 가치를 만드는 선배의 길을 열어두겠습니다.",
       },
-      { type: "heading", text: "GCM 코치진 한마디" },
       {
-        type: "p",
-        text: "김주안 선수는 테니스라는 스포츠가 한 사람의 인생에 얼마나 위대한 멘탈적 자산과 이타적 가치를 남겨주는지 증명해 준 자랑스러운 결실입니다. 코트 위에서 배운 몰입과 멘탈리티로 시카고대 진학을 넘어, 사회에 선한 영향력을 펼치는 사업가로 성장해 나가는 김주안 선수의 모습은 GCM이 지향하는 교육의 정점입니다.",
-      },
-      {
-        type: "p",
-        text: "한국을 넘어 전 세계로 선한 가치를 전파하는 기업으로 도약하길 진심으로 기대하고 응원합니다. GCM은 선수의 길을 걸어가든, 김주안 선수처럼 테니스를 활용한 발판을 통해 세상을 바꾸는 사업가가 되든, GCM 아이들의 삶 전체와 꿈을 끝까지 전폭적으로 지지하고 함께할 것입니다.",
+        type: "coachnote",
+        text: "김주안 선수는 테니스라는 스포츠가 한 사람의 인생에 얼마나 위대한 멘탈적 자산과 이타적 가치를 남겨주는지 증명해 준 자랑스러운 결실입니다. 코트 위에서 배운 몰입과 멘탈리티로 시카고대 진학을 넘어, 사회에 선한 영향력을 펼치는 사업가로 성장해 나가는 김주안 선수의 모습은 GCM이 지향하는 교육의 정점입니다.\n\n한국을 넘어 전 세계로 선한 가치를 전파하는 기업으로 도약하길 진심으로 기대하고 응원합니다. GCM은 선수의 길을 걸어가든, 김주안 선수처럼 테니스를 활용한 발판을 통해 세상을 바꾸는 사업가가 되든, GCM 아이들의 삶 전체와 꿈을 끝까지 전폭적으로 지지하고 함께할 것입니다.",
       },
     ],
     bodyEn: [
@@ -367,7 +363,6 @@ export const ALUMNI: Alumni[] = [
         type: "p",
         text: "In particular, through Dunamis — founded on positive social impact and altruism — he is growing into a calling-driven entrepreneur who delivers value beyond Korea to the wider world. He now scales ventures one after another while also serving as a 'life mentor' to GCM's junior players, presenting a multidimensional role model who shows that one can succeed in any path off the court. His journey — starting with tennis, experiencing the world stage, and broadening his spectrum into a global entrepreneur — becomes the finest model of success for junior players and parents considering studying abroad through tennis.",
       },
-      { type: "heading", text: "GCM Coaching & Mentoring — A Testimonial" },
       {
         type: "quote",
         text: "At GCM you learn not the forehand or backhand, but 'how to win at the game of life' and 'positive impact'.",
@@ -380,19 +375,14 @@ export const ALUMNI: Alumni[] = [
         type: "p",
         text: "Above all, the values of positive impact and altruism he absorbed from GCM's coaches became the driving force that motivates him to keep challenging new goals and contributing to society. Behind Kim Ju-an's success — using tennis as a compass and a tool to find his identity, leading to elite-university admission, values-driven entrepreneurship, and mentoring juniors — stood GCM's unrivaled mentoring system, which has thought through and continuously supported the whole of a player's life.",
       },
-      { type: "heading", text: "The Player's Aspiration" },
+      { type: "heading", text: "🎾 To GCM's Juniors" },
       {
         type: "quote",
         text: "The mentality and positive impact I learned at GCM are the most powerful force that drives me to take on the bigger opportunity of life, beyond tennis. With the tenacity built on the court, I will grow a company that makes an impact on the world and on society, and open for my GCM juniors, too, a senior's path of creating value in life.",
       },
-      { type: "heading", text: "A Word from GCM's Coaches" },
       {
-        type: "p",
-        text: "Kim Ju-an is a proud fruit who proved just how great a mental asset and altruistic value the sport of tennis can leave in a person's life. With the immersion and mentality he learned on the court, going beyond admission to the University of Chicago to grow into an entrepreneur who spreads positive impact on society — this is the very pinnacle of the education GCM aspires to.",
-      },
-      {
-        type: "p",
-        text: "We sincerely hope for and cheer on his leap into a company that spreads good values beyond Korea to the whole world. Whether a child walks the path of a player, or — like Kim Ju-an — becomes an entrepreneur who changes the world using tennis as a stepping stone, GCM will wholeheartedly support and stand with the entire lives and dreams of its children to the very end.",
+        type: "coachnote",
+        text: "Kim Ju-an is a proud fruit who proved just how great a mental asset and altruistic value the sport of tennis can leave in a person's life. With the immersion and mentality he learned on the court, going beyond admission to the University of Chicago to grow into an entrepreneur who spreads positive impact on society — this is the very pinnacle of the education GCM aspires to.\n\nWe sincerely hope for and cheer on his leap into a company that spreads good values beyond Korea to the whole world. Whether a child walks the path of a player, or — like Kim Ju-an — becomes an entrepreneur who changes the world using tennis as a stepping stone, GCM will wholeheartedly support and stand with the entire lives and dreams of its children to the very end.",
       },
     ],
   },
