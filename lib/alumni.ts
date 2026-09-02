@@ -10,6 +10,8 @@ export type AlumniBlock =
   | { type: "highlight"; text: string }
   /** 박스 없이 볼드체 문장으로만 강조 */
   | { type: "bold"; text: string }
+  /** 불릿 리스트 (경력·성적 등) */
+  | { type: "list"; items: string[] }
   | { type: "heading"; text: string }
   | { type: "signature"; text: string };
 
@@ -251,6 +253,72 @@ export const ALUMNI: Alumni[] = [
         text: "I too will do my utmost here in the U.S. — bridging Korea and America, and going further to reshape Korean tennis and the global sports industry as a 'Global Sports Leader' — so that I can be a great role model and dependable senior for you. I wholeheartedly cheer for every GCM junior chasing their dreams!",
       },
       { type: "signature", text: "From Myung Se-in, Captain, Stanford University D1 Tennis Team" },
+    ],
+  },
+  {
+    slug: "kim-juan",
+    name: "김주안",
+    nameEn: "Kim Ju-an",
+    university: "University of Chicago",
+    role: "(주)두나미스 · 플리브 대표 · 전 시카고대(U of Chicago) 경제·수학 전공 · 테니스 대학리그",
+    roleEn:
+      "Founder, Dunamis · Fliv · Former U of Chicago (Economics · Mathematics) · College-league tennis",
+    hashtags: ["시카고대", "ITF주니어", "창업가"],
+    hashtagsEn: ["UChicago", "ITFJunior", "Founder"],
+    summary:
+      "테니스 유학으로 세계 최상위 명문 시카고대(U of Chicago)에 진학해 경제학·수학을 전공하고 테니스 대학리그에서 활약한 김주안. 지금은 테니스로 배운 멘탈리티로 (주)두나미스·플리브를 이끄는 창업가입니다.",
+    summaryEn:
+      "Kim Ju-an studied economics and mathematics at the University of Chicago — one of the world's most elite universities — while competing in college-league tennis. Today he leads Dunamis and Fliv as a founder, driven by the mentality tennis taught him.",
+    mainImage: "/alumni/kim-juan/main.jpeg",
+    gallery: [
+      "/alumni/kim-juan/1.jpeg",
+      "/alumni/kim-juan/2.jpeg",
+      "/alumni/kim-juan/3.jpeg",
+      "/alumni/kim-juan/4.jpeg",
+      "/alumni/kim-juan/5.jpeg",
+    ],
+    articles: [],
+    body: [
+      {
+        type: "quote",
+        text: "테니스 유학으로 세계 0.1% 명문대에 진학하다 — 이제는 테니스로 배운 멘탈리티로 혁신을 이끄는 창업가",
+      },
+      { type: "heading", text: "주요 경력 및 성적" },
+      {
+        type: "list",
+        items: [
+          "전 세계 상위 0.1% — 미국 종합대학 TOP 10(아이비리그 최상위 티어) 시카고 대학교(U of Chicago) 경제학·수학 전공 및 테니스 대학리그 선수",
+          "2022 IBK기업은행 그랜드슬램 육성팀 선수 출신",
+          "ITF 주니어 — 콜롬비아 보고타(J200) 복식 우승 · 칼리(J100) 복식 준우승",
+          "괌 데데도(J60) 단식 우승 · 말레이시아 세렘반(J60) 단식 우승",
+          "남아공 포체프스트룸(J100) 복식 준우승 · 키르기스스탄 촐폰아타(J4) 복식 우승 외 다수",
+        ],
+      },
+      {
+        type: "p",
+        text: "대한민국을 대표해 전 세계 ITF 무대를 누비며 테니스에 모든 것을 쏟아부었던 김주안 선수. 그에게 '테니스 유학'은 단순한 입시나 운동 연수가 아닌, 더 넓은 세계를 직접 경험하고 성장하는 최고의 기회가 되었습니다. 테니스를 매개로 미국 대학 리그 무대에서 활약함과 동시에 전 세계 최상위 명문인 시카고 대학교(U of Chicago)에 진학하여 경제학과 수학을 전공, 스포츠와 학업 모두에서 최고 수준의 역량을 증명해 냈습니다.",
+      },
+    ],
+    bodyEn: [
+      {
+        type: "quote",
+        text: "Through studying abroad on tennis, into the world's top 0.1% university — now a founder driving innovation with the mentality tennis taught him.",
+      },
+      { type: "heading", text: "Career & Achievements" },
+      {
+        type: "list",
+        items: [
+          "Top 0.1% worldwide — economics & mathematics at the University of Chicago (a top-10 U.S. university, elite Ivy tier) and a college-league tennis player",
+          "Former player on the 2022 IBK Industrial Bank Grand Slam development team",
+          "ITF Junior — Bogotá, Colombia (J200) doubles champion · Cali (J100) doubles finalist",
+          "Dededo, Guam (J60) singles champion · Seremban, Malaysia (J60) singles champion",
+          "Potchefstroom, South Africa (J100) doubles finalist · Cholpon-Ata, Kyrgyzstan (J4) doubles champion, and more",
+        ],
+      },
+      {
+        type: "p",
+        text: "Representing Korea across the ITF circuit worldwide, Kim Ju-an poured everything into tennis. For him, studying abroad through tennis was not merely an admissions route or athletic program, but the greatest opportunity to experience a wider world and grow. Competing on the U.S. college-league stage through tennis, he also entered the University of Chicago — one of the world's most elite institutions — majoring in economics and mathematics, proving top-level ability in both sport and academics.",
+      },
     ],
   },
 ];
