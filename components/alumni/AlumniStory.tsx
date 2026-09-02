@@ -113,6 +113,21 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
               </p>
             );
           }
+          if (block.type === "list") {
+            return (
+              <ul key={i} className="!my-6 space-y-2.5">
+                {block.items.map((it, j) => (
+                  <li
+                    key={j}
+                    className="flex gap-2.5 break-keep text-base leading-relaxed text-ink/85"
+                  >
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-court" />
+                    <span>{it}</span>
+                  </li>
+                ))}
+              </ul>
+            );
+          }
           if (block.type === "signature") {
             return (
               <p key={i} className="!mt-10 break-keep text-right text-sm font-semibold text-ink">
@@ -169,10 +184,12 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
         </section>
       ) : null}
 
-      <section className="mt-14">
-        <h3 className="mb-5 font-display text-xl font-bold tracking-tight">Photos</h3>
-        <AlumniGallery images={a.gallery} name={a.name} ko={ko} />
-      </section>
+      {a.gallery.length ? (
+        <section className="mt-14">
+          <h3 className="mb-5 font-display text-xl font-bold tracking-tight">Photos</h3>
+          <AlumniGallery images={a.gallery} name={a.name} ko={ko} />
+        </section>
+      ) : null}
     </article>
   );
 }
