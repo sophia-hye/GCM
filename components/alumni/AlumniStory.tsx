@@ -71,6 +71,7 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
             {a.name}
           </h2>
           <p className="mt-2 break-keep text-sm text-white/85 sm:text-base">{a.role}</p>
+          {a.birth ? <p className="mt-1 text-xs text-white/60">{a.birth}</p> : null}
         </div>
       </header>
 
@@ -122,7 +123,7 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
                     className="flex gap-2.5 break-keep text-base leading-relaxed text-ink/85"
                   >
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-court" />
-                    <span>{it}</span>
+                    <span className="whitespace-pre-line">{it}</span>
                   </li>
                 ))}
               </ul>

@@ -29,6 +29,8 @@ export type Alumni = {
   name: string;
   /** 영문/로마자 이름 (구조화 데이터 alternateName) */
   nameEn?: string;
+  /** 생년월일 (히어로에 작게 표시) */
+  birth?: string;
   /** 재학/소속 대학 (구조화 데이터 alumniOf) */
   university?: string;
   /** 카드/헤더의 한 줄 소속 (예: 스탠포드 대학교 · NCAA D1 주장) */
@@ -54,6 +56,7 @@ export type Alumni = {
 export type LocalizedAlumni = {
   slug: string;
   name: string;
+  birth?: string;
   role: string;
   hashtags: string[];
   summary: string;
@@ -69,6 +72,7 @@ export function localizeAlumni(a: Alumni, ko: boolean): LocalizedAlumni {
   return {
     slug: a.slug,
     name: ko ? a.name : a.nameEn ?? a.name,
+    birth: a.birth,
     role: ko ? a.role : a.roleEn,
     hashtags: ko ? a.hashtags : a.hashtagsEn,
     summary: ko ? a.summary : a.summaryEn,
@@ -259,10 +263,11 @@ export const ALUMNI: Alumni[] = [
     slug: "kim-juan",
     name: "김주안",
     nameEn: "Kim Ju-an",
+    birth: "2006.10.15",
     university: "University of Chicago",
-    role: "(주)두나미스 · 플리브 대표 · 전 시카고대(U of Chicago) 경제·수학 전공 · 테니스 대학리그",
+    role: "(주)두나미스 대표 / <플리브> 대표 / 전 U of Chicago 경제학·수학 전공, 테니스 대학리그 출신",
     roleEn:
-      "Founder, Dunamis · Fliv · Former U of Chicago (Economics · Mathematics) · College-league tennis",
+      "Founder, Dunamis / Founder, Fliv / Former U of Chicago (Economics · Mathematics), college-league tennis",
     hashtags: ["시카고대", "ITF주니어", "창업가"],
     hashtagsEn: ["UChicago", "ITFJunior", "Founder"],
     summary:
@@ -281,17 +286,17 @@ export const ALUMNI: Alumni[] = [
     body: [
       {
         type: "quote",
-        text: "테니스 유학으로 세계 0.1% 명문대에 진학하다 — 이제는 테니스로 배운 멘탈리티로 혁신을 이끄는 창업가",
+        text: "테니스 유학으로 세계 0.1% 명문대에 진학하다— 이제는 테니스로 배운 멘탈리티로 혁신을 이끄는 창업가",
       },
       { type: "heading", text: "주요 경력 및 성적" },
       {
         type: "list",
         items: [
-          "전 세계 상위 0.1% — 미국 종합대학 TOP 10(아이비리그 최상위 티어) 시카고 대학교(U of Chicago) 경제학·수학 전공 및 테니스 대학리그 선수",
+          "전 세계 상위 0.1%— 미국 종합대학 TOP 10 (아이비리그 최상위 티어) 시카고 대학교(U of Chicago) 경제학·수학 전공 및 테니스 대학리그 선수",
           "2022 IBK기업은행 그랜드슬램 육성팀 선수 출신",
-          "ITF 주니어 — 콜롬비아 보고타(J200) 복식 우승 · 칼리(J100) 복식 준우승",
-          "괌 데데도(J60) 단식 우승 · 말레이시아 세렘반(J60) 단식 우승",
-          "남아공 포체프스트룸(J100) 복식 준우승 · 키르기스스탄 촐폰아타(J4) 복식 우승 외 다수",
+          "국제테니스연맹(ITF) 주니어 주요 성적:\n콜롬비아 보고타 (J200) 복식 우승 / 칼리 (J100) 복식 준우승",
+          "괌 데데도 (J60) 단식 우승 / 말레이시아 세렘반 (J60) 단식 우승",
+          "남아공 포체프스트룸 (J100) 복식 준우승 / 키르기스스탄 촐폰아타 (J4) 복식 우승 외 다수",
         ],
       },
       {
@@ -310,9 +315,9 @@ export const ALUMNI: Alumni[] = [
         items: [
           "Top 0.1% worldwide — economics & mathematics at the University of Chicago (a top-10 U.S. university, elite Ivy tier) and a college-league tennis player",
           "Former player on the 2022 IBK Industrial Bank Grand Slam development team",
-          "ITF Junior — Bogotá, Colombia (J200) doubles champion · Cali (J100) doubles finalist",
-          "Dededo, Guam (J60) singles champion · Seremban, Malaysia (J60) singles champion",
-          "Potchefstroom, South Africa (J100) doubles finalist · Cholpon-Ata, Kyrgyzstan (J4) doubles champion, and more",
+          "ITF (International Tennis Federation) Junior — key results:\nBogotá, Colombia (J200) doubles champion / Cali (J100) doubles runner-up",
+          "Dededo, Guam (J60) singles champion / Seremban, Malaysia (J60) singles champion",
+          "Potchefstroom, South Africa (J100) doubles runner-up / Cholpon-Ata, Kyrgyzstan (J4) doubles champion, and more",
         ],
       },
       {
