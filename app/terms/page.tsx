@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/ui";
+import { getLocale } from "@/lib/i18n";
 
-export const metadata = { title: "이용약관 | GCM Tennis Academy" };
+export async function generateMetadata(): Promise<Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return { title: ko ? "이용약관 | GCM Tennis Academy" : "Terms of Service | GCM Tennis Academy" };
+}
 
 const articles: { title: string; paragraphs: string[] }[] = [
   {
@@ -110,7 +115,116 @@ const articles: { title: string; paragraphs: string[] }[] = [
   },
 ];
 
-export default function TermsPage() {
+// 영문 참고 번역(courtesy translation) — 한글본이 정본이며, 불일치 시 한글본이 우선한다.
+const articlesEn: { title: string; paragraphs: string[] }[] = [
+  {
+    title: "Article 1 (Purpose)",
+    paragraphs: [
+      'These Terms of Service are intended to set out the conditions of use and matters concerning the operation of the services provided by GCM (Global Champions Makers, the "Site").',
+    ],
+  },
+  {
+    title: "Article 2 (Definitions)",
+    paragraphs: [
+      "The definitions of the main terms used in these Terms are as follows.",
+      "① User: a person who accesses the Site and uses the services it provides in accordance with these Terms.",
+      "② Use Agreement: the agreement concluded between the Site and a User in connection with use of the Site.",
+      "③ Consultation Request: a User providing personal information through the Site's consultation form and requesting a consultation.",
+      "④ Operator: GCM, which establishes and operates the services.",
+    ],
+  },
+  {
+    title: "Article 3 (Rules Outside These Terms)",
+    paragraphs: [
+      "The Operator may separately announce operating policies where necessary. Where these Terms and an operating policy overlap, the operating policy applies first.",
+    ],
+  },
+  {
+    title: "Article 4 (Provision of Services)",
+    paragraphs: [
+      "① The Site provides services such as offering information on U.S. college tennis admissions and mental wellness, and receiving consultation requests.",
+      "② The Operator may change the content of the services and, upon such change, will announce it on the Site.",
+    ],
+  },
+  {
+    title: "Article 5 (Consultation Requests)",
+    paragraphs: [
+      "① A User wishing to request a consultation must accurately provide the information requested by the Site (guardian's name, contact, email, etc.).",
+      "② A User who misappropriates another's information or registers false information may not claim rights in connection with use of the services and may be punished under applicable laws.",
+    ],
+  },
+  {
+    title: "Article 6 (Privacy Policy)",
+    paragraphs: [
+      "The Operator endeavors to protect Users' personal information as prescribed by applicable laws, and matters concerning the collection, use, storage, and destruction of personal information follow the Site's Privacy Policy.",
+      "However, the Operator bears no responsibility for information exposed due to causes attributable to the User.",
+    ],
+  },
+  {
+    title: "Article 7 (Obligations of the Operator)",
+    paragraphs: [
+      "① Where the Operator recognizes an opinion or complaint raised by a User as legitimate, it shall handle it as promptly as possible. Where prompt handling is difficult, the Operator will inform the User afterward via announcement or email.",
+      "② For continuous and stable service, the Operator will endeavor to repair or restore facilities without delay if they fail or are lost. However, in the event of a natural disaster or unavoidable cause, service operation may be temporarily suspended.",
+    ],
+  },
+  {
+    title: "Article 8 (Obligations of the User)",
+    paragraphs: [
+      "① The User shall comply with these Terms, the various rules and notices established by the Operator, and applicable laws, and shall not obstruct the Site's operations or damage its reputation.",
+      "② The User may not transfer or gift their right to use the services or other status under the Use Agreement to another person without the Operator's express consent.",
+      "③ The User shall not infringe the intellectual property rights of the Operator or any third party.",
+    ],
+  },
+  {
+    title: "Article 9 (Service Hours)",
+    paragraphs: [
+      "① Service hours are, in principle, 24 hours a day, year-round, unless there is a special operational or technical impediment. However, the Site may temporarily suspend the service on dates or times it designates for regular system inspection, expansion, or replacement.",
+      "② The Site may suspend the service temporarily or permanently without prior notice in cases such as urgent system maintenance, force majeure (national emergency, power outage, natural disaster, etc.), suspension of telecommunications services by a carrier, or a surge in usage.",
+      "③ In the case of service suspension, the Site will give prior notice. However, where prior notice is impossible due to causes beyond its control, it will be replaced by subsequent notice.",
+    ],
+  },
+  {
+    title: "Article 10 (Restrictions on Service Use)",
+    paragraphs: [
+      "The User shall not engage in any of the following acts; where a User does so, the Site may restrict service use and take lawful measures.",
+      "① Registering false information when registering or changing information",
+      "② Obstructing another person's use of the Site or misappropriating information",
+      "③ Impersonating the Operator, staff, or related persons",
+      "④ Infringing the personal or intellectual property rights of the Site or a third party, or obstructing operations",
+      "⑤ Collecting, storing, or disclosing another person's personal information without consent",
+      "⑥ Acts objectively judged to be connected to a crime",
+      "⑦ Other acts that violate applicable laws",
+    ],
+  },
+  {
+    title: "Article 11 (Management of Postings and Copyright)",
+    paragraphs: [
+      "① The copyright of content posted on the Site (text, images, etc.) belongs to the Operator, and may not be reproduced, distributed, or used commercially without the Operator's prior consent.",
+      "② Where there is a corrective request from a public authority or a posting is judged unlawful, the Operator may delete or move the posting without prior consent.",
+    ],
+  },
+  {
+    title: "Article 12 (Liability for Damages)",
+    paragraphs: [
+      "① All civil and criminal liability arising in connection with use of the services rests primarily with the User.",
+      "② Where damage suffered by the User is due to force majeure such as a natural disaster, or arises from the User's intent or negligence, the Operator does not provide compensation.",
+    ],
+  },
+  {
+    title: "Article 13 (Disclaimer)",
+    paragraphs: [
+      "① The Operator is exempt from liability where the User fails to obtain the benefits expected from the services, or for damage arising from the User's selection or use of service materials.",
+      "② The Operator is exempt from liability for damage due to failures of telecommunications services provided by a carrier.",
+      "③ The Operator is not responsible for the authenticity, reliability, or accuracy of materials posted or transmitted by Users.",
+      "④ The Operator is not responsible for service disruptions caused by reasons attributable to the User.",
+      "⑤ The Operator is not responsible for damage arising from force majeure such as system failures, third-party attacks, or the spread of computer viruses that occur without the Operator's intent or gross negligence during the management, inspection, or repair of facilities such as servers, or during software operation.",
+    ],
+  },
+];
+
+export default async function TermsPage() {
+  const ko = (await getLocale()) === "ko";
+  const list = ko ? articles : articlesEn;
   return (
     <>
       <header className="border-b border-line bg-base/80 backdrop-blur">
@@ -123,13 +237,23 @@ export default function TermsPage() {
 
       <main className="py-16">
         <Container className="max-w-3xl">
-          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">이용약관</h1>
+          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">
+            {ko ? "이용약관" : "Terms of Service"}
+          </h1>
           <p className="mt-3 text-sm text-muted">
-            GCM(Global Champions Makers) 서비스 이용약관입니다.
+            {ko
+              ? "GCM(Global Champions Makers) 서비스 이용약관입니다."
+              : "Terms of Service for GCM (Global Champions Makers)."}
           </p>
+          {!ko ? (
+            <p className="mt-1 text-sm text-muted">
+              This English version is a courtesy translation. The Korean version is the official,
+              legally governing text; in case of any discrepancy, the Korean version prevails.
+            </p>
+          ) : null}
 
           <div className="mt-10 space-y-10">
-            {articles.map((a) => (
+            {list.map((a) => (
               <section key={a.title}>
                 <h2 className="font-display text-lg font-bold text-court-bright">
                   {a.title}
