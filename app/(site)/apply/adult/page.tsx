@@ -3,9 +3,13 @@ import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { Section, SectionHeading } from "@/components/ui";
 import { AdultApplicationForm } from "@/components/AdultApplicationForm";
+import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = { title: "성인 아마추어 클래스 신청 | GCM" };
+export async function generateMetadata(): Promise<Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return { title: ko ? "성인 아마추어 클래스 신청 | GCM" : "Adult Amateur Class Application | GCM" };
+}
 
 export default async function AdultApplyPage() {
   const ko = (await getLocale()) === "ko";

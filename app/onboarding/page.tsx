@@ -1,13 +1,19 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { OnboardingForm } from "@/components/auth/OnboardingForm";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { getLocale } from "@/lib/i18n";
 
-export const metadata = { title: "추가 정보 입력 | GCM 아카데미" };
+export async function generateMetadata(): Promise<Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return { title: ko ? "추가 정보 입력 | GCM 아카데미" : "Additional Information | GCM Academy" };
+}
 
 export default async function OnboardingPage() {
   if (!isSupabaseConfigured()) redirect("/login");
+  const ko = (await getLocale()) === "ko";
 
   const supabase = await createClient();
   const {
@@ -25,9 +31,9 @@ export default async function OnboardingPage() {
 
   return (
     <AuthShell
-      title="추가 정보 입력"
-      subtitle="원활한 안내를 위해 구분과 연락처를 입력해 주세요."
-      footer="문의: tennis.gcm@gmail.com"
+      title={ko ? "추가 정보 입력" : "Additional information"}
+      subtitle={ko ? "원활한 안내를 위해 구분과 연락처를 입력해 주세요." : "Please enter your role and contact details so we can assist you smoothly."}
+      footer={ko ? "문의: tennis.gcm@gmail.com" : "Contact: tennis.gcm@gmail.com"}
     >
       <OnboardingForm />
     </AuthShell>

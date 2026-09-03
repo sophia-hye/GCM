@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CourtLines } from "@/components/ui";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 export function AuthShell({
   title,
@@ -91,13 +94,14 @@ export function AuthSubmit({
   children: ReactNode;
   pending: boolean;
 }) {
+  const ko = useLocale() === "ko";
   return (
     <button
       type="submit"
       disabled={pending}
       className="inline-flex w-full items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold tracking-wide text-white transition hover:brightness-105 disabled:opacity-60"
     >
-      {pending ? "처리 중..." : children}
+      {pending ? (ko ? "처리 중..." : "Processing...") : children}
     </button>
   );
 }
