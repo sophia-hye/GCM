@@ -4,7 +4,10 @@ import { getLocale } from "@/lib/i18n";
 import { Container, Button } from "@/components/ui";
 import { MatchAnalysisForm, type FeedbackCategory } from "@/components/dashboard/MatchAnalysisForm";
 
-export const metadata = { title: "매치피드백 | GCM 테니스 아카데미" };
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return { title: ko ? "매치피드백 | GCM 테니스 아카데미" : "Match Feedback | GCM Tennis Academy" };
+}
 
 type Analysis = {
   id: string;

@@ -8,12 +8,16 @@ import { formatEventDate, type SeouliteEvent } from "@/lib/events";
 
 const FESTIVAL_NAME = "GCM Festival at Hannam";
 
-export const metadata = pageMetadata({
-  title: `${FESTIVAL_NAME} | GCM 테니스 아카데미`,
-  description:
-    "TENNIS. MUSIC. LIGHT. 한남에서 열리는 GCM Festival at Hannam — 낮과 밤을 잇는 데이&나이트 테니스 축제. 2026.8.29 HANNAM, SEOUL.",
-  path: "/events/gcm-festival-at-hannam",
-});
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return pageMetadata({
+    title: `${FESTIVAL_NAME} | ${ko ? "GCM 테니스 아카데미" : "GCM Tennis Academy"}`,
+    description: ko
+      ? "TENNIS. MUSIC. LIGHT. 한남에서 열리는 GCM Festival at Hannam — 낮과 밤을 잇는 데이&나이트 테니스 축제. 2026.8.29 HANNAM, SEOUL."
+      : "TENNIS. MUSIC. LIGHT. GCM Festival at Hannam — a day-and-night tennis festival bridging day and evening. 2026.8.29 HANNAM, SEOUL.",
+    path: "/events/gcm-festival-at-hannam",
+  });
+}
 
 export default async function GcmFestivalPage() {
   const ko = (await getLocale()) === "ko";

@@ -4,7 +4,16 @@ import { Team } from "@/components/sections/Team";
 import { Section, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = pageMetadata({ title: "코치진 소개 | GCM 테니스 아카데미", description: "오성국 대표를 비롯한 GCM 코치진 소개. 국제무대를 경험한 전문가들이 기술·피지컬·멘탈을 함께 지도합니다.", path: "/coaches" });
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return pageMetadata({
+    title: ko ? "코치진 소개 | GCM 테니스 아카데미" : "Our Coaches | GCM Tennis Academy",
+    description: ko
+      ? "오성국 대표를 비롯한 GCM 코치진 소개. 국제무대를 경험한 전문가들이 기술·피지컬·멘탈을 함께 지도합니다."
+      : "Meet the GCM coaching staff, including Executive Director Seong-gook Oh. Experts who have competed on the international stage guide technique, physical and mental together.",
+    path: "/coaches",
+  });
+}
 
 export default async function CoachesPage() {
   const ko = (await getLocale()) === "ko";

@@ -1,7 +1,10 @@
 import { Section, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = { title: "가입 완료 | GCM Tennis Academy" };
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return { title: ko ? "가입 완료 | GCM Tennis Academy" : "Welcome | GCM Tennis Academy" };
+}
 
 export default async function WelcomePage() {
   const en = (await getLocale()) === "en";
