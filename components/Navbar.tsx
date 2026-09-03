@@ -14,6 +14,14 @@ const NAV_T = {
   en: { login: "Login", signup: "Sign up", mypage: "My Page", logout: "Logout" },
 } as const;
 
+/** nav 라벨은 대부분 영문이지만 한국어인 항목만 EN에서 번역 */
+const NAV_LABEL_EN: Record<string, string> = {
+  "대표원장 인사말": "Director's Message",
+};
+function navLabel(label: string, locale: "ko" | "en"): string {
+  return locale === "en" ? NAV_LABEL_EN[label] ?? label : label;
+}
+
 type NavAuth = { name: string; role: string } | null;
 
 export function Navbar({ auth = null }: { auth?: NavAuth }) {
@@ -89,7 +97,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                         pathname === it.href ? "font-semibold text-court" : "text-ink"
                       }`}
                     >
-                      {it.label}
+                      {navLabel(it.label, locale)}
                     </Link>
                   ))}
                 </div>
@@ -186,7 +194,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
                             pathname === it.href ? "font-semibold text-court" : "text-muted"
                           }`}
                         >
-                          {it.label}
+                          {navLabel(it.label, locale)}
                         </Link>
                       ))}
                     </div>
