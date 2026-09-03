@@ -7,7 +7,7 @@ import { PurchaseButton } from "@/components/PurchaseButton";
 import { MediaFill } from "@/components/MediaFill";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
-import { formatPrice, type Program } from "@/lib/programs";
+import { formatPrice, localizeProgram, type Program } from "@/lib/programs";
 
 async function getProgram(slug: string): Promise<Program | null> {
   const supabase = await createClient();
@@ -56,11 +56,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const program = await getProgram(slug);
-  if (!program) return { title: "Education Program | GCM 테니스 아카데미" };
+  const raw = await getProgram(slug);
+  const ko = (await getLocale()) === "ko";
+  if (!raw)
+    return { title: ko ? "Education Program | GCM 테니스 아카데미" : "Education Program | GCM Tennis Academy" };
+  const program = localizeProgram(raw, ko);
   return pageMetadata({
-    title: `${program.title} | GCM 테니스 아카데미`,
-    description: program.summary || "GCM 교육 프로그램 상세 안내.",
+    title: ko
+      ? `${program.title} | GCM 테니스 아카데미`
+      : `${program.title} | GCM Tennis Academy`,
+    description:
+      program.summary || (ko ? "GCM 교육 프로그램 상세 안내." : "GCM education program details."),
     path: `/store/programs/${program.slug}`,
   });
 }
@@ -71,10 +77,11 @@ export default async function ProgramDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const program = await getProgram(slug);
-  if (!program) notFound();
+  const raw = await getProgram(slug);
+  if (!raw) notFound();
 
   const ko = (await getLocale()) === "ko";
+  const program = localizeProgram(raw, ko);
   const { intro, sections } = program.description
     ? parseDescription(program.description)
     : { intro: [], sections: [] };

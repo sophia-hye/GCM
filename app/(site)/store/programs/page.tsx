@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { ComingSoon } from "@/components/sections/ComingSoon";
@@ -21,11 +22,16 @@ const PARTNERSHIP = [
   },
 ];
 
-export const metadata = pageMetadata({
-  title: "Education Program | GCM 테니스 아카데미",
-  description: "GCM이 설계한 교육 프로그램. 목적과 수준에 맞춘 커리큘럼을 확인하고 신청하세요.",
-  path: "/store/programs",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return pageMetadata({
+    title: ko ? "Education Program | GCM 테니스 아카데미" : "Education Program | GCM Tennis Academy",
+    description: ko
+      ? "GCM이 설계한 교육 프로그램. 목적과 수준에 맞춘 커리큘럼을 확인하고 신청하세요."
+      : "GCM education programs designed for your goals and level. Explore the curriculum and apply.",
+    path: "/store/programs",
+  });
+}
 
 export default async function StoreProgramsPage() {
   const locale = await getLocale();
