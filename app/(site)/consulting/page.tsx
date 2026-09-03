@@ -5,15 +5,28 @@ import { ConsultingIntro } from "@/components/sections/ConsultingIntro";
 import { ConsultingExtras } from "@/components/sections/consulting/ConsultingExtras";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Section, SectionHeading } from "@/components/ui";
+import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = pageMetadata({ title: "테니스 유학 · 대학 진학 컨설팅 | GCM 테니스 아카데미", description: "미국 대학(NCAA·NJCAA) 테니스 진학·유학 컨설팅. UTR 진단부터 장학·입시 전략, 부상 대비 플랜B까지 GCM이 함께 설계합니다.", path: "/consulting" });
+export async function generateMetadata(): Promise<Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return pageMetadata({
+    title: ko
+      ? "테니스 유학 · 대학 진학 컨설팅 | GCM 테니스 아카데미"
+      : "Tennis Study Abroad · College Admissions Consulting | GCM Tennis Academy",
+    description: ko
+      ? "미국 대학(NCAA·NJCAA) 테니스 진학·유학 컨설팅. UTR 진단부터 장학·입시 전략, 부상 대비 플랜B까지 GCM이 함께 설계합니다."
+      : "U.S. college (NCAA·NJCAA) tennis recruiting and study-abroad consulting. From UTR assessment to scholarship & admissions strategy and an injury plan B, GCM designs it with you.",
+    path: "/consulting",
+  });
+}
 
 export default async function ConsultingPage() {
-  const en = (await getLocale()) === "en";
+  const locale = await getLocale();
+  const en = locale === "en";
   return (
     <div className="pt-16">
-      <PageJsonLd name="진학 컨설팅" path="/consulting" faq />
+      <PageJsonLd name={en ? "Admissions Consulting" : "진학 컨설팅"} path="/consulting" faq />
       <ConsultingBanner />
       <ConsultingIntro />
       <ConsultingExtras />

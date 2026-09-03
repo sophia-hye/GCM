@@ -28,14 +28,22 @@ export async function DirectorMessage() {
           <div className="mx-auto max-w-[240px] overflow-hidden rounded-2xl border border-line lg:max-w-none">
             <Image
               src={d.image}
-              alt="대표 원장 오성국"
+              alt={ko ? "대표 원장 오성국" : "Executive Director Seong-gook Oh"}
               width={520}
               height={650}
               className="aspect-[4/5] h-auto w-full object-cover"
             />
           </div>
           <p className="mt-3 text-center text-sm font-semibold text-ink lg:text-left">
-            오성국 <span className="font-normal text-muted">{ko ? "· 대표 원장" : "· Executive Director"}</span>
+            {ko ? (
+              <>
+                오성국 <span className="font-normal text-muted">· 대표 원장</span>
+              </>
+            ) : (
+              <>
+                <span className="font-normal text-muted">Executive Director,</span> Seong-gook Oh
+              </>
+            )}
           </p>
         </div>
 
