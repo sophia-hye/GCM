@@ -5,7 +5,16 @@ import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = pageMetadata({ title: "갤러리 | GCM 테니스 아카데미", description: "GCM 테니스 아카데미의 훈련·대회·캠프 현장 갤러리.", path: "/gallery" });
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return pageMetadata({
+    title: ko ? "갤러리 | GCM 테니스 아카데미" : "Gallery | GCM Tennis Academy",
+    description: ko
+      ? "GCM 테니스 아카데미의 훈련·대회·캠프 현장 갤러리."
+      : "Gallery of GCM Tennis Academy training, tournaments and camps.",
+    path: "/gallery",
+  });
+}
 
 export default async function GalleryPage() {
   const locale = await getLocale();

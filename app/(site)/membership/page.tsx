@@ -1,7 +1,10 @@
 import { ComingSoon } from "@/components/sections/ComingSoon";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = { title: "Membership | GCM 테니스 아카데미" };
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return { title: ko ? "Membership | GCM 테니스 아카데미" : "Membership | GCM Tennis Academy" };
+}
 
 export default async function MembershipPage() {
   const ko = (await getLocale()) === "ko";

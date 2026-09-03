@@ -4,12 +4,16 @@ import { AlumniStory } from "@/components/alumni/AlumniStory";
 import { ALUMNI } from "@/lib/alumni";
 import { getLocale } from "@/lib/i18n";
 
-export const metadata = pageMetadata({
-  title: "Alumni | GCM 테니스 아카데미",
-  description:
-    "GCM을 거쳐 세계 무대로 나아간 졸업생 이야기. 스탠포드 대학교 D1 테니스팀 주장 명세인 등 GCM Alumni의 성장 스토리를 소개합니다.",
-  path: "/alumni",
-});
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  const ko = (await getLocale()) === "ko";
+  return pageMetadata({
+    title: ko ? "Alumni | GCM 테니스 아카데미" : "Alumni | GCM Tennis Academy",
+    description: ko
+      ? "GCM을 거쳐 세계 무대로 나아간 졸업생 이야기. 스탠포드 대학교 D1 테니스팀 주장 명세인 등 GCM Alumni의 성장 스토리를 소개합니다."
+      : "Stories of alumni who went on to the world stage after GCM, including Myung Se-in, captain of Stanford's D1 tennis team.",
+    path: "/alumni",
+  });
+}
 
 const PREVIEW = [
   {

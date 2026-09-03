@@ -20,39 +20,48 @@ const playfair = Playfair_Display({
   style: ["italic", "normal"],
 });
 
-const SITE_DESCRIPTION =
+const SITE_DESCRIPTION_KO =
   "엘리트 선수 육성 | ATP•WTA•ITF 프로/주니어 집중 훈련 | 테니스 대학리그 진출 (미국 NCAA 진학)";
+const SITE_DESCRIPTION_EN =
+  "Elite player development | ATP/WTA/ITF pro & junior intensive training | Pathway to U.S. college tennis (NCAA)";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
-  description: SITE_DESCRIPTION,
-  keywords: [
-    "GCM 테니스 아카데미",
-    "테니스 아카데미",
-    "테니스 유학",
-    "엘리트 테니스",
-    "선수 육성",
-    "NCAA 진학",
-    "테니스 장학",
-    "UTR",
-    "오성국",
-  ],
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
-    description: SITE_DESCRIPTION,
-    type: "website",
-    locale: "ko_KR",
-    url: SITE_URL,
-    siteName: "GCM 테니스 아카데미",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
-    description: SITE_DESCRIPTION,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const ko = (await getLocale()) === "ko";
+  const title = ko
+    ? "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학"
+    : "GCM Tennis Academy | Elite Player Development · Study Abroad · NCAA";
+  const description = ko ? SITE_DESCRIPTION_KO : SITE_DESCRIPTION_EN;
+  return {
+    metadataBase: new URL(SITE_URL),
+    title,
+    description,
+    keywords: [
+      "GCM 테니스 아카데미",
+      "테니스 아카데미",
+      "테니스 유학",
+      "엘리트 테니스",
+      "선수 육성",
+      "NCAA 진학",
+      "테니스 장학",
+      "UTR",
+      "오성국",
+    ],
+    alternates: { canonical: "/" },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: ko ? "ko_KR" : "en_US",
+      url: SITE_URL,
+      siteName: ko ? "GCM 테니스 아카데미" : "GCM Tennis Academy",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
