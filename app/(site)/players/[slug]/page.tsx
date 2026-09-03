@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import { Container } from "@/components/ui";
 import { PlayerJsonLd } from "@/components/PlayerJsonLd";
-import { TRACK_LABEL } from "@/lib/players";
+import { TRACK_LABEL, localizePlayer } from "@/lib/players";
 import { getPublishedPlayers, getPlayerBySlug, parseBio } from "@/lib/players-query";
 import { getLocale } from "@/lib/i18n";
 
@@ -20,20 +20,27 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const player = await getPlayerBySlug(slug);
-  if (!player) return { title: "선수 | GCM 테니스 아카데미" };
+  const raw = await getPlayerBySlug(slug);
+  const ko = (await getLocale()) === "ko";
+  if (!raw) return { title: ko ? "선수 | GCM 테니스 아카데미" : "Player | GCM Tennis Academy" };
+  const player = localizePlayer(raw, ko);
   const { tagline } = parseBio(player.bio);
   const bits = [
     tagline,
-    player.track ? `${TRACK_LABEL[player.track].ko} 트랙` : null,
+    player.track ? (ko ? `${TRACK_LABEL[player.track].ko} 트랙` : `${TRACK_LABEL[player.track].en} track`) : null,
     player.utr ? `UTR ${player.utr}` : null,
   ]
     .filter(Boolean)
     .join(" · ");
   return pageMetadata({
-    title: `${player.name} · GCM 배출·소속 선수 | GCM 테니스 아카데미`,
+    title: ko
+      ? `${player.name} · GCM 배출·소속 선수 | GCM 테니스 아카데미`
+      : `${player.name} · GCM Player | GCM Tennis Academy`,
     description:
-      bits || `GCM 테니스 아카데미 ${player.name} 선수의 기록과 성장 스토리.`,
+      bits ||
+      (ko
+        ? `GCM 테니스 아카데미 ${player.name} 선수의 기록과 성장 스토리.`
+        : `Records and growth story of ${player.name} at GCM Tennis Academy.`),
     path: `/players/${player.slug}`,
   });
 }
@@ -44,10 +51,11 @@ export default async function PlayerDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const player = await getPlayerBySlug(slug);
-  if (!player) notFound();
+  const raw = await getPlayerBySlug(slug);
+  if (!raw) notFound();
 
   const ko = (await getLocale()) === "ko";
+  const player = localizePlayer(raw, ko);
   const trackLabel = player.track
     ? ko
       ? TRACK_LABEL[player.track].ko

@@ -96,6 +96,12 @@ create table public.gcm_players (
   joined_date text,
   description text,
   coach_note text,
+  name_en text,
+  bio_en text,
+  result_en text,
+  description_en text,
+  coach_note_en text,
+  birthplace_en text,
   sort_order int not null default 0,
   published boolean not null default false,
   created_at timestamptz not null default now()
@@ -112,6 +118,13 @@ create table public.gcm_players (
 --   alter table public.gcm_players add column if not exists joined_date text;
 --   alter table public.gcm_players add column if not exists description text;
 --   alter table public.gcm_players add column if not exists coach_note text;
+--   영문(EN) 필드:
+--   alter table public.gcm_players add column if not exists name_en text;
+--   alter table public.gcm_players add column if not exists bio_en text;
+--   alter table public.gcm_players add column if not exists result_en text;
+--   alter table public.gcm_players add column if not exists description_en text;
+--   alter table public.gcm_players add column if not exists coach_note_en text;
+--   alter table public.gcm_players add column if not exists birthplace_en text;
 alter table public.gcm_players enable row level security;
 create index if not exists gcm_players_order_idx on public.gcm_players (sort_order asc, created_at desc);
 create policy "gcm_players_select_published" on public.gcm_players for select using (published = true);

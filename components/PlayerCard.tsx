@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CourtLines } from "@/components/ui";
-import { TRACK_LABEL, type Player } from "@/lib/players";
+import { TRACK_LABEL, localizePlayer, type Player } from "@/lib/players";
 
 export function PlayerCard({
   player,
@@ -12,30 +12,31 @@ export function PlayerCard({
   ko?: boolean;
   detailed?: boolean;
 }) {
-  const meta = [player.grad_year && `${player.grad_year}`, player.utr && `UTR ${player.utr}`]
+  const p = localizePlayer(player, ko);
+  const meta = [p.grad_year && `${p.grad_year}`, p.utr && `UTR ${p.utr}`]
     .filter(Boolean)
     .join(" · ");
 
   const profile: { label: string; value: string }[] = [];
-  if (player.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: player.birthday });
-  if (player.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: player.birthplace });
-  if (player.nationality) profile.push({ label: ko ? "국적" : "Nationality", value: player.nationality });
-  if (player.plays) profile.push({ label: "Plays", value: player.plays });
-  if (player.backhand) profile.push({ label: "Backhand", value: player.backhand });
-  if (player.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: player.joined_date });
+  if (p.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: p.birthday });
+  if (p.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: p.birthplace });
+  if (p.nationality) profile.push({ label: ko ? "국적" : "Nationality", value: p.nationality });
+  if (p.plays) profile.push({ label: "Plays", value: p.plays });
+  if (p.backhand) profile.push({ label: "Backhand", value: p.backhand });
+  if (p.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: p.joined_date });
 
   // bio 는 "한 줄 소개 #특성 #특성" 형식 — 소개(태그라인)와 해시태그(특성)로 분리
-  const bio = (player.bio ?? "").trim();
+  const bio = (p.bio ?? "").trim();
   const tags = (bio.match(/#[^\s#]+/g) ?? []).map((t) => t.slice(1));
   const tagline = bio.replace(/#[^\s#]+/g, "").replace(/\s+/g, " ").trim();
 
   return (
-    <Link href={`/players/${player.slug}`} className="group block">
+    <Link href={`/players/${p.slug}`} className="group block">
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
-        {player.image ? (
+        {p.image ? (
           <Image
-            src={player.image}
-            alt={player.name}
+            src={p.image}
+            alt={p.name}
             fill
             sizes="(max-width: 768px) 100vw, 25vw"
             className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
@@ -44,19 +45,19 @@ export function PlayerCard({
           <>
             <CourtLines className="absolute inset-0 h-full w-full text-white/15" />
             <span className="relative font-display text-5xl font-black text-white/40">
-              {player.name.slice(0, 1)}
+              {p.name.slice(0, 1)}
             </span>
           </>
         )}
-        {player.track ? (
+        {p.track ? (
           <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-            {ko ? TRACK_LABEL[player.track].ko : TRACK_LABEL[player.track].en}
+            {ko ? TRACK_LABEL[p.track].ko : TRACK_LABEL[p.track].en}
           </span>
         ) : null}
       </div>
 
       <div className="mt-4">
-        <h3 className="text-lg font-bold">{player.name}</h3>
+        <h3 className="text-lg font-bold">{p.name}</h3>
         {tagline ? (
           <p className="mt-1 break-keep text-sm font-medium text-ink/80">{tagline}</p>
         ) : null}
@@ -73,7 +74,7 @@ export function PlayerCard({
           </div>
         ) : null}
         {meta ? <p className="mt-2 text-sm font-semibold text-court">{meta}</p> : null}
-        {player.result ? <p className="mt-1 text-xs text-ink/70">{player.result}</p> : null}
+        {p.result ? <p className="mt-1 text-xs text-ink/70">{p.result}</p> : null}
         {profile.length ? (
           <dl className="mt-3 space-y-1.5 border-t border-line pt-3">
             {profile.map((r) => (
@@ -84,10 +85,10 @@ export function PlayerCard({
             ))}
           </dl>
         ) : null}
-        {detailed && player.coach_note ? (
+        {detailed && p.coach_note ? (
           <div className="mt-4 rounded-lg border-l-2 border-court bg-court/5 px-3.5 py-3">
             <p className="text-xs font-bold text-court-bright">Coach&apos;s Note</p>
-            <p className="mt-1.5 break-keep text-xs leading-relaxed text-ink/85">{player.coach_note}</p>
+            <p className="mt-1.5 break-keep text-xs leading-relaxed text-ink/85">{p.coach_note}</p>
           </div>
         ) : null}
         <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
