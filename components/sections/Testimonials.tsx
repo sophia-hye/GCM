@@ -4,13 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getLocale } from "@/lib/i18n";
 import { getUI } from "@/lib/site-content";
+import { localizeVoice, type VoiceLocalizable } from "@/lib/voices";
 
-type Voice = {
+type Voice = VoiceLocalizable & {
   id: string;
   relation: string;
-  author_name: string;
-  title: string | null;
-  body: string;
 };
 
 /** 홈 미리보기용 최신 후기 3개 */
@@ -20,7 +18,7 @@ async function getRecentVoices(): Promise<Voice[]> {
     const supabase = await createClient();
     const { data } = await supabase
       .from("gcm_voices")
-      .select("id, relation, author_name, title, body")
+      .select("id, relation, author_name, title, body, title_en, body_en, author_name_en")
       .eq("status", "published")
       .order("published_at", { ascending: false })
       .limit(3);
@@ -56,24 +54,27 @@ export async function Testimonials() {
       {voices.length > 0 ? (
         <>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {voices.map((v) => (
-              <Link
-                key={v.id}
-                href="/testimonial"
-                className="group flex flex-col rounded-2xl border border-line bg-card/40 p-6 transition-colors hover:border-court-bright"
-              >
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-court-bright">
-                  {relationLabel[v.relation] ?? v.relation}
-                </span>
-                {v.title ? (
-                  <h3 className="mt-3 break-keep font-display text-lg font-bold">{v.title}</h3>
-                ) : null}
-                <p className="mt-3 line-clamp-4 flex-1 break-keep text-sm leading-relaxed text-ink/85">
-                  {v.body}
-                </p>
-                <p className="mt-4 text-sm font-semibold text-muted">— {v.author_name}</p>
-              </Link>
-            ))}
+            {voices.map((raw) => {
+              const v = localizeVoice(raw, ko);
+              return (
+                <Link
+                  key={v.id}
+                  href="/testimonial"
+                  className="group flex flex-col rounded-2xl border border-line bg-card/40 p-6 transition-colors hover:border-court-bright"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-court-bright">
+                    {relationLabel[v.relation] ?? v.relation}
+                  </span>
+                  {v.title ? (
+                    <h3 className="mt-3 break-keep font-display text-lg font-bold">{v.title}</h3>
+                  ) : null}
+                  <p className="mt-3 line-clamp-4 flex-1 break-keep text-sm leading-relaxed text-ink/85">
+                    {v.body}
+                  </p>
+                  <p className="mt-4 text-sm font-semibold text-muted">— {v.author_name}</p>
+                </Link>
+              );
+            })}
           </div>
           <div className="mt-10 text-center">
             <Button href="/testimonial" variant="court">

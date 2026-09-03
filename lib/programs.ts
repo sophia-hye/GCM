@@ -10,7 +10,24 @@ export type Program = {
   images: string[]; // 갤러리(여러 장). 첫 장이 대표 이미지
   sort_order: number;
   published: boolean;
+  // 영문(EN) 필드 — 없으면 한글로 폴백
+  title_en?: string | null;
+  summary_en?: string | null;
+  description_en?: string | null;
+  duration_en?: string | null;
 };
+
+/** 영문 로케일이면 *_en 값(없으면 한글)으로 치환한 Program 을 반환 */
+export function localizeProgram(p: Program, ko: boolean): Program {
+  if (ko) return p;
+  return {
+    ...p,
+    title: p.title_en || p.title,
+    summary: p.summary_en ?? p.summary,
+    description: p.description_en ?? p.description,
+    duration: p.duration_en ?? p.duration,
+  };
+}
 
 /** 원(KRW) 정수를 표시용 문자열로. null 이면 '가격 문의' */
 export function formatPrice(price: number | null, ko = true): string {

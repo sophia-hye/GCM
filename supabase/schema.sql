@@ -296,8 +296,16 @@ create table if not exists public.gcm_voices (
   body text not null,
   status text not null default 'pending' check (status in ('pending', 'published', 'rejected')),
   created_at timestamptz not null default now(),
-  published_at timestamptz
+  published_at timestamptz,
+  -- 영문(EN) 필드 — 없으면 한글로 폴백
+  title_en text,
+  body_en text,
+  author_name_en text
 );
+--   기존 DB(테이블 존재 시) 영문 필드:
+--   alter table public.gcm_voices add column if not exists title_en text;
+--   alter table public.gcm_voices add column if not exists body_en text;
+--   alter table public.gcm_voices add column if not exists author_name_en text;
 alter table public.gcm_voices enable row level security;
 create index if not exists gcm_voices_status_idx on public.gcm_voices (status, created_at desc);
 -- 공개글은 누구나, 본인 글은 본인이, 전체는 관리자가 조회
@@ -347,10 +355,20 @@ create table if not exists public.gcm_programs (
   images text[] not null default '{}',  -- 갤러리(여러 장)
   published boolean not null default false,
   sort_order int not null default 0,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  -- 영문(EN) 필드 — 없으면 한글로 폴백
+  title_en text,
+  summary_en text,
+  description_en text,
+  duration_en text
 );
 -- 기존 DB(테이블 존재 시) 아래 1줄만 실행:
 --   alter table public.gcm_programs add column if not exists images text[] not null default '{}';
+--   영문(EN) 필드:
+--   alter table public.gcm_programs add column if not exists title_en text;
+--   alter table public.gcm_programs add column if not exists summary_en text;
+--   alter table public.gcm_programs add column if not exists description_en text;
+--   alter table public.gcm_programs add column if not exists duration_en text;
 alter table public.gcm_programs enable row level security;
 create index if not exists gcm_programs_order_idx on public.gcm_programs (sort_order asc, created_at desc);
 drop policy if exists "gcm_programs_select_published" on public.gcm_programs;
