@@ -3,16 +3,18 @@
 import { useActionState } from "react";
 import { updatePassword, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 export function ResetPasswordForm() {
+  const ko = useLocale() === "ko";
   const [state, action, pending] = useActionState<AuthState, FormData>(updatePassword, {});
 
   return (
     <form action={action} className="space-y-4">
-      <AuthField label="새 비밀번호" name="password" type="password" placeholder="6자 이상" />
-      <AuthField label="새 비밀번호 확인" name="confirm" type="password" placeholder="다시 입력" />
+      <AuthField label={ko ? "새 비밀번호" : "New password"} name="password" type="password" placeholder={ko ? "6자 이상" : "At least 6 characters"} />
+      <AuthField label={ko ? "새 비밀번호 확인" : "Confirm new password"} name="confirm" type="password" placeholder={ko ? "다시 입력" : "Re-enter password"} />
       <ErrorMessage message={state.error} />
-      <AuthSubmit pending={pending}>비밀번호 변경</AuthSubmit>
+      <AuthSubmit pending={pending}>{ko ? "비밀번호 변경" : "Change password"}</AuthSubmit>
     </form>
   );
 }

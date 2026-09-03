@@ -5,8 +5,10 @@ import { useActionState } from "react";
 import { signInMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
 import { SocialAuth } from "@/components/auth/SocialAuth";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 export function LoginForm({ next }: { next?: string }) {
+  const ko = useLocale() === "ko";
   const [memberState, memberAction, memberPending] = useActionState<AuthState, FormData>(
     signInMember,
     {},
@@ -16,26 +18,26 @@ export function LoginForm({ next }: { next?: string }) {
     <div>
       <form action={memberAction} className="space-y-4">
         {next ? <input type="hidden" name="next" value={next} /> : null}
-        <AuthField label="이메일" name="email" type="email" placeholder="example@email.com" />
-        <AuthField label="비밀번호" name="password" type="password" placeholder="••••••••" />
+        <AuthField label={ko ? "이메일" : "Email"} name="email" type="email" placeholder="example@email.com" />
+        <AuthField label={ko ? "비밀번호" : "Password"} name="password" type="password" placeholder="••••••••" />
         <div className="text-right">
           <Link
             href="/forgot-password"
             className="text-xs text-muted transition-colors hover:text-court hover:underline"
           >
-            비밀번호를 잊으셨나요?
+            {ko ? "비밀번호를 잊으셨나요?" : "Forgot your password?"}
           </Link>
         </div>
         <ErrorMessage message={memberState.error} />
-        <AuthSubmit pending={memberPending}>로그인</AuthSubmit>
+        <AuthSubmit pending={memberPending}>{ko ? "로그인" : "Log in"}</AuthSubmit>
       </form>
 
       <SocialAuth />
 
       <p className="mt-6 text-center text-sm text-muted">
-        계정이 없으신가요?{" "}
+        {ko ? "계정이 없으신가요? " : "Don't have an account? "}
         <Link href="/signup" className="font-semibold text-court hover:underline">
-          회원가입
+          {ko ? "회원가입" : "Sign up"}
         </Link>
       </p>
     </div>
