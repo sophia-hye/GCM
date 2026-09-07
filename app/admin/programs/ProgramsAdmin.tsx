@@ -14,6 +14,7 @@ import {
 import { formatPrice, type Program } from "@/lib/programs";
 import { MediaFill } from "@/components/MediaFill";
 import { convertHeicIfNeeded } from "@/lib/heic-convert";
+import { compressImage } from "@/lib/compress-image";
 
 const MAX_IMG = 10 * 1024 * 1024; // 이미지 10MB
 const MAX_VIDEO = 50 * 1024 * 1024; // 동영상 50MB
@@ -29,10 +30,12 @@ async function uploadImages(files: File[]): Promise<string[]> {
       throw new Error("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
     }
     // 아이폰 HEIC 는 크롬/윈도우에서 안 보이므로 업로드 전에 JPEG 로 변환
-    const file = isVideo ? original : await convertHeicIfNeeded(original);
-    if (file.size > (isVideo ? MAX_VIDEO : MAX_IMG)) {
+    const converted = isVideo ? original : await convertHeicIfNeeded(original);
+    if (converted.size > (isVideo ? MAX_VIDEO : MAX_IMG)) {
       throw new Error(isVideo ? "동영상은 각 50MB 이하만 올릴 수 있습니다." : "사진은 각 10MB 이하만 올릴 수 있습니다.");
     }
+    // 이미지는 리사이즈+WebP 재압축(동영상은 그대로)
+    const file = isVideo ? converted : await compressImage(converted);
     const urlRes = await createProgramUploadUrl(file.name);
     if (!urlRes.ok) throw new Error(urlRes.error);
     const { error } = await supabase.storage

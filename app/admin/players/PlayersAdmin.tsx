@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/compress-image";
 import {
   createPlayerUploadUrl,
   savePlayer,
@@ -39,12 +40,13 @@ function combineBio(tagline: string, hashtagsRaw: string): string {
 async function uploadPhoto(file: File): Promise<string> {
   if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
   if (file.size > MAX_BYTES) throw new Error("사진은 10MB 이하만 올릴 수 있습니다.");
-  const urlRes = await createPlayerUploadUrl(file.name);
+  const upload = await compressImage(file);
+  const urlRes = await createPlayerUploadUrl(upload.name);
   if (!urlRes.ok) throw new Error(urlRes.error);
   const supabase = createClient();
   const { error } = await supabase.storage
     .from("gallery")
-    .uploadToSignedUrl(urlRes.path, urlRes.token, file, { contentType: file.type });
+    .uploadToSignedUrl(urlRes.path, urlRes.token, upload, { contentType: upload.type });
   if (error) throw new Error(`업로드 실패: ${error.message}`);
   return urlRes.path;
 }
