@@ -13,6 +13,7 @@ import {
   moveEvent,
 } from "@/app/admin/events/actions";
 import { formatEventDate, type SeouliteEvent } from "@/lib/events";
+import { compressImage } from "@/lib/compress-image";
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10MB per file
 const fieldClass =
@@ -22,9 +23,10 @@ const fieldClass =
 async function uploadImages(files: File[]): Promise<string[]> {
   const supabase = createClient();
   const paths: string[] = [];
-  for (const file of files) {
-    if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
-    if (file.size > MAX_BYTES) throw new Error("사진은 각 10MB 이하만 올릴 수 있습니다.");
+  for (const original of files) {
+    if (!original.type.startsWith("image/")) throw new Error("이미지 파일만 업로드할 수 있습니다.");
+    if (original.size > MAX_BYTES) throw new Error("사진은 각 10MB 이하만 올릴 수 있습니다.");
+    const file = await compressImage(original);
     const urlRes = await createEventUploadUrl(file.name);
     if (!urlRes.ok) throw new Error(urlRes.error);
     const { error } = await supabase.storage

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { createPopupUploadUrl, savePopup } from "@/app/admin/popups/actions";
 import { convertHeicIfNeeded } from "@/lib/heic-convert";
+import { compressImage } from "@/lib/compress-image";
 
 const MAX_BYTES = 50 * 1024 * 1024; // 50MB (동영상 대비)
 
@@ -48,7 +49,9 @@ export function PopupsAdminForm({ disabled }: { disabled?: boolean }) {
     setPending(true);
     try {
       // 아이폰 HEIC 는 크롬/윈도우에서 안 보이므로 업로드 전에 JPEG 로 변환
-      const upload = await convertHeicIfNeeded(file);
+      // 래스터 이미지는 리사이즈+WebP 재압축(동영상·SVG는 compressImage 가 그대로 통과)
+      const converted = await convertHeicIfNeeded(file);
+      const upload = await compressImage(converted);
       const isSvg = /\.svg$/i.test(upload.name);
       if (upload.size > MAX_BYTES) {
         setError("파일은 50MB 이하만 올릴 수 있습니다. 압축 후 다시 시도해 주세요.");
