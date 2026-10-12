@@ -1,0 +1,36 @@
+name: Supabase Keepalive
+
+# Supabase Free 플랜은 7일간 활동이 없으면 프로젝트를 일시정지한다.
+# 매일 가벼운 REST 쿼리를 보내 GCM/DoLF 두 프로젝트를 깨어 있게 유지한다.
+# 수동 실행(workflow_dispatch)으로 즉시 테스트도 가능.
+
+on:
+  schedule:
+    - cron: "23 5 * * *" # 매일 05:23 UTC (14:23 KST)
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping GCM Supabase
+        env:
+          URL: ${{ secrets.GCM_SUPABASE_URL }}
+          KEY: ${{ secrets.GCM_SUPABASE_ANON_KEY }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            "$URL/rest/v1/gcm_players?select=id&limit=1")
+          echo "GCM ping -> HTTP $code"
+          test "$code" = "200"
+
+      - name: Ping DoLF Supabase
+        env:
+          URL: ${{ secrets.DOLF_SUPABASE_URL }}
+          KEY: ${{ secrets.DOLF_SUPABASE_ANON_KEY }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            "$URL/rest/v1/store_settings?select=*&limit=1")
+          echo "DoLF ping -> HTTP $code"
+          test "$code" = "200"
