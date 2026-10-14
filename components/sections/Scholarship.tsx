@@ -1,4 +1,5 @@
-import { Section, SectionHeading } from "@/components/ui";
+import Image from "next/image";
+import { Section, Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
 import { getContentMap, cmsText, cmsList } from "@/lib/cms";
@@ -12,14 +13,34 @@ export async function Scholarship() {
   const applyLabel = locale === "en" ? "Required for application" : "신청 시 준비 항목";
 
   return (
-    <Section id="scholarship">
-      <SectionHeading
-        eyebrow="Apply for Scholarship"
-        title={cmsText(map, "section.scholarshipTitle", scholarship.title, ko)}
-        lead={cmsText(map, "section.scholarshipLead", scholarship.lead, ko)}
-      />
+    <>
+      {/* 히어로 — GCM 선수단 사진 배경 (court-deep 틴트로 색감 유지) */}
+      <section id="scholarship" className="relative isolate overflow-hidden">
+        <Image
+          src="/img/scholarship-team.jpg"
+          alt={ko ? "GCM 선수단" : "GCM team"}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-court-deep/65" />
+        <div className="absolute inset-0 bg-gradient-to-t from-court-deep/90 via-court-deep/25 to-court-deep/50" />
+        <Container className="relative flex min-h-[66vh] flex-col justify-end py-16 sm:py-20">
+          <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white/80">
+            Apply for Scholarship
+          </p>
+          <h2 className="mt-4 max-w-3xl break-keep font-display text-3xl font-black leading-[1.12] text-white sm:text-5xl">
+            {cmsText(map, "section.scholarshipTitle", scholarship.title, ko)}
+          </h2>
+          <p className="mt-5 max-w-2xl break-keep text-base leading-relaxed text-white/85 sm:text-lg">
+            {cmsText(map, "section.scholarshipLead", scholarship.lead, ko)}
+          </p>
+        </Container>
+      </section>
 
-      <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
+      <Section>
+      <div className="grid gap-x-10 gap-y-12 md:grid-cols-3">
         {scholarship.points.map((p, i) => (
           <div key={i} className="border-t border-line pt-6">
             <span className="font-display text-sm font-semibold tabular-nums text-muted">
@@ -48,6 +69,7 @@ export async function Scholarship() {
           ))}
         </ul>
       </div>
-    </Section>
+      </Section>
+    </>
   );
 }

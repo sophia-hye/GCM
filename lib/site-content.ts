@@ -168,7 +168,7 @@ const enTeam = [
     role: "Academy Director",
     dept: "tennis",
     bio: "Oversees technical development, match operations, daily training and match coaching.",
-    image: "",
+    image: "/coaches/yoonjaewon/profile.jpeg",
     achievements: [
       "Former Goyang City Hall tennis player",
       "Former Armed Forces Athletic Corps tennis player",

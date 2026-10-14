@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionHeading, Container } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
@@ -13,9 +14,19 @@ export async function WhyTennisLeaders() {
 
   return (
     <>
-      {/* 히어로 — The Court of Leaders */}
-      <section className="bg-court-gradient">
-        <Container className="py-20 text-center sm:py-28">
+      {/* 히어로 — The Court of Leaders (고급 실내코트 배경 + court-green 오버레이로 색감 유지) */}
+      <section className="relative isolate overflow-hidden bg-court-gradient">
+        <Image
+          src="/img/why-tennis-bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-court-deep/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-court-deep/20 via-transparent to-court-deep/60" />
+        <Container className="relative py-20 text-center sm:py-28">
           <Reveal>
             <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white/80">
               Why Tennis
