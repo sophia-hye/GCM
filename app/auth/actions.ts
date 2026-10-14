@@ -12,6 +12,7 @@ import {
   isSupabaseConfigured,
 } from "@/lib/supabase/env";
 import { normalizePhone } from "@/lib/phone";
+import { buildReferralSource } from "@/lib/referral";
 
 export type AuthState = { error?: string };
 export type PasswordResetState = { error?: string; ok?: boolean };
@@ -123,6 +124,10 @@ export async function completeOnboarding(
   const phone = normalizePhone(String(formData.get("phone") ?? ""));
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
+  const source = buildReferralSource(
+    String(formData.get("referral") ?? ""),
+    String(formData.get("referral_other") ?? ""),
+  );
 
   if (!["student", "parent", "amateur", "others", "coach"].includes(role)) {
     return { error: "구분을 선택해 주세요." };
@@ -130,6 +135,7 @@ export async function completeOnboarding(
   if (!phone) return { error: "전화번호를 입력해 주세요." };
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
+  if (!source) return { error: "GCM을 알게 된 경로를 선택해 주세요." };
 
   // 같은 전화번호의 다른 회원이 이미 있으면 = 중복 가입(소셜로 또 가입 등).
   // 이번에 새로 만들어진 빈 계정을 정리하고 기존 로그인으로 안내한다.
@@ -155,6 +161,7 @@ export async function completeOnboarding(
       phone,
       gender,
       birth_date: birthDate,
+      source,
     })
     .eq("id", user.id);
 
@@ -205,6 +212,10 @@ export async function signUpMember(
   const role = String(formData.get("role") ?? "student");
   const gender = String(formData.get("gender") ?? "");
   const birthDate = String(formData.get("birth_date") ?? "").trim();
+  const source = buildReferralSource(
+    String(formData.get("referral") ?? ""),
+    String(formData.get("referral_other") ?? ""),
+  );
   if (!name || !phone) return { error: "이름과 전화번호를 입력해 주세요." };
   if (!email) return { error: "이메일을 입력해 주세요." };
   if (!isValidEmail(email)) return { error: "올바른 이메일 형식이 아닙니다." };
@@ -212,9 +223,10 @@ export async function signUpMember(
   if (!["student", "parent", "amateur", "others", "coach"].includes(role)) return { error: "잘못된 역할입니다." };
   if (!["male", "female"].includes(gender)) return { error: "성별을 선택해 주세요." };
   if (!birthDate) return { error: "생년월일을 입력해 주세요." };
+  if (!source) return { error: "GCM을 알게 된 경로를 선택해 주세요." };
 
   const admin = createAdminClient();
-  const { error } = await admin.auth.admin.createUser({
+  const { data: created, error } = await admin.auth.admin.createUser({
     email,
     password,
     email_confirm: true,
@@ -223,7 +235,7 @@ export async function signUpMember(
       phone,
       email,
       role,
-      source: "gcm",
+      source,
       gender,
       birth_date: birthDate,
     },
@@ -232,6 +244,11 @@ export async function signUpMember(
   if (error) {
     const dup = error.message.toLowerCase().includes("already");
     return { error: dup ? "이미 가입된 이메일입니다." : error.message };
+  }
+
+  // 가입 트리거는 source 를 'gcm' 으로 넣으므로, 실제 유입 경로로 갱신한다.
+  if (created?.user?.id) {
+    await admin.from("gcm_profiles").update({ source }).eq("id", created.user.id);
   }
 
   await signInAfterSignup(email, password);

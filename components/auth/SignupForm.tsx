@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { signUpMember, type AuthState } from "@/app/auth/actions";
 import { AuthField, AuthSubmit } from "@/components/auth/AuthShell";
 import { PhoneInput } from "@/components/ui/PhoneInput";
 import { SocialAuth } from "@/components/auth/SocialAuth";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { REFERRAL_OPTIONS, REFERRAL_OTHER } from "@/lib/referral";
+
+const selectClass =
+  "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright";
 
 function PhoneField({ ko }: { ko: boolean }) {
   return (
@@ -21,6 +25,7 @@ function PhoneField({ ko }: { ko: boolean }) {
 
 export function SignupForm() {
   const ko = useLocale() === "ko";
+  const [referral, setReferral] = useState("");
   const [memberState, memberAction, memberPending] = useActionState<AuthState, FormData>(
     signUpMember,
     {},
@@ -47,6 +52,7 @@ export function SignupForm() {
           <label className="mb-1.5 block text-xs font-semibold text-muted">{ko ? "성별" : "Gender"}</label>
           <select
             name="gender"
+            required
             defaultValue=""
             className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-court-bright"
           >
@@ -70,6 +76,36 @@ export function SignupForm() {
             <option value="coach">{ko ? "코치" : "Coach"}</option>
             <option value="others">{ko ? "기타 (Others)" : "Others"}</option>
           </select>
+        </div>
+        <div>
+          <label className="mb-1.5 block text-xs font-semibold text-muted">
+            {ko ? "GCM을 알게 된 경로" : "How did you hear about GCM?"}
+            <span className="text-danger"> *</span>
+          </label>
+          <select
+            name="referral"
+            required
+            value={referral}
+            onChange={(e) => setReferral(e.target.value)}
+            className={selectClass}
+          >
+            <option value="" disabled>
+              {ko ? "선택해 주세요" : "Please select"}
+            </option>
+            {REFERRAL_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {ko ? o.ko : o.en}
+              </option>
+            ))}
+          </select>
+          {referral === REFERRAL_OTHER ? (
+            <input
+              name="referral_other"
+              required
+              placeholder={ko ? "어떻게 알게 되셨는지 적어주세요" : "Please tell us how"}
+              className={`mt-2 ${selectClass} placeholder:text-muted/60`}
+            />
+          ) : null}
         </div>
         <ErrorMessage message={memberState.error} />
         <AuthSubmit pending={memberPending}>{ko ? "회원가입" : "Sign up"}</AuthSubmit>
