@@ -28,7 +28,7 @@ export default async function MembersPage() {
   const supabase = await createClient();
   const { data: members } = await supabase
     .from("gcm_profiles")
-    .select("id, name, phone, role, approved, created_at")
+    .select("id, name, phone, role, approved, created_at, source")
     .neq("is_admin", true)
     .order("created_at", { ascending: false });
 
@@ -69,6 +69,7 @@ export default async function MembersPage() {
               <th className="px-4 py-3 font-semibold">전화번호</th>
               <th className="px-4 py-3 font-semibold">유형</th>
               <th className="px-4 py-3 font-semibold">로그인</th>
+              <th className="px-4 py-3 font-semibold">가입 경로</th>
               <th className="px-4 py-3 font-semibold">승인</th>
               <th className="px-4 py-3 font-semibold">가입일</th>
             </tr>
@@ -90,6 +91,7 @@ export default async function MembersPage() {
                     {roleLabel[m.role] ?? m.role}
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 text-muted">{methodById[m.id] ?? "-"}</td>
+                  <td className="px-4 py-3 text-muted">{m.source && m.source !== "gcm" ? m.source : "-"}</td>
                   <td className="whitespace-nowrap px-4 py-3">
                     <form action={setMemberApproved} className="flex items-center gap-2">
                       <input type="hidden" name="id" value={m.id} />
@@ -116,7 +118,7 @@ export default async function MembersPage() {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="border-t border-line px-4 py-8 text-center text-muted">
+                <td colSpan={7} className="border-t border-line px-4 py-8 text-center text-muted">
                   아직 가입한 회원이 없습니다.
                 </td>
               </tr>

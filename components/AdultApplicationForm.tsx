@@ -12,8 +12,8 @@ const FIELD =
 
 // value 는 한글 canonical(제출·저장용), 표시는 로케일별
 const LESSON_TIMES: { value: string; en: string }[] = [
-  { value: "토요일 13–16시", en: "Saturday 1–4 PM" },
-  { value: "토요일 16–19시", en: "Saturday 4–7 PM" },
+  { value: "토요일 12–15시", en: "Saturday 12–3 PM" },
+  { value: "토요일 15–18시 30분", en: "Saturday 3–6:30 PM" },
 ];
 
 const EXPERIENCE: { value: string; en: string }[] = [
