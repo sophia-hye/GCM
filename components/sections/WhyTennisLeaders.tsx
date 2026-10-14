@@ -14,7 +14,7 @@ export async function WhyTennisLeaders() {
 
   return (
     <>
-      {/* 히어로 — The Court of Leaders (고급 실내코트 배경 + court-green 오버레이로 색감 유지) */}
+      {/* 히어로 — The Court of Leaders (고급 실내코트 배경, 오버레이 없이 텍스트 그림자로 가독성) */}
       <section className="relative isolate overflow-hidden bg-court-gradient">
         <Image
           src="/img/why-tennis-bg.jpg"
@@ -24,17 +24,15 @@ export async function WhyTennisLeaders() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-court-deep/45" />
-        <div className="absolute inset-0 bg-gradient-to-b from-court-deep/20 via-transparent to-court-deep/60" />
         <Container className="relative py-20 text-center sm:py-28">
           <Reveal>
-            <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white/80">
+            <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.6),0_4px_20px_rgb(0_0_0/0.7)]">
               Why Tennis
             </p>
-            <h1 className="mx-auto mt-5 max-w-3xl font-display text-3xl font-black leading-[1.15] text-white sm:text-5xl">
+            <h1 className="mx-auto mt-5 max-w-3xl font-display text-3xl font-black leading-[1.15] text-white [text-shadow:0_2px_4px_rgb(0_0_0/0.65),0_6px_28px_rgb(0_0_0/0.75)] sm:text-5xl">
               The Court of <span className="text-[#d4ff3d]">Leaders</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl break-keep text-base leading-relaxed text-white/85 sm:text-lg">
+            <p className="mx-auto mt-6 max-w-2xl break-keep text-base leading-relaxed text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.7),0_3px_16px_rgb(0_0_0/0.8)] sm:text-lg">
               {cx("wtl.hero.intro", WTL_TEXT.heroIntro)}
             </p>
           </Reveal>

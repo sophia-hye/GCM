@@ -14,7 +14,7 @@ export async function Scholarship() {
 
   return (
     <>
-      {/* 히어로 — GCM 선수단 사진 배경 (court-deep 틴트로 색감 유지) */}
+      {/* 히어로 — GCM 선수단 사진 배경 (오버레이 없이 텍스트 그림자로 가독성) */}
       <section id="scholarship" className="relative isolate overflow-hidden">
         <Image
           src="/img/scholarship-team.jpg"
@@ -24,16 +24,14 @@ export async function Scholarship() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-court-deep/65" />
-        <div className="absolute inset-0 bg-gradient-to-t from-court-deep/90 via-court-deep/25 to-court-deep/50" />
         <Container className="relative flex min-h-[66vh] flex-col justify-end py-16 sm:py-20">
-          <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white/80">
+          <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.7),0_4px_20px_rgb(0_0_0/0.8)]">
             Apply for Scholarship
           </p>
-          <h2 className="mt-4 max-w-3xl break-keep font-display text-3xl font-black leading-[1.12] text-white sm:text-5xl">
+          <h2 className="mt-4 max-w-3xl break-keep font-display text-3xl font-black leading-[1.12] text-white [text-shadow:0_2px_4px_rgb(0_0_0/0.75),0_6px_28px_rgb(0_0_0/0.85)] sm:text-5xl">
             {cmsText(map, "section.scholarshipTitle", scholarship.title, ko)}
           </h2>
-          <p className="mt-5 max-w-2xl break-keep text-base leading-relaxed text-white/85 sm:text-lg">
+          <p className="mt-5 max-w-2xl break-keep text-base leading-relaxed text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.8),0_3px_16px_rgb(0_0_0/0.9)] sm:text-lg">
             {cmsText(map, "section.scholarshipLead", scholarship.lead, ko)}
           </p>
         </Container>
