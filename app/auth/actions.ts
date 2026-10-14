@@ -13,6 +13,7 @@ import {
 } from "@/lib/supabase/env";
 import { normalizePhone } from "@/lib/phone";
 import { buildReferralSource } from "@/lib/referral";
+import { detectSignupMethod } from "@/lib/signup-method";
 
 export type AuthState = { error?: string };
 export type PasswordResetState = { error?: string; ok?: boolean };
@@ -162,6 +163,7 @@ export async function completeOnboarding(
       gender,
       birth_date: birthDate,
       source,
+      signup_method: detectSignupMethod(user),
     })
     .eq("id", user.id);
 
@@ -247,8 +249,12 @@ export async function signUpMember(
   }
 
   // 가입 트리거는 source 를 'gcm' 으로 넣으므로, 실제 유입 경로로 갱신한다.
+  // 로그인 방식은 이메일 자체 가입이므로 'email'.
   if (created?.user?.id) {
-    await admin.from("gcm_profiles").update({ source }).eq("id", created.user.id);
+    await admin
+      .from("gcm_profiles")
+      .update({ source, signup_method: "email" })
+      .eq("id", created.user.id);
   }
 
   await signInAfterSignup(email, password);

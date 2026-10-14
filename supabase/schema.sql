@@ -37,7 +37,8 @@ create table public.gcm_profiles (
   phone text,
   email text,
   parent_id uuid references public.gcm_profiles (id),
-  source text not null default 'gcm',
+  source text not null default 'gcm', -- 유입 경로(어떻게 알게 됐는지). 가입 시 사용자 선택값으로 갱신.
+  signup_method text, -- 로그인/연동 방식: 'email' | 'kakao' | 'naver' | 'google'
   approved boolean not null default false, -- 관리자 승인된 우리팀 선수만 매치 셀프 피드백 작성 가능
   gender text check (gender in ('male', 'female')), -- 가입 시 직접 입력(소셜 미제공 대비)
   birth_date date,
@@ -47,6 +48,7 @@ create table public.gcm_profiles (
 --   alter table public.gcm_profiles add column if not exists approved boolean not null default false;
 --   alter table public.gcm_profiles add column if not exists gender text check (gender in ('male','female'));
 --   alter table public.gcm_profiles add column if not exists birth_date date;
+--   alter table public.gcm_profiles add column if not exists signup_method text; -- 로그인 방식 저장
 --   -- 구분과 admin 권한 분리(is_admin 도입):
 --   alter table public.gcm_profiles add column if not exists is_admin boolean not null default false;
 --   update public.gcm_profiles set is_admin = true where role = 'admin'; -- 기존 admin 이관
