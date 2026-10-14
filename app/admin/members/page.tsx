@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { isAdminConfigured } from "@/lib/supabase/env";
 import { MemberForm } from "@/components/admin/MemberForm";
 import { setMemberApproved } from "@/app/admin/actions";
+import { signupMethodLabel } from "@/lib/signup-method";
 
 export const metadata = { title: "회원 관리 | GCM Admin" };
 
@@ -28,7 +29,7 @@ export default async function MembersPage() {
   const supabase = await createClient();
   const { data: members } = await supabase
     .from("gcm_profiles")
-    .select("id, name, phone, role, approved, created_at, source")
+    .select("id, name, phone, role, approved, created_at, source, signup_method")
     .neq("is_admin", true)
     .order("created_at", { ascending: false });
 
@@ -90,7 +91,9 @@ export default async function MembersPage() {
                   <td className="whitespace-nowrap px-4 py-3 text-court-bright">
                     {roleLabel[m.role] ?? m.role}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-muted">{methodById[m.id] ?? "-"}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-muted">
+                    {m.signup_method ? signupMethodLabel(m.signup_method) : methodById[m.id] ?? "-"}
+                  </td>
                   <td className="px-4 py-3 text-muted">{m.source && m.source !== "gcm" ? m.source : "-"}</td>
                   <td className="whitespace-nowrap px-4 py-3">
                     <form action={setMemberApproved} className="flex items-center gap-2">
