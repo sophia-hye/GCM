@@ -60,12 +60,12 @@ export async function Footer() {
               Instagram @gcm.kids
             </a>
             <a
-              href="https://www.instagram.com/gcm_amateur_tennis/"
+              href="https://www.instagram.com/gcm_tennis_amateur/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-court-bright"
             >
-              Instagram @gcm_amateur_tennis
+              Instagram @gcm_tennis_amateur
             </a>
             {site.kakao ? (
               <a
