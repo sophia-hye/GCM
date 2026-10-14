@@ -24,6 +24,8 @@ export async function Scholarship() {
           sizes="100vw"
           className="object-cover object-center"
         />
+        {/* 하단으로 갈수록 진해지는 그라데이션 — 상단 사진은 선명, 하단 텍스트는 가독성 확보 */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
         <Container className="relative flex min-h-[66vh] flex-col justify-end py-16 sm:py-20">
           <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.7),0_4px_20px_rgb(0_0_0/0.8)]">
             Apply for Scholarship
