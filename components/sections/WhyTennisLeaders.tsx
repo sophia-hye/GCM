@@ -24,8 +24,8 @@ export async function WhyTennisLeaders() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-court-deep/80" />
-        <div className="absolute inset-0 bg-gradient-to-b from-court-deep/40 via-transparent to-court-deep/70" />
+        <div className="absolute inset-0 bg-court-deep/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-court-deep/20 via-transparent to-court-deep/60" />
         <Container className="relative py-20 text-center sm:py-28">
           <Reveal>
             <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white/80">

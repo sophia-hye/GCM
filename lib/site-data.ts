@@ -275,7 +275,7 @@ export const team = [
     nameEn: "Jae-won Yun",
     roleEn: "Academy Director",
     bio: "기술 발달과 경기 운영, 일일 트레이닝과 매치 코칭 전반을 총괄합니다.",
-    image: "",
+    image: "/coaches/yoonjaewon/profile.jpeg",
     achievements: [
       "前 고양시청 테니스 선수",
       "前 국군체육부대 테니스 선수",
