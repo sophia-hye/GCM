@@ -17,24 +17,11 @@ export async function generateMetadata(): Promise<import("next").Metadata> {
   });
 }
 
-const KIDS_PHOTOS = [
-  "/kids/kim-hyeri.jpg",
-  "/kids/lee-hanna.jpg",
-  "/kids/lee-jihoon.jpg",
-  "/kids/jung-seoa.jpg",
-  "/kids/shin-chaewon.jpg",
-  "/kids/lee-yuan.jpg",
-  "/kids/shin-chaea.jpg",
-  "/kids/woong-hyun.jpg",
-  "/kids/seon-yul.jpg",
-  "/kids/jones-sinji.jpg",
-];
-
 export default function KidsPage() {
   return (
     <div className="pt-16">
       <KidsBenefits />
-      <RecreationalClass classKey="KIDS" eyebrow="Kids Class" photos={KIDS_PHOTOS} />
+      <RecreationalClass classKey="KIDS" eyebrow="Kids Class" />
       <TennisCoreValues />
     </div>
   );
