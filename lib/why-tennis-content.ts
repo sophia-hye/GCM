@@ -171,8 +171,8 @@ export const LIFE_CHANGES: { n: string; title: Bi; points: Bi[] }[] = [
     title: { ko: "삶의 격을 높여주는 '건강한 교류'", en: "Healthy Connections That Elevate Life" },
     points: [
       {
-        ko: "술자리 대신 코트에서의 만남: 동호회·클럽·소모임 문화가 잘 발달해 건강한 에너지와 취향을 공유하는 사람들과 교류합니다.",
-        en: "Meeting on court instead of over drinks: a rich club and community culture connects you with people who share healthy energy and taste.",
+        ko: "코트에서 이어지는 만남: 동호회·클럽·소모임 문화가 잘 발달해 건강한 에너지와 취향을 공유하는 사람들과 교류합니다.",
+        en: "Connections that continue on court: a rich club and community culture connects you with people who share healthy energy and taste.",
       },
       {
         ko: "매너가 만들어내는 매력: 상대를 배려하고 정중히 인사하는 테니스 문화가 나를 훨씬 고급스럽고 매력적으로 보이게 합니다.",

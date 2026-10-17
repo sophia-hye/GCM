@@ -1,6 +1,7 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { getLocale } from "@/lib/i18n";
 import { RecreationalClass } from "@/components/sections/RecreationalClass";
+import { TacticalTraining } from "@/components/sections/TacticalTraining";
 import { AmateurLifestyle } from "@/components/sections/AmateurLifestyle";
 
 export async function generateMetadata(): Promise<import("next").Metadata> {
@@ -18,6 +19,7 @@ export default function AmateursPage() {
   return (
     <div className="pt-16">
       <RecreationalClass classKey="ADULT" eyebrow="Amateurs" />
+      <TacticalTraining />
       <AmateurLifestyle />
     </div>
   );
