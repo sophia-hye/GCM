@@ -76,8 +76,8 @@ function getChapters(ko: boolean): Chapter[] {
         {
           label: "Healthy Social Life",
           body: ko
-            ? "늦은 술자리 대신 함께 운동하고, 경쟁하고, 웃으며 건강한 에너지를 나눕니다."
-            : "Instead of late nights out, you move, compete, and laugh together, sharing healthy energy.",
+            ? "함께 운동하고, 경쟁하고, 웃으며 건강한 에너지를 나누는 시간. 코트 위에서 시작된 만남이 일상의 활력으로 이어집니다."
+            : "Time to move, compete, and laugh together, sharing healthy energy. Connections made on the court carry over into everyday life.",
         },
         {
           label: "Respect Across the Net",
@@ -122,7 +122,10 @@ export async function AmateurLifestyle() {
       <section className="bg-court-gradient">
         <Container className="py-20 text-center sm:py-28">
           <Reveal>
-            <p className="font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4ff3d]">
+            <span className="inline-block rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-white">
+              {ko ? "테니스를 처음 시작하는 분께" : "For those just starting tennis"}
+            </span>
+            <p className="mt-5 font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4ff3d]">
               The New Standard of Your Life
             </p>
             <h2 className="mx-auto mt-5 max-w-2xl break-keep font-display text-3xl font-black leading-[1.2] text-white sm:text-4xl">
