@@ -1,5 +1,5 @@
 import { SITE_URL } from "@/lib/site-url";
-import { site } from "@/lib/site-data";
+import { site, instagramAccounts } from "@/lib/site-data";
 
 /**
  * 검색엔진 리치 결과용 구조화 데이터(JSON-LD).
@@ -32,7 +32,7 @@ export function StructuredData() {
       alternateName: "Oh Seong-gook",
       jobTitle: "Executive Director",
     },
-    sameAs: [site.instagram],
+    sameAs: instagramAccounts.map((ig) => ig.url),
   };
 
   return (

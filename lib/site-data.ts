@@ -19,6 +19,34 @@ export const site = {
   foundedDate: "2023.01.02",
 } as const;
 
+/**
+ * GCM 공식 인스타그램 계정 목록 (노출 순서 = 배열 순서)
+ * 공식 메인(gcm_tennis) → 키즈 → 경남 → 아마추어
+ * site.instagram(대표 계정)은 gcm_tennis와 동일하게 유지한다.
+ */
+export const instagramAccounts = [
+  {
+    handle: "gcm_tennis",
+    url: "https://www.instagram.com/gcm_tennis/",
+    note: { ko: "공식", en: "Official" },
+  },
+  {
+    handle: "gcm.kids",
+    url: "https://www.instagram.com/gcm.kids/",
+    note: { ko: "키즈", en: "Kids" },
+  },
+  {
+    handle: "gcm_tennis_southern",
+    url: "https://www.instagram.com/gcm_tennis_southern/",
+    note: { ko: "경남", en: "Gyeongnam" },
+  },
+  {
+    handle: "gcm_tennis_amateur",
+    url: "https://www.instagram.com/gcm_tennis_amateur/",
+    note: { ko: "아마추어", en: "Amateur" },
+  },
+] as const;
+
 /** 상단 내비게이션 — 그룹 + 서브메뉴(드롭다운) */
 export const nav = [
   {

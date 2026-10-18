@@ -1,4 +1,4 @@
-import { site } from "@/lib/site-data";
+import { site, instagramAccounts } from "@/lib/site-data";
 import { Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 
@@ -43,30 +43,18 @@ export async function Footer() {
             <a href={`mailto:${site.email}`} className="hover:text-court-bright">
               {site.email}
             </a>
-            <a
-              href={site.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-court-bright"
-            >
-              Instagram @gcm_tennis
-            </a>
-            <a
-              href="https://www.instagram.com/gcm.kids/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-court-bright"
-            >
-              Instagram @gcm.kids
-            </a>
-            <a
-              href="https://www.instagram.com/gcm_tennis_amateur/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-court-bright"
-            >
-              Instagram @gcm_tennis_amateur
-            </a>
+            {instagramAccounts.map((ig) => (
+              <a
+                key={ig.handle}
+                href={ig.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-court-bright"
+              >
+                Instagram @{ig.handle}
+                <span className="text-muted/70"> ({en ? ig.note.en : ig.note.ko})</span>
+              </a>
+            ))}
             {site.kakao ? (
               <a
                 href={site.kakao}
