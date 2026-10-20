@@ -1,14 +1,77 @@
 import { Section, SectionHeading, Container } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getContentMap, cmsText } from "@/lib/cms";
 import { TCV_TEXT, TCV_CORE, TCV_UNIQUE, TCV_TOPCLASS, type Bi } from "@/lib/tennis-core-values";
 
 export async function TennisCoreValues() {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
   const map = await getContentMap();
-  const t = (b: Bi) => (ko ? b.ko : b.en);
-  const cx = (key: string, b: Bi) => cmsText(map, key, t(b), ko);
+  const t = (b: Bi) => pick(locale, b);
+  const cx = (key: string, b: Bi) => cmsText(map, key, t(b), locale);
+
+  const heroEyebrow = {
+    ko: "AI 시대 인재상",
+    en: "The AI-Era Talent",
+    zh: "AI 时代的人才像",
+    ja: "AI時代の人材像",
+    it: "Il talento dell'era AI",
+    fr: "Le talent de l'ère IA",
+    es: "El talento de la era IA",
+  } as const;
+
+  const heroHeadline = {
+    ko: (
+      <>
+        AI가 대체할 수 없는
+        <br />
+        <span className="text-[#d4ff3d]">1% 영리더</span>의 아우라
+      </>
+    ),
+    en: (
+      <>
+        The aura of the <span className="text-[#d4ff3d]">top 1% leader</span>
+        <br />
+        that AI cannot replace
+      </>
+    ),
+    zh: (
+      <>
+        AI 无法取代的
+        <br />
+        <span className="text-[#d4ff3d]">顶尖 1% 领袖</span>气场
+      </>
+    ),
+    ja: (
+      <>
+        AIが代替できない
+        <br />
+        <span className="text-[#d4ff3d]">1%のトップリーダー</span>のオーラ
+      </>
+    ),
+    it: (
+      <>
+        L&apos;aura del <span className="text-[#d4ff3d]">top 1% dei leader</span>
+        <br />
+        che l&apos;AI non può sostituire
+      </>
+    ),
+    fr: (
+      <>
+        L&apos;aura du <span className="text-[#d4ff3d]">leader du top 1%</span>
+        <br />
+        que l&apos;IA ne peut remplacer
+      </>
+    ),
+    es: (
+      <>
+        El aura del <span className="text-[#d4ff3d]">líder del top 1%</span>
+        <br />
+        que la IA no puede reemplazar
+      </>
+    ),
+  } as const;
 
   return (
     <>
@@ -17,22 +80,10 @@ export async function TennisCoreValues() {
         <Container className="py-20 text-center sm:py-28">
           <Reveal>
             <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-white/80">
-              {ko ? "AI 시대 인재상" : "The AI-Era Talent"}
+              {heroEyebrow[locale]}
             </p>
             <h2 className="mx-auto mt-5 max-w-3xl break-keep font-display text-3xl font-black leading-[1.2] text-white sm:text-5xl">
-              {ko ? (
-                <>
-                  AI가 대체할 수 없는
-                  <br />
-                  <span className="text-[#d4ff3d]">1% 영리더</span>의 아우라
-                </>
-              ) : (
-                <>
-                  The aura of the <span className="text-[#d4ff3d]">top 1% leader</span>
-                  <br />
-                  that AI cannot replace
-                </>
-              )}
+              {heroHeadline[locale]}
             </h2>
             <p className="mx-auto mt-6 max-w-2xl break-keep text-base leading-relaxed text-white/85 sm:text-lg">
               {cx("tcv.hero.intro", TCV_TEXT.heroIntro)}
