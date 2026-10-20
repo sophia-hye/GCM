@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { site } from "@/lib/site-data";
-import { getLocale } from "@/lib/i18n";
+import { getLocale, type Locale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 
 type Item = {
   href: string;
@@ -40,21 +41,21 @@ const kakaoIcon = (
 );
 
 // 순서: 카톡 채널 · 인스타그램 · Contact · 상담하기 (카톡·인스타는 새 창)
-function getItems(ko: boolean): Item[] {
+function getItems(locale: Locale): Item[] {
   return [
     ...(site.kakao
-      ? [{ href: site.kakao, label: ko ? "카카오톡 채널" : "KakaoTalk Channel", external: true, icon: kakaoIcon }]
+      ? [{ href: site.kakao, label: pick(locale, { ko: "카카오톡 채널", en: "KakaoTalk Channel", zh: "KakaoTalk 频道", ja: "カカオトークチャンネル", it: "Canale KakaoTalk", fr: "Chaîne KakaoTalk", es: "Canal de KakaoTalk" }), external: true, icon: kakaoIcon }]
       : []),
     { href: site.instagram, label: "Instagram", external: true, icon: instagramIcon },
     { href: "/contact", label: "Contact", icon: contactIcon },
-    { href: "/consulting", label: ko ? "상담하기" : "Consultation", icon: consultationIcon },
+    { href: "/consulting", label: pick(locale, { ko: "상담하기", en: "Consultation", zh: "咨询", ja: "相談する", it: "Consulenza", fr: "Consultation", es: "Consulta" }), icon: consultationIcon },
   ];
 }
 
 /** 화면 우측에 항상 떠 있는 바로가기 패널 (카톡 · 인스타 · Contact · 상담) */
 export async function FloatingMenu() {
-  const ko = (await getLocale()) === "ko";
-  const items = getItems(ko);
+  const locale = await getLocale();
+  const items = getItems(locale);
   return (
     <div className="fixed bottom-6 right-4 z-50 flex flex-col items-center gap-1 rounded-full border border-line bg-base/85 p-1.5 shadow-lg ring-1 ring-white/10 backdrop-blur sm:right-6">
       {items.map((item, i) => (

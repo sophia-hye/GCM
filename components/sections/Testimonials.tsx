@@ -3,6 +3,7 @@ import { Section, SectionHeading, Button } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getUI } from "@/lib/site-content";
 import { localizeVoice, type VoiceLocalizable } from "@/lib/voices";
 
@@ -32,9 +33,10 @@ export async function Testimonials() {
   const locale = await getLocale();
   const ko = locale === "ko";
   const ui = getUI(locale);
-  const relationLabel: Record<string, string> = ko
-    ? { player: "선수", parent: "학부모" }
-    : { player: "Player", parent: "Parent" };
+  const relationLabel: Record<string, string> = {
+    player: pick(locale, { ko: "선수", en: "Player", zh: "选手", ja: "選手", it: "Atleta", fr: "Joueur", es: "Jugador" }),
+    parent: pick(locale, { ko: "학부모", en: "Parent", zh: "家长", ja: "保護者", it: "Genitore", fr: "Parent", es: "Padre" }),
+  };
   const voices = await getRecentVoices();
 
   return (
@@ -46,7 +48,7 @@ export async function Testimonials() {
             href="/testimonial"
             className="text-sm font-semibold text-court transition-colors hover:text-court-deep"
           >
-            {ko ? "전체 보기 →" : "View all →"}
+            {pick(locale, { ko: "전체 보기 →", en: "View all →", zh: "查看全部 →", ja: "すべて見る →", it: "Vedi tutto →", fr: "Voir tout →", es: "Ver todo →" })}
           </Link>
         ) : null}
       </div>
@@ -78,7 +80,7 @@ export async function Testimonials() {
           </div>
           <div className="mt-10 text-center">
             <Button href="/testimonial" variant="court">
-              {ko ? "선수 · 학부모 이야기 더 보기" : "More Player & Parent Stories"}
+              {pick(locale, { ko: "선수 · 학부모 이야기 더 보기", en: "More Player & Parent Stories", zh: "更多选手与家长故事", ja: "選手・保護者の声をもっと見る", it: "Altre storie di atleti e genitori", fr: "Plus de témoignages d'athlètes et de parents", es: "Más historias de jugadores y padres" })}
             </Button>
           </div>
         </>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getDict } from "@/lib/site-content";
 import { getContentMap, cmsText, cmsParas } from "@/lib/cms";
 
@@ -28,7 +29,7 @@ export async function DirectorMessage() {
           <div className="mx-auto max-w-[240px] overflow-hidden rounded-2xl border border-line lg:max-w-none">
             <Image
               src={d.image}
-              alt={ko ? "대표 원장 오성국" : "Executive Director Seong-gook Oh"}
+              alt={pick(locale, { ko: "대표 원장 오성국", en: "Executive Director Seong-gook Oh", zh: "执行院长 Seong-gook Oh", ja: "代表院長 Seong-gook Oh", it: "Direttore Esecutivo Seong-gook Oh", fr: "Directeur Exécutif Seong-gook Oh", es: "Director Ejecutivo Seong-gook Oh" })}
               width={520}
               height={650}
               className="aspect-[4/5] h-auto w-full object-cover"
@@ -41,7 +42,10 @@ export async function DirectorMessage() {
               </>
             ) : (
               <>
-                <span className="font-normal text-muted">Executive Director,</span> Seong-gook Oh
+                <span className="font-normal text-muted">
+                  {pick(locale, { en: "Executive Director,", zh: "执行院长，", ja: "代表院長、", it: "Direttore Esecutivo,", fr: "Directeur Exécutif,", es: "Director Ejecutivo," })}
+                </span>{" "}
+                Seong-gook Oh
               </>
             )}
           </p>

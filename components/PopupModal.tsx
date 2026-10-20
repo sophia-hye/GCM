@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { isVideoUrl, isSvgUrl } from "@/lib/media";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { pick } from "@/lib/i18n-pick";
 
 type Popup = { id: string; image_url: string; link_url: string | null };
 
@@ -24,8 +25,8 @@ function hideKey(id: string) {
 }
 
 export function PopupModal({ popups }: { popups: Popup[] }) {
-  const ko = useLocale() === "ko";
-  const altText = ko ? "공지 팝업" : "Notice popup";
+  const locale = useLocale();
+  const altText = pick(locale, { ko: "공지 팝업", en: "Notice popup", zh: "公告弹窗", ja: "お知らせポップアップ", it: "Avviso popup", fr: "Fenêtre d'annonce", es: "Ventana de aviso" });
   // 표시할 팝업 id 목록 (마운트 시 '오늘 하루 보지 않기' 처리된 것 제외)
   const [visibleIds, setVisibleIds] = useState<string[]>([]);
   const [hideToday, setHideToday] = useState<Record<string, boolean>>({});
@@ -89,7 +90,7 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
                     rel="noopener noreferrer"
                     className="mt-2 block rounded-lg bg-court px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-court-deep"
                   >
-                    {ko ? "바로가기 →" : "Go →"}
+                    {pick(locale, { ko: "바로가기 →", en: "Go →", zh: "前往 →", ja: "移動する →", it: "Vai →", fr: "Accéder →", es: "Ir →" })}
                   </a>
                 </>
               ) : (
@@ -104,14 +105,14 @@ export function PopupModal({ popups }: { popups: Popup[] }) {
                   onChange={(e) => setHideToday((s) => ({ ...s, [p.id]: e.target.checked }))}
                   className="h-4 w-4 accent-court"
                 />
-                {ko ? "오늘 하루 보지 않기" : "Don't show today"}
+                {pick(locale, { ko: "오늘 하루 보지 않기", en: "Don't show today", zh: "今天不再显示", ja: "今日は表示しない", it: "Non mostrare oggi", fr: "Ne plus afficher aujourd'hui", es: "No mostrar hoy" })}
               </label>
               <button
                 type="button"
                 onClick={() => closeOne(p.id)}
                 className="rounded-full bg-ink px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-125"
               >
-                {ko ? "닫기" : "Close"}
+                {pick(locale, { ko: "닫기", en: "Close", zh: "关闭", ja: "閉じる", it: "Chiudi", fr: "Fermer", es: "Cerrar" })}
               </button>
             </div>
           </div>

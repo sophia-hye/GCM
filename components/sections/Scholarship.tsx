@@ -1,20 +1,20 @@
 import Image from "next/image";
 import { Section, Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getDict, getUI } from "@/lib/site-content";
 import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 
 export async function Scholarship() {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const { scholarship } = getDict(locale);
   const ui = getUI(locale);
   const map = await getContentMap();
-  const applyLabel = locale === "en" ? "Required for application" : "신청 시 준비 항목";
+  const applyLabel = pick(locale, { ko: "신청 시 준비 항목", en: "Required for application", zh: "申请时需准备的材料", ja: "申請時にご準備いただくもの", it: "Documenti richiesti per la candidatura", fr: "Éléments requis pour la candidature", es: "Requisitos para la solicitud" });
   const heroEyebrow = "Apply for Scholarship";
   const heroTitle = cmsText(map, "section.scholarshipTitle", scholarship.title, locale);
   const heroLead = cmsText(map, "section.scholarshipLead", scholarship.lead, locale);
-  const heroAlt = ko ? "GCM 선수단" : "GCM team";
+  const heroAlt = pick(locale, { ko: "GCM 선수단", en: "GCM team", zh: "GCM选手团队", ja: "GCM選手団", it: "Squadra GCM", fr: "L'équipe GCM", es: "El equipo GCM" });
 
   return (
     <>
