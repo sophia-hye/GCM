@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { CourtLines } from "@/components/ui";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { pick } from "@/lib/i18n-pick";
 
 export function AuthShell({
   title,
@@ -94,14 +95,24 @@ export function AuthSubmit({
   children: ReactNode;
   pending: boolean;
 }) {
-  const ko = useLocale() === "ko";
+  const locale = useLocale();
   return (
     <button
       type="submit"
       disabled={pending}
       className="inline-flex w-full items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold tracking-wide text-white transition hover:brightness-105 disabled:opacity-60"
     >
-      {pending ? (ko ? "처리 중..." : "Processing...") : children}
+      {pending
+        ? pick(locale, {
+            ko: "처리 중...",
+            en: "Processing...",
+            zh: "处理中...",
+            ja: "処理中...",
+            it: "Elaborazione...",
+            fr: "Traitement...",
+            es: "Procesando...",
+          })
+        : children}
     </button>
   );
 }
