@@ -1,29 +1,30 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { CourtLines } from "@/components/ui";
 import { TRACK_LABEL, localizePlayer, type Player } from "@/lib/players";
+import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 
-export function PlayerCard({
+export async function PlayerCard({
   player,
-  ko = true,
   detailed = false,
 }: {
   player: Player;
-  ko?: boolean;
   detailed?: boolean;
 }) {
-  const p = localizePlayer(player, ko);
+  const locale = await getLocale();
+  const p = localizePlayer(player, locale);
   const meta = [p.grad_year && `${p.grad_year}`, p.utr && `UTR ${p.utr}`]
     .filter(Boolean)
     .join(" · ");
 
   const profile: { label: string; value: string }[] = [];
-  if (p.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: p.birthday });
-  if (p.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: p.birthplace });
-  if (p.nationality) profile.push({ label: ko ? "국적" : "Nationality", value: p.nationality });
+  if (p.birthday) profile.push({ label: pick(locale, { ko: "생년월일", en: "Birthday", zh: "出生日期", ja: "生年月日", it: "Data di nascita", fr: "Date de naissance", es: "Fecha de nacimiento" }), value: p.birthday });
+  if (p.birthplace) profile.push({ label: pick(locale, { ko: "출생지", en: "Birthplace", zh: "出生地", ja: "出身地", it: "Luogo di nascita", fr: "Lieu de naissance", es: "Lugar de nacimiento" }), value: p.birthplace });
+  if (p.nationality) profile.push({ label: pick(locale, { ko: "국적", en: "Nationality", zh: "国籍", ja: "国籍", it: "Nazionalità", fr: "Nationalité", es: "Nacionalidad" }), value: p.nationality });
   if (p.plays) profile.push({ label: "Plays", value: p.plays });
   if (p.backhand) profile.push({ label: "Backhand", value: p.backhand });
-  if (p.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: p.joined_date });
+  if (p.joined_date) profile.push({ label: pick(locale, { ko: "GCM 합류", en: "GCM Joined", zh: "加入GCM", ja: "GCM加入", it: "Ingresso in GCM", fr: "Arrivée à GCM", es: "Ingreso en GCM" }), value: p.joined_date });
 
   // bio 는 "한 줄 소개 #특성 #특성" 형식 — 소개(태그라인)와 해시태그(특성)로 분리
   const bio = (p.bio ?? "").trim();
@@ -51,7 +52,7 @@ export function PlayerCard({
         )}
         {p.track ? (
           <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-            {ko ? TRACK_LABEL[p.track].ko : TRACK_LABEL[p.track].en}
+            {pick(locale, TRACK_LABEL[p.track])}
           </span>
         ) : null}
       </div>
@@ -92,7 +93,7 @@ export function PlayerCard({
           </div>
         ) : null}
         <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
-          {ko ? "자세히 보기" : "View profile"}
+          {pick(locale, { ko: "자세히 보기", en: "View profile", zh: "查看详情", ja: "詳しく見る", it: "Vedi profilo", fr: "Voir le profil", es: "Ver perfil" })}
           <span className="transition-transform group-hover:translate-x-0.5">→</span>
         </span>
       </div>

@@ -1,8 +1,9 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getUI } from "@/lib/site-content";
 import { localizeVoice, type VoiceLocalizable } from "@/lib/voices";
 
@@ -18,7 +19,7 @@ async function getRecentVoices(): Promise<Voice[]> {
     const supabase = await createClient();
     const { data } = await supabase
       .from("gcm_voices")
-      .select("id, relation, author_name, title, body, title_en, body_en, author_name_en")
+      .select("id, relation, author_name, title, body, title_en, body_en, author_name_en, i18n")
       .eq("status", "published")
       .order("published_at", { ascending: false })
       .limit(3);
@@ -32,9 +33,10 @@ export async function Testimonials() {
   const locale = await getLocale();
   const ko = locale === "ko";
   const ui = getUI(locale);
-  const relationLabel: Record<string, string> = ko
-    ? { player: "선수", parent: "학부모" }
-    : { player: "Player", parent: "Parent" };
+  const relationLabel: Record<string, string> = {
+    player: pick(locale, { ko: "선수", en: "Player", zh: "选手", ja: "選手", it: "Atleta", fr: "Joueur", es: "Jugador" }),
+    parent: pick(locale, { ko: "학부모", en: "Parent", zh: "家长", ja: "保護者", it: "Genitore", fr: "Parent", es: "Padre" }),
+  };
   const voices = await getRecentVoices();
 
   return (
@@ -46,7 +48,7 @@ export async function Testimonials() {
             href="/testimonial"
             className="text-sm font-semibold text-court transition-colors hover:text-court-deep"
           >
-            {ko ? "전체 보기 →" : "View all →"}
+            {pick(locale, { ko: "전체 보기 →", en: "View all →", zh: "查看全部 →", ja: "すべて見る →", it: "Vedi tutto →", fr: "Voir tout →", es: "Ver todo →" })}
           </Link>
         ) : null}
       </div>
@@ -55,7 +57,7 @@ export async function Testimonials() {
         <>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {voices.map((raw) => {
-              const v = localizeVoice(raw, ko);
+              const v = localizeVoice(raw, locale);
               return (
                 <Link
                   key={v.id}
@@ -78,7 +80,7 @@ export async function Testimonials() {
           </div>
           <div className="mt-10 text-center">
             <Button href="/testimonial" variant="court">
-              {ko ? "선수 · 학부모 이야기 더 보기" : "More Player & Parent Stories"}
+              {pick(locale, { ko: "선수 · 학부모 이야기 더 보기", en: "More Player & Parent Stories", zh: "更多选手与家长故事", ja: "選手・保護者の声をもっと見る", it: "Altre storie di atleti e genitori", fr: "Plus de témoignages d'athlètes et de parents", es: "Más historias de jugadores y padres" })}
             </Button>
           </div>
         </>

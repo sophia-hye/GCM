@@ -7,7 +7,6 @@ import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 
 export async function Programs() {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const { programs, programsLead } = getDict(locale);
   const ui = getUI(locale);
   const map = await getContentMap();
@@ -18,7 +17,7 @@ export async function Programs() {
         <SectionHeading
           eyebrow="Programmes"
           title={ui.programsTitle}
-          lead={cmsText(map, "section.programsLead", programsLead, ko)}
+          lead={cmsText(map, "section.programsLead", programsLead, locale)}
         />
       </Reveal>
       <Reveal className="mt-12">
@@ -46,17 +45,17 @@ export async function Programs() {
             </span>
             <h3 className="mt-4 font-display text-2xl font-bold">{p.key}</h3>
             <p className="mt-1 text-sm font-semibold text-court">
-              {cmsText(map, `program.${i}.target`, p.target, ko)}
+              {cmsText(map, `program.${i}.target`, p.target, locale)}
             </p>
             <p className="mt-1 text-xs text-muted">
-              {cmsText(map, `program.${i}.duration`, p.duration, ko)}
+              {cmsText(map, `program.${i}.duration`, p.duration, locale)}
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              {cmsText(map, `program.${i}.desc`, p.desc, ko)}
+              {cmsText(map, `program.${i}.desc`, p.desc, locale)}
             </p>
 
             <ul className="mt-5 space-y-2 text-sm text-ink/90">
-              {cmsList(map, `program.${i}.points`, p.points, ko).map((point) => (
+              {cmsList(map, `program.${i}.points`, p.points, locale).map((point) => (
                 <li key={point} className="flex gap-2">
                   <span className="text-court">·</span>
                   {point}

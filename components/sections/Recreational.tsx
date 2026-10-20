@@ -11,7 +11,6 @@ const CLASS_IMAGES: Record<string, string> = {
 
 export async function Recreational() {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const { recreational } = getDict(locale);
   const ui = getUI(locale);
   const map = await getContentMap();
@@ -21,7 +20,7 @@ export async function Recreational() {
       <SectionHeading
         eyebrow="Kids & Amateur Club"
         title={ui.recreationalTitle}
-        lead={cmsText(map, "section.recreationalLead", recreational.lead, ko)}
+        lead={cmsText(map, "section.recreationalLead", recreational.lead, locale)}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2">
         {recreational.classes.map((c) => (

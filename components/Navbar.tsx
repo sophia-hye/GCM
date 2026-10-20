@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site-data";
@@ -8,18 +8,24 @@ import { Container } from "@/components/ui";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { LocaleToggle } from "@/components/i18n/LocaleToggle";
+import type { Locale } from "@/lib/i18n-pick";
 
-const NAV_T = {
+const NAV_T: Record<Locale, { login: string; signup: string; mypage: string; logout: string }> = {
   ko: { login: "로그인", signup: "회원가입", mypage: "마이페이지", logout: "로그아웃" },
   en: { login: "Login", signup: "Sign up", mypage: "My Page", logout: "Logout" },
-} as const;
+  zh: { login: "登录", signup: "注册", mypage: "我的页面", logout: "退出" },
+  ja: { login: "ログイン", signup: "新規登録", mypage: "マイページ", logout: "ログアウト" },
+  it: { login: "Accedi", signup: "Registrati", mypage: "Area personale", logout: "Esci" },
+  fr: { login: "Connexion", signup: "S'inscrire", mypage: "Mon compte", logout: "Déconnexion" },
+  es: { login: "Acceder", signup: "Registrarse", mypage: "Mi cuenta", logout: "Cerrar sesión" },
+};
 
-/** nav 라벨은 대부분 영문이지만 한국어인 항목만 EN에서 번역 */
+/** nav 라벨은 대부분 영문이지만 한국어인 항목만 비한국어 로케일에서 번역 */
 const NAV_LABEL_EN: Record<string, string> = {
   "대표원장 인사말": "Director's Message",
 };
-function navLabel(label: string, locale: "ko" | "en"): string {
-  return locale === "en" ? NAV_LABEL_EN[label] ?? label : label;
+function navLabel(label: string, locale: Locale): string {
+  return locale === "ko" ? label : NAV_LABEL_EN[label] ?? label;
 }
 
 type NavAuth = { name: string; role: string } | null;

@@ -1,10 +1,11 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { CourtLines } from "@/components/ui";
 import { MediaFill } from "@/components/MediaFill";
 import { formatPrice, localizeProgram, type Program } from "@/lib/programs";
+import { pick, type Locale } from "@/lib/i18n-pick";
 
-export function ProgramCard({ program, ko = true }: { program: Program; ko?: boolean }) {
-  const p = localizeProgram(program, ko);
+export function ProgramCard({ program, locale }: { program: Program; locale: Locale }) {
+  const p = localizeProgram(program, locale);
   return (
     <Link href={`/store/programs/${p.slug}`} className="group block">
       <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
@@ -31,10 +32,16 @@ export function ProgramCard({ program, ko = true }: { program: Program; ko?: boo
         ) : null}
         <p className="mt-3 font-display text-base font-bold text-court-bright">
           {p.price == null
-            ? ko
-              ? "회원 전용 · 상담 문의"
-              : "Members only · Consult"
-            : formatPrice(p.price, ko)}
+            ? pick(locale, {
+                ko: "회원 전용 · 상담 문의",
+                en: "Members only · Consult",
+                zh: "会员专享 · 咨询垂询",
+                ja: "会員限定 · 相談",
+                it: "Solo soci · Consulenza",
+                fr: "Réservé aux membres · Sur demande",
+                es: "Solo socios · Consultar",
+              })
+            : formatPrice(p.price, locale)}
         </p>
       </div>
     </Link>

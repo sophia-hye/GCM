@@ -7,6 +7,7 @@ import { KB_TEXT, KIDS_REASONS } from "@/lib/kids-content";
 import { TCV_TEXT, TCV_CORE, TCV_UNIQUE, TCV_TOPCLASS } from "@/lib/tennis-core-values";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import type { Locale } from "@/lib/i18n-pick";
 
 /**
  * 콘텐츠 편집(CMS) 레지스트리 — 이중언어(한/영) 오버라이드.
@@ -262,14 +263,29 @@ export const getContentMap = cache(async (): Promise<Map<string, string>> => {
   return map;
 });
 
+/**
+ * 오버라이드 조회 로케일 결정.
+ * - boolean: 기존 시그니처(true=ko, false=en) 하위호환
+ * - Locale: ko/en 만 오버라이드가 존재하므로, 그 외 언어는 null 을 반환해
+ *   호출부의 fallback(이미 번역된 사전 값)을 그대로 쓰게 한다.
+ */
+function overrideLocale(arg: boolean | Locale): "ko" | "en" | null {
+  if (typeof arg === "boolean") return arg ? "ko" : "en";
+  if (arg === "ko" || arg === "en") return arg;
+  return null;
+}
+
 /** 단일 텍스트 리졸브. 현재 언어의 오버라이드가 있으면 적용. */
-export function cmsText(map: Map<string, string>, key: string, fallback: string, ko: boolean): string {
-  return map.get(ck(ko ? "ko" : "en", key)) ?? fallback;
+export function cmsText(map: Map<string, string>, key: string, fallback: string, loc: boolean | Locale): string {
+  const l = overrideLocale(loc);
+  if (l == null) return fallback;
+  return map.get(ck(l, key)) ?? fallback;
 }
 
 /** 문단 배열 리졸브(빈 줄 기준 분리). */
-export function cmsParas(map: Map<string, string>, key: string, fallback: string[], ko: boolean): string[] {
-  const v = map.get(ck(ko ? "ko" : "en", key));
+export function cmsParas(map: Map<string, string>, key: string, fallback: string[], loc: boolean | Locale): string[] {
+  const l = overrideLocale(loc);
+  const v = l == null ? undefined : map.get(ck(l, key));
   if (v == null) return fallback;
   const parts = v.split(/\n{2,}/).map((x) => x.trim()).filter(Boolean);
   return parts.length > 0 ? parts : fallback;
@@ -280,9 +296,10 @@ export function cmsList(
   map: Map<string, string>,
   key: string,
   fallback: readonly string[],
-  ko: boolean,
+  loc: boolean | Locale,
 ): string[] {
-  const v = map.get(ck(ko ? "ko" : "en", key));
+  const l = overrideLocale(loc);
+  const v = l == null ? undefined : map.get(ck(l, key));
   if (v == null) return [...fallback];
   const parts = v.split(/\n+/).map((x) => x.trim()).filter(Boolean);
   return parts.length > 0 ? parts : [...fallback];

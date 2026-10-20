@@ -1,29 +1,57 @@
 import { Section, SectionHeading } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getDict, getUI } from "@/lib/site-content";
 
 export async function ContactInfo() {
   const locale = await getLocale();
   const { site } = getDict(locale);
   const ui = getUI(locale);
-  const en = locale === "en";
   const phoneDigits = site.phone.replace(/\D/g, "");
 
   const L = {
-    direct: en ? "Contact us directly" : "Contact us directly",
-    directDesc: en
-      ? "You can reach us directly by phone or email."
-      : "전화 또는 이메일로 바로 연락하실 수 있습니다.",
-    phone: en ? "Phone" : "전화",
-    email: en ? "Email" : "이메일",
-    location: en ? "Location" : "위치",
-    hours: en ? "Hours" : "운영 시간",
+    direct: "Contact us directly",
+    directDesc: pick(locale, {
+      ko: "전화 또는 이메일로 바로 연락하실 수 있습니다.",
+      en: "You can reach us directly by phone or email.",
+      zh: "您可以通过电话或电子邮件直接与我们联系。",
+      ja: "お電話またはメールで直接ご連絡いただけます。",
+      it: "Puoi contattarci direttamente per telefono o email.",
+      fr: "Vous pouvez nous joindre directement par téléphone ou e-mail.",
+      es: "Puedes contactarnos directamente por teléfono o correo electrónico.",
+    }),
+    phone: pick(locale, { ko: "전화", en: "Phone", zh: "电话", ja: "電話", it: "Telefono", fr: "Téléphone", es: "Teléfono" }),
+    email: pick(locale, { ko: "이메일", en: "Email", zh: "电子邮件", ja: "メール", it: "Email", fr: "E-mail", es: "Correo electrónico" }),
+    location: pick(locale, { ko: "위치", en: "Location", zh: "位置", ja: "所在地", it: "Sede", fr: "Lieu", es: "Ubicación" }),
+    hours: pick(locale, { ko: "운영 시간", en: "Hours", zh: "营业时间", ja: "営業時間", it: "Orari", fr: "Horaires", es: "Horario" }),
     chat: "Chat with us",
-    chatDesc: en
-      ? "Reach us in real time via KakaoTalk for the fastest reply."
-      : "카카오톡으로 실시간 문의하세요. 가장 빠르게 답변드립니다.",
-    kakaoCta: en ? "Chat on KakaoTalk →" : "카카오톡으로 문의 →",
-    kakaoSoon: en ? "KakaoTalk channel coming soon" : "카카오톡 채널 준비 중",
+    chatDesc: pick(locale, {
+      ko: "카카오톡으로 실시간 문의하세요. 가장 빠르게 답변드립니다.",
+      en: "Reach us in real time via KakaoTalk for the fastest reply.",
+      zh: "通过 KakaoTalk 实时咨询，我们会最快为您答复。",
+      ja: "カカオトークでリアルタイムにお問い合わせください。最も早くお返事します。",
+      it: "Contattaci in tempo reale su KakaoTalk per la risposta più rapida.",
+      fr: "Contactez-nous en temps réel via KakaoTalk pour une réponse rapide.",
+      es: "Contáctanos en tiempo real por KakaoTalk para la respuesta más rápida.",
+    }),
+    kakaoCta: pick(locale, {
+      ko: "카카오톡으로 문의 →",
+      en: "Chat on KakaoTalk →",
+      zh: "通过 KakaoTalk 咨询 →",
+      ja: "カカオトークで問い合わせ →",
+      it: "Scrivici su KakaoTalk →",
+      fr: "Discuter sur KakaoTalk →",
+      es: "Chatear por KakaoTalk →",
+    }),
+    kakaoSoon: pick(locale, {
+      ko: "카카오톡 채널 준비 중",
+      en: "KakaoTalk channel coming soon",
+      zh: "KakaoTalk 频道即将开通",
+      ja: "カカオトークチャンネル準備中",
+      it: "Canale KakaoTalk in arrivo",
+      fr: "Canal KakaoTalk bientôt disponible",
+      es: "Canal de KakaoTalk próximamente",
+    }),
   };
 
   return (

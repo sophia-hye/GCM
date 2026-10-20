@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useState } from "react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { pick } from "@/lib/i18n-pick";
 
 /**
  * 인스타그램 피드형 정사각 그리드. 사진 클릭 시 크게 보기 라이트박스 모달.
@@ -17,6 +19,7 @@ export function AlumniGallery({
   name: string;
   ko?: boolean;
 }) {
+  const locale = useLocale();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const isOpen = openIndex !== null;
 
@@ -53,7 +56,7 @@ export function AlumniGallery({
               type="button"
               onClick={() => setOpenIndex(i)}
               className="group relative block aspect-square w-full overflow-hidden rounded-lg bg-court-deep"
-              aria-label={ko ? `${name} 사진 ${i + 1} 크게 보기` : `View ${name} photo ${i + 1}`}
+              aria-label={pick(locale, { ko: `${name} 사진 ${i + 1} 크게 보기`, en: `View ${name} photo ${i + 1}`, zh: `放大查看 ${name} 照片 ${i + 1}`, ja: `${name} の写真 ${i + 1} を拡大表示`, it: `Ingrandisci la foto ${i + 1} di ${name}`, fr: `Agrandir la photo ${i + 1} de ${name}`, es: `Ampliar la foto ${i + 1} de ${name}` })}
             >
               <Image
                 src={src}
@@ -74,14 +77,14 @@ export function AlumniGallery({
             <div
               role="dialog"
               aria-modal="true"
-              aria-label={ko ? `${name} 사진 크게 보기` : `${name} photo viewer`}
+              aria-label={pick(locale, { ko: `${name} 사진 크게 보기`, en: `${name} photo viewer`, zh: `${name} 照片查看器`, ja: `${name} の写真ビューア`, it: `Visualizzatore foto di ${name}`, fr: `Visionneuse photo de ${name}`, es: `Visor de fotos de ${name}` })}
               onClick={close}
               className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-8"
             >
           <button
             type="button"
             onClick={close}
-            aria-label={ko ? "닫기" : "Close"}
+            aria-label={pick(locale, { ko: "닫기", en: "Close", zh: "关闭", ja: "閉じる", it: "Chiudi", fr: "Fermer", es: "Cerrar" })}
             className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
           >
             &times;
@@ -95,7 +98,7 @@ export function AlumniGallery({
                   e.stopPropagation();
                   show(-1);
                 }}
-                aria-label={ko ? "이전 사진" : "Previous photo"}
+                aria-label={pick(locale, { ko: "이전 사진", en: "Previous photo", zh: "上一张照片", ja: "前の写真", it: "Foto precedente", fr: "Photo précédente", es: "Foto anterior" })}
                 className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20 sm:left-6"
               >
                 &#8249;
@@ -106,7 +109,7 @@ export function AlumniGallery({
                   e.stopPropagation();
                   show(1);
                 }}
-                aria-label={ko ? "다음 사진" : "Next photo"}
+                aria-label={pick(locale, { ko: "다음 사진", en: "Next photo", zh: "下一张照片", ja: "次の写真", it: "Foto successiva", fr: "Photo suivante", es: "Foto siguiente" })}
                 className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20 sm:right-6"
               >
                 &#8250;

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import type { ConsultingExtra } from "@/lib/consulting-content";
 import { Container } from "@/components/ui";
 import { Icon } from "@/components/sections/consulting/Icon";

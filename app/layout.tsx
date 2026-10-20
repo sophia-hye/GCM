@@ -6,6 +6,8 @@ import { SITE_URL } from "@/lib/site-url";
 import { StructuredData } from "@/components/StructuredData";
 import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 import { getLocale } from "@/lib/i18n";
+import { OG_LOCALES, localePrefix, pick } from "@/lib/i18n-pick";
+import { languageAlternates } from "@/lib/page-metadata";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -26,11 +28,25 @@ const SITE_DESCRIPTION_EN =
   "Elite player development | ATP/WTA/ITF pro & junior intensive training | Pathway to U.S. college tennis (NCAA)";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const ko = (await getLocale()) === "ko";
-  const title = ko
-    ? "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학"
-    : "GCM Tennis Academy | Elite Player Development · Study Abroad · NCAA";
-  const description = ko ? SITE_DESCRIPTION_KO : SITE_DESCRIPTION_EN;
+  const locale = await getLocale();
+  const title = pick(locale, {
+    ko: "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학",
+    en: "GCM Tennis Academy | Elite Player Development · Study Abroad · NCAA",
+    zh: "GCM 网球学院 | 精英选手培养 · 网球留学 · NCAA 升学",
+    ja: "GCM テニスアカデミー | エリート選手育成 · テニス留学 · NCAA 進学",
+    it: "GCM Tennis Academy | Sviluppo di atleti d'élite · Studio all'estero · NCAA",
+    fr: "GCM Tennis Academy | Formation de joueurs d'élite · Études à l'étranger · NCAA",
+    es: "GCM Tennis Academy | Formación de jugadores de élite · Estudios en el extranjero · NCAA",
+  });
+  const description = pick(locale, {
+    ko: SITE_DESCRIPTION_KO,
+    en: SITE_DESCRIPTION_EN,
+    zh: "精英选手培养 | ATP·WTA·ITF 职业/青少年集训 | 通往美国大学网球（NCAA 升学）",
+    ja: "エリート選手育成 | ATP·WTA·ITF プロ/ジュニア集中トレーニング | 米国大学テニスへの道（NCAA 進学）",
+    it: "Sviluppo di giocatori d'élite | Allenamento intensivo pro e junior ATP/WTA/ITF | Percorso verso il tennis universitario USA (NCAA)",
+    fr: "Formation de joueurs d'élite | Entraînement intensif pro et junior ATP/WTA/ITF | Voie vers le tennis universitaire américain (NCAA)",
+    es: "Formación de jugadores de élite | Entrenamiento intensivo pro y júnior ATP/WTA/ITF | Vía al tenis universitario de EE. UU. (NCAA)",
+  });
   return {
     metadataBase: new URL(SITE_URL),
     title,
@@ -46,14 +62,22 @@ export async function generateMetadata(): Promise<Metadata> {
       "UTR",
       "오성국",
     ],
-    alternates: { canonical: "/" },
+    alternates: { canonical: localePrefix(locale) || "/", languages: languageAlternates("/") },
     openGraph: {
       title,
       description,
       type: "website",
-      locale: ko ? "ko_KR" : "en_US",
+      locale: OG_LOCALES[locale],
       url: SITE_URL,
-      siteName: ko ? "GCM 테니스 아카데미" : "GCM Tennis Academy",
+      siteName: pick(locale, {
+        ko: "GCM 테니스 아카데미",
+        en: "GCM Tennis Academy",
+        zh: "GCM 网球学院",
+        ja: "GCM テニスアカデミー",
+        it: "GCM Tennis Academy",
+        fr: "GCM Tennis Academy",
+        es: "GCM Tennis Academy",
+      }),
     },
     twitter: {
       card: "summary_large_image",

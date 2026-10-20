@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -7,6 +7,7 @@ import { PurchaseButton } from "@/components/PurchaseButton";
 import { MediaFill } from "@/components/MediaFill";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { formatPrice, localizeProgram, type Program } from "@/lib/programs";
 
 async function getProgram(slug: string): Promise<Program | null> {
@@ -57,16 +58,42 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const raw = await getProgram(slug);
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
+  const ko = locale === "ko";
   if (!raw)
-    return { title: ko ? "Education Program | GCM 테니스 아카데미" : "Education Program | GCM Tennis Academy" };
-  const program = localizeProgram(raw, ko);
+    return {
+      title: pick(locale, {
+        ko: "Education Program | GCM 테니스 아카데미",
+        en: "Education Program | GCM Tennis Academy",
+        zh: "Education Program | GCM Tennis Academy",
+        ja: "Education Program | GCM Tennis Academy",
+        it: "Education Program | GCM Tennis Academy",
+        fr: "Education Program | GCM Tennis Academy",
+        es: "Education Program | GCM Tennis Academy",
+      }),
+    };
+  const program = localizeProgram(raw, locale);
   return pageMetadata({
-    title: ko
-      ? `${program.title} | GCM 테니스 아카데미`
-      : `${program.title} | GCM Tennis Academy`,
+    title: pick(locale, {
+      ko: `${program.title} | GCM 테니스 아카데미`,
+      en: `${program.title} | GCM Tennis Academy`,
+      zh: `${program.title} | GCM Tennis Academy`,
+      ja: `${program.title} | GCM Tennis Academy`,
+      it: `${program.title} | GCM Tennis Academy`,
+      fr: `${program.title} | GCM Tennis Academy`,
+      es: `${program.title} | GCM Tennis Academy`,
+    }),
     description:
-      program.summary || (ko ? "GCM 교육 프로그램 상세 안내." : "GCM education program details."),
+      program.summary ||
+      pick(locale, {
+        ko: "GCM 교육 프로그램 상세 안내.",
+        en: "GCM education program details.",
+        zh: "GCM 教育项目详情介绍。",
+        ja: "GCM教育プログラムの詳細案内。",
+        it: "Dettagli del programma educativo GCM.",
+        fr: "Détails du programme éducatif GCM.",
+        es: "Detalles del programa educativo de GCM.",
+      }),
     path: `/store/programs/${program.slug}`,
   });
 }
@@ -80,8 +107,9 @@ export default async function ProgramDetailPage({
   const raw = await getProgram(slug);
   if (!raw) notFound();
 
-  const ko = (await getLocale()) === "ko";
-  const program = localizeProgram(raw, ko);
+  const locale = await getLocale();
+  const ko = locale === "ko";
+  const program = localizeProgram(raw, locale);
   const { intro, sections } = program.description
     ? parseDescription(program.description)
     : { intro: [], sections: [] };
@@ -101,7 +129,16 @@ export default async function ProgramDetailPage({
             href="/store/programs"
             className="text-sm font-semibold text-white/70 transition-colors hover:text-white"
           >
-            ← {ko ? "프로그램 목록" : "All programs"}
+            ←{" "}
+            {pick(locale, {
+              ko: "프로그램 목록",
+              en: "All programs",
+              zh: "项目列表",
+              ja: "プログラム一覧",
+              it: "Tutti i programmi",
+              fr: "Tous les programmes",
+              es: "Todos los programas",
+            })}
           </Link>
           <p className="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-[#d4ff3d]">
             Education Program
@@ -162,14 +199,28 @@ export default async function ProgramDetailPage({
           <aside className="lg:sticky lg:top-24">
             <div className="rounded-2xl border border-line bg-card p-6">
               <p className="text-xs font-semibold uppercase tracking-widest text-muted">
-                {ko ? "참가 안내" : "Enrollment"}
+                {pick(locale, {
+                  ko: "참가 안내",
+                  en: "Enrollment",
+                  zh: "参加指引",
+                  ja: "参加のご案内",
+                  it: "Iscrizione",
+                  fr: "Inscription",
+                  es: "Inscripción",
+                })}
               </p>
               {program.price == null ? (
                 <>
                   <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-ink/85">
-                    {ko
-                      ? "회원 또는 회원의 지인만 지원 가능합니다."
-                      : "Open to GCM members and their acquaintances only."}
+                    {pick(locale, {
+                      ko: "회원 또는 회원의 지인만 지원 가능합니다.",
+                      en: "Open to GCM members and their acquaintances only.",
+                      zh: "仅限会员或会员的熟人申请。",
+                      ja: "会員または会員のご友人のみお申し込みいただけます。",
+                      it: "Riservato ai membri GCM e ai loro conoscenti.",
+                      fr: "Réservé aux membres GCM et à leurs proches.",
+                      es: "Solo para miembros de GCM y sus conocidos.",
+                    })}
                   </p>
                   {program.duration ? (
                     <p className="mt-2 text-sm text-muted">{program.duration}</p>
@@ -178,19 +229,27 @@ export default async function ProgramDetailPage({
                     href="/consulting"
                     className="mt-5 block w-full rounded-full bg-court px-6 py-3.5 text-center text-sm font-bold text-white transition hover:bg-court-deep"
                   >
-                    {ko ? "상담하기" : "Request consultation"}
+                    {pick(locale, {
+                      ko: "상담하기",
+                      en: "Request consultation",
+                      zh: "咨询",
+                      ja: "相談する",
+                      it: "Richiedi una consulenza",
+                      fr: "Demander une consultation",
+                      es: "Solicitar consulta",
+                    })}
                   </Link>
                 </>
               ) : (
                 <>
                   <p className="mt-2 font-display text-2xl font-black text-court-bright">
-                    {formatPrice(program.price, ko)}
+                    {formatPrice(program.price, locale)}
                   </p>
                   {program.duration ? (
                     <p className="mt-2 text-sm text-muted">{program.duration}</p>
                   ) : null}
                   <div className="mt-5">
-                    <PurchaseButton programId={program.id} price={program.price} ko={ko} />
+                    <PurchaseButton programId={program.id} price={program.price} />
                   </div>
                 </>
               )}
@@ -201,7 +260,17 @@ export default async function ProgramDetailPage({
         {/* 갤러리 (대표 이미지 제외한 나머지) */}
         {program.images.length > 1 ? (
           <div className="mt-14 border-t border-line pt-10">
-            <h2 className="font-display text-lg font-bold">{ko ? "갤러리" : "Gallery"}</h2>
+            <h2 className="font-display text-lg font-bold">
+              {pick(locale, {
+                ko: "갤러리",
+                en: "Gallery",
+                zh: "画廊",
+                ja: "ギャラリー",
+                it: "Galleria",
+                fr: "Galerie",
+                es: "Galería",
+              })}
+            </h2>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {program.images.slice(1).map((src, i) => (
                 <div

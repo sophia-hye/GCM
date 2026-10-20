@@ -1,3 +1,5 @@
+import { pick, toLocale, type Locale, type I18nMap } from "@/lib/i18n-pick";
+
 export type Program = {
   id: string;
   slug: string;
@@ -15,24 +17,38 @@ export type Program = {
   summary_en?: string | null;
   description_en?: string | null;
   duration_en?: string | null;
+  i18n?: I18nMap;
 };
 
-/** 영문 로케일이면 *_en 값(없으면 한글)으로 치환한 Program 을 반환 */
-export function localizeProgram(p: Program, ko: boolean): Program {
-  if (ko) return p;
+/** 로케일별 표시값. ko→원본, 그 외→i18n[locale] → *_en → 한국어 폴백. */
+export function localizeProgram(p: Program, loc: boolean | Locale): Program {
+  const locale = toLocale(loc);
+  if (locale === "ko") return p;
+  const tr = p.i18n?.[locale];
   return {
     ...p,
-    title: p.title_en || p.title,
-    summary: p.summary_en ?? p.summary,
-    description: p.description_en ?? p.description,
-    duration: p.duration_en ?? p.duration,
+    title: tr?.title || p.title_en || p.title,
+    summary: tr?.summary ?? p.summary_en ?? p.summary,
+    description: tr?.description ?? p.description_en ?? p.description,
+    duration: tr?.duration ?? p.duration_en ?? p.duration,
   };
 }
 
 /** 원(KRW) 정수를 표시용 문자열로. null 이면 '가격 문의' */
-export function formatPrice(price: number | null, ko = true): string {
-  if (price == null) return ko ? "가격 문의" : "Contact for price";
-  return ko ? `${price.toLocaleString("ko-KR")}원` : `KRW ${price.toLocaleString("en-US")}`;
+export function formatPrice(price: number | null, loc: boolean | Locale = true): string {
+  const locale = toLocale(loc);
+  if (price == null)
+    return pick(locale, {
+      ko: "가격 문의",
+      en: "Contact for price",
+      zh: "价格请咨询",
+      ja: "価格はお問い合わせ",
+      it: "Prezzo su richiesta",
+      fr: "Prix sur demande",
+      es: "Precio a consultar",
+    });
+  if (locale === "ko") return `${price.toLocaleString("ko-KR")}원`;
+  return `KRW ${price.toLocaleString("en-US")}`;
 }
 
 /** 제목에서 slug 후보 생성(한글은 랜덤 접미사로 유일성 확보) */

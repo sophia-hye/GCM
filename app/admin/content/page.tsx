@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { createClient } from "@/lib/supabase/server";
 import { CMS_FIELDS, CMS_SECTIONS } from "@/lib/cms";
 import { ContentFieldForm } from "@/app/admin/content/ContentFieldForm";

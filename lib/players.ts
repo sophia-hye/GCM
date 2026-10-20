@@ -1,3 +1,5 @@
+import { pick, toLocale, type Locale, type I18nText, type I18nMap } from "@/lib/i18n-pick";
+
 export type PlayerTrack = "professional" | "college";
 
 export type Player = {
@@ -27,52 +29,58 @@ export type Player = {
   description_en: string | null;
   coach_note_en: string | null;
   birthplace_en: string | null;
+  i18n?: I18nMap;
   sort_order: number;
   published: boolean;
 };
 
 // 표준화된 짧은 프로필 값은 매핑으로 번역(선수별 컬럼 불필요)
-const PLAYS_EN: Record<string, string> = {
-  오른손: "Right-handed",
-  왼손: "Left-handed",
-  "오른손/왼손": "Right / Left-handed",
+const PLAYS: Record<string, I18nText> = {
+  오른손: { ko: "오른손", en: "Right-handed", zh: "右手", ja: "右利き", it: "Destro", fr: "Droitier", es: "Diestro" },
+  왼손: { ko: "왼손", en: "Left-handed", zh: "左手", ja: "左利き", it: "Mancino", fr: "Gaucher", es: "Zurdo" },
+  "오른손/왼손": { ko: "오른손/왼손", en: "Right / Left-handed", zh: "右手/左手", ja: "右利き/左利き", it: "Destro / Mancino", fr: "Droitier / Gaucher", es: "Diestro / Zurdo" },
 };
-const BACKHAND_EN: Record<string, string> = {
-  양손백핸드: "Two-handed backhand",
-  한손백핸드: "One-handed backhand",
-  양손: "Two-handed",
-  한손: "One-handed",
+const BACKHAND: Record<string, I18nText> = {
+  양손백핸드: { ko: "양손백핸드", en: "Two-handed backhand", zh: "双手反拍", ja: "両手バックハンド", it: "Rovescio a due mani", fr: "Revers à deux mains", es: "Revés a dos manos" },
+  한손백핸드: { ko: "한손백핸드", en: "One-handed backhand", zh: "单手反拍", ja: "片手バックハンド", it: "Rovescio a una mano", fr: "Revers à une main", es: "Revés a una mano" },
+  양손: { ko: "양손", en: "Two-handed", zh: "双手", ja: "両手", it: "A due mani", fr: "À deux mains", es: "A dos manos" },
+  한손: { ko: "한손", en: "One-handed", zh: "单手", ja: "片手", it: "A una mano", fr: "À une main", es: "A una mano" },
 };
-const NATIONALITY_EN: Record<string, string> = {
-  대한민국: "Korea",
-  한국: "Korea",
-  "대한민국 / 미국": "Korea / USA",
+const NATIONALITY: Record<string, I18nText> = {
+  대한민국: { ko: "대한민국", en: "Korea", zh: "韩国", ja: "韓国", it: "Corea", fr: "Corée", es: "Corea" },
+  한국: { ko: "한국", en: "Korea", zh: "韩国", ja: "韓国", it: "Corea", fr: "Corée", es: "Corea" },
+  "대한민국 / 미국": { ko: "대한민국 / 미국", en: "Korea / USA", zh: "韩国 / 美国", ja: "韓国 / アメリカ", it: "Corea / USA", fr: "Corée / États-Unis", es: "Corea / EE. UU." },
 };
-function mapEn(map: Record<string, string>, v: string | null): string | null {
+function mapShort(map: Record<string, I18nText>, v: string | null, locale: Locale): string | null {
   if (!v) return v;
-  return map[v.trim()] ?? v;
+  const m = map[v.trim()];
+  return m ? pick(locale, m) : v;
 }
 
-/** 로케일에 맞춰 선수 표시 값을 선택(EN이면 *_en 우선, 없으면 한국어 폴백) */
-export function localizePlayer(p: Player, ko: boolean): Player {
-  if (ko) return p;
+/** 로케일에 맞춰 선수 표시 값을 선택. ko→원본, 그 외→i18n[locale] → *_en → 한국어 폴백. */
+export function localizePlayer(p: Player, loc: boolean | Locale): Player {
+  const locale = toLocale(loc);
+  if (locale === "ko") return p;
+  const tr = p.i18n?.[locale];
+  const f = (field: string, en: string | null): string | null =>
+    (tr?.[field] ?? null) || en || ((p as unknown as Record<string, string | null>)[field] ?? null);
   return {
     ...p,
-    name: p.name_en || p.name,
-    bio: p.bio_en || p.bio,
-    result: p.result_en || p.result,
-    description: p.description_en || p.description,
-    coach_note: p.coach_note_en || p.coach_note,
-    birthplace: p.birthplace_en || p.birthplace,
-    plays: mapEn(PLAYS_EN, p.plays),
-    backhand: mapEn(BACKHAND_EN, p.backhand),
-    nationality: mapEn(NATIONALITY_EN, p.nationality),
+    name: f("name", p.name_en) || p.name,
+    bio: f("bio", p.bio_en),
+    result: f("result", p.result_en),
+    description: f("description", p.description_en),
+    coach_note: f("coach_note", p.coach_note_en),
+    birthplace: f("birthplace", p.birthplace_en),
+    plays: mapShort(PLAYS, p.plays, locale),
+    backhand: mapShort(BACKHAND, p.backhand, locale),
+    nationality: mapShort(NATIONALITY, p.nationality, locale),
   };
 }
 
-export const TRACK_LABEL: Record<PlayerTrack, { ko: string; en: string }> = {
-  professional: { ko: "프로", en: "Pro" },
-  college: { ko: "대학", en: "College" },
+export const TRACK_LABEL: Record<PlayerTrack, I18nText> = {
+  professional: { ko: "프로", en: "Pro", zh: "职业", ja: "プロ", it: "Pro", fr: "Pro", es: "Pro" },
+  college: { ko: "대학", en: "College", zh: "大学", ja: "大学", it: "Università", fr: "Université", es: "Universidad" },
 };
 
 /** 이름에서 slug 후보 생성(한글은 랜덤 접미사로 유일성 확보) */

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { AlumniGallery } from "@/components/alumni/AlumniGallery";
 import { SITE_URL } from "@/lib/site-url";
 import { localizeAlumni, type Alumni } from "@/lib/alumni";
+import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 
 function AlumniJsonLd({ alumni }: { alumni: Alumni }) {
   const person: Record<string, unknown> = {
@@ -37,8 +39,9 @@ function AlumniJsonLd({ alumni }: { alumni: Alumni }) {
 }
 
 /** Alumni 한 명의 전체 스토리 — 헤더 + 편지 본문 + 관련 기사 + 사진 그리드 */
-export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
-  const a = localizeAlumni(alumni, ko);
+export async function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
+  const locale = await getLocale();
+  const a = localizeAlumni(alumni, locale);
   return (
     <article id={alumni.slug} className="mx-auto max-w-3xl">
       <AlumniJsonLd alumni={alumni} />
@@ -160,7 +163,7 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
       {a.articles.length ? (
         <section className="mt-14">
           <h3 className="mb-5 font-display text-xl font-bold tracking-tight">
-            {ko ? "관련 기사" : "In the News"}
+            {pick(locale, { ko: "관련 기사", en: "In the News", zh: "相关报道", ja: "関連記事", it: "Nella stampa", fr: "Dans la presse", es: "En las noticias" })}
           </h3>
           <div className="grid gap-4 sm:grid-cols-2">
             {a.articles.map((ar) => (
@@ -188,7 +191,7 @@ export function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
                     {ar.title}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-court transition-colors group-hover:text-court-deep">
-                    {ko ? "기사 보기" : "Read article"}
+                    {pick(locale, { ko: "기사 보기", en: "Read article", zh: "阅读报道", ja: "記事を読む", it: "Leggi l'articolo", fr: "Lire l'article", es: "Leer artículo" })}
                     <span className="transition-transform group-hover:translate-x-0.5">↗</span>
                   </span>
                 </div>

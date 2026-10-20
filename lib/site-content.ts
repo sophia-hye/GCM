@@ -1,5 +1,8 @@
 import * as ko from "@/lib/site-data";
 import type { Locale } from "@/lib/i18n";
+import { uiByLocale, buildDictSections } from "@/lib/site-content-i18n";
+import { buildCoreSections } from "@/lib/site-content-i18n-core";
+import { directorMessageByLocale } from "@/lib/director-message-i18n";
 
 /**
  * 이중언어 콘텐츠 사전.
@@ -459,8 +462,46 @@ const koDict = {
 
 export type Dict = typeof enDict;
 
+/**
+ * 로케일별 사전. ko → 한국어, 그 외 → 영어를 기준으로 하되
+ * 번역이 추가된 섹션은 localeDicts 에서 덮어쓴다(영어 폴백).
+ */
+const dictSections = buildDictSections({
+  heroSlides: enHeroSlides,
+  stats: enStats,
+  whoWeAre: enWhoWeAre,
+  programs: enPrograms,
+  faqContact: enFaqContact,
+  recreational: enRecreational,
+  siteGuide: enSiteGuide,
+});
+
+const coreSections = buildCoreSections({
+  founding: enFounding,
+  developmentSteps: enDevelopmentSteps,
+  totalCare: enTotalCare,
+  tracks: enTracks,
+  processSteps: enProcessSteps,
+  scholarship: enScholarship,
+  consulting: enConsulting,
+  team: enTeam,
+});
+
+const localeDicts: Partial<Record<Locale, Dict>> = Object.fromEntries(
+  (Object.keys(dictSections) as Locale[]).map((l) => [
+    l,
+    {
+      ...enDict,
+      ...dictSections[l],
+      ...coreSections[l],
+      directorMessage: { ...enDirectorMessage, ...directorMessageByLocale[l] },
+    } as Dict,
+  ]),
+);
+
 export function getDict(locale: Locale): Dict {
-  return locale === "en" ? enDict : (koDict as unknown as Dict);
+  if (locale === "ko") return koDict as unknown as Dict;
+  return localeDicts[locale] ?? enDict;
 }
 
 /** 컴포넌트 하드코딩 UI 문자열 (섹션 제목 등) */
@@ -529,6 +570,12 @@ export const UI = {
   },
 } as const;
 
-export function getUI(locale: Locale) {
-  return locale === "en" ? UI.en : UI.ko;
+type UiStrings = { [K in keyof typeof UI.en]: string };
+
+/** 로케일별 UI 문자열. ko → 한국어, 그 외 → 영어 기준(번역 추가 시 덮어쓰기). */
+const localeUI: Partial<Record<Locale, UiStrings>> = uiByLocale;
+
+export function getUI(locale: Locale): UiStrings {
+  if (locale === "ko") return UI.ko;
+  return localeUI[locale] ?? UI.en;
 }

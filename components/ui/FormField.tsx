@@ -1,12 +1,15 @@
-import { fieldLabel, fieldOptions, type FormFieldDef } from "@/lib/forms";
+import { fieldLabel, fieldOptions, fieldPlaceholder, type FormFieldDef } from "@/lib/forms";
 import { PhoneInput } from "@/components/ui/PhoneInput";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { pick } from "@/lib/i18n-pick";
 
 const BASE =
   "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-court-bright";
 
-export function FormField({ field, ko = true }: { field: FormFieldDef; ko?: boolean }) {
-  const label = fieldLabel(field, ko);
-  const placeholder = ko ? field.placeholder : field.placeholderEn ?? field.placeholder;
+export function FormField({ field }: { field: FormFieldDef }) {
+  const locale = useLocale();
+  const label = fieldLabel(field, locale);
+  const placeholder = fieldPlaceholder(field, locale);
 
   return (
     <div className={field.full ? "sm:col-span-2" : ""}>
@@ -18,9 +21,17 @@ export function FormField({ field, ko = true }: { field: FormFieldDef; ko?: bool
       {field.type === "select" ? (
         <select name={field.name} required={field.required} defaultValue="" className={BASE}>
           <option value="" disabled>
-            {ko ? "선택" : "Select"}
+            {pick(locale, {
+              ko: "선택",
+              en: "Select",
+              zh: "选择",
+              ja: "選択",
+              it: "Seleziona",
+              fr: "Sélectionner",
+              es: "Seleccionar",
+            })}
           </option>
-          {fieldOptions(field, ko).map((o) => (
+          {fieldOptions(field, locale).map((o) => (
             <option key={o.value} value={o.value}>
               {o.label}
             </option>

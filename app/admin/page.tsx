@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "관리자 콘솔 | GCM" };

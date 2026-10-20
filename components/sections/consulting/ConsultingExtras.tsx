@@ -15,29 +15,28 @@ import { ConsultingFaq } from "@/components/sections/consulting/ConsultingFaq";
  */
 export async function ConsultingExtras() {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const extra = getConsultingExtra(locale);
   const map = await getContentMap();
 
   const hero = {
     ...extra.hero,
-    title: cmsText(map, "cx.hero.title", extra.hero.title, ko),
-    sub: cmsText(map, "cx.hero.sub", extra.hero.sub, ko),
+    title: cmsText(map, "cx.hero.title", extra.hero.title, locale),
+    sub: cmsText(map, "cx.hero.sub", extra.hero.sub, locale),
   };
   const philosophy = {
     ...extra.philosophy,
-    title: cmsText(map, "cx.philosophy.title", extra.philosophy.title, ko),
-    paragraphs: cmsParas(map, "cx.philosophy.paragraphs", extra.philosophy.paragraphs, ko),
+    title: cmsText(map, "cx.philosophy.title", extra.philosophy.title, locale),
+    paragraphs: cmsParas(map, "cx.philosophy.paragraphs", extra.philosophy.paragraphs, locale),
   };
   const investment = {
     ...extra.investment,
-    title: cmsText(map, "cx.investment.title", extra.investment.title, ko),
-    sub: cmsText(map, "cx.investment.sub", extra.investment.sub, ko),
+    title: cmsText(map, "cx.investment.title", extra.investment.title, locale),
+    sub: cmsText(map, "cx.investment.sub", extra.investment.sub, locale),
   };
   const roleModels = {
     ...extra.roleModels,
-    title: cmsText(map, "cx.roleModels.title", extra.roleModels.title, ko),
-    lead: cmsText(map, "cx.roleModels.lead", extra.roleModels.lead, ko),
+    title: cmsText(map, "cx.roleModels.title", extra.roleModels.title, locale),
+    lead: cmsText(map, "cx.roleModels.lead", extra.roleModels.lead, locale),
   };
 
   return (

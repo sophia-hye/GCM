@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { createClient } from "@/lib/supabase/server";

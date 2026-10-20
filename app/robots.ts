@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-url";
+import { PREFIXED_LOCALES } from "@/lib/i18n-pick";
 
 /** 비공개(인증/관리/내부) 경로 — 모든 크롤러 공통 차단 */
-const DISALLOW = [
+const PRIVATE_PATHS = [
   "/admin",
   "/dashboard",
   "/match-feedback",
@@ -16,6 +17,12 @@ const DISALLOW = [
   "/reset-password",
   "/welcome",
   "/logout",
+];
+
+// 언어 접두어 버전(/en/login 등)도 함께 차단한다.
+const DISALLOW = [
+  ...PRIVATE_PATHS,
+  ...PREFIXED_LOCALES.flatMap((l) => PRIVATE_PATHS.map((p) => `/${l}${p}`)),
 ];
 
 /**
