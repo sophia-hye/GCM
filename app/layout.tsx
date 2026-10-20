@@ -6,7 +6,8 @@ import { SITE_URL } from "@/lib/site-url";
 import { StructuredData } from "@/components/StructuredData";
 import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 import { getLocale } from "@/lib/i18n";
-import { OG_LOCALES, pick } from "@/lib/i18n-pick";
+import { OG_LOCALES, localePrefix, pick } from "@/lib/i18n-pick";
+import { languageAlternates } from "@/lib/page-metadata";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -61,7 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "UTR",
       "오성국",
     ],
-    alternates: { canonical: "/" },
+    alternates: { canonical: localePrefix(locale) || "/", languages: languageAlternates("/") },
     openGraph: {
       title,
       description,
