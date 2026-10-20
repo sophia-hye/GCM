@@ -19,7 +19,7 @@ async function getRecentVoices(): Promise<Voice[]> {
     const supabase = await createClient();
     const { data } = await supabase
       .from("gcm_voices")
-      .select("id, relation, author_name, title, body, title_en, body_en, author_name_en")
+      .select("id, relation, author_name, title, body, title_en, body_en, author_name_en, i18n")
       .eq("status", "published")
       .order("published_at", { ascending: false })
       .limit(3);

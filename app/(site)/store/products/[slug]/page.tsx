@@ -15,7 +15,7 @@ async function getProduct(slug: string): Promise<StoreProduct | null> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("gcm_products")
-    .select("id, slug, title, summary, description, price, duration, image, sort_order, published")
+    .select("id, slug, title, summary, description, price, duration, image, sort_order, published, i18n")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
