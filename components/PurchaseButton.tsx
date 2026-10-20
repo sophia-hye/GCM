@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { useState } from "react";
 import { formatPrice } from "@/lib/programs";
 import { useLocale } from "@/components/i18n/LocaleProvider";

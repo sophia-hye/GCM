@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";

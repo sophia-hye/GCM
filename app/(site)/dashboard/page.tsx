@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "대시보드 | GCM 아카데미" };

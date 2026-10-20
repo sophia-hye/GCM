@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { pageMetadata } from "@/lib/page-metadata";
 import { Section, SectionHeading, Container } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";

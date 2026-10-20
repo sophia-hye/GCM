@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import Image from "next/image";
 import { Section } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import type { ReactNode } from "react";
 import { site } from "@/lib/site-data";
 import { getLocale, type Locale } from "@/lib/i18n";

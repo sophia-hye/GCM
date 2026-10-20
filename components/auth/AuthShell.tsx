@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import type { ReactNode } from "react";
 import { CourtLines } from "@/components/ui";
 import { useLocale } from "@/components/i18n/LocaleProvider";

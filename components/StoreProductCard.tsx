@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { CourtLines } from "@/components/ui";
 import { formatPrice } from "@/lib/programs";
 import { localizeProduct, type StoreProduct } from "@/lib/store-products";

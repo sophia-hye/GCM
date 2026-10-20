@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick } from "@/lib/i18n-pick";

@@ -1,26 +1,30 @@
 "use client";
 
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { setLocale } from "@/app/actions/locale";
+import { usePathname } from "next/navigation";
 import { useLocale } from "@/components/i18n/LocaleProvider";
-import { LOCALES, LOCALE_LABELS, LOCALE_NAMES, type Locale } from "@/lib/i18n-pick";
+import {
+  LOCALES,
+  LOCALE_LABELS,
+  LOCALE_NAMES,
+  localeFromPath,
+  localePrefix,
+  type Locale,
+} from "@/lib/i18n-pick";
 
 export function LocaleToggle({ light = false }: { light?: boolean }) {
   const locale = useLocale();
-  const router = useRouter();
-  const [pending, startTransition] = useTransition();
+  const pathname = usePathname();
 
   const choose = (next: Locale) => {
-    if (next === locale || pending) return;
-    startTransition(async () => {
-      await setLocale(next);
-      router.refresh();
-    });
+    if (next === locale) return;
+    const { rest } = localeFromPath(pathname);
+    const target = `${localePrefix(next)}${rest}` || "/";
+    // 로케일 전환은 전체 내비게이션으로 — 같은 내부 경로 rewrite 로 인한
+    // 클라이언트 라우터 캐시 재사용을 피해 새 로케일로 확실히 렌더한다.
+    window.location.assign(target + window.location.search + window.location.hash);
   };
 
-  const base =
-    "rounded-full px-2 py-0.5 text-xs font-semibold transition-colors";
+  const base = "rounded-full px-2 py-0.5 text-xs font-semibold transition-colors";
   const activeCls = light ? "bg-white/90 text-ink" : "bg-court text-white";
   const idleCls = light ? "text-white/70 hover:text-white" : "text-muted hover:text-ink";
 

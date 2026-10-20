@@ -1,6 +1,6 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { PageJsonLd } from "@/components/PageJsonLd";
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";

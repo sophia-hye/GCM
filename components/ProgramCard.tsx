@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { CourtLines } from "@/components/ui";
 import { MediaFill } from "@/components/MediaFill";
 import { formatPrice, localizeProgram, type Program } from "@/lib/programs";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/i18n/Link";
 import { COACHES, COACH_COLOR, UNASSIGNED_COLOR, coachColor } from "./coaches";
 
 type CalBooking = {
