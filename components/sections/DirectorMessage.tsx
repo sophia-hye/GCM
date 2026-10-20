@@ -11,12 +11,12 @@ export async function DirectorMessage() {
   const { directorMessage: d } = getDict(locale);
   const map = await getContentMap();
 
-  const eyebrow = cmsText(map, "director.eyebrow", d.eyebrow, ko);
-  const title = cmsText(map, "director.title", d.title, ko);
-  const before = cmsParas(map, "director.before", d.before, ko);
-  const quote = cmsText(map, "director.quote", d.quote, ko);
-  const after = cmsParas(map, "director.after", d.after, ko);
-  const signature = cmsText(map, "director.signature", d.signature, ko);
+  const eyebrow = cmsText(map, "director.eyebrow", d.eyebrow, locale);
+  const title = cmsText(map, "director.title", d.title, locale);
+  const before = cmsParas(map, "director.before", d.before, locale);
+  const quote = cmsText(map, "director.quote", d.quote, locale);
+  const after = cmsParas(map, "director.after", d.after, locale);
+  const signature = cmsText(map, "director.signature", d.signature, locale);
 
   return (
     <Section id="director-message">

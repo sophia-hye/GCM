@@ -1,6 +1,7 @@
 import * as ko from "@/lib/site-data";
 import type { Locale } from "@/lib/i18n";
 import { uiByLocale, buildDictSections } from "@/lib/site-content-i18n";
+import { directorMessageByLocale } from "@/lib/director-message-i18n";
 
 /**
  * 이중언어 콘텐츠 사전.
@@ -475,7 +476,14 @@ const dictSections = buildDictSections({
 });
 
 const localeDicts: Partial<Record<Locale, Dict>> = Object.fromEntries(
-  (Object.keys(dictSections) as Locale[]).map((l) => [l, { ...enDict, ...dictSections[l] } as Dict]),
+  (Object.keys(dictSections) as Locale[]).map((l) => [
+    l,
+    {
+      ...enDict,
+      ...dictSections[l],
+      directorMessage: { ...enDirectorMessage, ...directorMessageByLocale[l] },
+    } as Dict,
+  ]),
 );
 
 export function getDict(locale: Locale): Dict {
