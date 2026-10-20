@@ -1,15 +1,17 @@
 import { Section, SectionHeading, Container } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { site } from "@/lib/site-data";
 import { getContentMap, cmsText } from "@/lib/cms";
 import { KB_TEXT, KIDS_REASONS, type Bi } from "@/lib/kids-content";
 
 export async function KidsBenefits() {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
+  const ko = locale === "ko";
   const map = await getContentMap();
-  const t = (b: Bi) => (ko ? b.ko : b.en);
-  const cx = (key: string, b: Bi) => cmsText(map, key, t(b), ko);
+  const t = (b: Bi) => pick(locale, b);
+  const cx = (key: string, b: Bi) => cmsText(map, key, t(b), locale);
 
   return (
     <>
