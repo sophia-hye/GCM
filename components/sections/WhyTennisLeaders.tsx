@@ -3,14 +3,16 @@ import Link from "next/link";
 import { Section, SectionHeading, Container } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 import { WTL_TEXT, LEADER_REASONS, LIFE_CHANGES, type Bi } from "@/lib/why-tennis-content";
 
 export async function WhyTennisLeaders() {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
+  const ko = locale === "ko";
   const map = await getContentMap();
-  const t = (b: Bi) => (ko ? b.ko : b.en);
-  const cx = (key: string, b: Bi) => cmsText(map, key, t(b), ko);
+  const t = (b: Bi) => pick(locale, b);
+  const cx = (key: string, b: Bi) => cmsText(map, key, t(b), locale);
 
   return (
     <>
@@ -112,7 +114,7 @@ export async function WhyTennisLeaders() {
                 <h3 className="break-keep font-display text-lg font-bold">{cx(`wtl.life.${i}.title`, c.title)}</h3>
               </div>
               <ul className="mt-4 space-y-2.5">
-                {cmsList(map, `wtl.life.${i}.points`, c.points.map(t), ko).map((p, pi) => (
+                {cmsList(map, `wtl.life.${i}.points`, c.points.map(t), locale).map((p, pi) => (
                   <li key={pi} className="flex gap-2 break-keep text-sm leading-relaxed text-ink/85">
                     <span className="mt-0.5 shrink-0 font-semibold text-court">·</span>
                     <span>{p}</span>
@@ -128,19 +130,25 @@ export async function WhyTennisLeaders() {
       <Section tone="court">
         <Reveal className="mx-auto max-w-2xl text-center text-white">
           <h2 className="break-keep font-display text-3xl font-black leading-snug sm:text-4xl">
-            {ko ? (
-              <>
-                단 한 번의 스트로크가
-                <br />
-                당신의 일상을 바꿉니다
-              </>
-            ) : (
-              <>
-                A single stroke
-                <br />
-                can change your everyday
-              </>
-            )}
+            {pick(locale, {
+              ko: "단 한 번의 스트로크가",
+              en: "A single stroke",
+              zh: "仅仅一次挥拍",
+              ja: "たった一度のストロークが",
+              it: "Un solo colpo",
+              fr: "Un seul coup",
+              es: "Un solo golpe",
+            })}
+            <br />
+            {pick(locale, {
+              ko: "당신의 일상을 바꿉니다",
+              en: "can change your everyday",
+              zh: "就能改变你的日常",
+              ja: "あなたの日常を変えます",
+              it: "può cambiare la tua quotidianità",
+              fr: "peut changer votre quotidien",
+              es: "puede cambiar tu día a día",
+            })}
           </h2>
           <p className="mx-auto mt-5 max-w-xl break-keep text-sm leading-relaxed text-white/85 sm:text-base">
             {cx("wtl.cta.body", WTL_TEXT.ctaBody)}

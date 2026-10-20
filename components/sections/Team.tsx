@@ -4,6 +4,7 @@ import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
 import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 import { educationCoaches } from "@/lib/education-coaches";
+import { pick } from "@/lib/i18n-pick";
 
 export async function Team() {
   const locale = await getLocale();
@@ -70,17 +71,17 @@ export async function Team() {
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {educationCoaches.map((c, ci) => {
-              const fbPoints = c.points.map((p) => (ko ? p.ko : p.en));
+              const fbPoints = c.points.map((p) => pick(locale, p));
               return (
                 <div key={c.no} className="rounded-2xl border border-line bg-card/40 p-6">
                   <span className="font-display text-sm font-semibold tabular-nums text-muted">
                     {c.no}
                   </span>
                   <h4 className="mt-2 break-keep font-display text-xl font-bold">
-                    {cmsText(map, `eduCoach.${ci}.title`, ko ? c.title.ko : c.title.en, locale)}
+                    {cmsText(map, `eduCoach.${ci}.title`, pick(locale, c.title), locale)}
                   </h4>
                   <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
-                    {cmsText(map, `eduCoach.${ci}.desc`, ko ? c.desc.ko : c.desc.en, locale)}
+                    {cmsText(map, `eduCoach.${ci}.desc`, pick(locale, c.desc), locale)}
                   </p>
                   <ul className="mt-4 space-y-2.5 border-t border-line pt-4">
                     {cmsList(map, `eduCoach.${ci}.points`, fbPoints, locale).map((p, i) => (
