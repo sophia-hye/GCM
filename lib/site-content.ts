@@ -459,8 +459,17 @@ const koDict = {
 
 export type Dict = typeof enDict;
 
+/**
+ * 로케일별 사전. ko → 한국어, 그 외 → 영어를 기준으로 하되
+ * 번역이 추가된 섹션은 localeDicts 에서 덮어쓴다(영어 폴백).
+ */
+const localeDicts: Partial<Record<Locale, Dict>> = {
+  // 번역 추가 시 { ...enDict, <섹션>: <번역> } 형태로 등록
+};
+
 export function getDict(locale: Locale): Dict {
-  return locale === "en" ? enDict : (koDict as unknown as Dict);
+  if (locale === "ko") return koDict as unknown as Dict;
+  return localeDicts[locale] ?? enDict;
 }
 
 /** 컴포넌트 하드코딩 UI 문자열 (섹션 제목 등) */
@@ -529,6 +538,14 @@ export const UI = {
   },
 } as const;
 
-export function getUI(locale: Locale) {
-  return locale === "en" ? UI.en : UI.ko;
+type UiStrings = { [K in keyof typeof UI.en]: string };
+
+/** 로케일별 UI 문자열. ko → 한국어, 그 외 → 영어 기준(번역 추가 시 덮어쓰기). */
+const localeUI: Partial<Record<Locale, UiStrings>> = {
+  // 번역 추가 시 등록
+};
+
+export function getUI(locale: Locale): UiStrings {
+  if (locale === "ko") return UI.ko;
+  return localeUI[locale] ?? UI.en;
 }

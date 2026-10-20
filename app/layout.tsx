@@ -6,6 +6,7 @@ import { SITE_URL } from "@/lib/site-url";
 import { StructuredData } from "@/components/StructuredData";
 import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 import { getLocale } from "@/lib/i18n";
+import { OG_LOCALES } from "@/lib/i18n-pick";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -26,7 +27,8 @@ const SITE_DESCRIPTION_EN =
   "Elite player development | ATP/WTA/ITF pro & junior intensive training | Pathway to U.S. college tennis (NCAA)";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
+  const ko = locale === "ko";
   const title = ko
     ? "GCM 테니스 아카데미 | 엘리트 선수 육성 · 테니스 유학 · NCAA 진학"
     : "GCM Tennis Academy | Elite Player Development · Study Abroad · NCAA";
@@ -51,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: "website",
-      locale: ko ? "ko_KR" : "en_US",
+      locale: OG_LOCALES[locale],
       url: SITE_URL,
       siteName: ko ? "GCM 테니스 아카데미" : "GCM Tennis Academy",
     },
