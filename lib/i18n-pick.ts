@@ -47,6 +47,34 @@ export function isLocale(value: string | undefined | null): value is Locale {
   return !!value && (LOCALES as readonly string[]).includes(value);
 }
 
+/** 기본 로케일(ko)은 접두어 없음. 그 외 언어만 /{locale}/ 접두어를 가진다. */
+export const PREFIXED_LOCALES: readonly Locale[] = LOCALES.filter((l) => l !== DEFAULT_LOCALE);
+
+/** URL 경로에서 로케일 접두어를 분리. ex) "/en/scholarship" → { locale:"en", rest:"/scholarship" } */
+export function localeFromPath(pathname: string): { locale: Locale; rest: string } {
+  const seg = pathname.split("/")[1] ?? "";
+  if ((PREFIXED_LOCALES as readonly string[]).includes(seg)) {
+    const rest = pathname.slice(seg.length + 1) || "/";
+    return { locale: seg as Locale, rest };
+  }
+  return { locale: DEFAULT_LOCALE, rest: pathname };
+}
+
+/** 로케일에 맞춘 경로 접두어. 내부 링크 prefix 용. ko→"", 그 외→"/<locale>" */
+export function localePrefix(locale: Locale): string {
+  return locale === DEFAULT_LOCALE ? "" : `/${locale}`;
+}
+
+/** 내부 경로를 현재 로케일 경로로. 외부/특수 링크는 그대로. */
+export function localizeHref(href: string, locale: Locale): string {
+  if (!href.startsWith("/") || href.startsWith("//")) return href;
+  if (locale === DEFAULT_LOCALE) return href;
+  // 이미 접두어가 있으면 중복 방지
+  const first = href.split("/")[1] ?? "";
+  if ((LOCALES as readonly string[]).includes(first)) return href;
+  return `/${locale}${href === "/" ? "" : href}`;
+}
+
 /** 다국어 문자열 묶음 — en 필수, 나머지는 선택(없으면 en→ko 폴백) */
 export type I18nText = { en: string; ko?: string } & Partial<Record<Locale, string>>;
 
