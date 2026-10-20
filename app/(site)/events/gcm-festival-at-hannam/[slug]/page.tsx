@@ -6,6 +6,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 import { Container } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { formatEventDate, type SeouliteEvent } from "@/lib/events";
 
 async function getEvent(slug: string): Promise<SeouliteEvent | null> {
@@ -25,11 +26,33 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
   const ev = await getEvent(slug);
-  if (!ev) return { title: "GCM Festival at Hannam | GCM 테니스 아카데미" };
+  if (!ev)
+    return {
+      title: pick(locale, {
+        ko: "GCM Festival at Hannam | GCM 테니스 아카데미",
+        en: "GCM Festival at Hannam | GCM Tennis Academy",
+        zh: "GCM Festival at Hannam | GCM Tennis Academy",
+        ja: "GCM Festival at Hannam | GCM Tennis Academy",
+        it: "GCM Festival at Hannam | GCM Tennis Academy",
+        fr: "GCM Festival at Hannam | GCM Tennis Academy",
+        es: "GCM Festival at Hannam | GCM Tennis Academy",
+      }),
+    };
   return pageMetadata({
     title: `${ev.title} | GCM Festival at Hannam`,
-    description: ev.body?.slice(0, 100) || "GCM Festival at Hannam 모임 후기.",
+    description:
+      ev.body?.slice(0, 100) ||
+      pick(locale, {
+        ko: "GCM Festival at Hannam 모임 후기.",
+        en: "GCM Festival at Hannam meetup recap.",
+        zh: "GCM Festival at Hannam 聚会回顾。",
+        ja: "GCM Festival at Hannam の集まりレポート。",
+        it: "Resoconto dell'incontro GCM Festival at Hannam.",
+        fr: "Compte rendu de la rencontre GCM Festival at Hannam.",
+        es: "Resumen del encuentro GCM Festival at Hannam.",
+      }),
     path: `/events/gcm-festival-at-hannam/${ev.slug}`,
   });
 }
@@ -44,14 +67,22 @@ export default async function EventDetailPage({
   if (!ev) notFound();
 
   const locale = await getLocale();
-  const ko = locale === "ko";
   const meta = [formatEventDate(ev.event_date), ev.location].filter(Boolean).join(" · ");
 
   return (
     <div className="pt-16">
       <Container className="py-16 sm:py-24">
         <Link href="/events/gcm-festival-at-hannam" className="text-sm font-semibold text-muted hover:text-court">
-          ← {ko ? "GCM Festival at Hannam" : "Back to GCM Festival at Hannam"}
+          ←{" "}
+          {pick(locale, {
+            ko: "GCM Festival at Hannam",
+            en: "Back to GCM Festival at Hannam",
+            zh: "返回 GCM Festival at Hannam",
+            ja: "GCM Festival at Hannam へ戻る",
+            it: "Torna a GCM Festival at Hannam",
+            fr: "Retour à GCM Festival at Hannam",
+            es: "Volver a GCM Festival at Hannam",
+          })}
         </Link>
 
         <div className="mt-8 max-w-3xl">

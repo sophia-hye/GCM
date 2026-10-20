@@ -7,6 +7,7 @@ import { Container } from "@/components/ui";
 import { PurchaseButton } from "@/components/PurchaseButton";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { formatPrice } from "@/lib/programs";
 import type { StoreProduct } from "@/lib/store-products";
 
@@ -27,11 +28,33 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
   const product = await getProduct(slug);
-  if (!product) return { title: "GCM's Products | GCM 테니스 아카데미" };
+  if (!product)
+    return {
+      title: pick(locale, {
+        ko: "GCM's Products | GCM 테니스 아카데미",
+        en: "GCM's Products | GCM Tennis Academy",
+        zh: "GCM's Products | GCM Tennis Academy",
+        ja: "GCM's Products | GCM Tennis Academy",
+        it: "GCM's Products | GCM Tennis Academy",
+        fr: "GCM's Products | GCM Tennis Academy",
+        es: "GCM's Products | GCM Tennis Academy",
+      }),
+    };
   return pageMetadata({
     title: `${product.title} | GCM's Products`,
-    description: product.summary || "GCM 상품 상세 안내.",
+    description:
+      product.summary ||
+      pick(locale, {
+        ko: "GCM 상품 상세 안내.",
+        en: "GCM product details.",
+        zh: "GCM 商品详情介绍。",
+        ja: "GCM商品の詳細案内。",
+        it: "Dettagli del prodotto GCM.",
+        fr: "Détails du produit GCM.",
+        es: "Detalles del producto GCM.",
+      }),
     path: `/store/products/${product.slug}`,
   });
 }
@@ -52,7 +75,16 @@ export default async function ProductDetailPage({
     <div className="pt-16">
       <Container className="py-16 sm:py-24">
         <Link href="/store/products" className="text-sm font-semibold text-muted hover:text-court">
-          ← {ko ? "상품 목록" : "All products"}
+          ←{" "}
+          {pick(locale, {
+            ko: "상품 목록",
+            en: "All products",
+            zh: "商品列表",
+            ja: "商品一覧",
+            it: "Tutti i prodotti",
+            fr: "Tous les produits",
+            es: "Todos los productos",
+          })}
         </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
@@ -97,7 +129,17 @@ export default async function ProductDetailPage({
 
         {product.description ? (
           <div className="mt-16 max-w-3xl border-t border-line pt-10">
-            <h2 className="font-display text-xl font-bold">{ko ? "상품 안내" : "Product details"}</h2>
+            <h2 className="font-display text-xl font-bold">
+              {pick(locale, {
+                ko: "상품 안내",
+                en: "Product details",
+                zh: "商品说明",
+                ja: "商品案内",
+                it: "Dettagli del prodotto",
+                fr: "Détails du produit",
+                es: "Detalles del producto",
+              })}
+            </h2>
             <p className="mt-4 whitespace-pre-line break-keep leading-relaxed text-ink/85">
               {product.description}
             </p>

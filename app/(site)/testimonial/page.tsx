@@ -5,17 +5,30 @@ import { Section, SectionHeading, Button } from "@/components/ui";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { localizeVoice, type VoiceLocalizable } from "@/lib/voices";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
   return pageMetadata({
-    title: ko
-      ? "선수와 학부모의 이야기 | GCM 테니스 아카데미"
-      : "Stories from Players and Parents | GCM Tennis Academy",
-    description: ko
-      ? "GCM 선수와 학부모가 직접 전하는 후기와 이야기."
-      : "Reviews and stories shared firsthand by GCM players and parents.",
+    title: pick(locale, {
+      ko: "선수와 학부모의 이야기 | GCM 테니스 아카데미",
+      en: "Stories from Players and Parents | GCM Tennis Academy",
+      zh: "选手与家长的故事 | GCM Tennis Academy",
+      ja: "選手と保護者の声 | GCM Tennis Academy",
+      it: "Storie di atleti e genitori | GCM Tennis Academy",
+      fr: "Témoignages de joueurs et de parents | GCM Tennis Academy",
+      es: "Historias de jugadores y padres | GCM Tennis Academy",
+    }),
+    description: pick(locale, {
+      ko: "GCM 선수와 학부모가 직접 전하는 후기와 이야기.",
+      en: "Reviews and stories shared firsthand by GCM players and parents.",
+      zh: "GCM 选手与家长亲述的评价与故事。",
+      ja: "GCMの選手と保護者が自ら伝えるレビューと声。",
+      it: "Recensioni e storie condivise in prima persona da atleti e genitori GCM.",
+      fr: "Avis et témoignages partagés directement par les joueurs et parents de GCM.",
+      es: "Reseñas e historias compartidas de primera mano por jugadores y padres de GCM.",
+    }),
     path: "/testimonial",
   });
 }
@@ -31,10 +44,28 @@ export default async function VoicesPage({
 }: {
   searchParams: Promise<{ submitted?: string }>;
 }) {
-  const ko = (await getLocale()) === "ko";
-  const relationLabel: Record<string, string> = ko
-    ? { player: "선수", parent: "학부모" }
-    : { player: "Player", parent: "Parent" };
+  const locale = await getLocale();
+  const ko = locale === "ko";
+  const relationLabel: Record<string, string> = {
+    player: pick(locale, {
+      ko: "선수",
+      en: "Player",
+      zh: "选手",
+      ja: "選手",
+      it: "Atleta",
+      fr: "Joueur",
+      es: "Jugador",
+    }),
+    parent: pick(locale, {
+      ko: "학부모",
+      en: "Parent",
+      zh: "家长",
+      ja: "保護者",
+      it: "Genitore",
+      fr: "Parent",
+      es: "Padre/madre",
+    }),
+  };
   const { submitted } = await searchParams;
   const supabase = await createClient();
   const { data } = await supabase
@@ -46,23 +77,56 @@ export default async function VoicesPage({
 
   return (
     <div className="pt-16">
-      <PageJsonLd name={ko ? "선수·학부모 이야기" : "Player & Parent Stories"} path="/testimonial" />
+      <PageJsonLd
+        name={pick(locale, {
+          ko: "선수·학부모 이야기",
+          en: "Player & Parent Stories",
+          zh: "选手与家长的故事",
+          ja: "選手・保護者の声",
+          it: "Storie di atleti e genitori",
+          fr: "Témoignages de joueurs et de parents",
+          es: "Historias de jugadores y padres",
+        })}
+        path="/testimonial"
+      />
       <Section id="testimonial">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Testimonial"
-            title={ko ? "선수와 학부모의 이야기" : "Stories from Players and Parents"}
+            title={pick(locale, {
+              ko: "선수와 학부모의 이야기",
+              en: "Stories from Players and Parents",
+              zh: "选手与家长的故事",
+              ja: "選手と保護者の声",
+              it: "Storie di atleti e genitori",
+              fr: "Témoignages de joueurs et de parents",
+              es: "Historias de jugadores y padres",
+            })}
           />
           <Button href="/testimonial/new" variant="court">
-            {ko ? "이야기 남기기" : "Share Your Story"}
+            {pick(locale, {
+              ko: "이야기 남기기",
+              en: "Share Your Story",
+              zh: "分享你的故事",
+              ja: "体験を投稿する",
+              it: "Condividi la tua storia",
+              fr: "Partagez votre histoire",
+              es: "Comparte tu historia",
+            })}
           </Button>
         </div>
 
         {submitted ? (
           <p className="mt-6 rounded-lg border border-lime/40 bg-lime/10 px-4 py-3 text-sm text-lime">
-            {ko
-              ? "소중한 이야기가 접수되었습니다. 관리자 확인·승인 후 게시판에 공개됩니다. 감사합니다."
-              : "Your story has been received. It will be published after review and approval by an administrator. Thank you."}
+            {pick(locale, {
+              ko: "소중한 이야기가 접수되었습니다. 관리자 확인·승인 후 게시판에 공개됩니다. 감사합니다.",
+              en: "Your story has been received. It will be published after review and approval by an administrator. Thank you.",
+              zh: "您的宝贵故事已收到。将在管理员审核并批准后发布到留言板。谢谢。",
+              ja: "大切な体験を受け付けました。管理者の確認・承認後に掲示板へ公開されます。ありがとうございます。",
+              it: "La tua storia è stata ricevuta. Sarà pubblicata dopo la revisione e l'approvazione di un amministratore. Grazie.",
+              fr: "Votre histoire a bien été reçue. Elle sera publiée après examen et approbation par un administrateur. Merci.",
+              es: "Hemos recibido tu historia. Se publicará tras la revisión y aprobación de un administrador. Gracias.",
+            })}
           </p>
         ) : null}
 
@@ -86,12 +150,26 @@ export default async function VoicesPage({
           </div>
         ) : (
           <div className="mt-12 rounded-2xl border border-dashed border-line px-6 py-16 text-center text-sm text-muted">
-            {ko
-              ? "아직 공개된 이야기가 없습니다. 첫 이야기를 남겨주세요."
-              : "No stories have been published yet. Be the first to share yours."}
+            {pick(locale, {
+              ko: "아직 공개된 이야기가 없습니다. 첫 이야기를 남겨주세요.",
+              en: "No stories have been published yet. Be the first to share yours.",
+              zh: "目前还没有公开的故事。来分享第一个故事吧。",
+              ja: "まだ公開された声はありません。最初の体験を投稿してください。",
+              it: "Non è ancora stata pubblicata alcuna storia. Sii il primo a condividere la tua.",
+              fr: "Aucune histoire n'a encore été publiée. Soyez le premier à partager la vôtre.",
+              es: "Aún no se ha publicado ninguna historia. Sé el primero en compartir la tuya.",
+            })}
             <div className="mt-4">
               <Link href="/testimonial/new" className="font-semibold text-court hover:underline">
-                {ko ? "이야기 남기기 →" : "Share Your Story →"}
+                {pick(locale, {
+                  ko: "이야기 남기기 →",
+                  en: "Share Your Story →",
+                  zh: "分享你的故事 →",
+                  ja: "体験を投稿する →",
+                  it: "Condividi la tua storia →",
+                  fr: "Partagez votre histoire →",
+                  es: "Comparte tu historia →",
+                })}
               </Link>
             </div>
           </div>

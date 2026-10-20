@@ -4,23 +4,38 @@ import { pageMetadata } from "@/lib/page-metadata";
 import { Section, SectionHeading, Container } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { formatEventDate, type SeouliteEvent } from "@/lib/events";
 
 const FESTIVAL_NAME = "GCM Festival at Hannam";
 
 export async function generateMetadata(): Promise<import("next").Metadata> {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
   return pageMetadata({
-    title: `${FESTIVAL_NAME} | ${ko ? "GCM 테니스 아카데미" : "GCM Tennis Academy"}`,
-    description: ko
-      ? "TENNIS. MUSIC. LIGHT. 한남에서 열리는 GCM Festival at Hannam — 낮과 밤을 잇는 데이&나이트 테니스 축제. 2026.8.29 HANNAM, SEOUL."
-      : "TENNIS. MUSIC. LIGHT. GCM Festival at Hannam — a day-and-night tennis festival bridging day and evening. 2026.8.29 HANNAM, SEOUL.",
+    title: `${FESTIVAL_NAME} | ${pick(locale, {
+      ko: "GCM 테니스 아카데미",
+      en: "GCM Tennis Academy",
+      zh: "GCM Tennis Academy",
+      ja: "GCM Tennis Academy",
+      it: "GCM Tennis Academy",
+      fr: "GCM Tennis Academy",
+      es: "GCM Tennis Academy",
+    })}`,
+    description: pick(locale, {
+      ko: "TENNIS. MUSIC. LIGHT. 한남에서 열리는 GCM Festival at Hannam — 낮과 밤을 잇는 데이&나이트 테니스 축제. 2026.8.29 HANNAM, SEOUL.",
+      en: "TENNIS. MUSIC. LIGHT. GCM Festival at Hannam — a day-and-night tennis festival bridging day and evening. 2026.8.29 HANNAM, SEOUL.",
+      zh: "TENNIS. MUSIC. LIGHT. 在汉南举办的 GCM Festival at Hannam — 连接白昼与夜晚的日与夜网球节。2026.8.29 HANNAM, SEOUL。",
+      ja: "TENNIS. MUSIC. LIGHT. 漢南（ハンナム）で開催されるGCM Festival at Hannam — 昼と夜をつなぐデイ＆ナイトのテニスフェスティバル。2026.8.29 HANNAM, SEOUL。",
+      it: "TENNIS. MUSIC. LIGHT. GCM Festival at Hannam — un festival di tennis day-and-night che unisce giorno e sera. 2026.8.29 HANNAM, SEOUL.",
+      fr: "TENNIS. MUSIC. LIGHT. GCM Festival at Hannam — un festival de tennis jour et nuit reliant le jour et le soir. 2026.8.29 HANNAM, SEOUL.",
+      es: "TENNIS. MUSIC. LIGHT. GCM Festival at Hannam — un festival de tenis de día y de noche que une el día y la tarde. 2026.8.29 HANNAM, SEOUL.",
+    }),
     path: "/events/gcm-festival-at-hannam",
   });
 }
 
 export default async function GcmFestivalPage() {
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
 
   const supabase = await createClient();
   const { data } = await supabase
@@ -86,9 +101,15 @@ export default async function GcmFestivalPage() {
           </div>
 
           <p className="mx-auto mt-10 max-w-md break-keep text-sm leading-relaxed text-white/70">
-            {ko
-              ? "낮과 밤을 잇는 데이 & 나이트 테니스 축제. 커뮤니티 · 뮤직 · 글로우 테니스. 키즈부터 시니어까지, 모두가 하나의 코트에서."
-              : "A day & night tennis event. Community · Music · Glow Tennis. From kids to seniors — everyone on one court."}
+            {pick(locale, {
+              ko: "낮과 밤을 잇는 데이 & 나이트 테니스 축제. 커뮤니티 · 뮤직 · 글로우 테니스. 키즈부터 시니어까지, 모두가 하나의 코트에서.",
+              en: "A day & night tennis event. Community · Music · Glow Tennis. From kids to seniors — everyone on one court.",
+              zh: "连接白昼与夜晚的日与夜网球盛会。社区 · 音乐 · 荧光网球。从儿童到长者，所有人共聚一片球场。",
+              ja: "昼と夜をつなぐデイ＆ナイトのテニスイベント。コミュニティ · ミュージック · グロウテニス。キッズからシニアまで、みんなが一つのコートで。",
+              it: "Un evento di tennis day & night. Community · Musica · Glow Tennis. Dai bambini ai senior — tutti su un unico campo.",
+              fr: "Un événement de tennis jour & nuit. Communauté · Musique · Glow Tennis. Des enfants aux seniors — tous sur un même court.",
+              es: "Un evento de tenis de día y de noche. Comunidad · Música · Glow Tennis. Desde niños hasta seniors — todos en una misma cancha.",
+            })}
           </p>
           <p className="mt-6 font-display text-xs font-bold uppercase tracking-[0.25em] text-white/50">
             #GCMFESTIVAL
@@ -105,13 +126,29 @@ export default async function GcmFestivalPage() {
                 lg: "/img/festival-day.png",
                 sm: "/img/festival-day-vertical.png",
                 label: "Day Tennis",
-                sub: ko ? "낮의 코트" : "By day",
+                sub: pick(locale, {
+                  ko: "낮의 코트",
+                  en: "By day",
+                  zh: "白昼的球场",
+                  ja: "昼のコート",
+                  it: "Di giorno",
+                  fr: "De jour",
+                  es: "De día",
+                }),
               },
               {
                 lg: "/img/festival-glow.png",
                 sm: "/img/festival-glow-vertical.png",
                 label: "Glow Night",
-                sub: ko ? "밤의 코트" : "By night",
+                sub: pick(locale, {
+                  ko: "밤의 코트",
+                  en: "By night",
+                  zh: "夜晚的球场",
+                  ja: "夜のコート",
+                  it: "Di notte",
+                  fr: "De nuit",
+                  es: "De noche",
+                }),
               },
             ].map((v) => (
               <figure
@@ -149,12 +186,24 @@ export default async function GcmFestivalPage() {
         <Section>
           <SectionHeading
             eyebrow="Moments"
-            title={ko ? "현장의 순간들" : "Moments from the festival"}
-            lead={
-              ko
-                ? `${FESTIVAL_NAME}의 낮과 밤, 그날의 순간들을 담았습니다.`
-                : "Day and night at the GCM Festival — moments we captured."
-            }
+            title={pick(locale, {
+              ko: "현장의 순간들",
+              en: "Moments from the festival",
+              zh: "现场的瞬间",
+              ja: "会場の瞬間たち",
+              it: "Momenti dal festival",
+              fr: "Moments du festival",
+              es: "Momentos del festival",
+            })}
+            lead={pick(locale, {
+              ko: `${FESTIVAL_NAME}의 낮과 밤, 그날의 순간들을 담았습니다.`,
+              en: "Day and night at the GCM Festival — moments we captured.",
+              zh: `${FESTIVAL_NAME} 的白昼与夜晚，我们记录下了那一天的瞬间。`,
+              ja: `${FESTIVAL_NAME}の昼と夜、その日の瞬間を収めました。`,
+              it: `Giorno e notte al ${FESTIVAL_NAME} — i momenti che abbiamo immortalato.`,
+              fr: `Jour et nuit au ${FESTIVAL_NAME} — les moments que nous avons capturés.`,
+              es: `Día y noche en el ${FESTIVAL_NAME} — los momentos que capturamos.`,
+            })}
             wideLead
           />
           <div className="mt-14 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
