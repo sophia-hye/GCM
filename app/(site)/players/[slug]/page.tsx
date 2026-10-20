@@ -8,6 +8,7 @@ import { PlayerJsonLd } from "@/components/PlayerJsonLd";
 import { TRACK_LABEL, localizePlayer } from "@/lib/players";
 import { getPublishedPlayers, getPlayerBySlug, parseBio } from "@/lib/players-query";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 
 export async function generateStaticParams() {
   const players = await getPublishedPlayers();
@@ -21,8 +22,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const raw = await getPlayerBySlug(slug);
-  const ko = (await getLocale()) === "ko";
-  if (!raw) return { title: ko ? "선수 | GCM 테니스 아카데미" : "Player | GCM Tennis Academy" };
+  const locale = await getLocale();
+  const ko = locale === "ko";
+  if (!raw)
+    return {
+      title: pick(locale, { ko: "선수 | GCM 테니스 아카데미", en: "Player | GCM Tennis Academy", zh: "选手 | GCM 网球学院", ja: "選手 | GCM テニスアカデミー", it: "Atleta | GCM Tennis Academy", fr: "Joueur | GCM Tennis Academy", es: "Jugador | GCM Tennis Academy" }),
+    };
   const player = localizePlayer(raw, ko);
   const { tagline } = parseBio(player.bio);
   const bits = [
@@ -33,14 +38,26 @@ export async function generateMetadata({
     .filter(Boolean)
     .join(" · ");
   return pageMetadata({
-    title: ko
-      ? `${player.name} · GCM 배출·소속 선수 | GCM 테니스 아카데미`
-      : `${player.name} · GCM Player | GCM Tennis Academy`,
+    title: pick(locale, {
+      ko: `${player.name} · GCM 배출·소속 선수 | GCM 테니스 아카데미`,
+      en: `${player.name} · GCM Player | GCM Tennis Academy`,
+      zh: `${player.name} · GCM 所属选手 | GCM 网球学院`,
+      ja: `${player.name} · GCM 所属選手 | GCM テニスアカデミー`,
+      it: `${player.name} · Atleta GCM | GCM Tennis Academy`,
+      fr: `${player.name} · Joueur GCM | GCM Tennis Academy`,
+      es: `${player.name} · Jugador GCM | GCM Tennis Academy`,
+    }),
     description:
       bits ||
-      (ko
-        ? `GCM 테니스 아카데미 ${player.name} 선수의 기록과 성장 스토리.`
-        : `Records and growth story of ${player.name} at GCM Tennis Academy.`),
+      pick(locale, {
+        ko: `GCM 테니스 아카데미 ${player.name} 선수의 기록과 성장 스토리.`,
+        en: `Records and growth story of ${player.name} at GCM Tennis Academy.`,
+        zh: `GCM 网球学院 ${player.name} 选手的成绩与成长故事。`,
+        ja: `GCM テニスアカデミー ${player.name} 選手の記録と成長ストーリー。`,
+        it: `Risultati e storia di crescita di ${player.name} alla GCM Tennis Academy.`,
+        fr: `Parcours et histoire de progression de ${player.name} à la GCM Tennis Academy.`,
+        es: `Registros e historia de crecimiento de ${player.name} en la GCM Tennis Academy.`,
+      }),
     path: `/players/${player.slug}`,
   });
 }
@@ -54,7 +71,8 @@ export default async function PlayerDetailPage({
   const raw = await getPlayerBySlug(slug);
   if (!raw) notFound();
 
-  const ko = (await getLocale()) === "ko";
+  const locale = await getLocale();
+  const ko = locale === "ko";
   const player = localizePlayer(raw, ko);
   const trackLabel = player.track
     ? ko
@@ -68,12 +86,12 @@ export default async function PlayerDetailPage({
     .join(" · ");
 
   const profile: { label: string; value: string }[] = [];
-  if (player.birthday) profile.push({ label: ko ? "생년월일" : "Birthday", value: player.birthday });
-  if (player.birthplace) profile.push({ label: ko ? "출생지" : "Birthplace", value: player.birthplace });
-  if (player.nationality) profile.push({ label: ko ? "국적" : "Nationality", value: player.nationality });
+  if (player.birthday) profile.push({ label: pick(locale, { ko: "생년월일", en: "Birthday", zh: "出生日期", ja: "生年月日", it: "Data di nascita", fr: "Date de naissance", es: "Fecha de nacimiento" }), value: player.birthday });
+  if (player.birthplace) profile.push({ label: pick(locale, { ko: "출생지", en: "Birthplace", zh: "出生地", ja: "出身地", it: "Luogo di nascita", fr: "Lieu de naissance", es: "Lugar de nacimiento" }), value: player.birthplace });
+  if (player.nationality) profile.push({ label: pick(locale, { ko: "국적", en: "Nationality", zh: "国籍", ja: "国籍", it: "Nazionalità", fr: "Nationalité", es: "Nacionalidad" }), value: player.nationality });
   if (player.plays) profile.push({ label: "Plays", value: player.plays });
   if (player.backhand) profile.push({ label: "Backhand", value: player.backhand });
-  if (player.joined_date) profile.push({ label: ko ? "GCM 합류" : "GCM Joined", value: player.joined_date });
+  if (player.joined_date) profile.push({ label: pick(locale, { ko: "GCM 합류", en: "GCM Joined", zh: "加入 GCM", ja: "GCM 合流", it: "Ingresso in GCM", fr: "Arrivée à GCM", es: "Incorporación a GCM" }), value: player.joined_date });
 
   return (
     <div className="pt-16">
@@ -84,7 +102,7 @@ export default async function PlayerDetailPage({
             href="/players"
             className="inline-flex items-center gap-1 text-sm font-semibold text-muted transition-colors hover:text-court"
           >
-            <span>←</span> {ko ? "배출·소속 선수" : "Players"}
+            <span>←</span> {pick(locale, { ko: "배출·소속 선수", en: "Players", zh: "所属选手", ja: "所属選手", it: "Atleti", fr: "Joueurs", es: "Jugadores" })}
           </Link>
 
           <div className="mt-6 grid gap-8 sm:grid-cols-2 sm:gap-12">
@@ -156,7 +174,7 @@ export default async function PlayerDetailPage({
                   rel="noopener noreferrer"
                   className="mt-6 inline-block text-sm font-semibold text-court hover:text-court-deep"
                 >
-                  {ko ? "하이라이트 영상 →" : "Highlights →"}
+                  {pick(locale, { ko: "하이라이트 영상 →", en: "Highlights →", zh: "精彩集锦 →", ja: "ハイライト映像 →", it: "Highlights →", fr: "Temps forts →", es: "Momentos destacados →" })}
                 </a>
               ) : null}
             </div>
@@ -165,7 +183,7 @@ export default async function PlayerDetailPage({
           {player.description ? (
             <div className="mt-12">
               <h2 className="font-display text-xl font-bold tracking-tight">
-                {ko ? "선수 소개" : "About"}
+                {pick(locale, { ko: "선수 소개", en: "About", zh: "选手介绍", ja: "選手紹介", it: "Chi è", fr: "Présentation", es: "Perfil" })}
               </h2>
               <div className="mt-5 space-y-5">
                 {player.description.split(/\n{2,}/).map((para, i) => {
