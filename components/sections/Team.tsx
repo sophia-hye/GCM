@@ -15,9 +15,9 @@ export async function Team() {
   const members = team.map((member, i) => ({
     ...member,
     idx: i,
-    name: cmsText(map, `coach.${i}.name`, member.name, ko),
-    role: cmsText(map, `coach.${i}.role`, member.role, ko),
-    bio: cmsText(map, `coach.${i}.bio`, member.bio, ko),
+    name: cmsText(map, `coach.${i}.name`, member.name, locale),
+    role: cmsText(map, `coach.${i}.role`, member.role, locale),
+    bio: cmsText(map, `coach.${i}.bio`, member.bio, locale),
   }));
 
   const tennis = members.filter((m) => (m as { dept?: string }).dept !== "education");
@@ -27,7 +27,7 @@ export async function Team() {
       <SectionHeading
         eyebrow="Team"
         title={ui.teamTitle}
-        lead={cmsText(map, "section.teamLead", teamLead, ko)}
+        lead={cmsText(map, "section.teamLead", teamLead, locale)}
       />
 
       <div className="mt-16 space-y-16">
@@ -77,13 +77,13 @@ export async function Team() {
                     {c.no}
                   </span>
                   <h4 className="mt-2 break-keep font-display text-xl font-bold">
-                    {cmsText(map, `eduCoach.${ci}.title`, ko ? c.title.ko : c.title.en, ko)}
+                    {cmsText(map, `eduCoach.${ci}.title`, ko ? c.title.ko : c.title.en, locale)}
                   </h4>
                   <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
-                    {cmsText(map, `eduCoach.${ci}.desc`, ko ? c.desc.ko : c.desc.en, ko)}
+                    {cmsText(map, `eduCoach.${ci}.desc`, ko ? c.desc.ko : c.desc.en, locale)}
                   </p>
                   <ul className="mt-4 space-y-2.5 border-t border-line pt-4">
-                    {cmsList(map, `eduCoach.${ci}.points`, fbPoints, ko).map((p, i) => (
+                    {cmsList(map, `eduCoach.${ci}.points`, fbPoints, locale).map((p, i) => (
                       <li key={i} className="flex gap-2 break-keep text-sm leading-relaxed text-ink/85">
                         <span className="mt-0.5 shrink-0 font-semibold text-court">+</span>
                         <span>{p}</span>

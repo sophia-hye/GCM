@@ -1,6 +1,7 @@
 import * as ko from "@/lib/site-data";
 import type { Locale } from "@/lib/i18n";
 import { uiByLocale, buildDictSections } from "@/lib/site-content-i18n";
+import { buildCoreSections } from "@/lib/site-content-i18n-core";
 import { directorMessageByLocale } from "@/lib/director-message-i18n";
 
 /**
@@ -475,12 +476,24 @@ const dictSections = buildDictSections({
   siteGuide: enSiteGuide,
 });
 
+const coreSections = buildCoreSections({
+  founding: enFounding,
+  developmentSteps: enDevelopmentSteps,
+  totalCare: enTotalCare,
+  tracks: enTracks,
+  processSteps: enProcessSteps,
+  scholarship: enScholarship,
+  consulting: enConsulting,
+  team: enTeam,
+});
+
 const localeDicts: Partial<Record<Locale, Dict>> = Object.fromEntries(
   (Object.keys(dictSections) as Locale[]).map((l) => [
     l,
     {
       ...enDict,
       ...dictSections[l],
+      ...coreSections[l],
       directorMessage: { ...enDirectorMessage, ...directorMessageByLocale[l] },
     } as Dict,
   ]),

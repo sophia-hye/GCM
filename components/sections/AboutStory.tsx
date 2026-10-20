@@ -5,16 +5,15 @@ import { getContentMap, cmsText, cmsParas } from "@/lib/cms";
 
 export async function AboutStory() {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const { founding } = getDict(locale);
   const map = await getContentMap();
-  const paragraphs = cmsParas(map, "founding.paragraphs", founding.paragraphs, ko);
+  const paragraphs = cmsParas(map, "founding.paragraphs", founding.paragraphs, locale);
   return (
     <Section id="about">
       <SectionHeading
         eyebrow="About"
-        title={cmsText(map, "founding.title", founding.title, ko)}
-        lead={cmsText(map, "founding.lead", founding.lead, ko)}
+        title={cmsText(map, "founding.title", founding.title, locale)}
+        lead={cmsText(map, "founding.lead", founding.lead, locale)}
       />
       <div className="mt-12 max-w-2xl space-y-5">
         {paragraphs.map((p) => (

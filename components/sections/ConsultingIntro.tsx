@@ -5,15 +5,14 @@ import { getContentMap, cmsText } from "@/lib/cms";
 
 export async function ConsultingIntro() {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const { consulting } = getDict(locale);
   const map = await getContentMap();
   return (
     <Section id="consulting">
       <SectionHeading
         eyebrow="Consulting"
-        title={cmsText(map, "section.consultingTitle", consulting.title, ko)}
-        lead={cmsText(map, "section.consultingLead", consulting.lead, ko)}
+        title={cmsText(map, "section.consultingTitle", consulting.title, locale)}
+        lead={cmsText(map, "section.consultingLead", consulting.lead, locale)}
       />
       <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {consulting.services.map((s, i) => (

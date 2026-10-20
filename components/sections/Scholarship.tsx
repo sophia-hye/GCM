@@ -12,8 +12,8 @@ export async function Scholarship() {
   const map = await getContentMap();
   const applyLabel = locale === "en" ? "Required for application" : "신청 시 준비 항목";
   const heroEyebrow = "Apply for Scholarship";
-  const heroTitle = cmsText(map, "section.scholarshipTitle", scholarship.title, ko);
-  const heroLead = cmsText(map, "section.scholarshipLead", scholarship.lead, ko);
+  const heroTitle = cmsText(map, "section.scholarshipTitle", scholarship.title, locale);
+  const heroLead = cmsText(map, "section.scholarshipLead", scholarship.lead, locale);
   const heroAlt = ko ? "GCM 선수단" : "GCM team";
 
   return (
@@ -78,10 +78,10 @@ export async function Scholarship() {
               0{i + 1}
             </span>
             <h3 className="mt-3 text-lg font-bold">
-              {cmsText(map, `scholarship.point.${i}.title`, p.title, ko)}
+              {cmsText(map, `scholarship.point.${i}.title`, p.title, locale)}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              {cmsText(map, `scholarship.point.${i}.body`, p.body, ko)}
+              {cmsText(map, `scholarship.point.${i}.body`, p.body, locale)}
             </p>
           </div>
         ))}
@@ -92,7 +92,7 @@ export async function Scholarship() {
           {applyLabel}
         </h3>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-          {cmsList(map, "scholarship.apply", scholarship.apply, ko).map((item) => (
+          {cmsList(map, "scholarship.apply", scholarship.apply, locale).map((item) => (
             <li key={item} className="flex gap-2 text-sm text-ink/90">
               <span className="text-court">·</span>
               {item}
