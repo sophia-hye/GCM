@@ -41,7 +41,7 @@ function AlumniJsonLd({ alumni }: { alumni: Alumni }) {
 /** Alumni 한 명의 전체 스토리 — 헤더 + 편지 본문 + 관련 기사 + 사진 그리드 */
 export async function AlumniStory({ alumni, ko }: { alumni: Alumni; ko: boolean }) {
   const locale = await getLocale();
-  const a = localizeAlumni(alumni, ko);
+  const a = localizeAlumni(alumni, locale);
   return (
     <article id={alumni.slug} className="mx-auto max-w-3xl">
       <AlumniJsonLd alumni={alumni} />
