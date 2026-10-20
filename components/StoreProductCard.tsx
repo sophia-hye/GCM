@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { CourtLines } from "@/components/ui";
 import { formatPrice } from "@/lib/programs";
-import type { StoreProduct } from "@/lib/store-products";
+import { localizeProduct, type StoreProduct } from "@/lib/store-products";
+import type { Locale } from "@/lib/i18n-pick";
 
-export function StoreProductCard({ product, ko = true }: { product: StoreProduct; ko?: boolean }) {
+export function StoreProductCard({ product: raw, locale }: { product: StoreProduct; locale: Locale }) {
+  const product = localizeProduct(raw, locale);
   return (
     <Link href={`/store/products/${product.slug}`} className="group block">
       <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-court-deep">
@@ -26,7 +28,7 @@ export function StoreProductCard({ product, ko = true }: { product: StoreProduct
           <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">{product.summary}</p>
         ) : null}
         <p className="mt-3 font-display text-base font-bold text-court-bright">
-          {formatPrice(product.price, ko)}
+          {formatPrice(product.price, locale)}
         </p>
       </div>
     </Link>

@@ -54,3 +54,11 @@ export type I18nText = { en: string; ko?: string } & Partial<Record<Locale, stri
 export function pick(locale: Locale, m: I18nText): string {
   return m[locale] ?? m.en ?? m.ko ?? "";
 }
+
+/** DB i18n JSONB 컬럼 형태: { en|zh|ja|it|fr|es: { <field>: <translated> } } */
+export type I18nMap = Partial<Record<Locale, Partial<Record<string, string>>>> | null;
+
+/** boolean(true=ko,false=en) 또는 Locale 을 Locale 로 정규화 (하위호환) */
+export function toLocale(loc: boolean | Locale): Locale {
+  return typeof loc === "boolean" ? (loc ? "ko" : "en") : loc;
+}

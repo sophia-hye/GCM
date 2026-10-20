@@ -9,7 +9,6 @@ import type { Player } from "@/lib/players";
 
 export async function Players({ detailed = false }: { detailed?: boolean }) {
   const locale = await getLocale();
-  const ko = locale === "ko";
   const ui = getUI(locale);
   const map = await getContentMap();
 
@@ -27,9 +26,9 @@ export async function Players({ detailed = false }: { detailed?: boolean }) {
     <Section id="players" tone="muted">
       {detailed && players.length > 0 ? <PlayersListJsonLd players={players} /> : null}
       <SectionHeading
-        eyebrow={cmsText(map, "players.eyebrow", "GCM Players", ko)}
-        title={cmsText(map, "players.title", ui.playersTitle, ko)}
-        lead={cmsText(map, "players.lead", ui.playersLead, ko)}
+        eyebrow={cmsText(map, "players.eyebrow", "GCM Players", locale)}
+        title={cmsText(map, "players.title", ui.playersTitle, locale)}
+        lead={cmsText(map, "players.lead", ui.playersLead, locale)}
       />
 
       {players.length > 0 ? (
@@ -39,12 +38,12 @@ export async function Players({ detailed = false }: { detailed?: boolean }) {
           }`}
         >
           {players.map((p) => (
-            <PlayerCard key={p.id} player={p} ko={ko} detailed={detailed} />
+            <PlayerCard key={p.id} player={p} detailed={detailed} />
           ))}
         </div>
       ) : (
         <div className="mt-12 rounded-2xl border border-dashed border-line p-10 text-center">
-          <p className="text-sm text-muted">{cmsText(map, "players.coming", ui.playersComing, ko)}</p>
+          <p className="text-sm text-muted">{cmsText(map, "players.coming", ui.playersComing, locale)}</p>
         </div>
       )}
     </Section>

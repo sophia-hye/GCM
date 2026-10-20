@@ -133,7 +133,7 @@ export default async function VoicesPage({
         {voices.length > 0 ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {voices.map((raw) => {
-              const v = localizeVoice(raw, ko);
+              const v = localizeVoice(raw, locale);
               return (
                 <div key={v.id} className="flex flex-col rounded-2xl border border-line bg-card/40 p-6">
                   <span className="text-xs font-semibold uppercase tracking-[0.2em] text-court-bright">

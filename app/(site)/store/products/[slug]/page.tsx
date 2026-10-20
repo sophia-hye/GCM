@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getLocale } from "@/lib/i18n";
 import { pick } from "@/lib/i18n-pick";
 import { formatPrice } from "@/lib/programs";
-import type { StoreProduct } from "@/lib/store-products";
+import { localizeProduct, type StoreProduct } from "@/lib/store-products";
 
 async function getProduct(slug: string): Promise<StoreProduct | null> {
   const supabase = await createClient();
@@ -29,8 +29,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const locale = await getLocale();
-  const product = await getProduct(slug);
-  if (!product)
+  const raw0 = await getProduct(slug);
+  if (!raw0)
     return {
       title: pick(locale, {
         ko: "GCM's Products | GCM 테니스 아카데미",
@@ -42,6 +42,7 @@ export async function generateMetadata({
         es: "GCM's Products | GCM Tennis Academy",
       }),
     };
+  const product = localizeProduct(raw0, locale);
   return pageMetadata({
     title: `${product.title} | GCM's Products`,
     description:
@@ -65,11 +66,11 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await getProduct(slug);
-  if (!product) notFound();
+  const raw = await getProduct(slug);
+  if (!raw) notFound();
 
   const locale = await getLocale();
-  const ko = locale === "ko";
+  const product = localizeProduct(raw, locale);
 
   return (
     <div className="pt-16">
@@ -118,11 +119,11 @@ export default async function ProductDetailPage({
             ) : null}
 
             <p className="mt-6 font-display text-2xl font-black text-court-bright">
-              {formatPrice(product.price, ko)}
+              {formatPrice(product.price, locale)}
             </p>
 
             <div className="mt-6">
-              <PurchaseButton programId={product.id} price={product.price} ko={ko} />
+              <PurchaseButton programId={product.id} price={product.price} />
             </div>
           </div>
         </div>

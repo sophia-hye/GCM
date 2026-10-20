@@ -13,11 +13,9 @@ import { pick } from "@/lib/i18n-pick";
  */
 export function PurchaseButton({
   price,
-  ko = true,
 }: {
   programId: string;
   price: number | null;
-  ko?: boolean;
 }) {
   const locale = useLocale();
   const [open, setOpen] = useState(false);
@@ -37,7 +35,7 @@ export function PurchaseButton({
           it: "Acquista",
           fr: "Acheter",
           es: "Comprar",
-        })} · ${formatPrice(price, ko)}`}
+        })} · ${formatPrice(price, locale)}`}
       </button>
 
       {open ? (

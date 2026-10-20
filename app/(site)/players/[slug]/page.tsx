@@ -23,16 +23,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const raw = await getPlayerBySlug(slug);
   const locale = await getLocale();
-  const ko = locale === "ko";
   if (!raw)
     return {
       title: pick(locale, { ko: "선수 | GCM 테니스 아카데미", en: "Player | GCM Tennis Academy", zh: "选手 | GCM 网球学院", ja: "選手 | GCM テニスアカデミー", it: "Atleta | GCM Tennis Academy", fr: "Joueur | GCM Tennis Academy", es: "Jugador | GCM Tennis Academy" }),
     };
-  const player = localizePlayer(raw, ko);
+  const player = localizePlayer(raw, locale);
   const { tagline } = parseBio(player.bio);
   const bits = [
     tagline,
-    player.track ? (ko ? `${TRACK_LABEL[player.track].ko} 트랙` : `${TRACK_LABEL[player.track].en} track`) : null,
+    player.track ? pick(locale, TRACK_LABEL[player.track]) : null,
     player.utr ? `UTR ${player.utr}` : null,
   ]
     .filter(Boolean)
@@ -72,13 +71,8 @@ export default async function PlayerDetailPage({
   if (!raw) notFound();
 
   const locale = await getLocale();
-  const ko = locale === "ko";
-  const player = localizePlayer(raw, ko);
-  const trackLabel = player.track
-    ? ko
-      ? TRACK_LABEL[player.track].ko
-      : TRACK_LABEL[player.track].en
-    : null;
+  const player = localizePlayer(raw, locale);
+  const trackLabel = player.track ? pick(locale, TRACK_LABEL[player.track]) : null;
 
   const { tagline, tags } = parseBio(player.bio);
   const meta = [trackLabel, player.grad_year, player.utr ? `UTR ${player.utr}` : null]

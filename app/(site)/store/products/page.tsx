@@ -85,7 +85,7 @@ export default async function StoreProductsPage() {
         />
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
-            <StoreProductCard key={p.id} product={p} ko={ko} />
+            <StoreProductCard key={p.id} product={p} locale={locale} />
           ))}
         </div>
       </Section>

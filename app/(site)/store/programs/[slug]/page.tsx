@@ -72,7 +72,7 @@ export async function generateMetadata({
         es: "Education Program | GCM Tennis Academy",
       }),
     };
-  const program = localizeProgram(raw, ko);
+  const program = localizeProgram(raw, locale);
   return pageMetadata({
     title: pick(locale, {
       ko: `${program.title} | GCM 테니스 아카데미`,
@@ -109,7 +109,7 @@ export default async function ProgramDetailPage({
 
   const locale = await getLocale();
   const ko = locale === "ko";
-  const program = localizeProgram(raw, ko);
+  const program = localizeProgram(raw, locale);
   const { intro, sections } = program.description
     ? parseDescription(program.description)
     : { intro: [], sections: [] };
@@ -243,13 +243,13 @@ export default async function ProgramDetailPage({
               ) : (
                 <>
                   <p className="mt-2 font-display text-2xl font-black text-court-bright">
-                    {formatPrice(program.price, ko)}
+                    {formatPrice(program.price, locale)}
                   </p>
                   {program.duration ? (
                     <p className="mt-2 text-sm text-muted">{program.duration}</p>
                   ) : null}
                   <div className="mt-5">
-                    <PurchaseButton programId={program.id} price={program.price} ko={ko} />
+                    <PurchaseButton programId={program.id} price={program.price} />
                   </div>
                 </>
               )}

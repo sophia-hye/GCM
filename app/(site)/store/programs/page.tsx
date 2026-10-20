@@ -141,7 +141,7 @@ export default async function StoreProgramsPage() {
 
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {programs.map((p) => (
-            <ProgramCard key={p.id} program={p} ko={ko} />
+            <ProgramCard key={p.id} program={p} locale={locale} />
           ))}
         </div>
 

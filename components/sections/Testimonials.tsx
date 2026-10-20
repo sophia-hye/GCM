@@ -57,7 +57,7 @@ export async function Testimonials() {
         <>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {voices.map((raw) => {
-              const v = localizeVoice(raw, ko);
+              const v = localizeVoice(raw, locale);
               return (
                 <Link
                   key={v.id}

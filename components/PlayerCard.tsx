@@ -7,15 +7,13 @@ import { pick } from "@/lib/i18n-pick";
 
 export async function PlayerCard({
   player,
-  ko = true,
   detailed = false,
 }: {
   player: Player;
-  ko?: boolean;
   detailed?: boolean;
 }) {
   const locale = await getLocale();
-  const p = localizePlayer(player, ko);
+  const p = localizePlayer(player, locale);
   const meta = [p.grad_year && `${p.grad_year}`, p.utr && `UTR ${p.utr}`]
     .filter(Boolean)
     .join(" · ");
@@ -54,7 +52,7 @@ export async function PlayerCard({
         )}
         {p.track ? (
           <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-            {ko ? TRACK_LABEL[p.track].ko : TRACK_LABEL[p.track].en}
+            {pick(locale, TRACK_LABEL[p.track])}
           </span>
         ) : null}
       </div>
