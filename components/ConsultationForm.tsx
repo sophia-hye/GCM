@@ -12,7 +12,6 @@ const action = submitApplication.bind(null, "consultation");
 
 export function ConsultationForm() {
   const locale = useLocale();
-  const ko = locale === "ko";
   const [state, formAction, pending] = useActionState<ApplicationState, FormData>(
     action,
     {},
@@ -52,7 +51,7 @@ export function ConsultationForm() {
   return (
     <form action={formAction} className="rounded-2xl border border-line bg-card p-7">
       <h2 className="font-display text-sm font-bold uppercase tracking-widest text-court-bright">
-        {sectionTitle(section, ko)}
+        {sectionTitle(section, locale)}
       </h2>
       <p className="mt-1 text-xs text-danger">
         {pick(locale, {
@@ -68,7 +67,7 @@ export function ConsultationForm() {
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {section.fields.map((f) => (
-          <FormField key={f.name} field={f} ko={ko} />
+          <FormField key={f.name} field={f} />
         ))}
       </div>
 

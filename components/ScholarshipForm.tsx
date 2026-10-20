@@ -11,7 +11,6 @@ const action = submitApplication.bind(null, "scholarship");
 
 export function ScholarshipForm() {
   const locale = useLocale();
-  const ko = locale === "ko";
   const [state, formAction, pending] = useActionState<ApplicationState, FormData>(
     action,
     {},
@@ -78,11 +77,11 @@ export function ScholarshipForm() {
       {scholarshipForm.map((section) => (
         <fieldset key={section.title}>
           <legend className="font-display text-sm font-bold uppercase tracking-widest text-court-bright">
-            {sectionTitle(section, ko)}
+            {sectionTitle(section, locale)}
           </legend>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {section.fields.map((f) => (
-              <FormField key={f.name} field={f} ko={ko} />
+              <FormField key={f.name} field={f} />
             ))}
           </div>
         </fieldset>

@@ -13,7 +13,6 @@ const selectClass =
 
 export function OnboardingForm() {
   const locale = useLocale();
-  const ko = locale === "ko";
   const [referral, setReferral] = useState("");
   const [state, action, pending] = useActionState<AuthState, FormData>(
     completeOnboarding,
@@ -219,7 +218,7 @@ export function OnboardingForm() {
           </option>
           {REFERRAL_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
-              {ko ? o.ko : o.en}
+              {pick(locale, o)}
             </option>
           ))}
         </select>

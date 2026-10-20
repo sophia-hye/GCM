@@ -35,7 +35,6 @@ function PhoneField({ locale }: { locale: Locale }) {
 
 export function SignupForm() {
   const locale = useLocale();
-  const ko = locale === "ko";
   const [referral, setReferral] = useState("");
   const [memberState, memberAction, memberPending] = useActionState<AuthState, FormData>(
     signUpMember,
@@ -275,7 +274,7 @@ export function SignupForm() {
             </option>
             {REFERRAL_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>
-                {ko ? o.ko : o.en}
+                {pick(locale, o)}
               </option>
             ))}
           </select>
