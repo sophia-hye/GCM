@@ -13,10 +13,10 @@ export async function SiteGuide() {
   const { siteGuide, siteGuideLead, directorMessage: d } = getDict(locale);
   const ui = getUI(locale);
   const map = await getContentMap();
-  const dEyebrow = cmsText(map, "director.eyebrow", d.eyebrow, ko);
-  const dTitle = cmsText(map, "director.title", d.title, ko);
-  const dHomeSummary = cmsParas(map, "director.homeSummary", d.homeSummary, ko);
-  const dQuote = cmsText(map, "director.quote", d.quote, ko);
+  const dEyebrow = cmsText(map, "director.eyebrow", d.eyebrow, locale);
+  const dTitle = cmsText(map, "director.title", d.title, locale);
+  const dHomeSummary = cmsParas(map, "director.homeSummary", d.homeSummary, locale);
+  const dQuote = cmsText(map, "director.quote", d.quote, locale);
 
   return (
     <Section id="explore" reveal={false}>
@@ -40,7 +40,7 @@ export async function SiteGuide() {
         </h2>
 
         <p className="mt-5 text-lg leading-relaxed text-muted">
-          {cmsText(map, "section.siteGuideLead", siteGuideLead, ko)}
+          {cmsText(map, "section.siteGuideLead", siteGuideLead, locale)}
         </p>
       </Reveal>
 
@@ -153,14 +153,14 @@ export async function SiteGuide() {
               </div>
 
               <h3 className="mt-4 font-display text-xl font-bold">
-                {cmsText(map, `guide.${g.label}.title`, g.title, ko)}
+                {cmsText(map, `guide.${g.label}.title`, g.title, locale)}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                {cmsText(map, `guide.${g.label}.desc`, g.desc, ko)}
+                {cmsText(map, `guide.${g.label}.desc`, g.desc, locale)}
               </p>
 
               <ul className="mt-4 space-y-1.5 text-sm text-ink/90">
-                {cmsList(map, `guide.${g.label}.items`, g.items, ko).map((it) => (
+                {cmsList(map, `guide.${g.label}.items`, g.items, locale).map((it) => (
                   <li key={it} className="flex gap-2">
                     <span className="text-court">·</span>
                     {it}
