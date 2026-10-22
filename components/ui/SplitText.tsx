@@ -47,12 +47,15 @@ export function SplitText({
 
   const words = text.split(" ");
   let charIndex = 0;
+  // 중국어·일본어(한자·가나)는 공백이 없어 한 '단어'가 통째로 inline-block 이 되면
+  // 줄바꿈되지 않고 넘친다. 해당 문자를 포함한 단어는 글자 단위로 끊기도록 일반 inline 처리.
+  const isCjk = (w: string) => /[぀-ヿ㐀-鿿]/.test(w);
 
   return (
     <span ref={ref} aria-label={text} className={className}>
       {words.map((word, wi) => (
         <span key={wi}>
-          <span className="inline-block whitespace-nowrap">
+          <span className={isCjk(word) ? "" : "inline-block whitespace-nowrap"}>
             {Array.from(word).map((ch) => {
               const i = charIndex++;
               return (
