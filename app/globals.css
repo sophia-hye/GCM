@@ -53,6 +53,18 @@ body {
   background-attachment: fixed;
 }
 
+/*
+ * 줄바꿈: 한국어는 keep-all(어절 단위)로 유지하고,
+ * 그 외 언어(중국어·일본어·라틴)는 keep-all 이 역효과이므로 일반 줄바꿈으로.
+ * CJK 는 글자 단위로 자연스럽게 끊기고, 라틴은 긴 단어만 break-word 로 감싼다.
+ * <html lang> 은 현재 로케일을 반영한다(ko/en/zh/ja/it/fr/es).
+ */
+html:not([lang="ko"]) body,
+html:not([lang="ko"]) .break-keep {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
 /* 클레이 코트 그라데이션 */
 .bg-court-gradient {
   background-image: linear-gradient(135deg, #9c3a20 0%, #c2492b 55%, #d4663f 100%);
