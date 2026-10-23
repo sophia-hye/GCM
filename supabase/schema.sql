@@ -428,3 +428,21 @@ create policy "gcm_products_select_published" on public.gcm_products for select 
 drop policy if exists "gcm_products_admin_all" on public.gcm_products;
 create policy "gcm_products_admin_all" on public.gcm_products for all
   using (public.is_gcm_admin()) with check (public.is_gcm_admin());
+
+-- ============================================================
+-- Data API 접근 권한
+-- 2026-10-30 부터 Supabase 가 public 신규 테이블에 자동 GRANT 를 더 이상 부여하지 않음.
+-- (기존 테이블은 영향 없음) 이 스키마를 새 프로젝트·프리뷰 브랜치·db reset 에서
+-- 재생성해도 Data API(supabase-js/PostgREST/GraphQL)가 동작하도록 권한을 명시한다.
+-- ※ 행(row) 접근은 위의 RLS 정책이 제어하므로, 테이블 권한을 역할에 부여해도 안전하다.
+-- ※ alter default privileges 로 이후 새로 만드는 테이블에도 자동 적용된다.
+-- ============================================================
+grant usage on schema public to anon, authenticated, service_role;
+
+grant select on all tables in schema public to anon;
+grant select, insert, update, delete on all tables in schema public to authenticated, service_role;
+grant usage, select on all sequences in schema public to anon, authenticated, service_role;
+
+alter default privileges in schema public grant select on tables to anon;
+alter default privileges in schema public grant select, insert, update, delete on tables to authenticated, service_role;
+alter default privileges in schema public grant usage, select on sequences to anon, authenticated, service_role;
