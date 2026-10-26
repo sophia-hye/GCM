@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import { PageJsonLd } from "@/components/PageJsonLd";
 import { Players } from "@/components/sections/Players";
+import { ParentFeature } from "@/components/sections/ParentFeature";
 import { getLocale } from "@/lib/i18n";
 import { pick } from "@/lib/i18n-pick";
 
@@ -36,6 +37,7 @@ export default async function PlayersPage() {
     <div className="pt-16">
       <PageJsonLd name={pick(locale, { ko: "배출·소속 선수", en: "GCM Players", zh: "培养·所属选手", ja: "輩出·所属選手", it: "Atleti GCM", fr: "Joueurs GCM", es: "Jugadores GCM" })} path="/players" />
       <Players detailed />
+      <ParentFeature />
     </div>
   );
 }
