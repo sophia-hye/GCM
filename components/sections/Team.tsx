@@ -51,7 +51,12 @@ export async function Team() {
           </div>
           <div className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {tennis.map((member) => (
-              <CoachCard key={member.idx} member={member} bioLabel={ui.coachBio} />
+              <CoachCard
+                key={member.idx}
+                member={member}
+                bioLabel={ui.coachBio}
+                bioCloseLabel={ui.coachBioClose}
+              />
             ))}
           </div>
         </div>

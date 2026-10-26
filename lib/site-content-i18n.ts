@@ -15,6 +15,7 @@ type UiStrings = {
   testimonialsComing: string;
   teamTitle: string;
   coachBio: string;
+  coachBioClose: string;
   curriculumTitle: string;
   curriculumLead: string;
   totalCareTitle: string;
@@ -70,6 +71,7 @@ const zh: Sections = {
     testimonialsComing: "选手与家长的故事正在准备中，将在获得同意后依次公开。",
     teamTitle: "认识教练团队",
     coachBio: "查看简介 →",
+    coachBioClose: "收起简介",
     curriculumTitle: "成长课程 · 六阶段体系",
     curriculumLead: "从诊断到迈入下一阶段，我们以六个阶段设计并循环推进选手的成长。",
     totalCareTitle: "超越网球的管理",
@@ -180,6 +182,7 @@ const ja: Sections = {
     testimonialsComing: "選手と保護者の声を準備中です。同意確認のうえ順次公開いたします。",
     teamTitle: "コーチ陣の紹介",
     coachBio: "経歴を見る →",
+    coachBioClose: "経歴を閉じる",
     curriculumTitle: "育成カリキュラム · 6ステップ・システム",
     curriculumLead: "診断から次の段階への到達まで、選手の成長を6つのステップで設計し循環させます。",
     totalCareTitle: "テニスを超えたケア",
@@ -290,6 +293,7 @@ const it: Sections = {
     testimonialsComing: "Le storie di atleti e genitori sono in preparazione e verranno pubblicate in ordine dopo il consenso.",
     teamTitle: "I nostri allenatori",
     coachBio: "Vedi biografia →",
+    coachBioClose: "Nascondi biografia",
     curriculumTitle: "Percorso di sviluppo · Sistema in 6 fasi",
     curriculumLead: "Dalla valutazione al passo successivo, progettiamo e facciamo evolvere la crescita dell'atleta in sei fasi.",
     totalCareTitle: "Oltre il tennis",
@@ -400,6 +404,7 @@ const fr: Sections = {
     testimonialsComing: "Les témoignages des joueurs et des parents sont en préparation et seront publiés progressivement après consentement.",
     teamTitle: "Nos entraîneurs",
     coachBio: "Voir la biographie →",
+    coachBioClose: "Masquer la biographie",
     curriculumTitle: "Parcours de développement · Système en 6 étapes",
     curriculumLead: "De l'évaluation au passage à l'étape suivante, nous concevons et faisons évoluer la progression du joueur en six étapes.",
     totalCareTitle: "Au-delà du tennis",
@@ -510,6 +515,7 @@ const es: Sections = {
     testimonialsComing: "Las historias de jugadores y familias están en preparación y se publicarán de forma progresiva tras el consentimiento.",
     teamTitle: "Nuestros entrenadores",
     coachBio: "Ver biografía →",
+    coachBioClose: "Ocultar biografía",
     curriculumTitle: "Itinerario de desarrollo · Sistema de 6 fases",
     curriculumLead: "De la evaluación al siguiente nivel, diseñamos y hacemos evolucionar el crecimiento del jugador en seis fases.",
     totalCareTitle: "Más allá del tenis",
