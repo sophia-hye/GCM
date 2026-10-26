@@ -219,6 +219,8 @@ export const PARENT_FEATURE: {
         "/img/parent-review/7.webp",
         "/img/parent-review/8.webp",
         "/img/parent-review/9.webp",
+        "/img/parent-review/10.webp",
+        "/img/parent-review/11.webp",
       ],
     },
     {
