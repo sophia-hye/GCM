@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import {
@@ -11,11 +12,49 @@ import {
   type Locale,
 } from "@/lib/i18n-pick";
 
+function GlobeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z" />
+    </svg>
+  );
+}
+
 export function LocaleToggle({ light = false }: { light?: boolean }) {
   const locale = useLocale();
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   const choose = (next: Locale) => {
+    setOpen(false);
     if (next === locale) return;
     const { rest } = localeFromPath(pathname);
     const target = `${localePrefix(next)}${rest}` || "/";
@@ -24,30 +63,58 @@ export function LocaleToggle({ light = false }: { light?: boolean }) {
     window.location.assign(target + window.location.search + window.location.hash);
   };
 
-  const base = "rounded-full px-2 py-0.5 text-xs font-semibold transition-colors";
-  const activeCls = light ? "bg-white/90 text-ink" : "bg-court text-white";
-  const idleCls = light ? "text-white/70 hover:text-white" : "text-muted hover:text-ink";
+  const triggerCls = light
+    ? "border-white/40 text-white/90 hover:bg-white/10"
+    : "border-line text-ink hover:bg-card";
 
   return (
-    <div
-      className={`inline-flex flex-wrap items-center gap-0.5 rounded-full border p-0.5 ${
-        light ? "border-white/40" : "border-line"
-      }`}
-      aria-label="language"
-    >
-      {LOCALES.map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => choose(l)}
-          className={`${base} ${locale === l ? activeCls : idleCls}`}
-          aria-pressed={locale === l}
-          aria-label={LOCALE_NAMES[l]}
-          title={LOCALE_NAMES[l]}
+    <div ref={rootRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold transition-colors ${triggerCls}`}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={LOCALE_NAMES[locale]}
+        title={LOCALE_NAMES[locale]}
+      >
+        <GlobeIcon className="h-4 w-4" />
+        <span>{LOCALE_LABELS[locale]}</span>
+        <svg
+          viewBox="0 0 12 12"
+          className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
+          aria-hidden
         >
-          {LOCALE_LABELS[l]}
-        </button>
-      ))}
+          <path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open ? (
+        <div
+          role="menu"
+          className="absolute right-0 z-50 mt-2 max-h-[70vh] min-w-[9rem] overflow-y-auto rounded-xl border border-line bg-base py-1 shadow-lg"
+        >
+          {LOCALES.map((l) => (
+            <button
+              key={l}
+              type="button"
+              role="menuitemradio"
+              aria-checked={locale === l}
+              onClick={() => choose(l)}
+              className={`flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm transition-colors ${
+                locale === l
+                  ? "font-semibold text-court"
+                  : "text-ink hover:bg-card"
+              }`}
+            >
+              <span>{LOCALE_NAMES[l]}</span>
+              <span className={locale === l ? "text-court" : "text-muted"}>
+                {LOCALE_LABELS[l]}
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
