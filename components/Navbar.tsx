@@ -57,12 +57,18 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
       }`}
     >
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="flex shrink-0 items-baseline gap-2">
-          <span className={`font-display text-xl font-extrabold tracking-tight ${logoColor}`}>
-            {site.name}
-            <span className="text-lime">.</span>
-          </span>
-        </Link>
+        <div className="flex shrink-0 items-center gap-3">
+          <Link href="/" className="flex items-baseline gap-2">
+            <span className={`font-display text-xl font-extrabold tracking-tight ${logoColor}`}>
+              {site.name}
+              <span className="text-lime">.</span>
+            </span>
+          </Link>
+          {/* 모바일: 지구본 언어 선택을 항상 GNB 왼쪽에 노출 */}
+          <div className="xl:hidden">
+            <LocaleToggle light={!solid} />
+          </div>
+        </div>
 
         {/* 데스크톱: 그룹 + 드롭다운(hover) */}
         <nav className="hidden items-center gap-1 xl:flex">
@@ -209,9 +215,6 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
               );
             })}
 
-            <div className="px-2 py-2">
-              <LocaleToggle />
-            </div>
             {auth ? (
               <>
                 <Link
