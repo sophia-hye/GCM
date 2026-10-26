@@ -70,7 +70,7 @@ export async function ParentFeature() {
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button href="/testimonial" variant="court">
             {pick(locale, {
-              ko: "더 많은 후기 보기",
+              ko: "더 많은 후기 보러가기",
               en: "See more reviews",
               zh: "查看更多后记",
               ja: "もっとレビューを見る",

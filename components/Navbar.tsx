@@ -147,16 +147,20 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           )}
         </div>
 
-        <button
-          type="button"
-          aria-label={pick(locale, { ko: "메뉴 열기", en: "Open menu", zh: "打开菜单", ja: "メニューを開く", it: "Apri menu", fr: "Ouvrir le menu", es: "Abrir menú" })}
-          onClick={() => setOpen((v) => !v)}
-          className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
-            solid ? "border-line text-ink" : "border-white/70 bg-black/30 text-white backdrop-blur"
-          }`}
-        >
-          <span className="text-lg">{open ? "✕" : "☰"}</span>
-        </button>
+        {/* 모바일: 지구본 언어 선택을 햄버거 버튼 왼쪽에 항상 노출 */}
+        <div className="flex items-center gap-2 xl:hidden">
+          <LocaleToggle light={!solid} />
+          <button
+            type="button"
+            aria-label={pick(locale, { ko: "메뉴 열기", en: "Open menu", zh: "打开菜单", ja: "メニューを開く", it: "Apri menu", fr: "Ouvrir le menu", es: "Abrir menú" })}
+            onClick={() => setOpen((v) => !v)}
+            className={`flex h-10 w-10 items-center justify-center rounded-lg border ${
+              solid ? "border-line text-ink" : "border-white/70 bg-black/30 text-white backdrop-blur"
+            }`}
+          >
+            <span className="text-lg">{open ? "✕" : "☰"}</span>
+          </button>
+        </div>
       </Container>
 
       {/* 모바일: 아코디언 */}
@@ -209,9 +213,6 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
               );
             })}
 
-            <div className="px-2 py-2">
-              <LocaleToggle />
-            </div>
             {auth ? (
               <>
                 <Link

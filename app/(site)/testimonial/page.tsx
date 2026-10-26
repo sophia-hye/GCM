@@ -175,6 +175,47 @@ export default async function VoicesPage({
           </div>
         )}
       </Section>
+
+      <Section tone="muted">
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button href="/players" variant="court">
+            {pick(locale, { ko: "선수들 보러가기", en: "Meet the players", zh: "认识选手", ja: "選手を見る", it: "Scopri gli atleti", fr: "Voir les joueurs", es: "Ver a los jugadores" })}
+          </Button>
+          <Button href="/coaches" variant="outline">
+            {pick(locale, { ko: "코치진 보러가기", en: "Meet the coaches", zh: "认识教练团队", ja: "コーチ陣を見る", it: "Scopri gli allenatori", fr: "Voir les entraîneurs", es: "Ver a los entrenadores" })}
+          </Button>
+        </div>
+
+        <div className="mx-auto mt-14 max-w-2xl text-center">
+          <h2 className="break-keep font-display text-2xl font-bold sm:text-3xl">
+            {pick(locale, {
+              ko: "다음 이야기의 주인공은 우리 아이입니다",
+              en: "Your child's story could be the next one",
+              zh: "下一个故事的主角，就是您的孩子",
+              ja: "次の物語の主人公は、お子さまです",
+              it: "La prossima storia potrebbe essere quella di tuo figlio",
+              fr: "La prochaine histoire pourrait être celle de votre enfant",
+              es: "La próxima historia podría ser la de tu hijo",
+            })}
+          </h2>
+          <p className="mt-3 break-keep leading-relaxed text-muted">
+            {pick(locale, {
+              ko: "선수의 현재 위치와 목표에 맞는 코칭·진로를 편하게 문의하세요.",
+              en: "Reach out about coaching and pathways tailored to where your athlete is now.",
+              zh: "欢迎咨询契合选手当前水平与目标的教学与升学路径。",
+              ja: "選手の現在地と目標に合ったコーチング・進路をお気軽にお問い合わせください。",
+              it: "Contattaci per un coaching e un percorso su misura per il livello attuale del tuo atleta.",
+              fr: "Contactez-nous pour un encadrement et un parcours adaptés au niveau actuel de votre joueur.",
+              es: "Consúltanos sobre el coaching y el itinerario adecuados al nivel actual de tu jugador.",
+            })}
+          </p>
+          <div className="mt-8">
+            <Button href="/consulting" variant="court">
+              {pick(locale, { ko: "상담하기", en: "Request consultation", zh: "预约咨询", ja: "相談する", it: "Richiedi una consulenza", fr: "Demander un conseil", es: "Solicitar asesoría" })}
+            </Button>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 }
