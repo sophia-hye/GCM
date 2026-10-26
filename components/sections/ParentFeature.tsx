@@ -1,4 +1,4 @@
-import { Section, Button } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { AlumniGallery } from "@/components/alumni/AlumniGallery";
 import { getLocale } from "@/lib/i18n";
@@ -9,6 +9,8 @@ export async function ParentFeature() {
   const locale = await getLocale();
   const ko = locale === "ko";
   const t = (b: I18nText) => pick(locale, b);
+  // 후기 본문 아래에 모아서 보여줄 갤러리 (데이터는 해당 섹션에 들어있다)
+  const gallery = F.sections.flatMap((s) => s.gallery ?? []);
   const galleryName = pick(locale, {
     ko: "제주 응원",
     en: "Jeju cheering trip",
@@ -61,11 +63,6 @@ export async function ParentFeature() {
                     </p>
                   ))}
                 </div>
-                {s.gallery && s.gallery.length > 0 ? (
-                  <div className="mt-5">
-                    <AlumniGallery images={s.gallery} name={galleryName} ko={ko} />
-                  </div>
-                ) : null}
               </div>
             ))}
           </div>
@@ -83,30 +80,11 @@ export async function ParentFeature() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button href="/testimonial" variant="court">
-            {pick(locale, {
-              ko: "더 많은 후기 보러가기",
-              en: "See more reviews",
-              zh: "查看更多后记",
-              ja: "もっとレビューを見る",
-              it: "Vedi altre testimonianze",
-              fr: "Voir plus de témoignages",
-              es: "Ver más reseñas",
-            })}
-          </Button>
-          <Button href="/coaches" variant="outline">
-            {pick(locale, {
-              ko: "코치진 보러가기",
-              en: "Meet the coaches",
-              zh: "认识教练团队",
-              ja: "コーチ陣を見る",
-              it: "Scopri gli allenatori",
-              fr: "Voir les entraîneurs",
-              es: "Ver a los entrenadores",
-            })}
-          </Button>
-        </div>
+        {gallery.length > 0 ? (
+          <div className="mt-8">
+            <AlumniGallery images={gallery} name={galleryName} ko={ko} />
+          </div>
+        ) : null}
       </Reveal>
     </Section>
   );
