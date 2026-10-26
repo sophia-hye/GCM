@@ -1,12 +1,23 @@
 import { Section, Button } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
+import { AlumniGallery } from "@/components/alumni/AlumniGallery";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
 import { PARENT_FEATURE as F } from "@/lib/parent-feature";
 
 export async function ParentFeature() {
   const locale = await getLocale();
+  const ko = locale === "ko";
   const t = (b: I18nText) => pick(locale, b);
+  const galleryName = pick(locale, {
+    ko: "제주 응원",
+    en: "Jeju cheering trip",
+    zh: "济州应援",
+    ja: "済州応援",
+    it: "Trasferta a Jeju",
+    fr: "Déplacement à Jeju",
+    es: "Viaje a Jeju",
+  });
 
   return (
     <Section tone="muted">
@@ -50,6 +61,11 @@ export async function ParentFeature() {
                     </p>
                   ))}
                 </div>
+                {s.gallery && s.gallery.length > 0 ? (
+                  <div className="mt-5">
+                    <AlumniGallery images={s.gallery} name={galleryName} ko={ko} />
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
