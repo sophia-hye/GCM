@@ -14,6 +14,13 @@ import {
 import { normalizePhone } from "@/lib/phone";
 import { buildReferralSource } from "@/lib/referral";
 import { detectSignupMethod } from "@/lib/signup-method";
+import { getLocale } from "@/lib/i18n";
+import { localePrefix } from "@/lib/i18n-pick";
+
+/** 현재 로케일 접두어(ko→"", 그 외→"/xx"). 리다이렉트 시 언어 유지용. */
+async function lp(): Promise<string> {
+  return localePrefix(await getLocale());
+}
 
 export type AuthState = { error?: string };
 export type PasswordResetState = { error?: string; ok?: boolean };
@@ -65,10 +72,11 @@ export async function signInMember(
     redirect(safeNext);
   }
   // 관리자 계정이면 마이페이지(대시보드)로, 그 외에는 홈으로 이동
+  const _lp = await lp();
   if (profile?.is_admin) {
-    redirect("/dashboard");
+    redirect(`${_lp}/dashboard`);
   }
-  redirect("/");
+  redirect(_lp || "/");
 }
 
 /** 관리자 로그인: 이메일 + 비밀번호 */
@@ -151,7 +159,7 @@ export async function completeOnboarding(
     if (dup) {
       await admin.auth.admin.deleteUser(user.id); // 빈 중복 계정 제거(프로필 cascade)
       await supabase.auth.signOut();
-      redirect("/login?dup=1");
+      redirect(`${await lp()}/login?dup=1`);
     }
   }
 
@@ -178,7 +186,7 @@ export async function completeOnboarding(
   }
 
   revalidatePath("/", "layout");
-  redirect("/welcome");
+  redirect(`${await lp()}/welcome`);
 }
 
 export async function signOut() {
@@ -259,7 +267,7 @@ export async function signUpMember(
 
   await signInAfterSignup(email, password);
   revalidatePath("/", "layout");
-  redirect("/welcome");
+  redirect(`${await lp()}/welcome`);
 }
 
 /** 관리자 자가 가입: 이메일 + 비밀번호 + 관리자 키 (+ 연락처 전화번호) */
@@ -369,5 +377,5 @@ export async function updatePassword(
 
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
-  redirect("/login?reset=1");
+  redirect(`${await lp()}/login?reset=1`);
 }

@@ -8,7 +8,7 @@ import { Container } from "@/components/ui";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { LocaleToggle } from "@/components/i18n/LocaleToggle";
-import type { Locale } from "@/lib/i18n-pick";
+import { pick, type Locale } from "@/lib/i18n-pick";
 
 const NAV_T: Record<Locale, { login: string; signup: string; mypage: string; logout: string }> = {
   ko: { login: "로그인", signup: "회원가입", mypage: "마이페이지", logout: "로그아웃" },
@@ -149,7 +149,7 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
 
         <button
           type="button"
-          aria-label="메뉴 열기"
+          aria-label={pick(locale, { ko: "메뉴 열기", en: "Open menu", zh: "打开菜单", ja: "メニューを開く", it: "Apri menu", fr: "Ouvrir le menu", es: "Abrir menú" })}
           onClick={() => setOpen((v) => !v)}
           className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
             solid ? "border-line text-ink" : "border-white/70 bg-black/30 text-white backdrop-blur"

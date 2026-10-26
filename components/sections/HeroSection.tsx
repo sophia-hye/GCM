@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button, Container } from "@/components/ui";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { pick } from "@/lib/i18n-pick";
 import { getDict, getUI } from "@/lib/site-content";
 
 type Slide = { eyebrow: string; headline: string; accent: string; sub: string };
@@ -32,7 +33,15 @@ export function HeroSection({ koSlides }: { koSlides?: Slide[] }) {
       {/* 메인 배경 사진 */}
       <Image
         src="/img/main-clay.png"
-        alt="GCM 테니스 트레이닝"
+        alt={pick(locale, {
+          ko: "GCM 테니스 트레이닝",
+          en: "GCM tennis training",
+          zh: "GCM 网球训练",
+          ja: "GCM テニストレーニング",
+          it: "Allenamento di tennis GCM",
+          fr: "Entraînement de tennis GCM",
+          es: "Entrenamiento de tenis GCM",
+        })}
         fill
         priority
         sizes="100vw"
