@@ -71,6 +71,7 @@ export const nav = [
   {
     label: "Our Story",
     items: [
+      { label: "GCM Story", href: "/gcm-story" },
       { label: "Testimonial", href: "/testimonial" },
       { label: "Gallery", href: "/gallery" },
       { label: "Consulting", href: "/consulting" },
