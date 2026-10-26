@@ -175,6 +175,17 @@ export default async function VoicesPage({
           </div>
         )}
       </Section>
+
+      <Section tone="muted">
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button href="/players" variant="court">
+            {pick(locale, { ko: "선수들 보러가기", en: "Meet the players", zh: "认识选手", ja: "選手を見る", it: "Scopri gli atleti", fr: "Voir les joueurs", es: "Ver a los jugadores" })}
+          </Button>
+          <Button href="/coaches" variant="outline">
+            {pick(locale, { ko: "코치진 보러가기", en: "Meet the coaches", zh: "认识教练团队", ja: "コーチ陣を見る", it: "Scopri gli allenatori", fr: "Voir les entraîneurs", es: "Ver a los entrenadores" })}
+          </Button>
+        </div>
+      </Section>
     </div>
   );
 }

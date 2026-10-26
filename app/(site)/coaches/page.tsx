@@ -64,11 +64,11 @@ export default async function CoachesPage() {
             <Button href="/consulting" variant="court">
               {pick(locale, { ko: "상담하기", en: "Request consultation", zh: "预约咨询", ja: "相談する", it: "Richiedi una consulenza", fr: "Demander un conseil", es: "Solicitar asesoría" })}
             </Button>
-            <Button href="/testimonial" variant="outline">
-              {pick(locale, { ko: "후기 보러가기", en: "See reviews", zh: "查看后记", ja: "レビューを見る", it: "Vedi le testimonianze", fr: "Voir les témoignages", es: "Ver reseñas" })}
-            </Button>
             <Button href="/players" variant="outline">
-              {pick(locale, { ko: "선수 보러가기", en: "Meet the players", zh: "认识选手", ja: "選手を見る", it: "Scopri gli atleti", fr: "Voir les joueurs", es: "Ver a los jugadores" })}
+              {pick(locale, { ko: "선수들 보러가기", en: "Meet the players", zh: "认识选手", ja: "選手を見る", it: "Scopri gli atleti", fr: "Voir les joueurs", es: "Ver a los jugadores" })}
+            </Button>
+            <Button href="/testimonial" variant="outline">
+              {pick(locale, { ko: "후기들 보러가기", en: "See reviews", zh: "查看后记", ja: "レビューを見る", it: "Vedi le testimonianze", fr: "Voir les témoignages", es: "Ver reseñas" })}
             </Button>
           </div>
         </div>
