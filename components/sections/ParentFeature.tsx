@@ -24,13 +24,13 @@ export async function ParentFeature() {
       <Reveal className="mx-auto max-w-3xl">
         <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-court-bright">
           {pick(locale, {
-            ko: "학부모 대표 후기",
-            en: "Featured Parent Review",
-            zh: "学生家长代表后记",
-            ja: "保護者の代表レビュー",
-            it: "Testimonianza di un genitore",
-            fr: "Témoignage d'un parent",
-            es: "Reseña destacada de una familia",
+            ko: "GCM 학부모 후기",
+            en: "GCM Parent Review",
+            zh: "GCM 学生家长后记",
+            ja: "GCM 保護者レビュー",
+            it: "Recensione di un genitore GCM",
+            fr: "Témoignage de parent GCM",
+            es: "Reseña de una familia GCM",
           })}
         </p>
 

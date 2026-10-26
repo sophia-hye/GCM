@@ -22,13 +22,13 @@ export const PARENT_FEATURE: {
 } = {
   eyebrow: "Parents' Voice",
   title: {
-    ko: "[학부모 후기] 테니스 라켓 대신 응원 피켓을 들고, GCM과 함께 제주도로 향한 특별한 3박 4일",
-    en: "[Parent's Review] Holding a cheer sign instead of a racket — a special four-day trip to Jeju with GCM",
-    zh: "「学生家长后记」放下网球拍，举起应援牌——与GCM一起奔赴济州岛的特别四天三夜",
-    ja: "「保護者レビュー」ラケットの代わりに応援ボードを持って——GCMと一緒に済州島へ向かった特別な3泊4日",
-    it: "«Testimonianza di un genitore» Un cartello di tifo al posto della racchetta: un viaggio speciale di quattro giorni a Jeju con GCM",
-    fr: "« Témoignage de parent » Une pancarte d'encouragement à la place de la raquette : un séjour spécial de quatre jours à Jeju avec GCM",
-    es: "«Reseña de una familia» Con un cartel de ánimo en vez de una raqueta: un viaje especial de cuatro días a Jeju con GCM",
+    ko: "테니스 라켓 대신 응원 피켓을 들고, GCM과 함께 제주도로 향한 특별한 3박 4일",
+    en: "Holding a cheer sign instead of a racket — a special four-day trip to Jeju with GCM",
+    zh: "放下网球拍，举起应援牌——与GCM一起奔赴济州岛的特别四天三夜",
+    ja: "ラケットの代わりに応援ボードを持って——GCMと一緒に済州島へ向かった特別な3泊4日",
+    it: "Un cartello di tifo al posto della racchetta: un viaggio speciale di quattro giorni a Jeju con GCM",
+    fr: "Une pancarte d'encouragement à la place de la raquette : un séjour spécial de quatre jours à Jeju avec GCM",
+    es: "Con un cartel de ánimo en vez de una raqueta: un viaje especial de cuatro días a Jeju con GCM",
   },
   intro: [
     {
