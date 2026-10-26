@@ -51,7 +51,7 @@ export async function ParentFeature() {
             {F.sections.map((s, i) => (
               <div key={i}>
                 <h3 className="flex gap-2 break-keep font-display text-base font-bold text-ink sm:text-lg">
-                  <span aria-hidden>{s.icon}</span>
+                  {s.icon ? <span aria-hidden>{s.icon}</span> : null}
                   <span>{t(s.heading)}</span>
                 </h3>
                 <div className="mt-3 space-y-3">
