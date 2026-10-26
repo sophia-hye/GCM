@@ -3,7 +3,7 @@ import { Section, SectionHeading } from "@/components/ui";
 import { createClient } from "@/lib/supabase/server";
 import { VoiceForm } from "@/components/VoiceForm";
 import { getLocale } from "@/lib/i18n";
-import { pick } from "@/lib/i18n-pick";
+import { pick, localePrefix } from "@/lib/i18n-pick";
 
 export async function generateMetadata(): Promise<import("next").Metadata> {
   const locale = await getLocale();
@@ -26,7 +26,10 @@ export default async function NewVoicePage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?next=/testimonial/new");
+  if (!user) {
+    const lp = localePrefix(locale);
+    redirect(`${lp}/login?next=${lp}/testimonial/new`);
+  }
 
   const { data: profile } = await supabase
     .from("gcm_profiles")

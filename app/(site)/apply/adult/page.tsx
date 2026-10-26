@@ -5,7 +5,7 @@ import { Section, SectionHeading } from "@/components/ui";
 import { AdultApplicationForm } from "@/components/AdultApplicationForm";
 import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n";
-import { pick } from "@/lib/i18n-pick";
+import { pick, localePrefix } from "@/lib/i18n-pick";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -26,14 +26,14 @@ export default async function AdultApplyPage() {
   const locale = await getLocale();
   // 로그인 게이트: 비로그인 시 로그인 페이지로(로그인 후 이 폼으로 복귀)
   if (!isSupabaseConfigured()) {
-    redirect("/login?next=/apply/adult");
+    { const lp = localePrefix(locale); redirect(`${lp}/login?next=${lp}/apply/adult`); }
   }
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    redirect("/login?next=/apply/adult");
+    { const lp = localePrefix(locale); redirect(`${lp}/login?next=${lp}/apply/adult`); }
   }
 
   return (

@@ -5,7 +5,7 @@ import { OnboardingForm } from "@/components/auth/OnboardingForm";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getLocale } from "@/lib/i18n";
-import { pick } from "@/lib/i18n-pick";
+import { pick, localePrefix } from "@/lib/i18n-pick";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -23,14 +23,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function OnboardingPage() {
-  if (!isSupabaseConfigured()) redirect("/login");
   const locale = await getLocale();
+  const lp = localePrefix(locale);
+  if (!isSupabaseConfigured()) redirect(`${lp}/login`);
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect(`${lp}/login`);
 
   // 이미 전화번호(구분)까지 입력된 사용자는 온보딩 불필요
   const { data: profile } = await supabase
@@ -38,7 +39,7 @@ export default async function OnboardingPage() {
     .select("phone")
     .eq("id", user.id)
     .maybeSingle();
-  if (profile?.phone) redirect("/");
+  if (profile?.phone) redirect(lp || "/");
 
   return (
     <AuthShell

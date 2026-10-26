@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n";
+import { pick } from "@/lib/i18n-pick";
 import { getDict, getUI } from "@/lib/site-content";
 import { getContentMap, cmsText, cmsList } from "@/lib/cms";
 
@@ -23,7 +24,15 @@ export async function Programs() {
       <Reveal className="mt-12">
         <Image
           src="/img/programs-journey.png"
-          alt="키즈에서 챔피언으로 — 단계별 성장 여정"
+          alt={pick(locale, {
+            ko: "키즈에서 챔피언으로 — 단계별 성장 여정",
+            en: "From kids to champions — a stage-by-stage growth journey",
+            zh: "从少儿到冠军——分阶段的成长之旅",
+            ja: "キッズからチャンピオンへ——段階ごとの成長の歩み",
+            it: "Dai bambini ai campioni — un percorso di crescita per fasi",
+            fr: "Des enfants aux champions — un parcours de progression par étapes",
+            es: "De niños a campeones: un recorrido de crecimiento por etapas",
+          })}
           width={2172}
           height={724}
           priority
