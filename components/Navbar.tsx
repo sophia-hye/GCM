@@ -57,18 +57,12 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
       }`}
     >
       <Container className="flex h-16 items-center justify-between">
-        <div className="flex shrink-0 items-center gap-3">
-          <Link href="/" className="flex items-baseline gap-2">
-            <span className={`font-display text-xl font-extrabold tracking-tight ${logoColor}`}>
-              {site.name}
-              <span className="text-lime">.</span>
-            </span>
-          </Link>
-          {/* 모바일: 지구본 언어 선택을 항상 GNB 왼쪽에 노출 */}
-          <div className="xl:hidden">
-            <LocaleToggle light={!solid} />
-          </div>
-        </div>
+        <Link href="/" className="flex shrink-0 items-baseline gap-2">
+          <span className={`font-display text-xl font-extrabold tracking-tight ${logoColor}`}>
+            {site.name}
+            <span className="text-lime">.</span>
+          </span>
+        </Link>
 
         {/* 데스크톱: 그룹 + 드롭다운(hover) */}
         <nav className="hidden items-center gap-1 xl:flex">
@@ -153,16 +147,20 @@ export function Navbar({ auth = null }: { auth?: NavAuth }) {
           )}
         </div>
 
-        <button
-          type="button"
-          aria-label={pick(locale, { ko: "메뉴 열기", en: "Open menu", zh: "打开菜单", ja: "メニューを開く", it: "Apri menu", fr: "Ouvrir le menu", es: "Abrir menú" })}
-          onClick={() => setOpen((v) => !v)}
-          className={`flex h-10 w-10 items-center justify-center rounded-lg border xl:hidden ${
-            solid ? "border-line text-ink" : "border-white/70 bg-black/30 text-white backdrop-blur"
-          }`}
-        >
-          <span className="text-lg">{open ? "✕" : "☰"}</span>
-        </button>
+        {/* 모바일: 지구본 언어 선택을 햄버거 버튼 왼쪽에 항상 노출 */}
+        <div className="flex items-center gap-2 xl:hidden">
+          <LocaleToggle light={!solid} />
+          <button
+            type="button"
+            aria-label={pick(locale, { ko: "메뉴 열기", en: "Open menu", zh: "打开菜单", ja: "メニューを開く", it: "Apri menu", fr: "Ouvrir le menu", es: "Abrir menú" })}
+            onClick={() => setOpen((v) => !v)}
+            className={`flex h-10 w-10 items-center justify-center rounded-lg border ${
+              solid ? "border-line text-ink" : "border-white/70 bg-black/30 text-white backdrop-blur"
+            }`}
+          >
+            <span className="text-lg">{open ? "✕" : "☰"}</span>
+          </button>
+        </div>
       </Container>
 
       {/* 모바일: 아코디언 */}

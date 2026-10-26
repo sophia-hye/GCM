@@ -92,7 +92,7 @@ export function LocaleToggle({ light = false }: { light?: boolean }) {
       {open ? (
         <div
           role="menu"
-          className="absolute left-0 z-50 mt-2 max-h-[70vh] min-w-[9rem] overflow-y-auto rounded-xl border border-line bg-base py-1 shadow-lg"
+          className="absolute right-0 z-50 mt-2 max-h-[70vh] min-w-[9rem] overflow-y-auto rounded-xl border border-line bg-base py-1 shadow-lg"
         >
           {LOCALES.map((l) => (
             <button
