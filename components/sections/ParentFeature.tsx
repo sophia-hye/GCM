@@ -68,15 +68,15 @@ export async function ParentFeature() {
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button href="/players" variant="court">
+          <Button href="/testimonial" variant="court">
             {pick(locale, {
-              ko: "선수 보러가기",
-              en: "Meet the players",
-              zh: "认识选手",
-              ja: "選手を見る",
-              it: "Scopri gli atleti",
-              fr: "Voir les joueurs",
-              es: "Ver a los jugadores",
+              ko: "후기 보러가기",
+              en: "See reviews",
+              zh: "查看后记",
+              ja: "レビューを見る",
+              it: "Vedi le testimonianze",
+              fr: "Voir les témoignages",
+              es: "Ver reseñas",
             })}
           </Button>
           <Button href="/coaches" variant="outline">
