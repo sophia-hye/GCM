@@ -101,13 +101,13 @@ export async function GcmStory() {
         eyebrow="Our Story"
         title="GCM Story"
         lead={pick(locale, {
-          ko: "한 번의 스윙보다 한 사람의 성장을 믿는 곳. GCM이 걸어온 이야기입니다.",
-          en: "A place that believes in a person's growth more than a single swing. This is the story GCM has walked.",
-          zh: "一个相信人的成长胜过一记挥拍的地方。这是GCM走过的故事。",
-          ja: "一度のスイングよりも、一人の成長を信じる場所。GCMが歩んできた物語です。",
-          it: "Un luogo che crede nella crescita di una persona più che in un singolo colpo. Questa è la storia che GCM ha percorso.",
-          fr: "Un lieu qui croit en la croissance d'une personne plus qu'en un simple coup. Voici l'histoire que GCM a parcourue.",
-          es: "Un lugar que cree en el crecimiento de una persona más que en un solo golpe. Esta es la historia que GCM ha recorrido.",
+          ko: "결과보다 과정을, 한 순간의 성공보다는 매 순간 한 사람의 성장을 목표로 걸어온 GCM 이야기입니다.",
+          en: "The story of GCM — walking toward the process over results, and a person's growth in every moment over a single moment of success.",
+          zh: "这是GCM走过的故事——比起结果更看重过程，比起一时的成功更看重每一刻一个人的成长。",
+          ja: "結果よりも過程を、一瞬の成功よりも毎瞬間の一人の成長を目指して歩んできたGCMの物語です。",
+          it: "La storia di GCM: un cammino che mette il percorso prima dei risultati e la crescita di una persona in ogni istante prima di un singolo successo.",
+          fr: "L'histoire de GCM : un chemin qui privilégie le processus aux résultats et la croissance d'une personne à chaque instant plutôt qu'un succès ponctuel.",
+          es: "La historia de GCM: un camino que antepone el proceso a los resultados y el crecimiento de una persona en cada momento a un éxito puntual.",
         })}
       />
 
