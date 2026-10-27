@@ -17,13 +17,13 @@ const CHAPTERS: Chapter[] = [
       es: "Más allá de la técnica, pensamos en el crecimiento de toda una persona",
     },
     body: {
-      ko: "좋은 스윙을 가르치는 곳은 많습니다. 하지만 아이의 태도와 마음, 그리고 코트 밖의 삶까지 함께 책임지는 곳은 드뭅니다. GCM은 '한 선수를 끝까지 책임진다'는 단순하지만 어려운 약속에서 시작되었습니다.",
-      en: "There are many places that teach a good swing. But few take responsibility for a child's attitude, heart, and life off the court as well. GCM began with a simple yet difficult promise: to see one athlete through to the end.",
-      zh: "教好挥拍的地方有很多，但能连同孩子的态度、心灵乃至场外人生一起负责的地方却很少。GCM始于一个简单却艰难的承诺——把一名选手负责到底。",
-      ja: "良いスイングを教える場所は数多くあります。けれど、子どもの態度や心、そしてコートの外の人生までを共に担う場所はまれです。GCMは「一人の選手を最後まで責任を持つ」という、シンプルでいて難しい約束から始まりました。",
-      it: "Ci sono molti posti che insegnano un buon colpo. Ma pochi si assumono la responsabilità anche dell'atteggiamento, del cuore e della vita di un ragazzo fuori dal campo. GCM è nata da una promessa semplice ma difficile: accompagnare un atleta fino in fondo.",
-      fr: "Il existe beaucoup d'endroits qui enseignent un bon coup. Mais rares sont ceux qui assument aussi l'attitude, le cœur et la vie d'un enfant en dehors du court. GCM est née d'une promesse simple mais difficile : accompagner un joueur jusqu'au bout.",
-      es: "Hay muchos lugares que enseñan un buen golpe. Pero pocos se responsabilizan también de la actitud, el corazón y la vida de un niño fuera de la cancha. GCM nació de una promesa sencilla pero difícil: acompañar a un jugador hasta el final.",
+      ko: "테니스를 배울 수 있는 곳은 많습니다. 하지만 아이의 태도와 마음, 그리고 코트 밖의 삶까지 함께 고민하고 성장시키는 것이 GCM의 깊은 교육 철학입니다. 한 선수를 끝까지 책임지겠다는 어려운 약속을 믿고 기다려주신 분들 덕분에, 아이들은 저마다의 성공 기준을 세우며 함께 꿈을 이루어 가고 있습니다.",
+      en: "There are many places to learn tennis. But considering and nurturing a child's attitude, heart, and even their life off the court — that is GCM's deep educational philosophy. Thanks to those who believed in and waited patiently for our difficult promise to see each athlete through to the end, our children are setting their own standards of success and realizing their dreams together.",
+      zh: "能学网球的地方有很多。但连同孩子的态度、心灵乃至场外的人生一起思考、一起培养，正是GCM深厚的教育理念。多亏了那些相信并耐心等待我们“把一名选手负责到底”这一艰难承诺的人，孩子们正各自树立起属于自己的成功标准，一同实现着梦想。",
+      ja: "テニスを学べる場所はたくさんあります。けれど、子どもの態度や心、そしてコートの外の人生までを共に考え、育てていくこと——それこそがGCMの深い教育哲学です。一人の選手を最後まで責任を持つという難しい約束を信じて待ってくださった方々のおかげで、子どもたちはそれぞれの成功の基準を打ち立てながら、共に夢を叶えています。",
+      it: "Ci sono molti posti dove imparare il tennis. Ma considerare e far crescere anche l'atteggiamento, il cuore e la vita di un ragazzo fuori dal campo: questa è la profonda filosofia educativa di GCM. Grazie a chi ha creduto e atteso con pazienza la nostra difficile promessa di accompagnare ogni atleta fino in fondo, i nostri ragazzi stanno definendo i propri criteri di successo e realizzando insieme i loro sogni.",
+      fr: "Il existe de nombreux endroits où apprendre le tennis. Mais prendre en compte et faire grandir aussi l'attitude, le cœur et la vie d'un enfant en dehors du court : telle est la profonde philosophie éducative de GCM. Grâce à celles et ceux qui ont cru en notre promesse difficile d'accompagner chaque joueur jusqu'au bout et qui ont su patienter, nos enfants définissent leurs propres critères de réussite et réalisent ensemble leurs rêves.",
+      es: "Hay muchos lugares donde aprender tenis. Pero considerar y hacer crecer también la actitud, el corazón y la vida de un niño fuera de la cancha: esa es la profunda filosofía educativa de GCM. Gracias a quienes creyeron y esperaron con paciencia nuestra difícil promesa de acompañar a cada jugador hasta el final, nuestros niños están definiendo sus propios criterios de éxito y cumpliendo juntos sus sueños.",
     },
   },
   {
@@ -59,7 +59,7 @@ const CHAPTERS: Chapter[] = [
       es: "Entrenadores que lo demuestran ellos mismos en la cancha",
     },
     body: {
-      ko: "GCM의 코치들은 가르치기만 하지 않습니다. 지금도 큰 무대에서 직접 뛰는 현역 선수 겸 코치로서, 말이 아닌 등으로 가르칩니다. 아이들은 매일 도전하는 어른의 뒷모습을 보고 자랍니다.",
+      ko: "GCM의 코치들은 가르치기만 하지 않습니다. 지금도 큰 무대에서 직접 뛰는 현역 선수 겸 코치로서, 말보다 행동으로 먼저 보여줍니다. 아이들은 매일 도전하는 어른의 뒷모습을 보고 자랍니다.",
       en: "GCM's coaches don't only teach. As active player-coaches who still compete on big stages, they teach with their backs, not just their words. Every day, the children grow up watching the back of a grown-up who keeps on challenging.",
       zh: "GCM的教练不只是教学。作为至今仍征战大舞台的现役选手兼教练，他们用背影而非言语来教导。孩子们每天在一位不断挑战的大人的背影下成长。",
       ja: "GCMのコーチは教えるだけではありません。今なお大舞台で戦う現役選手兼コーチとして、言葉ではなく背中で教えます。子どもたちは毎日、挑戦し続ける大人の背中を見て育ちます。",
@@ -101,13 +101,13 @@ export async function GcmStory() {
         eyebrow="Our Story"
         title="GCM Story"
         lead={pick(locale, {
-          ko: "한 번의 스윙보다 한 사람의 성장을 믿는 곳. GCM이 걸어온 이야기입니다.",
-          en: "A place that believes in a person's growth more than a single swing. This is the story GCM has walked.",
-          zh: "一个相信人的成长胜过一记挥拍的地方。这是GCM走过的故事。",
-          ja: "一度のスイングよりも、一人の成長を信じる場所。GCMが歩んできた物語です。",
-          it: "Un luogo che crede nella crescita di una persona più che in un singolo colpo. Questa è la storia che GCM ha percorso.",
-          fr: "Un lieu qui croit en la croissance d'une personne plus qu'en un simple coup. Voici l'histoire que GCM a parcourue.",
-          es: "Un lugar que cree en el crecimiento de una persona más que en un solo golpe. Esta es la historia que GCM ha recorrido.",
+          ko: "결과보다 과정을, 한 순간의 성공보다는 매 순간 한 사람의 성장을 목표로 걸어온 GCM 이야기입니다.",
+          en: "The story of GCM — walking toward the process over results, and a person's growth in every moment over a single moment of success.",
+          zh: "这是GCM走过的故事——比起结果更看重过程，比起一时的成功更看重每一刻一个人的成长。",
+          ja: "結果よりも過程を、一瞬の成功よりも毎瞬間の一人の成長を目指して歩んできたGCMの物語です。",
+          it: "La storia di GCM: un cammino che mette il percorso prima dei risultati e la crescita di una persona in ogni istante prima di un singolo successo.",
+          fr: "L'histoire de GCM : un chemin qui privilégie le processus aux résultats et la croissance d'une personne à chaque instant plutôt qu'un succès ponctuel.",
+          es: "La historia de GCM: un camino que antepone el proceso a los resultados y el crecimiento de una persona en cada momento a un éxito puntual.",
         })}
       />
 
