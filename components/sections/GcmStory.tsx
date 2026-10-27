@@ -59,7 +59,7 @@ const CHAPTERS: Chapter[] = [
       es: "Entrenadores que lo demuestran ellos mismos en la cancha",
     },
     body: {
-      ko: "GCM의 코치들은 가르치기만 하지 않습니다. 지금도 큰 무대에서 직접 뛰는 현역 선수 겸 코치로서, 말이 아닌 등으로 가르칩니다. 아이들은 매일 도전하는 어른의 뒷모습을 보고 자랍니다.",
+      ko: "GCM의 코치들은 가르치기만 하지 않습니다. 지금도 큰 무대에서 직접 뛰는 현역 선수 겸 코치로서, 말보다 행동으로 먼저 보여줍니다. 아이들은 매일 도전하는 어른의 뒷모습을 보고 자랍니다.",
       en: "GCM's coaches don't only teach. As active player-coaches who still compete on big stages, they teach with their backs, not just their words. Every day, the children grow up watching the back of a grown-up who keeps on challenging.",
       zh: "GCM的教练不只是教学。作为至今仍征战大舞台的现役选手兼教练，他们用背影而非言语来教导。孩子们每天在一位不断挑战的大人的背影下成长。",
       ja: "GCMのコーチは教えるだけではありません。今なお大舞台で戦う現役選手兼コーチとして、言葉ではなく背中で教えます。子どもたちは毎日、挑戦し続ける大人の背中を見て育ちます。",
