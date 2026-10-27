@@ -1,7 +1,6 @@
 import { pageMetadata } from "@/lib/page-metadata";
 import { PageJsonLd } from "@/components/PageJsonLd";
 import { Team } from "@/components/sections/Team";
-import { ParentFeature } from "@/components/sections/ParentFeature";
 import { Section, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick } from "@/lib/i18n-pick";
@@ -37,7 +36,6 @@ export default async function CoachesPage() {
     <div className="pt-16">
       <PageJsonLd name="코치진 소개" path="/coaches" coaches />
       <Team />
-      <ParentFeature />
       <Section tone="muted">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="break-keep font-display text-2xl font-bold sm:text-3xl">

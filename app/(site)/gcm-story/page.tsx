@@ -2,6 +2,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 import { PageJsonLd } from "@/components/PageJsonLd";
 import { GcmStory } from "@/components/sections/GcmStory";
 import { GcmStoryMedia } from "@/components/sections/GcmStoryMedia";
+import { ParentFeature } from "@/components/sections/ParentFeature";
 import { Section, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick } from "@/lib/i18n-pick";
@@ -49,6 +50,7 @@ export default async function GcmStoryPage() {
       />
       <GcmStory />
       <GcmStoryMedia />
+      <ParentFeature />
 
       <Section tone="muted">
         <div className="mx-auto max-w-2xl text-center">
