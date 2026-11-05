@@ -128,7 +128,7 @@ export async function KidsCurriculum() {
   return (
     <>
       {/* HERO */}
-      <Section lines>
+      <Section>
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_minmax(300px,440px)]">
           <div className="relative">
           <SectionHeading
