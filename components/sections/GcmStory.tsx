@@ -127,6 +127,20 @@ export async function GcmStory() {
           </div>
         ))}
       </div>
+
+      <div className="mt-10 max-w-3xl">
+        <Button href="/coaches#coach-director" variant="court">
+          {pick(locale, {
+            ko: "오성국 대표 약력 보러가기",
+            en: "See Director Seong-gook Oh's bio",
+            zh: "查看吴成国代表的简历",
+            ja: "オ・ソングク代表の経歴を見る",
+            it: "Vedi il profilo del direttore Oh Seong-gook",
+            fr: "Voir le parcours du directeur Oh Seong-gook",
+            es: "Ver la trayectoria del director Oh Seong-gook",
+          })}
+        </Button>
+      </div>
     </Section>
   );
 }

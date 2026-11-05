@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CourtLines } from "@/components/ui";
 
 type Member = {
@@ -18,18 +18,34 @@ export function CoachCard({
   member,
   bioLabel = "약력 보기",
   bioCloseLabel = "약력 접기",
+  anchorId,
 }: {
   member: Member;
   bioLabel?: string;
   bioCloseLabel?: string;
+  anchorId?: string;
 }) {
   const [open, setOpen] = useState(false);
   const hasBio = member.achievements.length > 0;
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  // 다른 페이지에서 "#<anchorId>" 로 바로 들어오면 약력을 펼쳐서 보여준다
+  useEffect(() => {
+    if (!anchorId || !hasBio) return;
+    if (typeof window === "undefined") return;
+    if (window.location.hash !== `#${anchorId}`) return;
+    setOpen(true);
+    // 고정 헤더 오프셋은 scroll-mt 로 처리. 레이아웃 후 위치 재보정.
+    const id = window.setTimeout(() => {
+      rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+    return () => window.clearTimeout(id);
+  }, [anchorId, hasBio]);
   // 라벨 끝의 화살표(→/↑/↓)는 셰브론 아이콘으로 대체하므로 제거
   const label = (open ? bioCloseLabel : bioLabel).replace(/\s*[→↑↓]\s*$/, "");
 
   return (
-    <div className="group">
+    <div ref={rootRef} id={anchorId} className="group scroll-mt-28">
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-xl bg-court-deep">
         {member.image ? (
           <Image

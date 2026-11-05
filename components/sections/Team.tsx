@@ -56,6 +56,7 @@ export async function Team() {
                 member={member}
                 bioLabel={ui.coachBio}
                 bioCloseLabel={ui.coachBioClose}
+                anchorId={member.idx === 0 ? "coach-director" : undefined}
               />
             ))}
           </div>
