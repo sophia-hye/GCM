@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Link } from "@/components/i18n/Link";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -65,9 +66,19 @@ export function Badge({ children }: { children: ReactNode }) {
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({
+  children,
+  onDark = false,
+}: {
+  children: ReactNode;
+  onDark?: boolean;
+}) {
   return (
-    <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-court-bright">
+    <p
+      className={`font-display text-xs font-bold uppercase tracking-[0.25em] ${
+        onDark ? "text-white/75" : "text-court-bright"
+      }`}
+    >
       {children}
     </p>
   );
@@ -80,6 +91,7 @@ export function SectionHeading({
   center = false,
   nowrap = false,
   wideLead = false,
+  onCourt = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -89,10 +101,12 @@ export function SectionHeading({
   nowrap?: boolean;
   /** 설명(lead)의 폭 제한(max-w-2xl)을 풀어 넓은 화면에서 한 줄로 유지 */
   wideLead?: boolean;
+  /** 어두운 court 배경 위에 놓일 때 eyebrow/lead 색을 밝게 전환 */
+  onCourt?: boolean;
 }) {
   return (
     <div className={center ? "mx-auto text-center" : ""}>
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+      {eyebrow ? <Eyebrow onDark={onCourt}>{eyebrow}</Eyebrow> : null}
       <h2
         className={`mt-4 break-keep font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl ${
           nowrap ? "lg:whitespace-nowrap" : ""
@@ -102,9 +116,9 @@ export function SectionHeading({
       </h2>
       {lead ? (
         <p
-          className={`mt-5 whitespace-pre-line break-keep text-lg leading-relaxed text-muted ${
-            wideLead ? "" : "max-w-2xl"
-          } ${center ? "mx-auto" : ""}`}
+          className={`mt-5 whitespace-pre-line break-keep text-lg leading-relaxed ${
+            onCourt ? "text-white/85" : "text-muted"
+          } ${wideLead ? "" : "max-w-2xl"} ${center ? "mx-auto" : ""}`}
         >
           {lead}
         </p>
@@ -120,6 +134,8 @@ export function Section({
   tone = "default",
   lines = false,
   reveal = true,
+  bgImage,
+  bgImageAlt = "",
 }: {
   id?: string;
   children: ReactNode;
@@ -127,6 +143,9 @@ export function Section({
   tone?: "default" | "muted" | "court";
   lines?: boolean;
   reveal?: boolean;
+  /** 섹션 전체를 덮는 배경 이미지(풀블리드). 설정 시 좌→우 스크림으로 글자 가독성을 확보한다. */
+  bgImage?: string;
+  bgImageAlt?: string;
 }) {
   const toneCls =
     tone === "muted"
@@ -142,6 +161,27 @@ export function Section({
       id={id}
       className={`relative scroll-mt-20 overflow-hidden py-24 sm:py-36 ${toneCls} ${className}`}
     >
+      {bgImage ? (
+        <>
+          <Image
+            src={bgImage}
+            alt={bgImageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="pointer-events-none select-none object-cover"
+          />
+          {/* 좌→우 스크림: 왼쪽 텍스트 영역을 어둡게, 오른쪽 이미지는 살린다 */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/15"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+          />
+        </>
+      ) : null}
       {lines ? (
         <CourtLines
           className={`pointer-events-none absolute -right-16 top-0 h-full w-2/3 ${linesColor}`}

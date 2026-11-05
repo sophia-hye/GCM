@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Section, SectionHeading, Button } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
@@ -127,8 +128,9 @@ export async function KidsCurriculum() {
   return (
     <>
       {/* HERO */}
-      <Section tone="court" lines>
-        <div className="max-w-4xl">
+      <Section>
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_minmax(300px,440px)]">
+          <div className="relative">
           <SectionHeading
             eyebrow="GCM Signature Curriculum"
             title={pick(locale, {
@@ -150,19 +152,39 @@ export async function KidsCurriculum() {
               es: "El currículo táctico que GCM diseñó para los niños despertó interés en cuanto se dio a conocer: academias de tenis de Norteamérica, Europa y Asia nos contactaron para colaborar. Del juego al partido real, cada ejercicio tiene un objetivo claro y un efecto de desarrollo.",
             })}
           />
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {stats.map((s, i) => (
-              <div key={i} className="rounded-2xl border border-white/15 bg-white/5 p-6">
-                <div className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                  {s.value}
-                </div>
-                <p className="mt-2 break-keep text-sm leading-relaxed text-white/75">
-                  {t(s.label)}
-                </p>
-              </div>
-            ))}
           </div>
+
+          <div className="relative mx-auto mt-4 w-full max-w-md lg:mt-0 lg:max-w-none">
+            <Image
+              src="/img/kids-curriculum-hero.webp"
+              alt={pick(locale, {
+                ko: "레드볼·오렌지볼 단계로 즐겁게 테니스를 배우는 GCM 키즈",
+                en: "GCM kids joyfully learning tennis through the red-ball and orange-ball stages",
+                zh: "通过红球·橙球阶段快乐学习网球的 GCM 儿童",
+                ja: "レッドボール・オレンジボール段階で楽しくテニスを学ぶ GCM キッズ",
+                it: "Bambini GCM che imparano il tennis con le palline rosse e arancioni",
+                fr: "Des enfants GCM qui apprennent le tennis avec les balles rouges et oranges",
+                es: "Niños de GCM que aprenden tenis con las pelotas roja y naranja",
+              })}
+              width={1000}
+              height={688}
+              priority
+              className="h-auto w-full"
+            />
+          </div>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {stats.map((s, i) => (
+            <div key={i} className="rounded-2xl border border-line bg-card/40 p-6">
+              <div className="font-display text-4xl font-bold tracking-tight text-court sm:text-5xl">
+                {s.value}
+              </div>
+              <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
+                {t(s.label)}
+              </p>
+            </div>
+          ))}
         </div>
       </Section>
 

@@ -132,9 +132,22 @@ export async function EliteProgram() {
   return (
     <>
       {/* HERO */}
-      <Section tone="court" lines>
+      <Section
+        tone="court"
+        bgImage="/img/elite-hero.webp"
+        bgImageAlt={pick(locale, {
+          ko: "골든아워의 클레이 테니스 코트",
+          en: "Clay tennis court at golden hour",
+          zh: "黄昏时分的红土网球场",
+          ja: "ゴールデンアワーのクレーコート",
+          it: "Campo da tennis in terra rossa all'ora d'oro",
+          fr: "Court de tennis en terre battue à l'heure dorée",
+          es: "Pista de tenis de tierra batida a la hora dorada",
+        })}
+      >
         <div className="max-w-4xl">
           <SectionHeading
+            onCourt
             eyebrow="GCM Elite Player Program"
             title={pick(locale, {
               ko: "엘리트 선수 전문 육성 프로그램",
