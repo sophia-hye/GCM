@@ -152,19 +152,6 @@ export async function KidsCurriculum() {
               es: "El currículo táctico que GCM diseñó para los niños despertó interés en cuanto se dio a conocer: academias de tenis de Norteamérica, Europa y Asia nos contactaron para colaborar. Del juego al partido real, cada ejercicio tiene un objetivo claro y un efecto de desarrollo.",
             })}
           />
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {stats.map((s, i) => (
-              <div key={i} className="rounded-2xl border border-line bg-card/40 p-6">
-                <div className="font-display text-4xl font-bold tracking-tight text-court sm:text-5xl">
-                  {s.value}
-                </div>
-                <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
-                  {t(s.label)}
-                </p>
-              </div>
-            ))}
-          </div>
           </div>
 
           <div className="relative mx-auto mt-4 w-full max-w-md lg:mt-0 lg:max-w-none">
@@ -185,6 +172,19 @@ export async function KidsCurriculum() {
               className="h-auto w-full"
             />
           </div>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {stats.map((s, i) => (
+            <div key={i} className="rounded-2xl border border-line bg-card/40 p-6">
+              <div className="font-display text-4xl font-bold tracking-tight text-court sm:text-5xl">
+                {s.value}
+              </div>
+              <p className="mt-2 break-keep text-sm leading-relaxed text-muted">
+                {t(s.label)}
+              </p>
+            </div>
+          ))}
         </div>
       </Section>
 
