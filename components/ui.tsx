@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Link } from "@/components/i18n/Link";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -133,6 +134,8 @@ export function Section({
   tone = "default",
   lines = false,
   reveal = true,
+  bgImage,
+  bgImageAlt = "",
 }: {
   id?: string;
   children: ReactNode;
@@ -140,6 +143,9 @@ export function Section({
   tone?: "default" | "muted" | "court";
   lines?: boolean;
   reveal?: boolean;
+  /** 섹션 전체를 덮는 배경 이미지(풀블리드). 설정 시 좌→우 스크림으로 글자 가독성을 확보한다. */
+  bgImage?: string;
+  bgImageAlt?: string;
 }) {
   const toneCls =
     tone === "muted"
@@ -155,6 +161,27 @@ export function Section({
       id={id}
       className={`relative scroll-mt-20 overflow-hidden py-24 sm:py-36 ${toneCls} ${className}`}
     >
+      {bgImage ? (
+        <>
+          <Image
+            src={bgImage}
+            alt={bgImageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="pointer-events-none select-none object-cover"
+          />
+          {/* 좌→우 스크림: 왼쪽 텍스트 영역을 어둡게, 오른쪽 이미지는 살린다 */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/15"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+          />
+        </>
+      ) : null}
       {lines ? (
         <CourtLines
           className={`pointer-events-none absolute -right-16 top-0 h-full w-2/3 ${linesColor}`}
