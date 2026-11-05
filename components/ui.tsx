@@ -65,9 +65,19 @@ export function Badge({ children }: { children: ReactNode }) {
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({
+  children,
+  onDark = false,
+}: {
+  children: ReactNode;
+  onDark?: boolean;
+}) {
   return (
-    <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-court-bright">
+    <p
+      className={`font-display text-xs font-bold uppercase tracking-[0.25em] ${
+        onDark ? "text-white/75" : "text-court-bright"
+      }`}
+    >
       {children}
     </p>
   );
@@ -80,6 +90,7 @@ export function SectionHeading({
   center = false,
   nowrap = false,
   wideLead = false,
+  onCourt = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -89,10 +100,12 @@ export function SectionHeading({
   nowrap?: boolean;
   /** 설명(lead)의 폭 제한(max-w-2xl)을 풀어 넓은 화면에서 한 줄로 유지 */
   wideLead?: boolean;
+  /** 어두운 court 배경 위에 놓일 때 eyebrow/lead 색을 밝게 전환 */
+  onCourt?: boolean;
 }) {
   return (
     <div className={center ? "mx-auto text-center" : ""}>
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+      {eyebrow ? <Eyebrow onDark={onCourt}>{eyebrow}</Eyebrow> : null}
       <h2
         className={`mt-4 break-keep font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl ${
           nowrap ? "lg:whitespace-nowrap" : ""
@@ -102,9 +115,9 @@ export function SectionHeading({
       </h2>
       {lead ? (
         <p
-          className={`mt-5 whitespace-pre-line break-keep text-lg leading-relaxed text-muted ${
-            wideLead ? "" : "max-w-2xl"
-          } ${center ? "mx-auto" : ""}`}
+          className={`mt-5 whitespace-pre-line break-keep text-lg leading-relaxed ${
+            onCourt ? "text-white/85" : "text-muted"
+          } ${wideLead ? "" : "max-w-2xl"} ${center ? "mx-auto" : ""}`}
         >
           {lead}
         </p>

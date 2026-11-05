@@ -130,6 +130,7 @@ export async function KidsCurriculum() {
       <Section tone="court" lines>
         <div className="max-w-4xl">
           <SectionHeading
+            onCourt
             eyebrow="GCM Signature Curriculum"
             title={pick(locale, {
               ko: "세계가 먼저 알아본 GCM 키즈 8단계 커리큘럼",

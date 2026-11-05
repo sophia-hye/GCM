@@ -135,6 +135,7 @@ export async function EliteProgram() {
       <Section tone="court" lines>
         <div className="max-w-4xl">
           <SectionHeading
+            onCourt
             eyebrow="GCM Elite Player Program"
             title={pick(locale, {
               ko: "엘리트 선수 전문 육성 프로그램",
