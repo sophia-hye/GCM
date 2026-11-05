@@ -62,8 +62,10 @@ export const nav = [
     label: "Who we are",
     items: [
       { label: "Players", href: "/players" },
+      { label: "Elite Program", href: "/elite-program" },
       { label: "Amateurs", href: "/amateurs" },
       { label: "Kids", href: "/kids" },
+      { label: "Kids Curriculum", href: "/kids-curriculum" },
       { label: "Scholars", href: "/scholarship" },
       { label: "Alumni Network", href: "/alumni" },
     ],
