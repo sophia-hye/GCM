@@ -26,10 +26,15 @@ export async function pageMetadata({
   title,
   description,
   path,
+  ogImage = "/opengraph-image",
+  ogImageAlt = "GCM Tennis Academy",
 }: {
   title: string;
   description: string;
   path: string;
+  /** 페이지 전용 OG/트위터 이미지(1200x630). 미지정 시 루트 브랜드 이미지 사용. */
+  ogImage?: string;
+  ogImageAlt?: string;
 }): Promise<Metadata> {
   const locale = await getLocale();
   const canonical = `${localePrefix(locale)}${path === "/" ? "" : path}` || "/";
@@ -50,10 +55,10 @@ export async function pageMetadata({
       // 페이지별 openGraph 를 지정하면 루트 opengraph-image 상속이 끊기므로 명시한다.
       images: [
         {
-          url: "/opengraph-image",
+          url: ogImage,
           width: 1200,
           height: 630,
-          alt: "GCM Tennis Academy",
+          alt: ogImageAlt,
         },
       ],
     },
@@ -61,7 +66,7 @@ export async function pageMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: ["/opengraph-image"],
+      images: [ogImage],
     },
   };
 }
