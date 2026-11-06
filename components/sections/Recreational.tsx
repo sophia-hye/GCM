@@ -6,7 +6,7 @@ import { getContentMap, cmsText } from "@/lib/cms";
 
 const CLASS_IMAGES: Record<string, string> = {
   KIDS: "/img/kids-class.png",
-  ADULT: "/img/adult-class.png",
+  ADULT: "/img/adult-class.webp",
 };
 
 export async function Recreational() {

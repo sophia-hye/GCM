@@ -5,7 +5,7 @@ import { getDict, getUI } from "@/lib/site-content";
 
 const CLASS_IMAGES: Record<string, string> = {
   KIDS: "/img/kids-class.png",
-  ADULT: "/img/adult-class.png",
+  ADULT: "/img/adult-class.webp",
 };
 
 /** 단일 취미 클래스(키즈/성인) 상세 — /kids, /amateurs 페이지용 */
