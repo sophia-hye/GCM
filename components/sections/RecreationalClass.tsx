@@ -4,7 +4,7 @@ import { getLocale } from "@/lib/i18n";
 import { getDict, getUI } from "@/lib/site-content";
 
 const CLASS_IMAGES: Record<string, string> = {
-  KIDS: "/img/kids-class.png",
+  KIDS: "/img/kids-class.webp",
   ADULT: "/img/adult-class.webp",
 };
 
