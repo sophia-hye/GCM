@@ -13,7 +13,7 @@ export const site = {
   phone: "010-8515-2555",
   address: "문의 필요",
   hours: "문의 필요",
-  kakao: "https://pf.kakao.com/_JucfX/chat", // 카카오톡 채널(@지씨엠) 채팅 URL
+  kakao: "https://pf.kakao.com/_JucfX/friend", // 카카오톡 채널(@지씨엠) 링크
   instagram: "https://www.instagram.com/gcm_tennis/",
   foundedYear: "2023",
   foundedDate: "2023.01.02",
