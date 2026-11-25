@@ -31,10 +31,15 @@ export function Button({
   variant = "lime",
   className = "",
 }: ButtonProps) {
+  // 외부 링크(http/https)는 새 탭으로 연다.
+  const ext = /^https?:\/\//.test(href)
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
   if (variant === "link") {
     return (
       <Link
         href={href}
+        {...ext}
         className={`group inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-court ${className}`}
       >
         {children}
@@ -52,7 +57,7 @@ export function Button({
     "outline-light": "border border-white/40 text-white hover:bg-white/10",
   };
   return (
-    <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
+    <Link href={href} {...ext} className={`${base} ${variants[variant]} ${className}`}>
       {children}
     </Link>
   );

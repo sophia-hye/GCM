@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { Section, SectionHeading, Button, Container } from "@/components/ui";
+import { site } from "@/lib/site-data";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
 
-const CTA_HREF = "/elite-program/winter-training/details";
+const CTA_HREF = site.kakao;
 
 function ctaLabel(): I18nText {
   return {
-    ko: "동계 트레이닝 참가 안내 보기",
-    en: "View training details & apply",
+    ko: "카카오톡으로 참가 상담하기",
+    en: "Apply via KakaoTalk",
   };
 }
 

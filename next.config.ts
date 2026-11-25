@@ -37,11 +37,6 @@ const nextConfig: NextConfig = {
         destination: "/elite-program/winter-training",
         permanent: true,
       },
-      {
-        source: "/elite-program/winter-camp/:path*",
-        destination: "/elite-program/winter-training/:path*",
-        permanent: true,
-      },
     ];
   },
 };
