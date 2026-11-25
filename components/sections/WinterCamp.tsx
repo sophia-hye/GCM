@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Section, SectionHeading, Button, Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
@@ -379,6 +380,47 @@ export async function WinterCamp() {
           <Button href={CTA_HREF} variant="court">
             {t(ctaLabel())}
           </Button>
+        </div>
+      </Section>
+
+      {/* SESSION 2 — COMING SOON TEASER */}
+      <Section compact>
+        <div className="relative h-64 overflow-hidden rounded-3xl border border-line sm:h-72">
+          <Image
+            src="/img/winter-camp-cta.webp"
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="scale-110 object-cover blur-xl brightness-[0.45]"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-8 w-8 text-white/80"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <rect x="4" y="11" width="16" height="9" rx="2" />
+              <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+            </svg>
+            <span className="font-display text-[11px] font-bold uppercase tracking-[0.22em] text-white/70">
+              2026–2027 Session 2
+            </span>
+            <h3 className="break-keep font-display text-2xl font-bold text-white sm:text-3xl">
+              {t({ ko: "2차 트레이닝 · 추후 공개 예정", en: "Session 2 · Coming soon" })}
+            </h3>
+            <p className="max-w-md break-keep text-sm leading-relaxed text-white/75">
+              {t({
+                ko: "2차 일정과 세부 정보는 곧 공개됩니다.",
+                en: "Session 2 dates and details will be announced soon.",
+              })}
+            </p>
+          </div>
         </div>
       </Section>
 
