@@ -26,6 +26,8 @@ export async function generateMetadata(): Promise<import("next").Metadata> {
       es: "El entrenamiento de élite de GCM que forma jugadores capaces de leer, decidir y resolver el partido por sí mismos: siete bloques especializados, de la elección de dirección al físico.",
     }),
     path: "/elite-program",
+    ogImage: "/og/elite-program.jpg",
+    ogImageAlt: "GCM Elite Player Program",
   });
 }
 

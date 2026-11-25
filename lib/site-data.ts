@@ -63,6 +63,7 @@ export const nav = [
     items: [
       { label: "Players", href: "/players" },
       { label: "Elite", href: "/elite-program" },
+      { label: "Winter Camp", href: "/elite-program/winter-camp" },
       { label: "Amateurs", href: "/amateurs" },
       { label: "Kids", href: "/kids" },
       { label: "Kids Curriculum", href: "/kids-curriculum" },

@@ -154,20 +154,20 @@ export async function KidsCurriculum() {
           />
           </div>
 
-          <div className="relative mx-auto mt-4 w-full max-w-md lg:mt-0 lg:max-w-none">
+          <div className="relative mx-auto mt-4 w-full max-w-sm overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 lg:mt-0 lg:max-w-none">
             <Image
-              src="/img/kids-curriculum-hero.webp"
+              src="/img/kids-curriculum-photo.webp"
               alt={pick(locale, {
-                ko: "레드볼·오렌지볼 단계로 즐겁게 테니스를 배우는 GCM 키즈",
-                en: "GCM kids joyfully learning tennis through the red-ball and orange-ball stages",
-                zh: "通过红球·橙球阶段快乐学习网球的 GCM 儿童",
-                ja: "レッドボール・オレンジボール段階で楽しくテニスを学ぶ GCM キッズ",
-                it: "Bambini GCM che imparano il tennis con le palline rosse e arancioni",
-                fr: "Des enfants GCM qui apprennent le tennis avec les balles rouges et oranges",
-                es: "Niños de GCM que aprenden tenis con las pelotas roja y naranja",
+                ko: "시설 좋은 테니스장에서 활기차게 테니스를 배우는 GCM 키즈",
+                en: "GCM kids actively learning tennis at a premium tennis facility",
+                zh: "在优质网球场地活力满满地学习网球的 GCM 儿童",
+                ja: "設備の整ったテニス施設で活発にテニスを学ぶ GCM キッズ",
+                it: "Bambini GCM che imparano il tennis con energia in un centro tennis di alto livello",
+                fr: "Des enfants GCM qui apprennent le tennis avec énergie dans un centre de tennis haut de gamme",
+                es: "Niños de GCM aprendiendo tenis con energía en unas instalaciones de tenis de primer nivel",
               })}
-              width={1000}
-              height={688}
+              width={900}
+              height={1125}
               priority
               className="h-auto w-full"
             />

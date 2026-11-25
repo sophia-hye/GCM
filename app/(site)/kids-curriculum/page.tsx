@@ -26,6 +26,8 @@ export async function generateMetadata(): Promise<import("next").Metadata> {
       es: "El currículo táctico Kids GCM de 8 fases: del juego al partido real, cada ejercicio tiene un objetivo y un efecto. Bienvenidas las alianzas globales con academias de Norteamérica, Europa y Asia.",
     }),
     path: "/kids-curriculum",
+    ogImage: "/og/kids-curriculum.jpg",
+    ogImageAlt: "GCM Kids Curriculum",
   });
 }
 

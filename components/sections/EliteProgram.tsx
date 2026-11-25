@@ -1,4 +1,5 @@
 import { Section, SectionHeading, Button } from "@/components/ui";
+import { Link } from "@/components/i18n/Link";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
 import { eliteModules } from "@/lib/elite-program";
@@ -182,6 +183,38 @@ export async function EliteProgram() {
             ))}
           </div>
         </div>
+      </Section>
+
+      {/* WINTER CAMP BANNER */}
+      <Section>
+        <Link
+          href="/elite-program/winter-camp"
+          className="group block overflow-hidden rounded-3xl bg-court-gradient p-8 text-white transition-transform hover:-translate-y-0.5 sm:p-10"
+        >
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center rounded-full bg-white/15 px-3 py-1 font-display text-[11px] font-bold uppercase tracking-[0.18em] text-white">
+                {t({ ko: "겨울 한정 모집", en: "Winter · limited places" })}
+              </span>
+              <p className="mt-4 font-display text-[11px] font-bold uppercase tracking-[0.22em] text-white/70">
+                2026–2027 Winter Intensive Camp
+              </p>
+              <h3 className="mt-2 break-keep font-display text-2xl font-bold leading-tight sm:text-3xl">
+                2026 GCM WINTER TRAINING CAMP
+              </h3>
+              <p className="mt-3 break-keep leading-relaxed text-white/85">
+                {t({
+                  ko: "경남 의령 동계 전지훈련 · 소수 정예 · 전담 약사 건강·영양 과학수업까지. 외부 주니어 선수 한정 모집.",
+                  en: "Winter camp in Uiryeong — small group, plus a health & nutrition science class with the team pharmacist. Limited places for outside juniors.",
+                })}
+              </p>
+            </div>
+            <span className="inline-flex shrink-0 items-center gap-1.5 font-display text-sm font-bold text-white">
+              {t({ ko: "자세히 보기", en: "View details" })}
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </span>
+          </div>
+        </Link>
       </Section>
 
       {/* 7 TRAINING MODULES */}

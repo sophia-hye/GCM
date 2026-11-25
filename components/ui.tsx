@@ -136,6 +136,7 @@ export function Section({
   reveal = true,
   bgImage,
   bgImageAlt = "",
+  compact = false,
 }: {
   id?: string;
   children: ReactNode;
@@ -146,6 +147,8 @@ export function Section({
   /** 섹션 전체를 덮는 배경 이미지(풀블리드). 설정 시 좌→우 스크림으로 글자 가독성을 확보한다. */
   bgImage?: string;
   bgImageAlt?: string;
+  /** 섹션 상하 여백을 줄인다(섹션 간 간격 축소). */
+  compact?: boolean;
 }) {
   const toneCls =
     tone === "muted"
@@ -154,12 +157,14 @@ export function Section({
         ? "bg-court-gradient text-white"
         : "";
 
+  const padY = compact ? "py-16 sm:py-24" : "py-24 sm:py-36";
+
   const linesColor = tone === "court" ? "text-white/10" : "text-court/[0.06]";
 
   return (
     <section
       id={id}
-      className={`relative scroll-mt-20 overflow-hidden py-24 sm:py-36 ${toneCls} ${className}`}
+      className={`relative scroll-mt-20 overflow-hidden ${padY} ${toneCls} ${className}`}
     >
       {bgImage ? (
         <>
