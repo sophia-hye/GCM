@@ -2,12 +2,12 @@ import { Section, SectionHeading, Button, Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
 
-const CTA_HREF = "/elite-program/winter-camp/details";
+const CTA_HREF = "/elite-program/winter-training/details";
 
 function ctaLabel(): I18nText {
   return {
-    ko: "동계 캠프 참가 안내 보기",
-    en: "View camp details & apply",
+    ko: "동계 트레이닝 참가 안내 보기",
+    en: "View training details & apply",
   };
 }
 
@@ -94,7 +94,7 @@ export async function WinterCamp() {
     {
       label: { ko: "1차 훈련 기간", en: "Session 1 dates" },
       value: {
-        ko: "2026년 11월 30일(월) ~ 12월 24일(목) (※ 2차 캠프 일정 별도 문의)",
+        ko: "2026년 11월 30일(월) ~ 12월 24일(목) (※ 2차 트레이닝 일정 별도 문의)",
         en: "Mon 30 Nov – Thu 24 Dec 2026 (Session 2 dates on request)",
       },
     },
@@ -129,7 +129,7 @@ export async function WinterCamp() {
         <div className="max-w-4xl">
           <SectionHeading
             onCourt
-            eyebrow="2026–2027 GCM Winter Intensive Camp"
+            eyebrow="2026–2027 GCM Winter Intensive Training"
             title={pick(locale, {
               ko: "2026 겨울의 선택이 2027년 봄의 결과를 결정합니다",
               en: "The choice you make this winter decides your results next spring",
@@ -140,7 +140,7 @@ export async function WinterCamp() {
             })}
           />
           <p className="mt-6 font-display text-lg font-bold text-white sm:text-xl">
-            {t({ ko: "GCM 2026–2027 동계 전지훈련", en: "GCM 2026–2027 Winter Training Camp" })}
+            {t({ ko: "GCM 2026–2027 동계 전지훈련", en: "GCM 2026–2027 Winter Training" })}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href={CTA_HREF} variant="lime">
@@ -177,7 +177,7 @@ export async function WinterCamp() {
           </p>
           <p className="break-keep">
             {t({
-              ko: "상업적인 대규모 캠프가 아닌, GCM 코칭스태프의 시선이 코트 위 모든 선수에게 온전히 닿을 수 있는 환경을 유지합니다. 본 아카데미의 기준과 훈련 밀도를 함께할 준비가 된 선수라면, 이번 동계 캠프가 테니스 인생의 결정적인 터닝포인트가 될 것입니다.",
+              ko: "상업적인 대규모 트레이닝이 아닌, GCM 코칭스태프의 시선이 코트 위 모든 선수에게 온전히 닿을 수 있는 환경을 유지합니다. 본 아카데미의 기준과 훈련 밀도를 함께할 준비가 된 선수라면, 이번 동계 트레이닝이 테니스 인생의 결정적인 터닝포인트가 될 것입니다.",
               en: "This is not a large commercial camp: we keep an environment where the GCM coaching staff can give full attention to every player on court. For a player ready to meet our standards and training intensity, this winter camp can be a decisive turning point.",
             })}
           </p>
@@ -395,7 +395,7 @@ export async function WinterCamp() {
         <Container className="!px-0">
           <div className="mx-auto max-w-2xl text-center">
             <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-white/70">
-              2026–2027 Winter Intensive Camp
+              2026–2027 Winter Intensive Training
             </p>
             <h2 className="mt-4 break-keep font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
               {t({

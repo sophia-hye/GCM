@@ -188,7 +188,7 @@ export async function EliteProgram() {
       {/* WINTER CAMP BANNER */}
       <Section>
         <Link
-          href="/elite-program/winter-camp"
+          href="/elite-program/winter-training"
           className="group block overflow-hidden rounded-3xl bg-court-gradient p-8 text-white transition-transform hover:-translate-y-0.5 sm:p-10"
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -197,10 +197,10 @@ export async function EliteProgram() {
                 {t({ ko: "겨울 한정 모집", en: "Winter · limited places" })}
               </span>
               <p className="mt-4 font-display text-[11px] font-bold uppercase tracking-[0.22em] text-white/70">
-                2026–2027 Winter Intensive Camp
+                2026–2027 Winter Intensive Training
               </p>
               <h3 className="mt-2 break-keep font-display text-2xl font-bold leading-tight sm:text-3xl">
-                2026 GCM WINTER TRAINING CAMP
+                2026 GCM WINTER TRAINING
               </h3>
               <p className="mt-3 break-keep leading-relaxed text-white/85">
                 {t({

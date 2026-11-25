@@ -6,7 +6,7 @@ import { WinterCampDetails } from "@/components/sections/WinterCampDetails";
 import { getLocale } from "@/lib/i18n";
 import { pick } from "@/lib/i18n-pick";
 
-const NEXT = "/elite-program/winter-camp/details";
+const NEXT = "/elite-program/winter-training/details";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();

@@ -31,6 +31,17 @@ const nextConfig: NextConfig = {
         destination: "/events/gcm-festival-at-hannam/:slug",
         permanent: true,
       },
+      // 동계 윈터 캠프 → 윈터 트레이닝 URL 변경(이미 배포된 구 URL 보존)
+      {
+        source: "/elite-program/winter-camp",
+        destination: "/elite-program/winter-training",
+        permanent: true,
+      },
+      {
+        source: "/elite-program/winter-camp/:path*",
+        destination: "/elite-program/winter-training/:path*",
+        permanent: true,
+      },
     ];
   },
 };

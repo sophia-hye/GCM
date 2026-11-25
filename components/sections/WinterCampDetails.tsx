@@ -151,8 +151,8 @@ export async function WinterCampDetails() {
             >
               {t({ ko: "카카오톡으로 상담하기", en: "Consult on KakaoTalk" })}
             </a>
-            <Button href="/elite-program/winter-camp" variant="outline-light">
-              {t({ ko: "캠프 소개로 돌아가기", en: "Back to camp overview" })}
+            <Button href="/elite-program/winter-training" variant="outline-light">
+              {t({ ko: "트레이닝 소개로 돌아가기", en: "Back to training overview" })}
             </Button>
           </div>
         </div>
