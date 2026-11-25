@@ -128,7 +128,15 @@ export async function WinterCampDetails() {
       </Section>
 
       {/* CTA — KakaoTalk consultation */}
-      <Section compact tone="court">
+      <Section
+        compact
+        tone="court"
+        bgImage="/img/winter-camp-cta.webp"
+        bgImageAlt={t({
+          ko: "야간 조명 아래의 프리미엄 테니스 코트",
+          en: "Premium tennis court under night floodlights",
+        })}
+      >
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="break-keep font-display text-2xl font-bold leading-tight text-white sm:text-3xl">
             {t({
