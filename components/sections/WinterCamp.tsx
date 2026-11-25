@@ -118,6 +118,7 @@ export async function WinterCamp() {
     <>
       {/* SECTION 1 — HERO */}
       <Section
+        compact
         tone="court"
         bgImage="/img/winter-camp-hero.webp"
         bgImageAlt={pick(locale, {
@@ -153,7 +154,7 @@ export async function WinterCamp() {
       </Section>
 
       {/* SECTION 2 — EXCLUSIVE OPPORTUNITY */}
-      <Section tone="muted">
+      <Section compact tone="muted">
         <SectionHeading
           eyebrow="Exclusive Opportunity"
           title={t({
@@ -184,7 +185,7 @@ export async function WinterCamp() {
       </Section>
 
       {/* SECTION 3 — TRAINING ENVIRONMENT */}
-      <Section>
+      <Section compact>
         <SectionHeading
           eyebrow="Training Environment"
           title={t({
@@ -213,7 +214,7 @@ export async function WinterCamp() {
       </Section>
 
       {/* SECTION 4 — MEDICAL & NUTRITION CARE (highlight) */}
-      <Section tone="muted" id="care">
+      <Section compact tone="muted" id="care">
         <SectionHeading
           eyebrow="Special Medical & Nutrition Care"
           title={t({
@@ -339,7 +340,7 @@ export async function WinterCamp() {
       </Section>
 
       {/* SECTION 5 — SCHEDULE & APPLY */}
-      <Section id="apply">
+      <Section compact id="apply">
         <SectionHeading
           eyebrow="Schedule & Apply"
           title={t({ ko: "훈련 일정 및 지원 안내", en: "Schedule & how to apply" })}
@@ -382,7 +383,7 @@ export async function WinterCamp() {
       </Section>
 
       {/* BOTTOM CTA */}
-      <Section tone="court">
+      <Section compact tone="court">
         <Container className="!px-0">
           <div className="mx-auto max-w-2xl text-center">
             <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-white/70">
