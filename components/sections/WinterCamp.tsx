@@ -161,7 +161,7 @@ export async function WinterCamp() {
             en: "A rare opening, built on a small-group principle",
           })}
         />
-        <div className="mt-8 max-w-3xl space-y-5 text-[15px] leading-relaxed text-ink/85 sm:text-base">
+        <div className="mt-8 max-w-3xl space-y-5 text-[15px] leading-relaxed text-ink/85 sm:text-[16px]">
           <p className="break-keep">
             {t({
               ko: "GCM 테니스 아카데미는 본래 소속 엘리트 선수 한 명, 한 명의 잠재력을 극대화하는 밀도 높은 집중 훈련을 핵심 원칙으로 운영됩니다.",
