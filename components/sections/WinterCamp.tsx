@@ -158,8 +158,8 @@ export async function WinterCamp() {
         <SectionHeading
           eyebrow="Exclusive Opportunity"
           title={t({
-            ko: "소수 정예의 원칙 위에 열린 단 한 번의 기회",
-            en: "A rare opening, built on a small-group principle",
+            ko: "소수 정예의 원칙 위에 열린 올해 마지막 기회",
+            en: "This year's last opening, built on a small-group principle",
           })}
         />
         <div className="mt-8 max-w-3xl space-y-5 text-[15px] leading-relaxed text-ink/85 sm:text-[16px]">
