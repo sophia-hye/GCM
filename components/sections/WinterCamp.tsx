@@ -383,7 +383,15 @@ export async function WinterCamp() {
       </Section>
 
       {/* BOTTOM CTA */}
-      <Section compact tone="court">
+      <Section
+        compact
+        tone="court"
+        bgImage="/img/winter-camp-cta.webp"
+        bgImageAlt={pick(locale, {
+          ko: "야간 조명 아래의 프리미엄 테니스 코트",
+          en: "Premium tennis court under night floodlights",
+        })}
+      >
         <Container className="!px-0">
           <div className="mx-auto max-w-2xl text-center">
             <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-white/70">
