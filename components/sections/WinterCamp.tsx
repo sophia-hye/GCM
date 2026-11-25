@@ -119,10 +119,10 @@ export async function WinterCamp() {
       {/* SECTION 1 — HERO */}
       <Section
         tone="court"
-        bgImage="/img/elite-hero.webp"
+        bgImage="/img/winter-camp-hero.webp"
         bgImageAlt={pick(locale, {
-          ko: "GCM 동계 전지훈련 코트",
-          en: "GCM winter training court",
+          ko: "겨울 새벽의 GCM 동계 전지훈련 코트",
+          en: "GCM winter training court at a crisp winter dawn",
         })}
       >
         <div className="max-w-4xl">
