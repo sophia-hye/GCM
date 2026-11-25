@@ -2,12 +2,12 @@ import { Section, SectionHeading, Button, Container } from "@/components/ui";
 import { getLocale } from "@/lib/i18n";
 import { pick, type I18nText } from "@/lib/i18n-pick";
 
-const CTA_HREF = "/consulting";
+const CTA_HREF = "/elite-program/winter-camp/details";
 
 function ctaLabel(): I18nText {
   return {
-    ko: "동계 전지훈련 참가 상담 신청하기",
-    en: "Apply for a Winter Camp consultation",
+    ko: "동계 캠프 참가 안내 보기",
+    en: "View camp details & apply",
   };
 }
 
